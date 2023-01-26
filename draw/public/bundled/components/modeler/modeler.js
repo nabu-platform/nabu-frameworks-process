@@ -79,6 +79,23 @@ Vue.view("process-modeler-component", {
 			this.svg.attr("width", this.maxWidth)
 				.attr("height", this.maxHeight);	
 		},
+		autosizeAction: function(action, state) {
+			d3.select(this.$refs.svg.getElementById(action.id + "-rect"))
+				.attr("width", action.styling.width)
+				.attr("height", action.styling.height)
+				
+			d3.select(this.$refs.svg.getElementById(action.id + "-resizer"))
+				.attr("x", action.styling.width - this.draggableOffset)
+				.attr("y", action.styling.height - this.draggableOffset)
+				
+			d3.select(this.$refs.svg.getElementById(action.id + "-mapper"))
+				.attr("x", action.styling.width - this.draggableOffset)
+				.attr("y", 0)
+				
+			if (state) {
+				this.autosizeState(state);
+			}
+		},
 		autosizeState: function(state) {
 			var maxWidth = state.actions.reduce(function(current, action) {
 				return Math.max(current, action.styling.x + action.styling.width);
@@ -102,12 +119,15 @@ Vue.view("process-modeler-component", {
 		},
 		// make sure the target you are dragging is also the one you are moving!
 		// otherwise you can get stutters
-		draggable: function(target, handler) {
+		draggable: function(target, handler, start, stop) {
 			var self = this;
 			// dragging
 			target.call(d3.drag()
 				.on("start", function(event) {
 					console.log("started drag");
+					if (start) {
+						start(target, event);
+					}
 				})
 				.on("drag", function(event) {
 					handler(target, event);
@@ -115,6 +135,9 @@ Vue.view("process-modeler-component", {
 				})
 				.on("end", function(event) {
 					console.log("dropped", target);
+					if (stop) {
+						stop(target, event);
+					}
 				}));
 		},
 		// colorize a group of items
@@ -137,6 +160,9 @@ Vue.view("process-modeler-component", {
 			});
 			group.querySelectorAll(":scope > rect.resizer").forEach(function(element) {
 				element.setAttribute("style", "fill: " + result.border + "; stroke: " + result.text);
+			});
+			group.querySelectorAll(":scope > rect.mapper").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.text + "; stroke: " + result.text);
 			});
 		},
 		inBounds: function(newX, newY, newWidth, newHeight, boundsX, boundsY, boundsWidth, boundsHeight) {
@@ -253,7 +279,80 @@ Vue.view("process-modeler-component", {
 				}
 			});
 			
+			// a resizing rectangle at the bottom right
+			var resizer = group.append("rect")
+				.attr("width", this.draggableOffset)
+				.attr("height", this.draggableOffset)
+				.attr("id", action.id + "-resizer")
+				.attr("class", "process-action-resizer resizer")
+				.attr("x", action.styling.width - this.draggableOffset)
+				.attr("y", action.styling.height - this.draggableOffset)
+			
+			self.draggable(resizer, function(target, event) {
+				action.styling.width += event.dx;
+				action.styling.height += event.dy;
+				self.autosizeAction(action, state);
+			});
+			
+			
+			// a resizing rectangle at the bottom right
+			var mapper = group.append("rect")
+				.attr("width", this.draggableOffset)
+				.attr("height", this.draggableOffset)
+				.attr("id", action.id + "-mapper")
+				.attr("class", "process-action-mapper mapper")
+				.attr("x", action.styling.width - this.draggableOffset)
+				.attr("y", 0)
+			
+			var line = null;
+			self.draggable(mapper, function(target, event) {
+				console.log("map action!", action, state);
+				var points = [{
+					x: action.styling.x + action.styling.width - self.draggableOffset,
+					y: 0
+				}, {
+					x: event.x,
+					y: event.y
+				}]
+				line.update(points);
+			}, function(target, event) {
+				// on start, create the line
+				line = self.drawActionConnecting(action, event);
+			}, function(target, event) {
+				line.remove();
+			});
+			
 			this.colorize(group, action.styling.color);
+		},
+		drawActionConnecting: function(actionFrom, event) {
+			var group = d3.select(this.$refs.svg.getElementById(actionFrom.id));
+			
+			var generator = d3.line()
+				.x(function(p) { return p.x })
+				.y(function(p) { return p.y })
+				.curve(d3.curveLinear);
+				
+			// need global coordinates...? or do we position it _in_ the group where it starts from?
+			var points = [{
+				x: actionFrom.styling.x + actionFrom.styling.width - this.draggableOffset,
+				y: 0
+			}, {
+				x: event.x,
+				y: event.y
+			}]
+			var path = group.append("path")
+				.attr("d", generator(points))
+				.attr("fill", "none")
+				.attr("stroke", "green")
+
+			return {
+				update: function(points) {
+					path.attr("d", generator(points))
+				},
+				remove: function() {
+					path.remove();
+				}
+			}
 		},
 		addTemporary: function() {
 			this.addAction(this.model.states[0]);

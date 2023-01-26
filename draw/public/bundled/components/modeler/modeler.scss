@@ -5,8 +5,14 @@
 	border-radius: 10px;
 	stroke: #ccc;
 	stroke-width:1;
+	cursor: pointer;
+}
+.process-state-rect {
 	rx: 10px;
 	ry: 10px;
+}
+text {
+	pointer-events: none;
 }
 .draggable {
 	cursor: pointer;
