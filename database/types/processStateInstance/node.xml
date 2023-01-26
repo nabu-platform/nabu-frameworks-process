@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-26T09:59:52.285+01:00" lastModified="2023-01-26T10:28:19.041+01:00" leaf="true" version="3">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.database.types.processState</references>
+    <references>java.util.Date</references>
+    <references>nabu.frameworks.process.database.types.processInstance</references>
+</node>

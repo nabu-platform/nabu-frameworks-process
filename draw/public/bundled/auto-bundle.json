@@ -1,0 +1,24 @@
+{
+	"namespace": "process", 
+	"name": "core", 
+	"resources": {
+		"modules": {
+			"d3.v7.js": {
+				"url": "https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.2/d3.js"
+			}
+		},
+		"components": {
+			"modeler": {
+				"modeler.js": {
+					"url": "components/modeler/modeler.js"
+				},
+				"modeler.tpl": {
+					"url": "components/modeler/modeler.tpl"
+				},
+				"modeler.scss": {
+					"url": "components/modeler/modeler.scss"
+				}
+			}
+		}
+	}
+}

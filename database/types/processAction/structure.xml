@@ -1,0 +1,20 @@
+<structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." name="processAction">
+    <field name="id" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
+    <field comment="The name of this step" name="name" type="java.lang.String"/>
+    <field comment="A further description of this step" minOccurs="0" name="description" type="java.lang.String"/>
+    <field comment="The service to track. In design phase you might not have a service yet" minOccurs="0" name="serviceId" type="java.lang.String"/>
+    <field comment="Services can have references for logical naming" minOccurs="0" name="serviceReference" type="java.lang.String"/>
+    <field foreignKey="nabu.frameworks.process.database.types.processState:id" name="processStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field comment="If this is an automatic action, it will be created as a task" name="automatic" type="java.lang.Boolean"/>
+    <field comment="If it is reprocessable, we will store the input" name="reprocessable" type="java.lang.Boolean"/>
+    <field comment="You can set a delay on the action to be executed" minOccurs="0" name="delay" type="be.nabu.libs.types.base.Duration"/>
+    <field comment="You can execute this action according to a schedule" minOccurs="0" name="schedule" type="java.lang.String"/>
+    <field comment="If you fill this in, when the action is done, we move to the result state. Note that all mandatory actions with the same result state must be run!" minOccurs="0" name="resultStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field comment="States how many times an action must at least be executed (0 = optional). This is within a single parent context. So if the parent has maxoccurs=0, the child has it (in a way) as well" name="minOccurs" type="java.lang.Long"/>
+    <field comment="How many times it can be run (0 = unlimited)" name="maxOccurs" type="java.lang.Long"/>
+    <field comment="When it is marked as a singleton and it has a maxoccurs of &gt; 1, the previous running instances (and their children) are locked." name="singleton" type="java.lang.Boolean"/>
+    <field comment="An action can be repeated until a certain condition is met. This condition must be derived from the captured variables." minOccurs="0" name="repeatUntil" type="java.lang.String"/>
+    <field comment="The actor that is allowed to do this" foreignKey="nabu.frameworks.process.database.types.processActor:id" minOccurs="0" name="processActorId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field comment="The permission (if any) that the actor must have to execute this" minOccurs="0" name="permission" type="java.lang.String"/>
+    <field comment="When all mandatory finalizer actions are run, the process instance is stopped." name="finalizer" type="java.lang.Boolean"/>
+</structure>
