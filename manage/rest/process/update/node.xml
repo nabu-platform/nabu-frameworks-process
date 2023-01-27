@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-01-27T16:38:14.271+01:00" lastModified="2023-01-27T17:34:35.235+01:00" leaf="true" version="36">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processActionRelation.services.list</references>
+    <references>nabu.utils.Object.mapByKey</references>
+    <references>nabu.frameworks.process.crud.processAction.services.list</references>
+    <references>nabu.frameworks.process.crud.processDefinition.services.update</references>
+    <references>nabu.frameworks.process.crud.processAction.services.update</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.services.create</references>
+    <references>nabu.frameworks.process.crud.processDefinition.types.output</references>
+    <references>nabu.frameworks.process.crud.processDefinition.services.create</references>
+    <references>nabu.frameworks.process.crud.processState.services.list</references>
+    <references>nabu.frameworks.process.manage.rest.process.processFull</references>
+    <references>nabu.frameworks.process.crud.processAction.services.create</references>
+    <references>nabu.frameworks.process.crud.processState.types.output</references>
+    <references>nabu.frameworks.process.crud.processDefinition.services.get</references>
+    <references>nabu.frameworks.process.crud.processState.services.update</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processState.services.create</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.services.update</references>
+</node>

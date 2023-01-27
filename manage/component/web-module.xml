@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webModule>
+    <webFragments>nabu.frameworks.process.draw</webFragments>
+    <webFragments>nabu.frameworks.process.crud.processDefinition.services.list</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.get</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.update</webFragments>
+    <audience>MANAGER</audience>
+</webModule>

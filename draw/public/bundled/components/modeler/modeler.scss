@@ -20,4 +20,51 @@ text {
 
 .resizer {
 	stroke-width: 1;
+	cursor: pointer;
+}
+.mapper {
+	cursor: pointer;
+}
+.automatic {
+	stroke-width: 2;
+	stroke-dasharray: 10 0 10 0 10;
+}
+
+.drop-highlight {
+	stroke-width: 3;
+}
+
+.process-state:not(.selected) .process-state-rect {
+	stroke-width: 2;
+}
+.process-state.selected .process-state-rect {
+	stroke-width: 4;
+}
+
+.process-action:not(.selected) .process-action-rect {
+	stroke-width: 2;
+}
+.process-action.selected .process-action-rect {
+	stroke-width: 4;
+}
+
+.reference text {
+	font-family: Monospace;
+	font-weight: bold;
+}
+
+.process-action-name, .process-state-name {
+	font-weight: bold;
+}
+
+.process-action.optional rect {
+	stroke-dasharray: 5;
+}
+
+.relation.type-must-not {
+	stroke: #f7a0a0;
+	stroke-dasharray: 1;
+}
+.relation.type-can {
+	stroke-dasharray: 3;
 }

@@ -1,32 +1,55 @@
 Vue.view("process-modeler-component", {
-	ready: function() {
-		this.draw();
-	},
 	data: function() {
 		return {
-			model: {
-				states: []
-			},
+			model: null,
 			svg: null,
 			selected: {
 				type: null,
 				target: null,
-				group: null
+				deselector: null
+			},
+			linking: {
+				action: null,
+				state: null,
+				targetAction: null
 			},
 			colors: [{
 				name: "blue",
 				border: "#8EA7E9",
-				background: "#E5E0FF",
+				background: "#e8edfb",	// #E5E0FF // #d2dcf6
 				text: "#7286D3"
 			}, {
 				name: "orange",
 				border: "#FF9F9F",
 				background: "#FCDDB0", // FFFAD7
 				text: "#E97777"
+			}, {
+				name: "basic",
+				border: "#8EA7E9",
+				background: "#fafafa",
+				text: "#7286D3"
+			}, {
+				name: "purple",
+				border: "#C3B1E1",
+				background: "#e1d8f0",
+				text: "#6b43ae"
 			}],
 			// the offset of the draggable rectangle to resize
-			draggableOffset: 10
+			draggableOffset: 2,
+			editing: true,
+			snapToGrid: true,
+			gridSize: 10,
+			connectorColor: "#8EA7E9",
+			// make sure its a multiple of gridsize!
+			actionHeight: 30,
+			// the size of the mapper triangle
+			triangleSize: 10,
+			subscriptions: [],
+			processes: []
 		}	
+	},
+	created: function() {
+		this.loadProcesses();
 	},
 	watch: {
 		selected: function(newValue, oldValue) {
@@ -38,6 +61,9 @@ Vue.view("process-modeler-component", {
 			var element = newValue.node().querySelector(":scope > rect");
 			element.style.strokeWidth = 2;
 		}
+	},
+	beforeDestroy: function() {
+		this.subscriptions.forEach(function(x) { x() });
 	},
 	computed: {
 		maxWidth: function() {
@@ -52,32 +78,148 @@ Vue.view("process-modeler-component", {
 		}
 	},
 	methods: {
-		select: function(type, target, group) {
-			// visually deselect the previous entry
-			if (this.selected.group) {
-				var element = this.selected.group.node().querySelector(":scope > rect");	
-				element.style.strokeWidth = 1;
+		loadProcesses: function() {
+			var self = this;
+			this.$services.swagger.execute("nabu.frameworks.process.crud.processDefinition.services.list", {editable:true}).then(function(available) {
+				self.processes.splice(0);
+				if (available.results) {
+					nabu.utils.arrays.merge(self.processes, available.results);
+				}
+			});
+		},
+		loadProcess: function(processId) {
+			var self = this;
+			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.get", { processId: processId }).then(function(result) {
+				if (result) {
+					if (!result.actionRelations) {
+						result.actionRelations = [];
+					}
+					// initialize some variables
+					if (!result.states) {
+						result.states = [];
+					}
+					result.states.forEach(function(state) {
+						if (!state.actions) {
+							state.actions = [];
+						}
+						state.styling = state.style ? JSON.parse(state.style) : {};
+						state.actions.forEach(function(action) {
+							action.styling = action.style ? JSON.parse(action.style) : {};	
+						})
+					});
+					Vue.set(self, "model", result);
+					Vue.nextTick(self.draw);
+				}
+			});
+		},
+		save: function() {
+			var self = this;
+			if (this.model) {
+				// serialize styling information!
+				this.model.states.forEach(function(state) {
+					state.style = JSON.stringify(state.styling);
+					state.actions.forEach(function(action) {
+						action.style = JSON.stringify(action.styling);
+					});
+				})
+				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.update", { processId: this.model.id, body: this.model }).then(function() {
+					self.$services.notifier.push({message: "Saved process " + self.model.name});
+				});
 			}
-			// visually select the new group
-			if (group) {
-				var element = group.node().querySelector(":scope > rect");
-				element.style.strokeWidth = 3;
+		},
+		startNewModel: function() {
+			var model = {
+				id: this.newId(),
+				name: "New process",
+				version: 1,
+				created: new Date(),
+				queue: null,
+				description: null,
+				states: [],
+				actionRelations: []
+			};
+			// for the first version, these are in sync
+			model.processId = model.id;
+			Vue.set(this, "model", model);
+			// need to first render the svg element before we can start drawing
+			Vue.nextTick(this.draw);
+		},
+		deselect: function() {
+			var element = this.selected.target ? this.$refs.svg.getElementById(this.selected.target.id) : null;
+			if (element) {
+				element.classList.remove("selected");
+			}
+			this.selected.type = null;
+			this.selected.target = null;
+			this.selected.deselector = null;
+		},
+		select: function(type, target, deselector) {
+			this.deselect();
+			
+			// visually deselect the previous entry
+			if (this.selected.deselector) {
+				this.selected.deselector();
 			}
 			this.selected.type = type;
 			this.selected.target = target;
-			this.selected.group = group;
+			this.selected.deselector = deselector;
+			
+			element = this.$refs.svg.getElementById(target.id);
+			if (element) {
+				element.classList.add("selected");
+			}
 		},
 		draw: function() {
+			// clear any content
+			while (this.$refs.svg.firstChild) {
+				this.$refs.svg.removeChild(this.$refs.svg.firstChild);
+			}
 			this.svg = d3.select(this.$refs.svg);
+
+			// need to draw all the states before we draw the actions, we might have links			
 			this.model.states.forEach(this.drawState);
+			this.model.states.forEach(this.drawActions);
+			this.model.actionRelations.forEach(this.drawActionRelation);
+			
+			var self = this;
+			var keyHandler = function(event) {
+				// check that event originates is not aimed at something else
+				if (event.target == document.body) {
+					console.log("key event", event);
+					// delete
+					if (event.keyCode == 46) {
+						self.deleteCurrent();
+						event.stopPropagation();
+						event.preventDefault();
+					}
+					else if (event.key == "s" && (event.ctrlKey || event.metaKey) && self.model) {
+						self.save();
+						event.stopPropagation();
+						event.preventDefault();
+					}
+				}
+			}
+			var mouseHandler = function(event) {
+				var target = event.target;
+				self.deselect();
+			}
+			document.body.addEventListener("keydown", keyHandler);
+			// not on the whole document, cause then menu presses deselect!
+			//document.body.addEventListener("mousedown", mouseHandler);
+			this.$refs.svg.addEventListener("mousedown", mouseHandler);
+			this.subscriptions.push(function() {
+				document.body.removeEventListener("keydown", keyHandler);	
+				//document.body.removeEventListener("mousedown", mouseHandler);
+				this.$refs.svg.removeEventListener("mousedown", mouseHandler);	
+			})
 		},
 		move: function(element, x, y) {
 			element.attr("transform", "translate(" + Math.round(x) + "," + Math.round(y) + ")");
 		},
 		autosize: function() {
-			// make sure its big enough to accomodate
-			this.svg.attr("width", this.maxWidth)
-				.attr("height", this.maxHeight);	
+			// make sure its big enough to accomodate, we add some padding for stuff like borders
+			this.svg.attr("width", this.maxWidth + 10)
+				.attr("height", this.maxHeight + 10);	
 		},
 		autosizeAction: function(action, state) {
 			d3.select(this.$refs.svg.getElementById(action.id + "-rect"))
@@ -85,13 +227,22 @@ Vue.view("process-modeler-component", {
 				.attr("height", action.styling.height)
 				
 			d3.select(this.$refs.svg.getElementById(action.id + "-resizer"))
-				.attr("x", action.styling.width - this.draggableOffset)
-				.attr("y", action.styling.height - this.draggableOffset)
+				.attr("cx", action.styling.width - this.draggableOffset)
+				.attr("cy", action.styling.height - this.draggableOffset)
 				
+			this.drawActionMapper(action);
+			this.drawActionAutomatic(action);
+			// redraw summary
+			this.drawActionSummary(action);
+			
+			this.drawActionReference(action);
+			/*
 			d3.select(this.$refs.svg.getElementById(action.id + "-mapper"))
-				.attr("x", action.styling.width - this.draggableOffset)
-				.attr("y", 0)
-				
+				.attr("cx", action.styling.width)
+				.attr("cy", action.styling.height / 2)
+			*/
+			// on resizing, we might impact lines
+			this.redrawImpactedRelations(action);
 			if (state) {
 				this.autosizeState(state);
 			}
@@ -103,8 +254,8 @@ Vue.view("process-modeler-component", {
 			var maxHeight = state.actions.reduce(function(current, action) {
 				return Math.max(current, action.styling.y + action.styling.height);
 			}, 0);
-			state.styling.width = Math.max(state.styling.width, maxWidth);
-			state.styling.height = Math.max(state.styling.height, maxHeight);
+			state.styling.width = Math.max(state.styling.width, maxWidth + (this.gridSize * 4));
+			state.styling.height = Math.max(state.styling.height, maxHeight + (this.gridSize * 4));
 			
 			// make sure the svg itself is big enough
 			this.autosize();
@@ -114,27 +265,37 @@ Vue.view("process-modeler-component", {
 				.attr("height", state.styling.height)
 				
 			d3.select(this.$refs.svg.getElementById(state.id + "-resizer"))
-				.attr("x", state.styling.width - this.draggableOffset)
-				.attr("y", state.styling.height - this.draggableOffset)
+				.attr("cx", state.styling.width - this.draggableOffset)
+				.attr("cy", state.styling.height - this.draggableOffset)
 		},
 		// make sure the target you are dragging is also the one you are moving!
 		// otherwise you can get stutters
 		draggable: function(target, handler, start, stop) {
 			var self = this;
-			// dragging
+			// keep track of suppressed movement because of grid snapping
+			var dx = 0, dy = 0;
 			target.call(d3.drag()
 				.on("start", function(event) {
-					console.log("started drag");
 					if (start) {
 						start(target, event);
 					}
 				})
 				.on("drag", function(event) {
+					if (self.snapToGrid) {
+						dx += event.dx;
+						dy += event.dy;
+						// need to be more forceful in overwriting...
+						Object.defineProperty(event, "dx", {value:dx - (dx % self.gridSize)})
+						Object.defineProperty(event, "dy", {value:dy - (dy % self.gridSize)})
+						//event.dx = dx - (dx % self.gridSize);
+						//event.dy = dy - (dy % self.gridSize);
+						dx -= event.dx;
+						dy -= event.dy;
+					}
 					handler(target, event);
 					event.sourceEvent.stopPropagation();
 				})
 				.on("end", function(event) {
-					console.log("dropped", target);
 					if (stop) {
 						stop(target, event);
 					}
@@ -155,15 +316,26 @@ Vue.view("process-modeler-component", {
 			group.querySelectorAll(":scope > text").forEach(function(element) {
 				element.setAttribute("style", "fill: " + result.text);
 			});
-			group.querySelectorAll(":scope > rect").forEach(function(element) {
+			group.querySelectorAll(":scope > .background").forEach(function(element) {
 				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 			});
-			group.querySelectorAll(":scope > rect.resizer").forEach(function(element) {
-				element.setAttribute("style", "fill: " + result.border + "; stroke: " + result.text);
+			group.querySelectorAll(":scope > .resizer").forEach(function(element) {
+				//element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
+				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 			});
-			group.querySelectorAll(":scope > rect.mapper").forEach(function(element) {
-				element.setAttribute("style", "fill: " + result.text + "; stroke: " + result.text);
+			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.border + "; stroke: " + result.border);
 			});
+			group.querySelectorAll(":scope > .automatic").forEach(function(element) {
+				element.setAttribute("style", "fill: white; stroke: " + result.border);
+			});
+			// a reference box
+			group.querySelectorAll(":scope > .reference > rect").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.text + "; stroke: " + result.border);
+			})
+			group.querySelectorAll(":scope > .reference > text").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.background);
+			})
 		},
 		inBounds: function(newX, newY, newWidth, newHeight, boundsX, boundsY, boundsWidth, boundsHeight) {
 			console.log("check bounds", newX, newY, newWidth, newHeight, boundsWidth, boundsHeight);
@@ -179,24 +351,35 @@ Vue.view("process-modeler-component", {
 			}
 			return true;
 		},
+		gridify: function(point) {
+			if (this.snapToGrid) {
+				point.x -= point.x % this.gridSize;
+				point.y -= point.y % this.gridSize;
+			}
+			return point;
+		},
 		drawState: function(state) {
 			var self = this;
 			
 			var group = this.svg.append("g")
-				.attr("id", state.id);
+				.attr("id", state.id)
+				.attr("class", "process-state")
+				
 			this.move(group, state.styling.x, state.styling.y);
 				
 			var rect = group.append("rect")
 				.attr("width", state.styling.width)
 				.attr("height", state.styling.height)
-				.attr("class", "process-state-rect")
+				.attr("class", "process-state-rect background")
 				.attr("style", state.styling.css)
 				.attr("id", state.id + "-rect")
 				
-			rect.on("click", function() {
-				self.select("state", state, group);
-			})
-				
+			rect.on("click", function(even) {
+				self.select("state", state, function() {
+					// do nothing
+				});
+			});
+			
 			var name = group.append("text")
 				.text(state.name)
 				.attr("class", "process-state-name");
@@ -204,6 +387,11 @@ Vue.view("process-modeler-component", {
 			this.move(name, 10, 20);
 			this.autosize();
 				
+			rect.on("dblclick", function() {
+				console.log("double!");
+				name.attr("contenteditable", true);
+			})
+			
 			// dragging
 			self.draggable(group, function(target, event) {
 				// absolute positioning introduces jumps
@@ -211,53 +399,207 @@ Vue.view("process-modeler-component", {
 				//state.styling.y = event.y;
 				state.styling.x += event.dx;
 				state.styling.y += event.dy;
+				self.redrawImpactedRelations(state);
 				self.autosize();
 				self.move(group, state.styling.x, state.styling.y);
 			});
 		
-			state.actions.forEach(this.drawAction);
-			
 			// a resizing rectangle at the bottom right
-			var resizer = group.append("rect")
-				.attr("width", this.draggableOffset)
-				.attr("height", this.draggableOffset)
+			var resizer = group.append("circle")
 				.attr("id", state.id + "-resizer")
 				.attr("class", "process-state-resizer resizer")
-				.attr("x", state.styling.width - this.draggableOffset)
-				.attr("y", state.styling.height - this.draggableOffset)
+				.attr("r", this.draggableOffset * 2)
+				.attr("cx", state.styling.width - this.draggableOffset)
+				.attr("cy", state.styling.height - this.draggableOffset)
 			
 			self.draggable(resizer, function(target, event) {
 				state.styling.width += event.dx;
 				state.styling.height += event.dy;
 				self.autosizeState(state);
+				self.redrawImpactedRelations(state);
 			});
 			
+			// d3 does not use html dragging
+			group.node().addEventListener("mouseover", function(event) {
+				if (self.linking.action && self.linking.action.processStateId != state.id) {
+					rect.node().classList.add("drop-highlight");
+					self.linking.state = state;
+				}
+				event.stopPropagation();
+			})
+			group.node().addEventListener("mouseleave", function(event) {
+				rect.node().classList.remove("drop-highlight");
+				if (self.linking.state == state) {
+					self.linking.state = null;
+				}
+				event.stopPropagation();
+			})
+			
 			this.colorize(group, state.styling.color);
+		},
+		hasRelation: function(action, targetAction) {
+			return this.model.actionRelations.filter(function(x) {
+				return x.actionId == action.id
+					&& x.targetActionId == targetAction.id;
+			}).length > 0;
+		},
+		drawActions: function(state) {
+			var self = this;
+			state.actions.forEach(function(action) {
+				self.drawAction(state, action)
+			});
+		},
+		drawText: function(group, text, x, y, width, clazz, size) {
+			var current = group.node().querySelector("." + clazz);
+			var wrapper = null;
+			if (current) {
+				// clear it, but maintain wrapper, it might have styling etc
+				while (current.firstChild) {
+					current.removeChild(current.firstChild);
+				}
+				//d3.select(current).remove();
+				wrapper = d3.select(current);
+			}
+			if (wrapper == null) {
+				wrapper = group.append("text")
+			}
+			wrapper.attr("class", clazz)
+				.attr("font-size", size)
+			
+			// move to correct place
+			this.move(wrapper, x, y);
+			
+			var fontSize = 8;
+			// we assume every letter is 
+			if (size == "smaller") {
+				fontSize = 7;
+			}
+			var amountOfCharacters = Math.floor(width / fontSize);
+			var parts = [];
+			while (text.length > amountOfCharacters) {
+				var part = text.substring(0, Math.min(text.length, amountOfCharacters));
+				var space = part.lastIndexOf(" ");
+				if (space >= 0) {
+					parts.push(text.substring(0, space));
+					text = text.substring(space + 1);
+				}
+				// hard break unfortunately
+				else {
+					parts.push(part);
+					text = text.substring(part.length);
+				}
+			}
+			// push remainder
+			parts.push(text);
+			parts.forEach(function(x, i) {
+				var summary = wrapper.append("tspan")
+					.text(x)
+					.attr("x", 0)
+					.attr("y", i + "em");
+			});
+		},
+		// we automatically resize the action as you type longer names
+		updatedActionName: function(action) {
+			// is bold now, so no longer 8
+			action.styling.width = Math.max(action.styling.width, action.name.length * 10);
+			this.draw();
+		},
+		updatedActionSummary: function(action) {
+			// the 40 is the offset that the summary starts at
+			if (action.summary) {
+				var amountOfLines = (action.summary.length * 7.5) / action.styling.width;
+				// we want at least space for SOME summary
+				action.styling.height = Math.max(action.styling.height, 40 + 14 + amountOfLines * 14);
+				// make sure we don't increment per px
+				action.styling.height -= action.styling.height % 14;
+			}
+			else {
+				action.styling.height = this.actionHeight;
+			}
+			this.draw();
+		},
+		drawActionName: function(action) {
+			var actionGroup = d3.select(this.$refs.svg.getElementById(action.id));
+			// the name is not split over multiple lines, use the summary for that!
+			var name = actionGroup.append("text")
+				.text(action.name ? action.name : "Unnamed")
+				.attr("class", "process-action-name");
+			// not sure why we need 20 in y-direction but not questioning it now...
+			this.move(name, action.automatic ? 20 : 10, 20);
+
+//			this.drawText(actionGroup, action.name, 10, 20, action.styling.width, "process-action-name");
+		},
+		drawActionSummary: function(action) {
+			if (action.summary) {
+				var actionGroup = d3.select(this.$refs.svg.getElementById(action.id));
+				this.drawText(actionGroup, action.summary, action.automatic ? 20 : 10, 40, action.styling.width, "process-action-summary", "smaller");
+			}
 		},
 		drawAction: function(state, action) {
 			var self = this;
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
 			var group = stateGroup.append("g")
 				.attr("id", action.id)
-			this.move(group, 50, 50);
+				.attr("class", "process-action " + (action.minOccurs == 0 ? "optional" : ""))
+				
+			this.move(group, action.styling.x, action.styling.y);
 			
 			var rect = group.append("rect")
 				.attr("width", action.styling.width)
 				.attr("height", action.styling.height)
-				.attr("class", "process-action-rect")
+				.attr("class", "process-action-rect background")
 				.attr("style", action.styling.css)
 				.attr("id", action.id + "-rect")
-			
-			rect.on("click", function() {
-				self.select("action", action, group);
-			})
 				
+				
+			// d3 does not use html dragging
+			group.node().addEventListener("mouseover", function(event) {
+				// if we are not dragging _this_ action, we highlight for a link
+				// note that we have to be in the same state for this to happen
+				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					rect.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				event.stopPropagation();
+			})
+			group.node().addEventListener("mouseleave", function(event) {
+				rect.node().classList.remove("drop-highlight");
+				if (self.linking.targetAction == action) {
+					self.linking.targetAction = null;
+				}
+				event.stopPropagation();
+			})
+
+			rect.on("click", function() {
+				self.select("action", action, function() {
+					// do nothing
+				});
+			})
+			
+			this.drawActionName(action);
+			this.drawActionSummary(action);
+				
+			/*
 			var name = group.append("text")
-				.text(action.name)
+				.text(action.name ? action.name : "Unnamed")
 				.attr("class", "process-action-name");
 				
 			// not sure why we need 20 in y-direction but not questioning it now...
 			this.move(name, 10, 20);
+			
+			if (action.summary) {
+				var totalSummary = group.append("text");
+				action.summary.split(/[\n]+/).forEach(function(part, index) {
+					var summary = totalSummary.append("tspan")
+						.text(part)
+						.attr("font-size", "smaller")
+						.attr("class", "process-action-summary")
+
+				})
+				self.move(totalSummary, 10, 40);		
+			}
+			*/
+			
 			this.autosizeState(state);
 			
 			// dragging
@@ -276,17 +618,17 @@ Vue.view("process-modeler-component", {
 				if (moved) {
 					self.autosizeState(state);
 					self.move(group, action.styling.x, action.styling.y);	
+					self.redrawImpactedRelations(action);
 				}
 			});
 			
 			// a resizing rectangle at the bottom right
-			var resizer = group.append("rect")
-				.attr("width", this.draggableOffset)
-				.attr("height", this.draggableOffset)
+			var resizer = group.append("circle")
 				.attr("id", action.id + "-resizer")
 				.attr("class", "process-action-resizer resizer")
-				.attr("x", action.styling.width - this.draggableOffset)
-				.attr("y", action.styling.height - this.draggableOffset)
+				.attr("r", this.draggableOffset * 2)
+				.attr("cx", action.styling.width - this.draggableOffset)
+				.attr("cy", action.styling.height - this.draggableOffset)
 			
 			self.draggable(resizer, function(target, event) {
 				action.styling.width += event.dx;
@@ -294,68 +636,533 @@ Vue.view("process-modeler-component", {
 				self.autosizeAction(action, state);
 			});
 			
-			
+			/*
 			// a resizing rectangle at the bottom right
-			var mapper = group.append("rect")
-				.attr("width", this.draggableOffset)
-				.attr("height", this.draggableOffset)
+			var mapper = group.append("circle")
+				.attr("r", 5)
 				.attr("id", action.id + "-mapper")
 				.attr("class", "process-action-mapper mapper")
-				.attr("x", action.styling.width - this.draggableOffset)
-				.attr("y", 0)
+				.attr("cx", action.styling.width)
+				.attr("cy", action.styling.height / 2)
+			*/	
 			
-			var line = null;
-			self.draggable(mapper, function(target, event) {
-				console.log("map action!", action, state);
-				var points = [{
-					x: action.styling.x + action.styling.width - self.draggableOffset,
-					y: 0
-				}, {
-					x: event.x,
-					y: event.y
-				}]
-				line.update(points);
-			}, function(target, event) {
-				// on start, create the line
-				line = self.drawActionConnecting(action, event);
-			}, function(target, event) {
-				line.remove();
-			});
+			this.drawActionMapper(action);
+			this.drawActionResultState(action);
+			this.drawActionReference(action);
+			this.drawActionAutomatic(action);
 			
 			this.colorize(group, action.styling.color);
 		},
-		drawActionConnecting: function(actionFrom, event) {
-			var group = d3.select(this.$refs.svg.getElementById(actionFrom.id));
+		drawActionAutomatic: function(action) {
+			var existing = this.svg.node().getElementById(action.id + "-automatic");
+			if (existing) {
+				reference = d3.select(existing);
+			}
+			if (action.automatic) {
+				var triangleSize = this.triangleSize;
+				var group = d3.select(this.svg.node().getElementById(action.id));
+				var trianglePath = d3.path();
+				trianglePath.moveTo(0, (action.styling.height / 2) - triangleSize);
+				trianglePath.lineTo(triangleSize, action.styling.height / 2);
+				trianglePath.lineTo(0, (action.styling.height / 2) + triangleSize);
+				trianglePath.closePath();
+				
+				var mapper = group.append("path")
+					.attr("d", trianglePath)
+					.attr("id", action.id + "-automatic")
+					.attr("class", "automatic")
+			}
+		},
+		drawActionReference: function(action) {
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			
+			var reference = null;
+			var existing = this.svg.node().getElementById(action.id + "-reference");
+			if (existing) {
+				reference = d3.select(existing);
+			}
+			
+			if (action.reference) {
+				// new, draw it all
+				if (reference == null) {
+					reference = group.append("g")
+						.attr("class", "reference")
+						.attr("id", action.id + "-reference")
+					reference.append("rect")
+						// 4 px padding on each side
+						.attr("width", 8 + (action.reference.length * 8))
+						.attr("height", 14)
+						.attr("x", 0)
+						.attr("y", 0)
+					var referenceText = reference.append("text")
+						.text(action.reference)
+						.attr("font-size", "13px")
+					this.move(referenceText, 4, 11);
+				}
+				// just move it
+				this.move(reference, 0, action.styling.height);
+			}
+			else if (reference) {
+				d3.select(reference).remove();
+			}
+		},
+		drawActionMapper: function(action) {
+			var self = this;
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			var existing = this.svg.node().getElementById(action.id + "-mapper");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			existing = this.svg.node().getElementById(action.id + "-stopper");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			// don't draw a mapper if it is a finalizer service!
+			if (!action.finalizer) {
+				var triangleSize = this.triangleSize;
+				var trianglePath = d3.path();
+				trianglePath.moveTo(action.styling.width, (action.styling.height / 2) - triangleSize);
+				trianglePath.lineTo(action.styling.width + triangleSize, action.styling.height / 2);
+				trianglePath.lineTo(action.styling.width, (action.styling.height / 2) + triangleSize);
+				trianglePath.closePath();
+					
+				var mapper = group.append("path")
+					.attr("d", trianglePath)
+					.attr("id", action.id + "-mapper")
+					.attr("class", "mapper")
+					
+				var state = this.getState(action.processStateId);
+				var line = null;
+				self.draggable(mapper, function(target, event) {
+					line.update(event);
+				}, function(target, event) {
+					// on start, create the line
+					line = self.drawActionConnecting(action, event);
+					self.linking.action = action;
+					self.linking.state = state;
+				}, function(target, event) {
+					// only within own state!
+					if (self.linking.targetAction && self.linking.targetAction.id != action.id && self.linking.targetAction.processStateId == action.processStateId) {
+						var relation = {
+							id: self.newId(),
+							actionId: action.id,
+							targetActionId: self.linking.targetAction.id,
+							relationType: "must"
+						};
+						self.model.actionRelations.push(relation);
+						self.drawActionRelation(relation);
+					}
+					else if (self.linking.state && self.linking.state.id != action.processStateId) {
+						action.resultStateId = self.linking.state.id;
+						self.drawActionResultState(action);
+					}
+					self.linking.action = null;
+					self.linking.state = null;
+					self.linking.targetAction = null;
+					
+					// make sure we don't have drop highlights anymore
+					self.svg.node().querySelectorAll(".drop-highlight").forEach(function(element) {
+						element.classList.remove("drop-highlight");
+					});
+					line.remove();
+				});
+				this.colorize(group, action.styling.color);
+				return mapper;
+			}
+			// for finalizers, we draw a rectangle to indicate it stops there
+			else {
+				group.append("rect")
+					.attr("fill", "black")
+					.attr("width", this.triangleSize)
+					.attr("height", this.triangleSize)
+					.attr("x", action.styling.width)
+					.attr("y", (action.styling.height / 2) - this.triangleSize / 2)
+					.attr("id", action.id + "-stopper")
+			}
+		},
+		getState: function(id) {
+			return this.model.states.filter(function(x) {
+				return x.id == id;
+			})[0];	
+		},
+		getAction: function(id) {
+			var result = null;
+			this.model.states.forEach(function(state) {
+				state.actions.forEach(function(action) {
+					if (action.id == id) {
+						result = action;
+					}
+				})
+			});
+			return result;
+		},
+		getClosestAttachment: function(fromX, fromY, toX, toY, toWidth, toHeight) {
+			var points = [
+				// center left	
+				{
+					x: toX,
+					y: toY + (toHeight / 2),
+					side: "left"
+				},
+				// center top
+				{
+					x: toX + (toWidth / 2),
+					y: toY,
+					side: "top"
+				},
+				// center right
+				{
+					x: toX + toWidth,
+					y: toY + (toHeight / 2),
+					side: "right"
+				},
+				// center bottom
+				{
+					x: toX + (toWidth / 2),
+					y: toY + toHeight,
+					side: "bottom"
+				}
+			];
+			// we explicitly do not allow snapping to the right side of an action as this is the "starting" point and might be confusing
+			points.splice(2, 1);
+			
+			var currentDistance = null;
+			return points.reduce(function(current, point) {
+				var distance = Math.sqrt(Math.pow(point.x - fromX, 2) + Math.pow(point.y - fromY, 2));
+				if (current == null || distance < currentDistance) {
+					currentDistance = distance;
+					return point;
+				}
+				return current;
+			}, null);
+		},
+		redrawImpactedRelations: function(target) {
+			// if it's an action, we want to redraw those
+			if (target.processStateId) {
+				this.model.actionRelations.filter(function(x) {
+					return x.actionId == target.id || x.targetActionId == target.id;
+				}).forEach(this.drawActionRelation);
+				if (target.resultStateId) {
+					this.drawActionResultState(target);
+				}
+			}
+			
+			// if it's a state, we want to redraw state actions
+			else if (target.actions) {
+				var self = this;
+				// all actions with this state as target
+				this.model.states.forEach(function(state) {
+					state.actions.forEach(function(action) {
+						if (action.resultStateId == target.id) {
+							self.drawActionResultState(action);
+						}
+					})
+				});
+				// all actions in this state with another state as target
+				target.actions.forEach(function(action) {
+					if (action.resultStateId) {
+						self.drawActionResultState(action);
+					}
+				})
+			}
+		},
+		drawActionResultState: function(action) {
+			var self = this;
+			
+			// there can be only one
+			var id = action.id + "-result-state";
+			
+			// check if there is a previous line, we might be redrawing
+			var existing = this.svg.node().getElementById(id);
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			// same for hitbox
+			existing = this.svg.node().getElementById(id + "-hitbox");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			
+			// only proceed with drawing if we actually have a state id
+			if (action.resultStateId) {
+				var state = this.getState(action.resultStateId);
+				
+				// get the group for each action
+				var actionGroup = this.svg.node().getElementById(action.id);
+				var stateGroup = this.svg.node().getElementById(action.resultStateId);
+				var parentGroup = this.svg.node().getElementById(action.processStateId);
+	
+				var rootBounds = this.$refs.svg.getBoundingClientRect();
+				var parentBounds = parentGroup.getBoundingClientRect();
+				var stateBounds = stateGroup.getBoundingClientRect();
+				
+				// relativize to root of svg
+				parentBounds.x -= rootBounds.x;
+				parentBounds.y -= rootBounds.y;
+				stateBounds.x -= rootBounds.x;
+				stateBounds.y -= rootBounds.y;
+				
+				// we always start from the center right, we add 5 because that's the radius of the connection circle
+				var fromX = parentBounds.x + action.styling.x + action.styling.width + this.triangleSize;
+				var fromY = parentBounds.y + action.styling.y + (action.styling.height / 2);
+				
+				// the end is more dynamic depending on where the target action is in relation to the source
+				var to = this.getClosestAttachment(fromX, fromY, stateBounds.x, stateBounds.y, state.styling.width, state.styling.height);
+				
+				var generator = d3.line()
+					.x(function(p) { return p.x })
+					.y(function(p) { return p.y })
+					.curve(d3.curveLinear);
+					
+				var points = [{
+					x: fromX,
+					y: fromY
+				}, {
+					x: fromX + ((to.x - fromX) / 2),
+					y: fromY
+				}, {
+					x: fromX + ((to.x - fromX) / 2),
+					y: to.y
+				}, {
+					x: to.x,
+					y: to.y
+				}];
+				
+				// the want to change the middle two points in case we have a vertical snap point
+				if (to.side == "top" || to.side == "bottom") {
+					points[1].x = fromX;
+					points[1].y = fromY + ((to.y - fromY) / 2);
+					points[2].x = to.x;
+					points[2].y = fromY + ((to.y - fromY) / 2);
+				}
+				
+				var path = this.svg.append("path")
+					.attr("id", id)
+					.attr("fill", "none")
+					.attr("stroke", this.connectorColor)
+					.attr("stroke-width", 2)
+					.attr("d", generator(points))
+					
+				path.on("click", function() {
+					path.node().style.strokeWidth = 4;
+					self.select("actionRelation", relation, function() {
+						path.node().style.strokeWidth = 2;	
+					});
+				})
+				
+				// draw a secondary invisible path purely for click purposes
+				var hitbox = this.svg.append("path")
+					.attr("id", id + "-hitbox")
+					.attr("stroke-width", 50)
+					.attr("fill", "none")
+					.attr("stroke", "transparent")
+					.attr("d", generator(points))
+					
+				hitbox.on("click", function() {
+					path.node().style.strokeWidth = 4;
+					self.select("actionResult", action, function() {
+						path.node().style.strokeWidth = 2;	
+					});
+				});
+				
+				path.raise();
+				hitbox.raise();
+			}
+		},
+		// can only be drawn if the actions are already drawn!
+		drawActionRelation: function(relation) {
+			var self = this;
+			
+			// check if there is a previous line, we might be redrawing
+			var existing = this.svg.node().getElementById(relation.id);
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			existing = this.svg.node().getElementById(relation.id + "-hitbox");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			
+			var action = this.getAction(relation.actionId);
+			var targetAction = this.getAction(relation.targetActionId);
+			
+			// get the group for each action
+			var actionGroup = this.svg.node().getElementById(action.id);
+			var targetActionGroup = this.svg.node().getElementById(targetAction.id);
+			
+			// we draw lines in the state group using relative coordinates to that
+			var stateGroup = this.svg.node().getElementById(action.processStateId);
+			
+			// we always start from the center right, we add 5 because that's the radius of the connection circle
+			var fromX = action.styling.x + action.styling.width + this.triangleSize;
+			var fromY = action.styling.y + (action.styling.height / 2);
+			
+			// the end is more dynamic depending on where the target action is in relation to the source
+			
+			var to = this.getClosestAttachment(fromX, fromY, targetAction.styling.x, targetAction.styling.y, targetAction.styling.width, targetAction.styling.height);
 			
 			var generator = d3.line()
 				.x(function(p) { return p.x })
 				.y(function(p) { return p.y })
 				.curve(d3.curveLinear);
 				
-			// need global coordinates...? or do we position it _in_ the group where it starts from?
 			var points = [{
-				x: actionFrom.styling.x + actionFrom.styling.width - this.draggableOffset,
-				y: 0
+				x: fromX,
+				y: fromY
 			}, {
-				x: event.x,
-				y: event.y
-			}]
-			var path = group.append("path")
-				.attr("d", generator(points))
+				x: fromX + ((to.x - fromX) / 2),
+				y: fromY
+			}, {
+				x: fromX + ((to.x - fromX) / 2),
+				y: to.y
+			}, {
+				x: to.x,
+				y: to.y
+			}];
+			
+			// the want to change the middle two points in case we have a vertical snap point
+			if (to.side == "top" || to.side == "bottom") {
+				points[1].x = fromX;
+				points[1].y = fromY + ((to.y - fromY) / 2);
+				points[2].x = to.x;
+				points[2].y = fromY + ((to.y - fromY) / 2);
+			}
+			
+			var path = d3.select(stateGroup).append("path")
+				.attr("class", "relation type-" + relation.relationType)
+				.attr("id", relation.id)
 				.attr("fill", "none")
-				.attr("stroke", "green")
+				.attr("stroke", this.connectorColor)
+				.attr("stroke-width", 2)
+				.attr("d", generator(points))
+				
+			path.on("click", function() {
+				path.node().style.strokeWidth = 4;
+				self.select("actionRelation", relation, function() {
+					path.node().style.strokeWidth = 2;	
+				});
+			})
+			
+			// draw a secondary invisible path purely for click purposes
+			var hitbox = d3.select(stateGroup).append("path")
+				.attr("id", relation.id + "-hitbox")
+				.attr("stroke-width", 50)
+				.attr("fill", "none")
+				.attr("stroke", "transparent")
+				.attr("d", generator(points))
+				
+			hitbox.on("click", function() {
+				path.node().style.strokeWidth = 4;
+				self.select("actionRelation", relation, function() {
+					path.node().style.strokeWidth = 2;	
+				});
+			})
+		},
+		drawActionConnecting: function(actionFrom, event) {
+			var group = d3.select(this.$refs.svg.getElementById(actionFrom.id));
+			
+			// bring the action to the front so we can see the line always
+			//group.raise();
+			
+			// same for the state if you want to link to another state
+			//d3.select(this.$refs.svg.getElementById(actionFrom.processStateId)).raise();
+			
+			var generator = d3.line()
+				.x(function(p) { return p.x })
+				.y(function(p) { return p.y })
+				.curve(d3.curveLinear);
+				
+			var path = group.append("path")
+				.attr("fill", "none")
+				.attr("stroke", this.connectorColor)
 
-			return {
-				update: function(points) {
+			var actions = {
+				update: function(event) {
+					var points = [{
+						x: actionFrom.styling.width,
+						y: actionFrom.styling.height / 2
+					}, 
+					// the halfway point
+					{
+						x: event.x - ((event.x - actionFrom.styling.width) / 2),	
+						y: actionFrom.styling.height / 2
+					}, 
+					{
+						x: event.x - ((event.x - actionFrom.styling.width) / 2),	
+						y: event.y - 1
+					},
+					// move ever so slightly out of the way to prevent false mouseenter/leave hits
+					{
+						x: event.x - 1,
+						y: event.y -1
+					}]
 					path.attr("d", generator(points))
 				},
 				remove: function() {
 					path.remove();
 				}
 			}
+			actions.update(event);
+			return actions;
 		},
-		addTemporary: function() {
-			this.addAction(this.model.states[0]);
+		newId: function() {
+			return crypto.randomUUID().replace(/-/g, "");
+		},
+		deleteCurrent: function() {
+			var self = this;
+			if (this.selected.type == "state" && this.selected.target) {
+				var index = this.model.states.indexOf(this.selected.target);
+				if (index >= 0) {
+					this.model.states.splice(index, 1);
+				}
+				// update any actions that might lead to this state
+				this.model.states.forEach(function(state) {
+					state.actions.forEach(function(action) {
+						if (action.resultStateId == self.selected.target.id) {
+							action.resultStateId = null;
+						}
+					})
+				})
+			}
+			else if (this.selected.type == "action" && this.selected.target) {
+				var state = this.getState(this.selected.target.processStateId);
+				var index = state.actions.indexOf(this.selected.target);
+				if (index >= 0) {
+					state.actions.splice(index, 1);
+				}
+				// remove any relations with this action
+				this.model.actionRelations.filter(function(x) {
+					return x.actionId == self.selected.target.id || x.targetActionId == self.selected.target.id;
+				}).forEach(function(remove) {
+					self.model.actionRelations.splice(self.model.actionRelations.indexOf(remove), 1);
+				});
+			}
+			else if (this.selected.type == "actionResult" && this.selected.target) {
+				this.selected.target.resultStateId = null;
+			}
+			else if (this.selected.type == "actionRelation" && this.selected.target) {
+				var index = this.model.actionRelations.indexOf(this.selected.target);
+				if (index >= 0) {
+					this.model.actionRelations.splice(index, 1);
+				}
+			}
+			this.selected.type = null;
+			this.selected.target = null;
+			this.selected.deselector = null;
+			// redraw the whole thing!
+			this.draw();
+		},
+		addActionToCurrent: function() {
+			console.log("selected is", this.selected);
+			if (this.selected.type == "state" && this.selected.target) {
+				this.addAction(this.selected.target);
+			}
+			else if (this.selected.type == "action" && this.selected.target) {
+				this.addAction(this.getState(this.selected.target.processStateId), this.selected.target);
+			}
+			else if (this.model.states.length) {
+				this.addAction(this.model.states[this.model.states.length - 1]);
+			}
 		},
 		addAction: function(state, parentAction) {
 			// get the max y, move below that
@@ -365,16 +1172,25 @@ Vue.view("process-modeler-component", {
 			var action = {
 				name: "Unnamed",
 				styling: {
-					color: "orange",
-					x: 10,
-					y: 50 + furthest,
-					width: 150,
-					height: 100
+					color: "blue",
+					x: (parentAction ? parentAction.styling.x + parentAction.styling.width + 50 : this.gridSize * 2) + (this.gridSize * 2),
+					// if we position at the top, keep some space
+					y: parentAction ? parentAction.styling.y : Math.max(this.actionHeight * 2, furthest + this.actionHeight),
+					width: this.gridSize * 15,
+					height: this.actionHeight,
+					minOccurs: 1,
+					maxOccurs: 1
 				},
-				id: crypto.randomUUID().replace(/-/g, "")
+				processStateId: state.id,
+				id: this.newId()
 			};
 			state.actions.push(action);	
 			this.drawAction(state, action);
+			
+			// if we had selected an action, select this new one!
+			if (this.selected.type == "action") {
+				this.select("action", action);
+			}
 		},
 		addState: function() {
 			// get the max x (+ width) so far, move to the side of that
@@ -382,20 +1198,22 @@ Vue.view("process-modeler-component", {
 				return Math.max(current, state.styling.x + state.styling.width);
 			}, 0);
 			var state = {
+				processDefinitionId: this.model.id,
 				name: this.model.states.length == 0 ? "Initial" : "Unnamed",
 				initial: this.model.states.length == 0,
 				styling: {
-					color: "blue",
-					x: this.maxWidth + 15,
-					y: 0,
-					width: 200,
-					height: 200
+					color: "basic",
+					x: furthest + (this.gridSize * 4),
+					y: this.gridSize * 2,
+					width: this.gridSize * 24,
+					height: this.gridSize * 20
 				},
-				id: crypto.randomUUID().replace(/-/g, ""),
+				id: this.newId(),
 				actions: []
 			};
 			this.model.states.push(state);
 			this.drawState(state);
+			this.select("state", state);
 		}
 	}
 })

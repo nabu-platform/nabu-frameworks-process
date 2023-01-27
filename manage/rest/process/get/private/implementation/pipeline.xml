@@ -1,0 +1,5 @@
+<structure interface="nabu.frameworks.process.manage.rest.process.get:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" maxOccurs="unbounded" minOccurs="0" name="actions"/>
+</structure>
