@@ -19,4 +19,6 @@
     <field comment="The permission (if any) that the actor must have to execute this" minOccurs="0" name="permission" type="java.lang.String"/>
     <field comment="When all mandatory finalizer actions in the current state are run, the process instance is stopped." minOccurs="0" name="finalizer" type="java.lang.Boolean"/>
     <field minOccurs="0" name="style" type="java.lang.String"/>
+    <field comment="There are a number of action types, for example a service call is an action type, so is a finalizer." minOccurs="0" name="actionType" type="java.lang.String"/>
+    <field comment="Additional configuration for that given action type" minOccurs="0" name="configuration" type="java.lang.String"/>
 </structure>

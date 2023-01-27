@@ -1,3 +1,18 @@
+if (!nabu) { var nabu = {}};
+if (!nabu.process) { nabu.process = {}};
+nabu.process.provide = function(spec, implementation) {
+	if (!nabu.process.state) {
+		nabu.process.state = { providers: [] }
+	}
+	if (!nabu.process.state.providers[spec]) {
+		nabu.process.state.providers[spec] = [];
+	}
+	nabu.process.state.providers[spec].push(implementation);
+}
+nabu.process.providers = function(spec) {
+	return nabu.process.state && nabu.process.state.providers[spec] ? nabu.process.state.providers[spec] : [];
+}
+
 Vue.view("process-modeler-component", {
 	data: function() {
 		return {
@@ -45,7 +60,8 @@ Vue.view("process-modeler-component", {
 			// the size of the mapper triangle
 			triangleSize: 10,
 			subscriptions: [],
-			processes: []
+			processes: [],
+			saving: false
 		}	
 	},
 	created: function() {
@@ -114,16 +130,21 @@ Vue.view("process-modeler-component", {
 		},
 		save: function() {
 			var self = this;
-			if (this.model) {
+			if (this.model && !this.saving) {
+				this.saving = true;
 				// serialize styling information!
 				this.model.states.forEach(function(state) {
 					state.style = JSON.stringify(state.styling);
 					state.actions.forEach(function(action) {
 						action.style = JSON.stringify(action.styling);
 					});
-				})
+				});
 				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.update", { processId: this.model.id, body: this.model }).then(function() {
 					self.$services.notifier.push({message: "Saved process " + self.model.name});
+					self.saving = false;
+				}, function(error) {
+					self.$services.notifier.push({message: "Failed to save process " + self.model.name, color: "danger"});
+					self.saving = false;
 				});
 			}
 		},
@@ -148,6 +169,9 @@ Vue.view("process-modeler-component", {
 			var element = this.selected.target ? this.$refs.svg.getElementById(this.selected.target.id) : null;
 			if (element) {
 				element.classList.remove("selected");
+			}
+			if (this.selected.deselector) {
+				this.selected.deselector();
 			}
 			this.selected.type = null;
 			this.selected.target = null;
@@ -234,8 +258,8 @@ Vue.view("process-modeler-component", {
 			this.drawActionAutomatic(action);
 			// redraw summary
 			this.drawActionSummary(action);
-			
 			this.drawActionReference(action);
+			this.drawActionTimeout(action);
 			/*
 			d3.select(this.$refs.svg.getElementById(action.id + "-mapper"))
 				.attr("cx", action.styling.width)
@@ -246,6 +270,8 @@ Vue.view("process-modeler-component", {
 			if (state) {
 				this.autosizeState(state);
 			}
+			
+			this.colorizeDefaultAction(action);
 		},
 		autosizeState: function(state) {
 			var maxWidth = state.actions.reduce(function(current, action) {
@@ -301,14 +327,18 @@ Vue.view("process-modeler-component", {
 					}
 				}));
 		},
-		// colorize a group of items
-		colorize: function(group, color) {
+		getColor: function(name) {
 			var result = this.colors.filter(function(x) {
-				return x.name == color;
+				return x.name == name;
 			})[0];
 			if (!result) {
 				result = this.colors[0];
 			}
+			return result;
+		},
+		// colorize a group of items
+		defaultColorize: function(group, color) {
+			var result = this.getColor(color);
 			// need plain html element
 			if (group.node) {
 				group = group.node();
@@ -323,19 +353,6 @@ Vue.view("process-modeler-component", {
 				//element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 			});
-			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
-				element.setAttribute("style", "fill: " + result.border + "; stroke: " + result.border);
-			});
-			group.querySelectorAll(":scope > .automatic").forEach(function(element) {
-				element.setAttribute("style", "fill: white; stroke: " + result.border);
-			});
-			// a reference box
-			group.querySelectorAll(":scope > .reference > rect").forEach(function(element) {
-				element.setAttribute("style", "fill: " + result.text + "; stroke: " + result.border);
-			})
-			group.querySelectorAll(":scope > .reference > text").forEach(function(element) {
-				element.setAttribute("style", "fill: " + result.background);
-			})
 		},
 		inBounds: function(newX, newY, newWidth, newHeight, boundsX, boundsY, boundsWidth, boundsHeight) {
 			console.log("check bounds", newX, newY, newWidth, newHeight, boundsWidth, boundsHeight);
@@ -435,7 +452,8 @@ Vue.view("process-modeler-component", {
 				event.stopPropagation();
 			})
 			
-			this.colorize(group, state.styling.color);
+			// add some default colors
+			this.defaultColorize(group, state.styling.color);
 		},
 		hasRelation: function(action, targetAction) {
 			return this.model.actionRelations.filter(function(x) {
@@ -446,7 +464,7 @@ Vue.view("process-modeler-component", {
 		drawActions: function(state) {
 			var self = this;
 			state.actions.forEach(function(action) {
-				self.drawAction(state, action)
+				self.drawAction(action)
 			});
 		},
 		drawText: function(group, text, x, y, width, clazz, size) {
@@ -535,7 +553,12 @@ Vue.view("process-modeler-component", {
 				this.drawText(actionGroup, action.summary, action.automatic ? 20 : 10, 40, action.styling.width, "process-action-summary", "smaller");
 			}
 		},
-		drawAction: function(state, action) {
+		drawAction: function(action) {
+			if (action.actionType == null || action.actionType == "service") {
+				this.drawDefaultAction(this.getState(action.processStateId), action);
+			}
+		},
+		drawDefaultAction: function(state, action) {
 			var self = this;
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
 			var group = stateGroup.append("g")
@@ -604,7 +627,6 @@ Vue.view("process-modeler-component", {
 			
 			// dragging
 			// to the right and bottom you make the state larger
-			// to the left and top you can't go past the state boundaries
 			self.draggable(group, function(target, event) {
 				var moved = false;
 				if (action.styling.x + event.dx >= 0) {
@@ -649,14 +671,40 @@ Vue.view("process-modeler-component", {
 			this.drawActionMapper(action);
 			this.drawActionResultState(action);
 			this.drawActionReference(action);
+			this.drawActionTimeout(action);
 			this.drawActionAutomatic(action);
 			
-			this.colorize(group, action.styling.color);
+			this.colorizeDefaultAction(action);
+		},
+		colorizeDefaultAction(action) {
+			var color = this.getColor(action.styling.color);
+			var group = this.$refs.svg.getElementById(action.id);
+			this.defaultColorize(group, action.styling.color);
+			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.border + "; stroke: " + color.border);
+			});
+			group.querySelectorAll(":scope > .automatic").forEach(function(element) {
+				element.setAttribute("style", "fill: white; stroke: " + color.border);
+			});
+			// a reference box
+			group.querySelectorAll(":scope > .reference > rect").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.text + "; stroke: " + color.border);
+			})
+			group.querySelectorAll(":scope > .reference > text").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.background);
+			})
+			// a timeout box
+			group.querySelectorAll(":scope > .timeout > rect").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.text + "; stroke: " + color.border);
+			})
+			group.querySelectorAll(":scope > .timeout > text").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.background);
+			})	
 		},
 		drawActionAutomatic: function(action) {
 			var existing = this.svg.node().getElementById(action.id + "-automatic");
 			if (existing) {
-				reference = d3.select(existing);
+				d3.select(existing).remove();
 			}
 			if (action.automatic) {
 				var triangleSize = this.triangleSize;
@@ -701,6 +749,37 @@ Vue.view("process-modeler-component", {
 				}
 				// just move it
 				this.move(reference, 0, action.styling.height);
+			}
+			else if (reference) {
+				d3.select(reference).remove();
+			}
+		},
+		drawActionTimeout: function(action) {
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			
+			var reference = null;
+			var existing = this.svg.node().getElementById(action.id + "-timeout");
+			if (existing) {
+				reference = d3.select(existing);
+			}
+			if (action.automatic && (action.delay || action.schedule)) {
+				if (reference == null) {
+					reference = group.append("g")
+						.attr("class", "timeout")
+						.attr("id", action.id + "-timeout")
+					var text = action.delay ? action.delay : action.schedule;
+					reference.append("rect")
+						// 4 px padding on each side
+						.attr("width", 8 + (text.length * 8))
+						.attr("height", 14)
+						.attr("x", 0)
+						.attr("y", 0)
+					var referenceText = reference.append("text")
+						.text(text)
+						.attr("font-size", "13px")
+					this.move(referenceText, 4, 11);
+				}
+				this.move(reference, 0, -14);
 			}
 			else if (reference) {
 				d3.select(reference).remove();
@@ -766,7 +845,7 @@ Vue.view("process-modeler-component", {
 					});
 					line.remove();
 				});
-				this.colorize(group, action.styling.color);
+				this.colorizeDefaultAction(action);
 				return mapper;
 			}
 			// for finalizers, we draw a rectangle to indicate it stops there
@@ -953,7 +1032,7 @@ Vue.view("process-modeler-component", {
 				// draw a secondary invisible path purely for click purposes
 				var hitbox = this.svg.append("path")
 					.attr("id", id + "-hitbox")
-					.attr("stroke-width", 50)
+					.attr("stroke-width", 25)
 					.attr("fill", "none")
 					.attr("stroke", "transparent")
 					.attr("d", generator(points))
@@ -1046,7 +1125,7 @@ Vue.view("process-modeler-component", {
 			// draw a secondary invisible path purely for click purposes
 			var hitbox = d3.select(stateGroup).append("path")
 				.attr("id", relation.id + "-hitbox")
-				.attr("stroke-width", 50)
+				.attr("stroke-width", 25)
 				.attr("fill", "none")
 				.attr("stroke", "transparent")
 				.attr("d", generator(points))
@@ -1142,6 +1221,7 @@ Vue.view("process-modeler-component", {
 			}
 			else if (this.selected.type == "actionRelation" && this.selected.target) {
 				var index = this.model.actionRelations.indexOf(this.selected.target);
+				console.log("deleting", this.selected.target, index);
 				if (index >= 0) {
 					this.model.actionRelations.splice(index, 1);
 				}
@@ -1185,7 +1265,7 @@ Vue.view("process-modeler-component", {
 				id: this.newId()
 			};
 			state.actions.push(action);	
-			this.drawAction(state, action);
+			this.drawAction(action);
 			
 			// if we had selected an action, select this new one!
 			if (this.selected.type == "action") {

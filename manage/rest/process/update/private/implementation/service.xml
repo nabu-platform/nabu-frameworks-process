@@ -713,4 +713,118 @@
 		</steps>
 		<query>input/content/actionRelations</query>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get things to remove"
+			disabled="false"
+			id="12629baf183c464b9a24ebc83f008cac"
+			lineNumber="35">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="da549d6664524549b94cd97fd700d633"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>existingRelations[id !# /input/content/actionRelations/id]</from>
+			<to>relationsToRemove</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="f0c83b273ecb40ab90f407cef18e6cc3"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>existingActions[id !# /input/content/states/actions/id]</from>
+			<to>actionsToRemove</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="a1e331ad2a864939ae11d8be5523598f"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>existingStates[id !# /input/content/states/id]</from>
+			<to>statesToRemove</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="57c8d3cfd9dc4f92a3a169f3810f842d"
+			label="relationsToRemove"
+			lineNumber="36">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="3f60e9a4ab8f435f9f4be0cb2ed89f36"
+				serviceId="nabu.frameworks.process.crud.processActionRelation.batch.deleteAll"
+				resultName="resultc932dfef2fac480da862cf3f76edd5fc"
+				temporaryMapping="true"
+				x="122"
+				y="24"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="abbbb9550fec449d81d6b9bc05eaf80e"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>relationsToRemove/id</from>
+				<to>id</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="fbd902d1f64346a183acab9f155c1b12"
+			label="actionsToRemove"
+			lineNumber="37">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="93b1970334b54f3d8df8da49fa1905cc"
+				serviceId="nabu.frameworks.process.crud.processAction.batch.deleteAll"
+				resultName="result3e1b549394b74edfa28e628d13133c54"
+				temporaryMapping="true"
+				x="75"
+				y="48"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="984eba64fb9a42098d6f65a09989a3b8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>actionsToRemove/id</from>
+				<to>id</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="35a7b92ec9bb4db99368b48b47fdc56b"
+			label="statesToRemove"
+			lineNumber="38">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="6900b8700388464c9ec13c46136f2075"
+				serviceId="nabu.frameworks.process.crud.processState.batch.deleteAll"
+				resultName="result9ffe89ba1d8543ad8a37ae1df2a7aea1"
+				temporaryMapping="true"
+				x="276"
+				y="130"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a93f38eb37e14da68358d4ccb2429dfb"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>statesToRemove/id</from>
+				<to>id</to>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

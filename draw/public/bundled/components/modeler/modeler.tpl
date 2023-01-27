@@ -16,7 +16,7 @@
 				<ul class="is-menu is-variant-toolbar is-align-center">
 					<li class="is-column"><button @click="addState" class="is-button is-variant-primary"><icon name="plus"/><span class="is-text">State</span></button></li>
 					<li class="is-column"><button @click="addActionToCurrent" class="is-button is-variant-secondary"><icon name="plus"/><span class="is-text">Action</span></button></li>
-					<li class="is-column"><button @click="save" class="is-button is-variant-primary-outline"><icon name="save"/><span class="is-text">Save</span></button></li>
+					<li class="is-column"><button @click="save" :disabled="saving" class="is-button is-variant-primary-outline"><icon name="save"/><span class="is-text">Save</span></button></li>
 				</ul>
 				<div v-if="selected.type == 'action'" class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="selected.target.name" label="Action name" @input="updatedActionName(selected.target)" after="A short name for this action"/>
@@ -26,12 +26,12 @@
 					<n-form-text v-model="selected.target.serviceId" label="Service id that is executed"/>
 					<n-form-switch v-model="selected.target.automatic" label="Should the service be run automatically?" @input="draw"/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.automatic">
-						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this action after a certain delay (e.g. 24 hours)"/>
-						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this action according to a certain schedule"/>
+						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this action after a certain delay (e.g. 24 hours)" @input="draw"/>
+						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this action according to a certain schedule" @input="draw"/>
 					</div>
 					<div class="is-row is-spacing-gap-medium">
 						<n-form-text v-model="selected.target.minOccurs" label="Min occurs" placeholder="1" after="How many times should the action at least be executed" @input="draw"/>
-						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed"/>
+						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
 					</div>
 					<n-form-switch v-model="selected.target.finalizer" label="Finalizer" after="When all mandatory finalizer actions in the current state are run, the process is considered complete" @input="draw"/>
 					<n-form-text type="area" v-model="selected.target.description" label="Action description" after="Additional description you want to add"/>

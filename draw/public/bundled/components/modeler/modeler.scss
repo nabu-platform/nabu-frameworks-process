@@ -48,7 +48,7 @@ text {
 	stroke-width: 4;
 }
 
-.reference text {
+.reference text, .timeout text {
 	font-family: Monospace;
 	font-weight: bold;
 }
@@ -58,12 +58,12 @@ text {
 }
 
 .process-action.optional rect {
-	stroke-dasharray: 5;
+	stroke-dasharray: 3;
 }
 
 .relation.type-must-not {
 	stroke: #f7a0a0;
-	stroke-dasharray: 1;
+	stroke-dasharray: 3;
 }
 .relation.type-can {
 	stroke-dasharray: 3;
