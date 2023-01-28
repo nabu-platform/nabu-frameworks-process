@@ -80,3 +80,9 @@ text {
 .any {
 	stroke-dasharray: 3;
 }
+
+defs path {
+	fill: inherit !important;
+	stroke: inherit !important;
+	stroke-width: 2px !important;
+}

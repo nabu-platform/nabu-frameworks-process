@@ -32,6 +32,7 @@ Vue.view("process-modeler-component", {
 				state: null,
 				targetAction: null
 			},
+			icons: ["signal", "service"],
 			themes: [{
 				name: "basic",
 				state: "basic",
@@ -281,10 +282,10 @@ Vue.view("process-modeler-component", {
 			}
 		},
 		draw: function() {
-			// clear any content
-			while (this.$refs.svg.firstChild) {
-				this.$refs.svg.removeChild(this.$refs.svg.firstChild);
-			}
+			// clear any content except defs
+			this.$refs.svg.querySelectorAll(":scope > :not(defs)").forEach(function(child) {
+				child.parentNode.removeChild(child);
+			});
 			this.svg = d3.select(this.$refs.svg);
 
 			// need to draw all the states before we draw the actions, we might have links			
@@ -424,6 +425,9 @@ Vue.view("process-modeler-component", {
 			}
 			group.querySelectorAll(":scope > text").forEach(function(element) {
 				element.setAttribute("style", "fill: " + result.text);
+			});
+			group.querySelectorAll(":scope > .icon").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.border + "; stroke:" + result.border);
 			});
 			group.querySelectorAll(":scope > .background").forEach(function(element) {
 				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
@@ -609,7 +613,7 @@ Vue.view("process-modeler-component", {
 		updatedActionName: function(action) {
 			if (action.actionType == "service") {
 				// is bold now, so no longer 8
-				action.styling.width = Math.max(action.styling.width, !action.name ? 0 : action.name.length * 10);
+				action.styling.width = Math.max(action.styling.width, (!action.name ? 0 : action.name.length * 10) + (action.styling.icon ? 10 : 0));
 			}
 			this.draw();
 		},
@@ -627,6 +631,18 @@ Vue.view("process-modeler-component", {
 			}
 			this.draw();
 		},
+		drawActionIcon: function(action) {
+			if (action.styling.icon) {
+				var actionGroup = d3.select(this.$refs.svg.getElementById(action.id));
+				var icon = actionGroup.append("use")
+					.attr("class", "icon")
+					.attr("x", action.automatic ? 20 : 10)
+					.attr("y", 6)
+					.attr("width", 20)
+					.attr("height", 16)
+					.attr("href", "#icon-" + action.styling.icon)
+			}	
+		},
 		drawActionName: function(action) {
 			var actionGroup = d3.select(this.$refs.svg.getElementById(action.id));
 			// the name is not split over multiple lines, use the summary for that!
@@ -634,7 +650,7 @@ Vue.view("process-modeler-component", {
 				.text(action.name ? action.name : "Unnamed")
 				.attr("class", "process-action-name");
 			// not sure why we need 20 in y-direction but not questioning it now...
-			this.move(name, action.automatic ? 20 : 10, 20);
+			this.move(name, (action.automatic ? 20 : 10) + (action.styling.icon ? 26 : 0), 20);
 
 //			this.drawText(actionGroup, action.name, 10, 20, action.styling.width, "process-action-name");
 		},
@@ -1086,7 +1102,7 @@ Vue.view("process-modeler-component", {
 			// redraw the whole thing!
 			this.draw();
 		},
-		addActionToCurrent: function(type, name, width, height) {
+		addActionToCurrent: function(type, name, width, height, icon) {
 			var state = null;
 			if (this.lastInteractedStateId) {
 				state = this.getState(this.lastInteractedStateId);
@@ -1098,9 +1114,9 @@ Vue.view("process-modeler-component", {
 			if (this.selected.type == "action") {
 				currentAction = this.selected.target;
 			}
-			this.addAction(type, name, width, height, state, currentAction);
+			this.addAction(type, name, width, height, state, currentAction, icon);
 		},
-		addAction: function(type, name, width, height, state, parentAction) {
+		addAction: function(type, name, width, height, state, parentAction, icon) {
 			// get the max y, move below that
 			var furthest = state.actions.reduce(function(current, action) {
 				return Math.max(current, action.styling.y + action.styling.height);
@@ -1110,6 +1126,7 @@ Vue.view("process-modeler-component", {
 				name: name,
 				actionType: type,
 				styling: {
+					icon: icon,
 					color: null,
 					x: (parentAction ? parentAction.styling.x + parentAction.styling.width + 50 : this.gridSize * 2) + (this.gridSize * 2),
 					// if we position at the top, keep some space
@@ -1225,6 +1242,7 @@ Vue.view("process-modeler-component", {
 				});
 			})
 			
+			this.drawActionIcon(action);
 			this.drawActionName(action);
 			this.drawActionSummary(action);
 				
