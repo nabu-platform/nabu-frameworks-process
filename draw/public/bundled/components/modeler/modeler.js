@@ -23,11 +23,33 @@ Vue.view("process-modeler-component", {
 				target: null,
 				deselector: null
 			},
+			copied: {
+				type: null,
+				target: null
+			},
 			linking: {
 				action: null,
 				state: null,
 				targetAction: null
 			},
+			theme: "basic",
+			themes: [{
+				name: "basic",
+				state: "basic",
+				service: "blue",
+				any: "black",
+				all: "black",
+				finalizer: "black",
+				connector: "blue"
+			}, {
+				name: "black",
+				state: "black",
+				service: "black",
+				any: "black",
+				all: "black",
+				finalizer: "black",
+				connector: "black"
+			}],
 			colors: [{
 				name: "blue",
 				border: "#8EA7E9",
@@ -48,20 +70,27 @@ Vue.view("process-modeler-component", {
 				border: "#C3B1E1",
 				background: "#e1d8f0",
 				text: "#6b43ae"
+			}, {
+				name: "black",
+				border: "black",
+				background: "white",
+				text: "black"
 			}],
 			// the offset of the draggable rectangle to resize
 			draggableOffset: 2,
 			editing: true,
 			snapToGrid: true,
 			gridSize: 10,
-			connectorColor: "#8EA7E9",
+			//connectorColor: "#8EA7E9",
 			// make sure its a multiple of gridsize!
 			actionHeight: 30,
 			// the size of the mapper triangle
 			triangleSize: 10,
 			subscriptions: [],
 			processes: [],
-			saving: false
+			saving: false,
+			// keep track of the last state you interacted with, this for more logical generation
+			lastInteractedStateId: null
 		}	
 	},
 	created: function() {
@@ -91,9 +120,24 @@ Vue.view("process-modeler-component", {
 			return this.model.states.reduce(function(current, state) {
 				return Math.max(current, state.styling.y + state.styling.height);
 			}, 0);
+		},
+		connectorColor: function() {
+			var color = this.getColor(this.getThemeColor("connector"));
+			console.log("color is", color);
+			return color.border;
 		}
 	},
 	methods: {
+		gridify: function(value) {
+			var min = value - value % this.gridSize;
+			var max = value + (this.gridSize - value % this.gridSize);
+			if (max - value > value - min) {
+				return min;
+			}
+			else {
+				return max;
+			}
+		},
 		loadProcesses: function() {
 			var self = this;
 			this.$services.swagger.execute("nabu.frameworks.process.crud.processDefinition.services.list", {editable:true}).then(function(available) {
@@ -107,6 +151,7 @@ Vue.view("process-modeler-component", {
 			var self = this;
 			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.get", { processId: processId }).then(function(result) {
 				if (result) {
+					result.styling = result.style ? JSON.parse(result.style) : {};
 					if (!result.actionRelations) {
 						result.actionRelations = [];
 					}
@@ -132,6 +177,7 @@ Vue.view("process-modeler-component", {
 			var self = this;
 			if (this.model && !this.saving) {
 				this.saving = true;
+				this.model.style = JSON.stringify(this.model.styling);
 				// serialize styling information!
 				this.model.states.forEach(function(state) {
 					state.style = JSON.stringify(state.styling);
@@ -157,7 +203,8 @@ Vue.view("process-modeler-component", {
 				queue: null,
 				description: null,
 				states: [],
-				actionRelations: []
+				actionRelations: [],
+				styling: null
 			};
 			// for the first version, these are in sync
 			model.processId = model.id;
@@ -192,6 +239,16 @@ Vue.view("process-modeler-component", {
 			if (element) {
 				element.classList.add("selected");
 			}
+			if (type == "state") {
+				this.lastInteractedStateId = target.id;
+			}
+			else if (type == "action") {
+				this.lastInteractedStateId = target.processStateId;
+			}
+			else if (type == "actionRelation") {
+				var action = this.getAction(target.actionId);
+				this.lastInteractedStateId = action.processStateId;
+			}
 		},
 		draw: function() {
 			// clear any content
@@ -209,7 +266,7 @@ Vue.view("process-modeler-component", {
 			var keyHandler = function(event) {
 				// check that event originates is not aimed at something else
 				if (event.target == document.body) {
-					console.log("key event", event);
+					//console.log("key event", event);
 					// delete
 					if (event.keyCode == 46) {
 						self.deleteCurrent();
@@ -220,6 +277,24 @@ Vue.view("process-modeler-component", {
 						self.save();
 						event.stopPropagation();
 						event.preventDefault();
+					}
+					else if (event.key == "c" && (event.ctrlKey || event.metaKey) && self.model) {
+						nabu.utils.objects.merge(self.copied, self.selected);
+					}
+					else if (event.key == "v" && (event.ctrlKey || event.metaKey) && self.copied) {
+						console.log("pasting", self.copied, self.selected);
+						// copying an action to a state
+						if (self.copied.type == "action" && self.selected.type == "state") {
+							var cloned = JSON.parse(JSON.stringify(self.copied.target));
+							cloned.id = self.newId();
+							cloned.processStateId = self.selected.target.id;
+							self.selected.target.actions.push(cloned);
+							cloned.styling.x = 20;
+							cloned.styling.y = 50;
+							cloned.resultStateId = null;
+							self.autosizeState(self.selected.target);
+							self.drawAction(cloned);
+						}
 					}
 				}
 			}
@@ -244,34 +319,6 @@ Vue.view("process-modeler-component", {
 			// make sure its big enough to accomodate, we add some padding for stuff like borders
 			this.svg.attr("width", this.maxWidth + 10)
 				.attr("height", this.maxHeight + 10);	
-		},
-		autosizeAction: function(action, state) {
-			d3.select(this.$refs.svg.getElementById(action.id + "-rect"))
-				.attr("width", action.styling.width)
-				.attr("height", action.styling.height)
-				
-			d3.select(this.$refs.svg.getElementById(action.id + "-resizer"))
-				.attr("cx", action.styling.width - this.draggableOffset)
-				.attr("cy", action.styling.height - this.draggableOffset)
-				
-			this.drawActionMapper(action);
-			this.drawActionAutomatic(action);
-			// redraw summary
-			this.drawActionSummary(action);
-			this.drawActionReference(action);
-			this.drawActionTimeout(action);
-			/*
-			d3.select(this.$refs.svg.getElementById(action.id + "-mapper"))
-				.attr("cx", action.styling.width)
-				.attr("cy", action.styling.height / 2)
-			*/
-			// on resizing, we might impact lines
-			this.redrawImpactedRelations(action);
-			if (state) {
-				this.autosizeState(state);
-			}
-			
-			this.colorizeDefaultAction(action);
 		},
 		autosizeState: function(state) {
 			var maxWidth = state.actions.reduce(function(current, action) {
@@ -349,6 +396,9 @@ Vue.view("process-modeler-component", {
 			group.querySelectorAll(":scope > .background").forEach(function(element) {
 				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 			});
+			group.querySelectorAll(":scope > .background-dark").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.border + "; stroke: " + result.text);
+			});
 			group.querySelectorAll(":scope > .resizer").forEach(function(element) {
 				//element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
@@ -367,13 +417,6 @@ Vue.view("process-modeler-component", {
 				return false;
 			}
 			return true;
-		},
-		gridify: function(point) {
-			if (this.snapToGrid) {
-				point.x -= point.x % this.gridSize;
-				point.y -= point.y % this.gridSize;
-			}
-			return point;
 		},
 		drawState: function(state) {
 			var self = this;
@@ -453,7 +496,17 @@ Vue.view("process-modeler-component", {
 			})
 			
 			// add some default colors
-			this.defaultColorize(group, state.styling.color);
+			this.defaultColorize(group, this.getThemeColor("state", state.styling.color));
+		},
+		getThemeColor: function(type, override) {
+			if (override) {
+				return override;
+			}
+			var self = this;
+			var current = this.themes.filter(function(theme) {
+				return theme.name == self.model.styling.theme;
+			})[0];
+			return current && current[type] ? current[type] : "basic";
 		},
 		hasRelation: function(action, targetAction) {
 			return this.model.actionRelations.filter(function(x) {
@@ -518,8 +571,10 @@ Vue.view("process-modeler-component", {
 		},
 		// we automatically resize the action as you type longer names
 		updatedActionName: function(action) {
-			// is bold now, so no longer 8
-			action.styling.width = Math.max(action.styling.width, action.name.length * 10);
+			if (action.actionType == "service") {
+				// is bold now, so no longer 8
+				action.styling.width = Math.max(action.styling.width, !action.name ? 0 : action.name.length * 10);
+			}
 			this.draw();
 		},
 		updatedActionSummary: function(action) {
@@ -555,310 +610,18 @@ Vue.view("process-modeler-component", {
 		},
 		drawAction: function(action) {
 			if (action.actionType == null || action.actionType == "service") {
-				this.drawDefaultAction(this.getState(action.processStateId), action);
+				this.drawServiceAction(this.getState(action.processStateId), action);
+			}
+			else if (action.actionType == "finalizer") {
+				this.drawFinalizerAction(action);
+			}
+			else if (action.actionType == "any" || action.actionType == "all") {
+				this.drawAnyAction(action);
 			}
 		},
-		drawDefaultAction: function(state, action) {
-			var self = this;
-			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
-			var group = stateGroup.append("g")
-				.attr("id", action.id)
-				.attr("class", "process-action " + (action.minOccurs == 0 ? "optional" : ""))
-				
-			this.move(group, action.styling.x, action.styling.y);
-			
-			var rect = group.append("rect")
-				.attr("width", action.styling.width)
-				.attr("height", action.styling.height)
-				.attr("class", "process-action-rect background")
-				.attr("style", action.styling.css)
-				.attr("id", action.id + "-rect")
-				
-				
-			// d3 does not use html dragging
-			group.node().addEventListener("mouseover", function(event) {
-				// if we are not dragging _this_ action, we highlight for a link
-				// note that we have to be in the same state for this to happen
-				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
-					rect.node().classList.add("drop-highlight");
-					self.linking.targetAction = action;
-				}
-				event.stopPropagation();
-			})
-			group.node().addEventListener("mouseleave", function(event) {
-				rect.node().classList.remove("drop-highlight");
-				if (self.linking.targetAction == action) {
-					self.linking.targetAction = null;
-				}
-				event.stopPropagation();
-			})
-
-			rect.on("click", function() {
-				self.select("action", action, function() {
-					// do nothing
-				});
-			})
-			
-			this.drawActionName(action);
-			this.drawActionSummary(action);
-				
-			/*
-			var name = group.append("text")
-				.text(action.name ? action.name : "Unnamed")
-				.attr("class", "process-action-name");
-				
-			// not sure why we need 20 in y-direction but not questioning it now...
-			this.move(name, 10, 20);
-			
-			if (action.summary) {
-				var totalSummary = group.append("text");
-				action.summary.split(/[\n]+/).forEach(function(part, index) {
-					var summary = totalSummary.append("tspan")
-						.text(part)
-						.attr("font-size", "smaller")
-						.attr("class", "process-action-summary")
-
-				})
-				self.move(totalSummary, 10, 40);		
-			}
-			*/
-			
-			this.autosizeState(state);
-			
-			// dragging
-			// to the right and bottom you make the state larger
-			self.draggable(group, function(target, event) {
-				var moved = false;
-				if (action.styling.x + event.dx >= 0) {
-					action.styling.x += event.dx;
-					moved = true;
-				}
-				if (action.styling.y + event.dy >= 0) {
-					action.styling.y += event.dy;
-					moved = true;
-				}
-				if (moved) {
-					self.autosizeState(state);
-					self.move(group, action.styling.x, action.styling.y);	
-					self.redrawImpactedRelations(action);
-				}
-			});
-			
-			// a resizing rectangle at the bottom right
-			var resizer = group.append("circle")
-				.attr("id", action.id + "-resizer")
-				.attr("class", "process-action-resizer resizer")
-				.attr("r", this.draggableOffset * 2)
-				.attr("cx", action.styling.width - this.draggableOffset)
-				.attr("cy", action.styling.height - this.draggableOffset)
-			
-			self.draggable(resizer, function(target, event) {
-				action.styling.width += event.dx;
-				action.styling.height += event.dy;
-				self.autosizeAction(action, state);
-			});
-			
-			/*
-			// a resizing rectangle at the bottom right
-			var mapper = group.append("circle")
-				.attr("r", 5)
-				.attr("id", action.id + "-mapper")
-				.attr("class", "process-action-mapper mapper")
-				.attr("cx", action.styling.width)
-				.attr("cy", action.styling.height / 2)
-			*/	
-			
-			this.drawActionMapper(action);
-			this.drawActionResultState(action);
-			this.drawActionReference(action);
-			this.drawActionTimeout(action);
-			this.drawActionAutomatic(action);
-			
-			this.colorizeDefaultAction(action);
-		},
-		colorizeDefaultAction(action) {
-			var color = this.getColor(action.styling.color);
-			var group = this.$refs.svg.getElementById(action.id);
-			this.defaultColorize(group, action.styling.color);
-			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
-				element.setAttribute("style", "fill: " + color.border + "; stroke: " + color.border);
-			});
-			group.querySelectorAll(":scope > .automatic").forEach(function(element) {
-				element.setAttribute("style", "fill: white; stroke: " + color.border);
-			});
-			// a reference box
-			group.querySelectorAll(":scope > .reference > rect").forEach(function(element) {
-				element.setAttribute("style", "fill: " + color.text + "; stroke: " + color.border);
-			})
-			group.querySelectorAll(":scope > .reference > text").forEach(function(element) {
-				element.setAttribute("style", "fill: " + color.background);
-			})
-			// a timeout box
-			group.querySelectorAll(":scope > .timeout > rect").forEach(function(element) {
-				element.setAttribute("style", "fill: " + color.text + "; stroke: " + color.border);
-			})
-			group.querySelectorAll(":scope > .timeout > text").forEach(function(element) {
-				element.setAttribute("style", "fill: " + color.background);
-			})	
-		},
-		drawActionAutomatic: function(action) {
-			var existing = this.svg.node().getElementById(action.id + "-automatic");
-			if (existing) {
-				d3.select(existing).remove();
-			}
-			if (action.automatic) {
-				var triangleSize = this.triangleSize;
-				var group = d3.select(this.svg.node().getElementById(action.id));
-				var trianglePath = d3.path();
-				trianglePath.moveTo(0, (action.styling.height / 2) - triangleSize);
-				trianglePath.lineTo(triangleSize, action.styling.height / 2);
-				trianglePath.lineTo(0, (action.styling.height / 2) + triangleSize);
-				trianglePath.closePath();
-				
-				var mapper = group.append("path")
-					.attr("d", trianglePath)
-					.attr("id", action.id + "-automatic")
-					.attr("class", "automatic")
-			}
-		},
-		drawActionReference: function(action) {
-			var group = d3.select(this.svg.node().getElementById(action.id));
-			
-			var reference = null;
-			var existing = this.svg.node().getElementById(action.id + "-reference");
-			if (existing) {
-				reference = d3.select(existing);
-			}
-			
-			if (action.reference) {
-				// new, draw it all
-				if (reference == null) {
-					reference = group.append("g")
-						.attr("class", "reference")
-						.attr("id", action.id + "-reference")
-					reference.append("rect")
-						// 4 px padding on each side
-						.attr("width", 8 + (action.reference.length * 8))
-						.attr("height", 14)
-						.attr("x", 0)
-						.attr("y", 0)
-					var referenceText = reference.append("text")
-						.text(action.reference)
-						.attr("font-size", "13px")
-					this.move(referenceText, 4, 11);
-				}
-				// just move it
-				this.move(reference, 0, action.styling.height);
-			}
-			else if (reference) {
-				d3.select(reference).remove();
-			}
-		},
-		drawActionTimeout: function(action) {
-			var group = d3.select(this.svg.node().getElementById(action.id));
-			
-			var reference = null;
-			var existing = this.svg.node().getElementById(action.id + "-timeout");
-			if (existing) {
-				reference = d3.select(existing);
-			}
-			if (action.automatic && (action.delay || action.schedule)) {
-				if (reference == null) {
-					reference = group.append("g")
-						.attr("class", "timeout")
-						.attr("id", action.id + "-timeout")
-					var text = action.delay ? action.delay : action.schedule;
-					reference.append("rect")
-						// 4 px padding on each side
-						.attr("width", 8 + (text.length * 8))
-						.attr("height", 14)
-						.attr("x", 0)
-						.attr("y", 0)
-					var referenceText = reference.append("text")
-						.text(text)
-						.attr("font-size", "13px")
-					this.move(referenceText, 4, 11);
-				}
-				this.move(reference, 0, -14);
-			}
-			else if (reference) {
-				d3.select(reference).remove();
-			}
-		},
-		drawActionMapper: function(action) {
-			var self = this;
-			var group = d3.select(this.svg.node().getElementById(action.id));
-			var existing = this.svg.node().getElementById(action.id + "-mapper");
-			if (existing) {
-				d3.select(existing).remove();
-			}
-			existing = this.svg.node().getElementById(action.id + "-stopper");
-			if (existing) {
-				d3.select(existing).remove();
-			}
-			// don't draw a mapper if it is a finalizer service!
-			if (!action.finalizer) {
-				var triangleSize = this.triangleSize;
-				var trianglePath = d3.path();
-				trianglePath.moveTo(action.styling.width, (action.styling.height / 2) - triangleSize);
-				trianglePath.lineTo(action.styling.width + triangleSize, action.styling.height / 2);
-				trianglePath.lineTo(action.styling.width, (action.styling.height / 2) + triangleSize);
-				trianglePath.closePath();
-					
-				var mapper = group.append("path")
-					.attr("d", trianglePath)
-					.attr("id", action.id + "-mapper")
-					.attr("class", "mapper")
-					
-				var state = this.getState(action.processStateId);
-				var line = null;
-				self.draggable(mapper, function(target, event) {
-					line.update(event);
-				}, function(target, event) {
-					// on start, create the line
-					line = self.drawActionConnecting(action, event);
-					self.linking.action = action;
-					self.linking.state = state;
-				}, function(target, event) {
-					// only within own state!
-					if (self.linking.targetAction && self.linking.targetAction.id != action.id && self.linking.targetAction.processStateId == action.processStateId) {
-						var relation = {
-							id: self.newId(),
-							actionId: action.id,
-							targetActionId: self.linking.targetAction.id,
-							relationType: "must"
-						};
-						self.model.actionRelations.push(relation);
-						self.drawActionRelation(relation);
-					}
-					else if (self.linking.state && self.linking.state.id != action.processStateId) {
-						action.resultStateId = self.linking.state.id;
-						self.drawActionResultState(action);
-					}
-					self.linking.action = null;
-					self.linking.state = null;
-					self.linking.targetAction = null;
-					
-					// make sure we don't have drop highlights anymore
-					self.svg.node().querySelectorAll(".drop-highlight").forEach(function(element) {
-						element.classList.remove("drop-highlight");
-					});
-					line.remove();
-				});
-				this.colorizeDefaultAction(action);
-				return mapper;
-			}
-			// for finalizers, we draw a rectangle to indicate it stops there
-			else {
-				group.append("rect")
-					.attr("fill", "black")
-					.attr("width", this.triangleSize)
-					.attr("height", this.triangleSize)
-					.attr("x", action.styling.width)
-					.attr("y", (action.styling.height / 2) - this.triangleSize / 2)
-					.attr("id", action.id + "-stopper")
-			}
-		},
+		
+		
+		
 		getState: function(id) {
 			return this.model.states.filter(function(x) {
 				return x.id == id;
@@ -1032,7 +795,7 @@ Vue.view("process-modeler-component", {
 				// draw a secondary invisible path purely for click purposes
 				var hitbox = this.svg.append("path")
 					.attr("id", id + "-hitbox")
-					.attr("stroke-width", 25)
+					.attr("stroke-width", 15)
 					.attr("fill", "none")
 					.attr("stroke", "transparent")
 					.attr("d", generator(points))
@@ -1125,7 +888,7 @@ Vue.view("process-modeler-component", {
 			// draw a secondary invisible path purely for click purposes
 			var hitbox = d3.select(stateGroup).append("path")
 				.attr("id", relation.id + "-hitbox")
-				.attr("stroke-width", 25)
+				.attr("stroke-width", 15)
 				.attr("fill", "none")
 				.attr("stroke", "transparent")
 				.attr("d", generator(points))
@@ -1232,32 +995,36 @@ Vue.view("process-modeler-component", {
 			// redraw the whole thing!
 			this.draw();
 		},
-		addActionToCurrent: function() {
-			console.log("selected is", this.selected);
-			if (this.selected.type == "state" && this.selected.target) {
-				this.addAction(this.selected.target);
+		addActionToCurrent: function(type, name, width, height) {
+			var state = null;
+			if (this.lastInteractedStateId) {
+				state = this.getState(this.lastInteractedStateId);
 			}
-			else if (this.selected.type == "action" && this.selected.target) {
-				this.addAction(this.getState(this.selected.target.processStateId), this.selected.target);
+			if (state == null) {
+				state = this.model.states[this.model.states.length - 1];
 			}
-			else if (this.model.states.length) {
-				this.addAction(this.model.states[this.model.states.length - 1]);
+			var currentAction = null;
+			if (this.selected.type == "action") {
+				currentAction = this.selected.target;
 			}
+			this.addAction(type, name, width, height, state, currentAction);
 		},
-		addAction: function(state, parentAction) {
+		addAction: function(type, name, width, height, state, parentAction) {
 			// get the max y, move below that
 			var furthest = state.actions.reduce(function(current, action) {
 				return Math.max(current, action.styling.y + action.styling.height);
 			}, 0);
+			
 			var action = {
-				name: "Unnamed",
+				name: name,
+				actionType: type,
 				styling: {
-					color: "blue",
+					color: null,
 					x: (parentAction ? parentAction.styling.x + parentAction.styling.width + 50 : this.gridSize * 2) + (this.gridSize * 2),
 					// if we position at the top, keep some space
 					y: parentAction ? parentAction.styling.y : Math.max(this.actionHeight * 2, furthest + this.actionHeight),
-					width: this.gridSize * 15,
-					height: this.actionHeight,
+					width: width,
+					height: height,
 					minOccurs: 1,
 					maxOccurs: 1
 				},
@@ -1294,6 +1061,511 @@ Vue.view("process-modeler-component", {
 			this.model.states.push(state);
 			this.drawState(state);
 			this.select("state", state);
+		},
+		
+		
+		// ---------------------------------- SERVICE ACTION IMPLEMENTATION
+		
+		autosizeAction: function(action, state) {
+			d3.select(this.$refs.svg.getElementById(action.id + "-rect"))
+				.attr("width", action.styling.width)
+				.attr("height", action.styling.height)
+				
+			d3.select(this.$refs.svg.getElementById(action.id + "-resizer"))
+				.attr("cx", action.styling.width - this.draggableOffset)
+				.attr("cy", action.styling.height - this.draggableOffset)
+				
+			this.drawActionMapper(action);
+			this.drawActionAutomatic(action);
+			// redraw summary
+			this.drawActionSummary(action);
+			this.drawActionReference(action);
+			this.drawActionTimeout(action);
+			/*
+			d3.select(this.$refs.svg.getElementById(action.id + "-mapper"))
+				.attr("cx", action.styling.width)
+				.attr("cy", action.styling.height / 2)
+			*/
+			// on resizing, we might impact lines
+			this.redrawImpactedRelations(action);
+			if (state) {
+				this.autosizeState(state);
+			}
+			
+			this.colorizeDefaultAction(action);
+		},
+		drawServiceAction: function(state, action) {
+			var self = this;
+			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
+			var group = stateGroup.append("g")
+				.attr("id", action.id)
+				.attr("class", "process-action " + (action.minOccurs == 0 ? "optional" : ""))
+				
+			this.move(group, action.styling.x, action.styling.y);
+			
+			var rect = group.append("rect")
+				.attr("width", action.styling.width)
+				.attr("height", action.styling.height)
+				.attr("class", "process-action-rect background")
+				.attr("style", action.styling.css)
+				.attr("id", action.id + "-rect")
+				
+			// d3 does not use html dragging
+			group.node().addEventListener("mouseover", function(event) {
+				// if we are not dragging _this_ action, we highlight for a link
+				// note that we have to be in the same state for this to happen
+				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					rect.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				event.stopPropagation();
+			})
+			group.node().addEventListener("mouseleave", function(event) {
+				rect.node().classList.remove("drop-highlight");
+				if (self.linking.targetAction == action) {
+					self.linking.targetAction = null;
+				}
+				event.stopPropagation();
+			})
+
+			rect.on("click", function() {
+				self.select("action", action, function() {
+					// do nothing
+				});
+			})
+			
+			this.drawActionName(action);
+			this.drawActionSummary(action);
+				
+			/*
+			var name = group.append("text")
+				.text(action.name ? action.name : "Unnamed")
+				.attr("class", "process-action-name");
+				
+			// not sure why we need 20 in y-direction but not questioning it now...
+			this.move(name, 10, 20);
+			
+			if (action.summary) {
+				var totalSummary = group.append("text");
+				action.summary.split(/[\n]+/).forEach(function(part, index) {
+					var summary = totalSummary.append("tspan")
+						.text(part)
+						.attr("font-size", "smaller")
+						.attr("class", "process-action-summary")
+
+				})
+				self.move(totalSummary, 10, 40);		
+			}
+			*/
+			
+			this.autosizeState(state);
+			
+			// dragging
+			// to the right and bottom you make the state larger
+			self.draggable(group, function(target, event) {
+				var moved = false;
+				if (action.styling.x + event.dx >= 0) {
+					action.styling.x += event.dx;
+					moved = true;
+				}
+				if (action.styling.y + event.dy >= 0) {
+					action.styling.y += event.dy;
+					moved = true;
+				}
+				if (moved) {
+					self.autosizeState(state);
+					self.move(group, action.styling.x, action.styling.y);	
+					self.redrawImpactedRelations(action);
+				}
+			});
+			
+			// a resizing rectangle at the bottom right
+			var resizer = group.append("circle")
+				.attr("id", action.id + "-resizer")
+				.attr("class", "process-action-resizer resizer")
+				.attr("r", this.draggableOffset * 2)
+				.attr("cx", action.styling.width - this.draggableOffset)
+				.attr("cy", action.styling.height - this.draggableOffset)
+			
+			self.draggable(resizer, function(target, event) {
+				action.styling.width += event.dx;
+				action.styling.height += event.dy;
+				self.autosizeAction(action, state);
+			});
+			
+			/*
+			// a resizing rectangle at the bottom right
+			var mapper = group.append("circle")
+				.attr("r", 5)
+				.attr("id", action.id + "-mapper")
+				.attr("class", "process-action-mapper mapper")
+				.attr("cx", action.styling.width)
+				.attr("cy", action.styling.height / 2)
+			*/	
+			
+			this.drawActionMapper(action);
+			this.drawActionResultState(action);
+			this.drawActionReference(action);
+			this.drawActionTimeout(action);
+			this.drawActionAutomatic(action);
+			this.colorizeDefaultAction(action);
+		},
+		colorizeDefaultAction(action) {
+			var color = this.getColor(this.getThemeColor(action.actionType, action.styling.color));
+			var group = this.$refs.svg.getElementById(action.id);
+			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
+			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.border + "; stroke: " + color.border);
+			});
+			group.querySelectorAll(":scope > .automatic").forEach(function(element) {
+				element.setAttribute("style", "fill: white; stroke: " + color.border);
+			});
+			// a reference box
+			group.querySelectorAll(":scope > .reference > rect").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.text + "; stroke: " + color.border);
+			})
+			group.querySelectorAll(":scope > .reference > text").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.background);
+			})
+			// a timeout box
+			group.querySelectorAll(":scope > .timeout > rect").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.text + "; stroke: " + color.border);
+			})
+			group.querySelectorAll(":scope > .timeout > text").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.background);
+			})	
+		},
+		drawActionAutomatic: function(action) {
+			var existing = this.svg.node().getElementById(action.id + "-automatic");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			if (action.automatic) {
+				var triangleSize = this.triangleSize;
+				var group = d3.select(this.svg.node().getElementById(action.id));
+				var trianglePath = d3.path();
+				trianglePath.moveTo(0, (action.styling.height / 2) - triangleSize);
+				trianglePath.lineTo(triangleSize, action.styling.height / 2);
+				trianglePath.lineTo(0, (action.styling.height / 2) + triangleSize);
+				trianglePath.closePath();
+				
+				var mapper = group.append("path")
+					.attr("d", trianglePath)
+					.attr("id", action.id + "-automatic")
+					.attr("class", "automatic")
+			}
+		},
+		drawActionReference: function(action) {
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			
+			var reference = null;
+			var existing = this.svg.node().getElementById(action.id + "-reference");
+			if (existing) {
+				reference = d3.select(existing);
+			}
+			
+			if (action.reference) {
+				// new, draw it all
+				if (reference == null) {
+					reference = group.append("g")
+						.attr("class", "reference")
+						.attr("id", action.id + "-reference")
+					reference.append("rect")
+						// 4 px padding on each side
+						.attr("width", 8 + (action.reference.length * 8))
+						.attr("height", 14)
+						.attr("x", 0)
+						.attr("y", 0)
+					var referenceText = reference.append("text")
+						.text(action.reference)
+						.attr("font-size", "13px")
+					this.move(referenceText, 4, 11);
+				}
+				// just move it
+				this.move(reference, 0, action.styling.height);
+			}
+			else if (reference) {
+				d3.select(reference).remove();
+			}
+		},
+		drawActionTimeout: function(action) {
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			
+			var reference = null;
+			var existing = this.svg.node().getElementById(action.id + "-timeout");
+			if (existing) {
+				reference = d3.select(existing);
+			}
+			if (action.automatic && (action.delay || action.schedule)) {
+				if (reference == null) {
+					reference = group.append("g")
+						.attr("class", "timeout")
+						.attr("id", action.id + "-timeout")
+					var text = action.delay ? action.delay : action.schedule;
+					reference.append("rect")
+						// 4 px padding on each side
+						.attr("width", 8 + (text.length * 8))
+						.attr("height", 14)
+						.attr("x", 0)
+						.attr("y", 0)
+					var referenceText = reference.append("text")
+						.text(text)
+						.attr("font-size", "13px")
+					this.move(referenceText, 4, 11);
+				}
+				this.move(reference, 0, -14);
+			}
+			else if (reference) {
+				d3.select(reference).remove();
+			}
+		},
+		drawActionMapper: function(action) {
+			var self = this;
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			var existing = this.svg.node().getElementById(action.id + "-mapper");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			existing = this.svg.node().getElementById(action.id + "-stopper");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			// don't draw a mapper if it is a finalizer service!
+			if (!action.finalizer) {
+				var triangleSize = this.triangleSize;
+				var trianglePath = d3.path();
+				trianglePath.moveTo(action.styling.width, (action.styling.height / 2) - triangleSize);
+				trianglePath.lineTo(action.styling.width + triangleSize, action.styling.height / 2);
+				trianglePath.lineTo(action.styling.width, (action.styling.height / 2) + triangleSize);
+				trianglePath.closePath();
+					
+				var mapper = group.append("path")
+					.attr("d", trianglePath)
+					.attr("id", action.id + "-mapper")
+					.attr("class", "mapper")
+					
+				var state = this.getState(action.processStateId);
+				var line = null;
+				self.draggable(mapper, function(target, event) {
+					line.update(event);
+				}, function(target, event) {
+					// on start, create the line
+					line = self.drawActionConnecting(action, event);
+					self.linking.action = action;
+					self.linking.state = state;
+				}, function(target, event) {
+					// only within own state!
+					if (self.linking.targetAction && self.linking.targetAction.id != action.id && self.linking.targetAction.processStateId == action.processStateId) {
+						var relation = {
+							id: self.newId(),
+							actionId: action.id,
+							targetActionId: self.linking.targetAction.id,
+							relationType: "must"
+						};
+						self.model.actionRelations.push(relation);
+						self.drawActionRelation(relation);
+					}
+					else if (self.linking.state && self.linking.state.id != action.processStateId) {
+						action.resultStateId = self.linking.state.id;
+						self.drawActionResultState(action);
+					}
+					self.linking.action = null;
+					self.linking.state = null;
+					self.linking.targetAction = null;
+					
+					// make sure we don't have drop highlights anymore
+					self.svg.node().querySelectorAll(".drop-highlight").forEach(function(element) {
+						element.classList.remove("drop-highlight");
+					});
+					line.remove();
+				});
+				this.colorizeDefaultAction(action);
+				return mapper;
+			}
+			// for finalizers, we draw a rectangle to indicate it stops there
+			// DEPRECATED: finalizing services are replaced with dedicated finalizer actions
+			else {
+				group.append("rect")
+					.attr("fill", "black")
+					.attr("width", this.triangleSize)
+					.attr("height", this.triangleSize)
+					.attr("x", action.styling.width)
+					.attr("y", (action.styling.height / 2) - this.triangleSize / 2)
+					.attr("id", action.id + "-stopper")
+			}
+		},
+		
+		// ---------------------------------------- FINALIZER implementation
+		drawFinalizerAction: function(action) {
+			var self = this;
+			var state = this.getState(action.processStateId);
+			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
+			var group = stateGroup.append("g")
+				.attr("id", action.id)
+				.attr("class", "process-finalizer")
+				
+			this.move(group, action.styling.x, action.styling.y);
+			
+			var circle = group.append("circle")
+				.attr("r", action.styling.width / 2)
+				.attr("class", "background finalizer")
+				.attr("fill", "black")
+				.attr("id", action.id + "-figure")
+				.attr("cx", action.styling.width / 2)
+				.attr("cy",  action.styling.height / 2)
+				
+			// have a secondary circle inside
+			var circle2 = group.append("circle")
+				.attr("r", action.styling.width / 5)
+				.attr("class", "background-dark finalizer")
+				.attr("fill", "black")
+				.attr("id", action.id + "-figure2")
+				.attr("cx", action.styling.width / 2)
+				.attr("cy",  action.styling.height / 2)
+
+			// draw name
+			// the name is not split over multiple lines, use the summary for that!
+			var name = group.append("text")
+				.text(action.name ? action.name : "Unnamed")
+				//.attr("fill", "black")
+				.attr("font-size", "smaller")
+			// not sure why we need 20 in y-direction but not questioning it now...
+			this.move(name, 0, -10);
+				
+			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
+				
+			// d3 does not use html dragging
+			group.node().addEventListener("mouseover", function(event) {
+				// if we are not dragging _this_ action, we highlight for a link
+				// note that we have to be in the same state for this to happen
+				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					circle.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				event.stopPropagation();
+			});
+			
+			group.node().addEventListener("mouseleave", function(event) {
+				circle.node().classList.remove("drop-highlight");
+				if (self.linking.targetAction == action) {
+					self.linking.targetAction = null;
+				}
+				event.stopPropagation();
+			})
+
+			circle.on("click", function() {
+				self.select("action", action, function() {
+					// do nothing
+				});
+			})
+			
+			this.autosizeState(state);
+			
+			// dragging
+			// to the right and bottom you make the state larger
+			self.draggable(group, function(target, event) {
+				var moved = false;
+				if (action.styling.x + event.dx >= 0) {
+					action.styling.x += event.dx;
+					moved = true;
+				}
+				if (action.styling.y + event.dy >= 0) {
+					action.styling.y += event.dy;
+					moved = true;
+				}
+				if (moved) {
+					self.autosizeState(state);
+					self.move(group, action.styling.x, action.styling.y);	
+					self.redrawImpactedRelations(action);
+				}
+			});
+		},
+		
+		drawAnyAction: function(action) {
+			var self = this;
+			var state = this.getState(action.processStateId);
+			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
+			var group = stateGroup.append("g")
+				.attr("id", action.id)
+				.attr("class", "process-" + action.actionType)
+				
+			this.move(group, action.styling.x, action.styling.y);
+
+			var rect = group.append("rect")
+				.attr("width", action.styling.width)
+				.attr("height", action.styling.height)
+				.attr("class", "background selectable " + action.actionType)
+				.attr("id", action.id + "-rect")
+				// the counter translation is because we can't set a correct transform-origin (??) so instead we move it a bit because it rotates top left
+				// never mind...
+				//.attr("transform", "translate(15px, -6px) rotate(45deg)")
+				
+			// draw name
+			// the name is not split over multiple lines, use the summary for that!
+			if (action.name) {
+				var name = group.append("text")
+					.text(action.name ? action.name : "Unnamed")
+					//.attr("fill", "black")
+					.attr("font-size", "smaller")
+				// not sure why we need 20 in y-direction but not questioning it now...
+				this.move(name, 0, -10);
+			}
+				
+			
+			var name = group.append("text")
+				.text(action.actionType.toUpperCase())
+				.attr("font-size", "x-small")
+				
+			this.move(name, 5, 18);
+				
+			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
+				
+			// d3 does not use html dragging
+			group.node().addEventListener("mouseover", function(event) {
+				// if we are not dragging _this_ action, we highlight for a link
+				// note that we have to be in the same state for this to happen
+				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					rect.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				event.stopPropagation();
+			});
+			
+			group.node().addEventListener("mouseleave", function(event) {
+				rect.node().classList.remove("drop-highlight");
+				if (self.linking.targetAction == action) {
+					self.linking.targetAction = null;
+				}
+				event.stopPropagation();
+			})
+
+			rect.on("click", function() {
+				self.select("action", action, function() {
+					// do nothing
+				});
+			})
+			
+			this.drawActionMapper(action);
+			this.autosizeState(state);
+			
+			// dragging
+			// to the right and bottom you make the state larger
+			self.draggable(group, function(target, event) {
+				var moved = false;
+				if (action.styling.x + event.dx >= 0) {
+					action.styling.x += event.dx;
+					moved = true;
+				}
+				if (action.styling.y + event.dy >= 0) {
+					action.styling.y += event.dy;
+					moved = true;
+				}
+				if (moved) {
+					self.autosizeState(state);
+					self.move(group, action.styling.x, action.styling.y);	
+					self.redrawImpactedRelations(action);
+				}
+			});
 		}
 	}
 })

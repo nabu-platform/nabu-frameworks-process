@@ -31,7 +31,7 @@ text {
 }
 
 .drop-highlight {
-	stroke-width: 3;
+	stroke-width: 4 !important;
 }
 
 .process-state:not(.selected) .process-state-rect {
@@ -45,6 +45,10 @@ text {
 	stroke-width: 2;
 }
 .process-action.selected .process-action-rect {
+	stroke-width: 4;
+}
+
+.selected > .selectable {
 	stroke-width: 4;
 }
 
@@ -66,5 +70,13 @@ text {
 	stroke-dasharray: 3;
 }
 .relation.type-can {
+	stroke-dasharray: 3;
+}
+
+.finalizer, .any, .all {
+	stroke-width: 2;
+}
+
+.any {
 	stroke-dasharray: 3;
 }
