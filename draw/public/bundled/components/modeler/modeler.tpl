@@ -39,7 +39,9 @@
 					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
 				</div>
 				<div v-else-if="selected.type == 'actionRelation'" class="is-column is-spacing-gap-medium">
-					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="['must', 'must-not', 'can']" @input="draw"/>
+					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="['flow', 'limit', 'not']" @input="draw"/>
+					<n-form-text v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" v-if="selected.target.relationType == 'flow'" @input="draw" :timeout="600"/>
+					<n-form-switch v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition && selected.target.relationType == 'flow'" @input="draw"/>
 				</div>
 				<div v-else-if="selected.type == 'state'" class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="selected.target.name" label="State name" @input="draw" after="A short name for this state"/>

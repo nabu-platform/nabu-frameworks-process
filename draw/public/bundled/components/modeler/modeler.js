@@ -40,7 +40,8 @@ Vue.view("process-modeler-component", {
 				any: "black",
 				all: "black",
 				finalizer: "black",
-				connector: "blue"
+				connector: "blue",
+				condition: "black"
 			}, {
 				name: "black",
 				state: "black",
@@ -48,7 +49,8 @@ Vue.view("process-modeler-component", {
 				any: "black",
 				all: "black",
 				finalizer: "black",
-				connector: "black"
+				connector: "black",
+				condition: "black"
 			}],
 			colors: [{
 				name: "blue",
@@ -123,7 +125,6 @@ Vue.view("process-modeler-component", {
 		},
 		connectorColor: function() {
 			var color = this.getColor(this.getThemeColor("connector"));
-			console.log("color is", color);
 			return color.border;
 		}
 	},
@@ -155,6 +156,11 @@ Vue.view("process-modeler-component", {
 					if (!result.actionRelations) {
 						result.actionRelations = [];
 					}
+					else {
+						result.actionRelations.forEach(function(relation) {
+							relation.styling = relation.style ? JSON.parse(relation.style) : {}
+						});
+					}
 					// initialize some variables
 					if (!result.states) {
 						result.states = [];
@@ -185,6 +191,9 @@ Vue.view("process-modeler-component", {
 						action.style = JSON.stringify(action.styling);
 					});
 				});
+				this.model.actionRelations.forEach(function(relation) {
+					relation.style = JSON.stringify(relation.styling);
+				})
 				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.update", { processId: this.model.id, body: this.model }).then(function() {
 					self.$services.notifier.push({message: "Saved process " + self.model.name});
 					self.saving = false;
@@ -824,6 +833,15 @@ Vue.view("process-modeler-component", {
 			if (existing) {
 				d3.select(existing).remove();
 			}
+			existing = this.svg.node().getElementById(relation.id + "-condition");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			existing = this.svg.node().getElementById(relation.id + "-condition-text");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			
 			
 			var action = this.getAction(relation.actionId);
 			var targetAction = this.getAction(relation.targetActionId);
@@ -898,7 +916,51 @@ Vue.view("process-modeler-component", {
 				self.select("actionRelation", relation, function() {
 					path.node().style.strokeWidth = 2;	
 				});
-			})
+			});
+			
+			if (relation.condition) {
+				// calculate the mid point of the middle line part
+				// this is the least likely to conflict with other lines visually
+				if (to.side == "top" || to.side == "bottom") {
+					var y = points[2].y;
+					var xFactor = Math.abs(points[2].x - points[1].x) / 2;
+					var x = Math.max(points[2].x, points[1].x) - xFactor;
+				}
+				else {
+					var x = points[2].x;
+					var yFactor = Math.abs(points[2].y - points[1].y) / 2;
+					var y = Math.max(points[2].y, points[1].y) - yFactor;
+				}
+				var color = this.getColor(this.getThemeColor("condition"));
+				var condition = d3.select(stateGroup).append("rect")
+					.attr("id", relation.id + "-condition")
+					.attr("x", x - 5)
+					.attr("y", y - 5)
+					.attr("fill", color.border)
+					.attr("stroke", color.border)
+					.attr("width", 10)
+					.attr("height", 10)
+					
+				var conditionText = d3.select(stateGroup).append("text")
+					.attr("id", relation.id + "-condition-text")
+					.text(relation.condition)
+					.attr("font-size", "x-small")
+					.attr("x", x + 10)
+					.attr("y", y + 3)
+					.attr("fill", color.text)
+					
+				// if we don't want to show the condition permanently, hide it until hover over rectangle
+				if (!relation.styling.showCondition) {
+					conditionText.node().style.display = "none";
+					condition.node().addEventListener("mouseenter", function() {
+						conditionText.node().style.display = "block";
+					});
+					condition.node().addEventListener("mouseleave", function() {
+						conditionText.node().style.display = "none";
+					});
+				}
+					
+			}
 		},
 		drawActionConnecting: function(actionFrom, event) {
 			var group = d3.select(this.$refs.svg.getElementById(actionFrom.id));
@@ -1360,7 +1422,7 @@ Vue.view("process-modeler-component", {
 							id: self.newId(),
 							actionId: action.id,
 							targetActionId: self.linking.targetAction.id,
-							relationType: "must"
+							relationType: "flow"
 						};
 						self.model.actionRelations.push(relation);
 						self.drawActionRelation(relation);
