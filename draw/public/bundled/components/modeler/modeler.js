@@ -32,11 +32,12 @@ Vue.view("process-modeler-component", {
 				state: null,
 				targetAction: null
 			},
-			theme: "basic",
 			themes: [{
 				name: "basic",
 				state: "basic",
 				service: "blue",
+				event: "yellow",
+				signal: "green",
 				any: "black",
 				all: "black",
 				finalizer: "black",
@@ -46,6 +47,8 @@ Vue.view("process-modeler-component", {
 				name: "black",
 				state: "black",
 				service: "black",
+				event: "yellow",
+				signal: "green",
 				any: "black",
 				all: "black",
 				finalizer: "black",
@@ -77,6 +80,16 @@ Vue.view("process-modeler-component", {
 				border: "black",
 				background: "white",
 				text: "black"
+			}, {
+				name: "yellow",
+				border: "#d0c500",
+				background: "#FFFAA0",
+				text: "#a69d00"
+			}, {
+				name: "green",
+				border: "#7cb987",
+				background: "#d7e9da",
+				text: "#3d7348"
 			}],
 			// the offset of the draggable rectangle to resize
 			draggableOffset: 2,
@@ -193,7 +206,15 @@ Vue.view("process-modeler-component", {
 				});
 				this.model.actionRelations.forEach(function(relation) {
 					relation.style = JSON.stringify(relation.styling);
-				})
+				});
+				var svg = document.createElement("div");
+				// make a clone
+				svg.innerHTML = this.$refs.svg.outerHTML;
+				svg.querySelectorAll(".hitbox").forEach(function(element) {
+					element.parentNode.removeChild(element);
+				});
+				this.model.svg = svg.innerHTML;
+				
 				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.update", { processId: this.model.id, body: this.model }).then(function() {
 					self.$services.notifier.push({message: "Saved process " + self.model.name});
 					self.saving = false;
@@ -213,7 +234,7 @@ Vue.view("process-modeler-component", {
 				description: null,
 				states: [],
 				actionRelations: [],
-				styling: null
+				styling: {}
 			};
 			// for the first version, these are in sync
 			model.processId = model.id;
@@ -303,6 +324,8 @@ Vue.view("process-modeler-component", {
 							cloned.resultStateId = null;
 							self.autosizeState(self.selected.target);
 							self.drawAction(cloned);
+							// don't do again!
+							self.copied.type = null;
 						}
 					}
 				}
@@ -512,8 +535,12 @@ Vue.view("process-modeler-component", {
 				return override;
 			}
 			var self = this;
+			var currentTheme = self.model.styling.theme;
+			if (!currentTheme) {
+				currentTheme = "basic";
+			}
 			var current = this.themes.filter(function(theme) {
-				return theme.name == self.model.styling.theme;
+				return theme.name == currentTheme;
 			})[0];
 			return current && current[type] ? current[type] : "basic";
 		},
@@ -618,8 +645,8 @@ Vue.view("process-modeler-component", {
 			}
 		},
 		drawAction: function(action) {
-			if (action.actionType == null || action.actionType == "service") {
-				this.drawServiceAction(this.getState(action.processStateId), action);
+			if (action.actionType == null || action.actionType == "service" || action.actionType == "event" || action.actionType == "signal") {
+				this.drawMainAction(this.getState(action.processStateId), action);
 			}
 			else if (action.actionType == "finalizer") {
 				this.drawFinalizerAction(action);
@@ -804,6 +831,7 @@ Vue.view("process-modeler-component", {
 				// draw a secondary invisible path purely for click purposes
 				var hitbox = this.svg.append("path")
 					.attr("id", id + "-hitbox")
+					.attr("class", "hitbox")
 					.attr("stroke-width", 15)
 					.attr("fill", "none")
 					.attr("stroke", "transparent")
@@ -816,8 +844,8 @@ Vue.view("process-modeler-component", {
 					});
 				});
 				
-				path.raise();
 				hitbox.raise();
+				path.raise();
 			}
 		},
 		// can only be drawn if the actions are already drawn!
@@ -907,6 +935,7 @@ Vue.view("process-modeler-component", {
 			var hitbox = d3.select(stateGroup).append("path")
 				.attr("id", relation.id + "-hitbox")
 				.attr("stroke-width", 15)
+				.attr("class", "hitbox")
 				.attr("fill", "none")
 				.attr("stroke", "transparent")
 				.attr("d", generator(points))
@@ -1104,16 +1133,16 @@ Vue.view("process-modeler-component", {
 		addState: function() {
 			// get the max x (+ width) so far, move to the side of that
 			var furthest = this.model.states.reduce(function(current, state) {
-				return Math.max(current, state.styling.x + state.styling.width);
+				return Math.max(current, state.styling.y + state.styling.height);
 			}, 0);
 			var state = {
 				processDefinitionId: this.model.id,
 				name: this.model.states.length == 0 ? "Initial" : "Unnamed",
 				initial: this.model.states.length == 0,
 				styling: {
-					color: "basic",
-					x: furthest + (this.gridSize * 4),
-					y: this.gridSize * 2,
+					color: null,
+					x: (this.gridSize * 4),
+					y: furthest + (this.gridSize * 2),
 					width: this.gridSize * 24,
 					height: this.gridSize * 20
 				},
@@ -1156,7 +1185,7 @@ Vue.view("process-modeler-component", {
 			
 			this.colorizeDefaultAction(action);
 		},
-		drawServiceAction: function(state, action) {
+		drawMainAction: function(state, action) {
 			var self = this;
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
 			var group = stateGroup.append("g")

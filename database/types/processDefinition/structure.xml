@@ -9,4 +9,5 @@
     <field comment="When was this version released to be active? Only one version of a process should be active" minOccurs="0" name="released" timezone="UTC" type="java.util.Date"/>
     <field comment="When was it deprecated in favor of a newer version?" minOccurs="0" name="deprecated" timezone="UTC" type="java.util.Date"/>
     <field minOccurs="0" name="style" type="java.lang.String"/>
+    <field comment="Latest drawn svg" minOccurs="0" name="svg" type="java.lang.String"/>
 </structure>
