@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:14:23.462+01:00" lastModified="2023-01-28T17:43:21.336+01:00" leaf="true" version="6">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.misc.auditing.Services.unauditService</references>
+    <references>nabu.frameworks.process.specs.action.stopListener</references>
+    <references>java.lang.Object</references>
+    <references>nabu.frameworks.process.providers.action.service.registerInput</references>
+</node>

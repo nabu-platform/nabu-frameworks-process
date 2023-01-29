@@ -1,0 +1,6 @@
+<structure name="pipeline">
+    <structure name="input">
+        <structure definition="java.lang.Object" minOccurs="0" name="properties"/>
+    </structure>
+    <structure name="output"/>
+</structure>

@@ -1,0 +1,6 @@
+<structure interface="nabu.frameworks.process.specs.action.stopListener" name="pipeline">
+    <structure name="input" restrict="properties">
+        <structure definition="nabu.frameworks.process.providers.action.service.registerInput" name="properties"/>
+    </structure>
+    <structure name="output"/>
+</structure>

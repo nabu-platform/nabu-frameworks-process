@@ -8,4 +8,5 @@
     <field comment="The user that kickstarted it, can be used for automatic lookup" minOccurs="0" name="userId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="A device id to couple, can be used for automatic lookup like correlation id" minOccurs="0" name="deviceId" type="java.lang.String"/>
     <field comment="The session that started it (again automatic lookup)" minOccurs="0" name="sessionId" type="java.lang.String"/>
+    <field comment="RUNNING, SUCCEEDED, FAILED, ERROR, CANCELLED" name="processState" type="java.lang.String"/>
 </structure>

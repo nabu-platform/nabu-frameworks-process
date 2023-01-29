@@ -9,7 +9,6 @@
     <field minOccurs="0" name="userId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field minOccurs="0" name="deviceId" type="java.lang.String"/>
     <field minOccurs="0" name="sessionId" type="java.lang.String"/>
-    <field comment="When a new parent action is started, we tend to lock previous instances (AND their children) to prevent state confusion." name="locked" type="java.lang.Boolean"/>
-    <field comment="The state of the action, e.g. CREATED, RUNNING, FAILED, SUCCEEDED,... (created is for async tasks etc)" name="state" type="java.lang.String"/>
+    <field comment="The state of the action,  RUNNING, ERROR, FAILED, SUCCEEDED,... (created is for async tasks etc)" name="processState" type="java.lang.String"/>
     <field comment="If this action was triggered DURING the parent action, it can suffer from rollbacks etc." name="nested" type="java.lang.Boolean"/>
 </structure>

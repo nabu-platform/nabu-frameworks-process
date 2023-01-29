@@ -10,4 +10,5 @@
     <field comment="When was it deprecated in favor of a newer version?" minOccurs="0" name="deprecated" timezone="UTC" type="java.util.Date"/>
     <field minOccurs="0" name="style" type="java.lang.String"/>
     <field comment="Latest drawn svg" minOccurs="0" name="svg" type="java.lang.String"/>
+    <field comment="Defaults are: correlationId, userId, deviceId, sessionId, custom. Once custom you need to set up captures." minOccurs="0" name="identificationType" type="java.lang.String"/>
 </structure>

@@ -17,6 +17,13 @@ If we don't have a capturing identifier in the before phase, we only execute at 
 
 An action WITHOUT an identifier is worthless (?) though we have some automatic identifiers like correlation, device,...
 
+## No good identifier
+
+The process framework is designed to be able to wrap around "naturally occuring service interactions" that are not specifically designed to be handled by the process engine.
+However, in some cases you _do_ want to be more specific and make sure everything belongs to the same process.
+You can't really get the process instance id itself, but you can invent your own unique id to be matched with a unique process instance id, so just use the uuid generation service in combination with custom identification.
+On the plus side, the code keeps working with or without the process engine.
+
 ## Nesting
 
 Some actions can be nested, for example we offer a rest service as an API. It is called and actually executes 3 steps.

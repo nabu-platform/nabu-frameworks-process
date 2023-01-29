@@ -1,0 +1,16 @@
+Input captures can be used to identify a running process.
+Output captures can be used to enrich a running process (also for further identifiers for subsequent input captures).
+
+Processes are started on output and pushed further on input.
+
+
+
+We generally scope transactions because we want the logging to appear, even if the service fails.
+Note that when pushing multiple processes, they are either all committed or all rolled back. Suppose 2 processes allow it to continue, but a third process blocks the service call, we don't want to see start logs in the other 2.
+
+
+We could do an insert when the action starts and an update when it ends, this has two disadvantages though:
+- we have two database actions, especially the update can incur some overhead
+- if the server fails, we have things that need to be rolled back.
+
+For simplicity sake, we are opting to only do an insert when the service is done currently.

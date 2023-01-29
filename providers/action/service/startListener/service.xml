@@ -1,0 +1,50 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="3070d1ac9bb3492cb6af79e6ed87718a"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="7c2592492971499a9f1d083a48e22091"
+			label="input/properties/serviceId != null"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="256c81fb0aee4f2aab87bde2be693d4b"
+				serviceId="nabu.misc.auditing.Services.auditService"
+				resultName="resultecbb693207534939ac6792e148aa887d"
+				temporaryMapping="true"
+				x="278"
+				y="87"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="695ec171ee3d46bbb51c7733c88c1414"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/properties/serviceId</from>
+				<to>serviceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5edf4f28037a45c59d340ffb2634ba87"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>nabu.frameworks.process.providers.action.service.tracker</from>
+				<to>auditServiceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5504c0605a8e455fa34f2a6f6585de70"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>false</from>
+				<to>recursive</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

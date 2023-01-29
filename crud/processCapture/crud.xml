@@ -6,6 +6,14 @@
     <coreType>nabu.frameworks.process.database.types.processCapture</coreType>
     <createRole>$user</createRole>
     <deleteRole>$user</deleteRole>
+    <filters>
+        <caseInsensitive>false</caseInsensitive>
+        <key>processActionId</key>
+        <operator>=</operator>
+        <or>false</or>
+        <input>true</input>
+        <vary>false</vary>
+    </filters>
     <hooks>false</hooks>
     <listRole>$user</listRole>
     <provider>nabu.services.crud.provider.basic.provider</provider>
