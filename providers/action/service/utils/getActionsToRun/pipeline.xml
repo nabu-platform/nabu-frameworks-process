@@ -3,11 +3,12 @@
         <field minOccurs="0" name="serviceId" type="java.lang.String"/>
         <structure definition="be.nabu.libs.authentication.api.Token" minOccurs="0" name="token"/>
         <structure definition="be.nabu.libs.authentication.api.Device" minOccurs="0" name="device"/>
+        <field comment="You can pass in a custom correlation id, this can be useful for example for asynchronous tasks that have still be bound correctly" minOccurs="0" name="correlationId" type="java.lang.String"/>
     </structure>
-    <structure name="output"/>
-    <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="potentialActions"/>
+    <structure name="output">
+        <structure definition="nabu.frameworks.process.providers.action.service.utils.actionInstance" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
+    </structure>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="identifiers"/>
-    <field name="capturedValue" type="java.lang.String"/>
     <field maxOccurs="unbounded" minOccurs="0" name="runnableStates" type="java.lang.String"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="runningProcesses"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="processDataInstances"/>
@@ -19,4 +20,9 @@
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="finishedIncomingActions"/>
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="finishedOutgoingActions"/>
     <field minOccurs="0" name="amountOfTimesRun" type="java.lang.Integer"/>
+    <field minOccurs="0" name="amountOfIdentifiers" type="java.lang.Integer"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.groupedProcessData" maxOccurs="unbounded" name="groupedProcessDataInstances"/>
+    <field minOccurs="0" name="amountOfDataMatches" type="java.lang.Integer"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.actionInstance" maxOccurs="unbounded" minOccurs="0" name="plannedActions"/>
+    <field comment="If we want to start a new process, this is the id. We can already start referencing it" minOccurs="0" name="newProcessInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
 </structure>

@@ -1,0 +1,6 @@
+This service will fail if it is not allowed to actually run this action.
+
+We want to allow service nesting where a parent service is the trigger and we want to track specific child services.
+But because the parent is still ongoing by the time we get to the child, there will be no entry in the database (nor even a process instance in the case of a root service)
+
+It should not be "reverse" in that a future action is running before this one. That would make the process weird.

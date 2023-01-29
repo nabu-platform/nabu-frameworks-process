@@ -15,4 +15,5 @@
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="finishedIncomingActions"/>
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="finishedOutgoingActions"/>
     <field minOccurs="0" name="amountOfTimesRun" type="java.lang.Integer"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.actionInstance" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
 </structure>

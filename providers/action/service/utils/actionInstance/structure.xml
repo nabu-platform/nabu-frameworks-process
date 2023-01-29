@@ -1,0 +1,4 @@
+<structure name="actionInstance" superType="nabu.frameworks.process.providers.action.service.utils.action">
+    <field comment="Not sure if this can _ever_ be a list? An action is limited to a single process anyway, so we would need two simultaneous processes?" maxOccurs="unbounded" minOccurs="0" name="processInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field comment="If we want to start a new process, this is the id. We can already start referencing it" minOccurs="0" name="newProcessInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+</structure>
