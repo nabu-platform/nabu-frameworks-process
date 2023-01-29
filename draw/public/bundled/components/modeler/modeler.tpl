@@ -5,9 +5,10 @@
 				<ul class="is-menu is-variant-toolbar is-align-center">
 					<li class="is-column"><button @click="startNewModel" class="is-button is-variant-primary is-size-small"><icon name="plus"/><span class="is-text">New process</span></button></li>
 				</ul>
-				<div v-for="process in processes" class="is-row is-spacing-medium">
+				<div v-for="process in processes" class="is-row is-spacing-medium is-align-cross-center">
 					<span class="is-text">{{process.name}}</span>
-					<button class="is-button is-variant-primary-outline is-size-small is-position-right" @click="loadProcess(process.id)">Edit</button>
+					<span class="is-badge">v{{process.editableVersion}}</span>
+					<button class="is-button is-variant-primary-outline is-size-small is-position-right" v-if="process.editableVersionId" @click="loadProcess(process.editableVersionId)">Edit</button>
 				</div>
 			</div>
 		</template>
@@ -61,7 +62,7 @@
 					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
 				</div>
 				<div v-else-if="selected.type == 'actionRelation'" class="is-column is-spacing-gap-medium">
-					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="['flow', 'limit', 'not']" @input="draw"/>
+					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="['flow', 'limit']" @input="draw"/>
 					<n-form-text v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" v-if="selected.target.relationType == 'flow'" @input="draw" :timeout="600"/>
 					<n-form-switch v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition && selected.target.relationType == 'flow'" @input="draw"/>
 				</div>

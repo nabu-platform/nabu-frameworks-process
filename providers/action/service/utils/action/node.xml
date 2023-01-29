@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-29T08:11:12.386+01:00" lastModified="2023-01-29T08:25:48.424+01:00" leaf="true" version="6">
+<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-29T08:11:12.386+01:00" lastModified="2023-01-29T16:08:48.640+01:00" leaf="true" version="8">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.database.types.processAction</references>
     <references>nabu.frameworks.process.database.types.processState</references>
-    <references>nabu.frameworks.process.database.types.processDefinition</references>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
     <references>nabu.frameworks.process.database.types.processCapture</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>
 </node>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cache>
     <cacheProvider>nabu.frameworks.process.providers.action.service.utils.memoryCache</cacheProvider>
-    <service>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</service>
+    <service>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</service>
     <enableInDevelopment>false</enableInDevelopment>
 </cache>

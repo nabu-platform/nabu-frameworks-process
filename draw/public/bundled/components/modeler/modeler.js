@@ -155,16 +155,16 @@ Vue.view("process-modeler-component", {
 		},
 		loadProcesses: function() {
 			var self = this;
-			this.$services.swagger.execute("nabu.frameworks.process.crud.processDefinition.services.list", {editable:true}).then(function(available) {
+			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.list", {enabled:true}).then(function(available) {
 				self.processes.splice(0);
-				if (available.results) {
-					nabu.utils.arrays.merge(self.processes, available.results);
+				if (available.definitions) {
+					nabu.utils.arrays.merge(self.processes, available.definitions);
 				}
 			});
 		},
-		loadProcess: function(processId) {
+		loadProcess: function(processVersionId) {
 			var self = this;
-			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.get", { processId: processId }).then(function(result) {
+			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.get", { processVersionId: processVersionId }).then(function(result) {
 				if (result) {
 					result.styling = result.style ? JSON.parse(result.style) : {};
 					if (!result.actionRelations) {
@@ -197,6 +197,7 @@ Vue.view("process-modeler-component", {
 			var self = this;
 			if (this.model && !this.saving) {
 				this.saving = true;
+				this.model.modified = new Date();
 				this.model.style = JSON.stringify(this.model.styling);
 				// serialize styling information!
 				this.model.states.forEach(function(state) {
@@ -216,7 +217,7 @@ Vue.view("process-modeler-component", {
 				});
 				this.model.svg = svg.innerHTML;
 				
-				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.update", { processId: this.model.id, body: this.model }).then(function() {
+				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.update", { processVersionId: this.model.id, body: this.model }).then(function() {
 					self.$services.notifier.push({message: "Saved process " + self.model.name});
 					self.saving = false;
 				}, function(error) {
@@ -238,7 +239,8 @@ Vue.view("process-modeler-component", {
 				styling: {}
 			};
 			// for the first version, these are in sync
-			model.processId = model.id;
+			model.processDefinitionId = model.id;
+			model.modified = new Date();
 			Vue.set(this, "model", model);
 			// need to first render the svg element before we can start drawing
 			Vue.nextTick(this.draw);
@@ -1072,6 +1074,13 @@ Vue.view("process-modeler-component", {
 						}
 					})
 				})
+				// remove any relationships linked to actions within this state
+				var actionIds = this.selected.target.actions.map(function(action) { return action.id });
+				this.model.actionRelations.filter(function(x) {
+					return actionIds.indexOf(x.actionId) >= 0 || actionIds.indexOf(x.targetActionId) >= 0;
+				}).forEach(function(relationToRemove) {
+					self.model.actionRelations.splice(self.model.actionRelations.indexOf(relationToRemove), 1);
+				})
 			}
 			else if (this.selected.type == "action" && this.selected.target) {
 				var state = this.getState(this.selected.target.processStateId);
@@ -1153,7 +1162,7 @@ Vue.view("process-modeler-component", {
 				return Math.max(current, state.styling.y + state.styling.height);
 			}, 0);
 			var state = {
-				processDefinitionId: this.model.id,
+				processVersionId: this.model.id,
 				name: this.model.states.length == 0 ? "Initial" : "Unnamed",
 				initial: this.model.states.length == 0,
 				styling: {
@@ -1469,7 +1478,7 @@ Vue.view("process-modeler-component", {
 							id: self.newId(),
 							actionId: action.id,
 							targetActionId: self.linking.targetAction.id,
-							relationType: "flow"
+							relationType: event.sourceEvent.ctrlKey ? "limit" :"flow"
 						};
 						self.model.actionRelations.push(relation);
 						self.drawActionRelation(relation);

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-01-29T16:03:38.197+01:00" lastModified="2023-01-29T16:26:35.527+01:00" leaf="true" version="17">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processVersion.services.list</references>
+    <references>nabu.frameworks.process.manage.rest.process.processDefinitionList</references>
+    <references>nabu.frameworks.process.crud.processDefinition.services.list</references>
+    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
+</node>

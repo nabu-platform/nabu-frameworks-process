@@ -1,0 +1,4 @@
+<structure name="processDefinitionList">
+    <structure definition="nabu.frameworks.process.manage.rest.process.processDefinition" maxOccurs="unbounded" minOccurs="0" name="definitions"/>
+    <structure definition="be.nabu.eai.module.services.crud.Page" minOccurs="0" name="page"/>
+</structure>

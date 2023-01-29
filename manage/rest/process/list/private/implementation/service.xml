@@ -1,0 +1,197 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="4b80269f698b4b1e94ba0ea20efaded8"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="ab94c098dbb44abe98f19dab6c626e39"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="da11aaa1b95041a4a0076a9abde7b746"
+				serviceId="nabu.frameworks.process.crud.processDefinition.services.list"
+				resultName="resultdfd8b5ef6b5446bf92945ce0fd797bd6"
+				temporaryMapping="true"
+				x="21"
+				y="26"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8cc9856b7bb8456987ef7a4987b8d3e4"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/query/limit</from>
+				<to>limit</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ed202aa6821045ae87a63edb3497e59d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/query/offset</from>
+				<to>offset</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a8e5c661de954e61983f172b0dab807b"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/query/orderBy</from>
+				<to>orderBy</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e5d06892f6244604a5c92a77d44082c8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/query/enabled</from>
+				<to>filter/enabled</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b1a6328e92a1417e966426514fc2e791"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/query/q</from>
+				<to>filter/q</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="f90fc7dba4e84e93a5d0cff6b484d5d0"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultdfd8b5ef6b5446bf92945ce0fd797bd6/page</from>
+			<to>output/content/page</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="2e14bae197034cfc9fe4e3417dc718db"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultdfd8b5ef6b5446bf92945ce0fd797bd6/results</from>
+			<to>output/content/definitions</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="05141a758cf1435a8b6a2c97b7d0ad79"
+			label="output/content/definitions"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="b47068bfee4540048ec0ea9e073504a6"
+				serviceId="nabu.frameworks.process.crud.processVersion.services.list"
+				resultName="result4045841b79234b779eb03c5bfd23da19"
+				temporaryMapping="true"
+				x="233"
+				y="126"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="126e1586229e43019f3f47eb5e9274cd"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/active</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b39de3c301e24819af3f80f88fa39a5f"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>output/content/definitions/id</from>
+				<to>filter/processDefinitionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="b6580e1c1d4a4339a3dc43a6435ea53f"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result4045841b79234b779eb03c5bfd23da19/results</from>
+			<to>versions</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="e96fadead3c54904b3e40417db7b5e3b"
+			lineNumber="4"
+			variable="definition">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get editable and released"
+				disabled="false"
+				id="0624eeaf6b484250947f3a068ae0fc7d"
+				lineNumber="5">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e57109f9edee493a848ca8ef77b4a94c"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>versions[processDefinitionId == /definition/id &amp;&amp; released == null]</from>
+				<to>editableVersion</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="d1e6a557876d4dbcb4e4eb4501ab89b6"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>versions[processDefinitionId == /definition/id &amp;&amp; released != null]</from>
+				<to>releasedVersion</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="78f7f6f0178f4e089ce4401f348b92aa"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>releasedVersion/id</from>
+				<to>definition/releasedVersionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="943687f821674373995147d5575110ff"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>releasedVersion/version</from>
+				<to>definition/releasedVersion</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="327388cc2dec498fb6326295fcb4698a"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>editableVersion/version</from>
+				<to>definition/editableVersion</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="09afa7f00b8a49c18ebe8ebff30a25fe"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>editableVersion/id</from>
+				<to>definition/editableVersionId</to>
+			</steps>
+		</steps>
+		<query>output/content/definitions</query>
+	</steps>
+</sequence>

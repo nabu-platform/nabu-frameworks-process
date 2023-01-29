@@ -2,9 +2,8 @@
 <dataModel>
     <entries>
         <synchronize>true</synchronize>
-        <type>nabu.frameworks.process.database.types.processDefinition</type>
-        <x>106</x>
-        <y>171</y>
+        <x>88</x>
+        <y>274</y>
     </entries>
     <entries>
         <synchronize>true</synchronize>
@@ -65,5 +64,28 @@
         <type>nabu.frameworks.process.database.types.processInstanceLog</type>
         <x>502</x>
         <y>1165</y>
+    </entries>
+    <entries>
+        <synchronize>true</synchronize>
+        <x>109</x>
+        <y>95</y>
+    </entries>
+    <entries>
+        <synchronize>true</synchronize>
+        <type>nabu.frameworks.process.database.types.processDefinition</type>
+        <x>43</x>
+        <y>22</y>
+    </entries>
+    <entries>
+        <synchronize>true</synchronize>
+        <type>nabu.frameworks.process.database.types.processVersion</type>
+        <x>117</x>
+        <y>287</y>
+    </entries>
+    <entries>
+        <synchronize>true</synchronize>
+        <type>nabu.frameworks.process.database.types.processActionRelationInstance</type>
+        <x>1497</x>
+        <y>741</y>
     </entries>
 </dataModel>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.data.model.DataModelManager" created="2023-01-26T09:32:09.066+01:00" lastModified="2023-01-29T09:26:47.555+01:00" leaf="true" version="88">
+<node artifactManager="be.nabu.eai.module.data.model.DataModelManager" created="2023-01-26T09:32:09.066+01:00" lastModified="2023-01-29T16:47:19.477+01:00" leaf="true" version="103">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.database.types.processDefinition</references>
     <references>nabu.frameworks.process.database.types.processInstance</references>
     <references>nabu.frameworks.process.database.types.processState</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
@@ -15,4 +14,7 @@
     <references>nabu.frameworks.process.database.types.processStateInstance</references>
     <references>nabu.frameworks.process.database.types.processActor</references>
     <references>nabu.frameworks.process.database.types.processInstanceLog</references>
+    <references>nabu.frameworks.process.database.types.processDefinition</references>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
+    <references>nabu.frameworks.process.database.types.processActionRelationInstance</references>
 </node>

@@ -8,7 +8,7 @@
     <deleteRole>$user</deleteRole>
     <filters>
         <caseInsensitive>false</caseInsensitive>
-        <key>processDefinitionId</key>
+        <key>processVersionId</key>
         <operator>=</operator>
         <or>false</or>
         <input>true</input>

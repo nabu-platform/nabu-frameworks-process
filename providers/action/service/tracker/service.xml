@@ -31,7 +31,7 @@
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="7f4923fe9caf4213b466180f429cc63a"
-								serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialActions"
+								serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions"
 								resultName="result5f3be2658f1b4c1dac990d754c7b7711"
 								temporaryMapping="true"
 								x="75"

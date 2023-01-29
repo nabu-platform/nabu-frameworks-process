@@ -1,0 +1,6 @@
+<structure name="processDefinition" superType="nabu.frameworks.process.crud.processDefinition.types.output">
+    <field name="editableVersion" type="java.lang.Long"/>
+    <field name="editableVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field minOccurs="0" name="releasedVersion" type="java.lang.Long"/>
+    <field minOccurs="0" name="releasedVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+</structure>
