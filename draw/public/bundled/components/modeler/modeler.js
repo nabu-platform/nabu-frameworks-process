@@ -1216,7 +1216,7 @@ Vue.view("process-modeler-component", {
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
 			var group = stateGroup.append("g")
 				.attr("id", action.id)
-				.attr("class", "process-action " + (action.minOccurs == 0 ? "optional" : ""))
+				.attr("class", "process-action " + (action.lax ? "optional" : ""))
 				
 			this.move(group, action.styling.x, action.styling.y);
 			

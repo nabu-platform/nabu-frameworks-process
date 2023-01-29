@@ -44,8 +44,10 @@
 					</div>
 				</div>
 				<div v-if="selected.type == 'action'" class="is-column is-spacing-gap-medium">
-					<n-form-text v-model="selected.target.name" label="Action name" @input="updatedActionName(selected.target)" after="A short name for this action"/>
-					<n-form-text v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal'" v-model="selected.target.reference" label="Action reference" @input="draw" after="A reference for this action"/>
+					<div class="is-row is-spacing-gap-medium">
+						<n-form-text class="is-fill-normal" v-model="selected.target.name" label="Action name" @input="updatedActionName(selected.target)" after="A short name for this action"/>
+						<n-form-text class="is-fill-half" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal'" v-model="selected.target.reference" label="Reference" @input="draw" />
+					</div>
 					<n-form-text v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
 					<n-form-combo v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text v-if="selected.target.actionType == 'service'" v-model="selected.target.serviceId" label="Service id that is executed"/>
@@ -55,9 +57,17 @@
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
 						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this according to a certain schedule" @input="draw"/>
 					</div>
-					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.strict" label="Strict" after="By default, if the service is not allowed for the current process, it is simply not logged but allowed to proceed. If strict is set, the execution of the service is blocked."/>
+					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process we stop its execution. If lax is turned on, we allow execution but don't log it to this process."/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
+					</div>
+					<div v-if="selected.target.actionType == 'service'" class="is-column is-spacing-gap-medium">
+						<n-form-combo v-model="model.identificationType" placeholder="correlationId" :items="['correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
+						<p class="is-p is-size-small" v-if="!model.identificationType || model.identificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
+						<p class="is-p is-size-small" v-else-if="model.identificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
+						<p class="is-p is-size-small" v-else-if="model.identificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>
+						<p class="is-p is-size-small" v-else-if="model.identificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
+						<p class="is-p is-size-small" v-else-if="model.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
 					</div>
 					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
 				</div>
@@ -75,12 +85,6 @@
 				<div v-else class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="model.name" label="Process name"/>
 					<n-form-text v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue"/>
-					<n-form-combo v-model="model.identificationType" placeholder="correlationId" :items="['correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
-					<p class="is-p is-size-small" v-if="!model.identificationType || model.identificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
-					<p class="is-p is-size-small" v-else-if="model.identificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
-					<p class="is-p is-size-small" v-else-if="model.identificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>
-					<p class="is-p is-size-small" v-else-if="model.identificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
-					<p class="is-p is-size-small" v-else-if="model.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
 					<n-form-combo v-model="model.styling.theme" label="Theme" :items="themes" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text type="area" v-model="model.description" label="Process description" after="Additional description you want to add"/>
 				</div>

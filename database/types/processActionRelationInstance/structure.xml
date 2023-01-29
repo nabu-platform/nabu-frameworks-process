@@ -1,6 +1,0 @@
-<structure collectionName="processRelationInstances" comment="This table is mostly for historical follow up.&#10;For nesting it is based on &quot;eventual&quot; consistency, so no foreign keys on the action instances" name="processRelationInstance">
-    <field name="id" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
-    <field foreignKey="nabu.frameworks.process.database.types.processActionRelation:id" name="processActionRelationId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <field minOccurs="0" name="processActionInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <field minOccurs="0" name="targetProcessActionInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-</structure>
