@@ -57,7 +57,7 @@
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
 						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this according to a certain schedule" @input="draw"/>
 					</div>
-					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process we stop its execution. If lax is turned on, we allow execution but don't log it to this process."/>
+					<n-form-switch v-if="false && selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process we stop its execution. If lax is turned on, we allow execution but don't log it to this process."/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
 					</div>

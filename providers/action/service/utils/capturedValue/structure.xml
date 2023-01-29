@@ -1,0 +1,3 @@
+<structure name="capturedValue" superType="nabu.frameworks.process.providers.action.service.utils.capture">
+    <field minOccurs="0" name="value" type="java.lang.String"/>
+</structure>

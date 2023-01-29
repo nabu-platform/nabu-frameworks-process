@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<startupService>
+    <service>nabu.frameworks.process.providers.action.service.startup.startupService</service>
+    <asynchronous>false</asynchronous>
+    <runPostDeployment>false</runPostDeployment>
+    <properties/>
+    <runPreDeployment>false</runPreDeployment>
+    <runDuringDeployment>false</runDuringDeployment>
+    <runAtStartup>true</runAtStartup>
+    <runAfterStartup>false</runAfterStartup>
+</startupService>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2023-01-29T18:12:42.950+01:00" leaf="true" version="57">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2023-01-29T22:33:51.938+01:00" leaf="true" version="201">
     <comment>Get all the actions that need to be triggered</comment>
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
     <references>nabu.utils.List.add</references>
     <references>nabu.utils.Server.uuid</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
@@ -12,17 +13,16 @@
     <references>nabu.utils.List.unique</references>
     <references>be.nabu.libs.authentication.api.Device</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.groupedProcessData</references>
     <references>java.lang.Integer</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>java.lang.Boolean</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.groupedAction</references>
     <references>java.lang.String</references>
     <references>nabu.utils.String.split</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.actionInstance</references>
-    <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.web.application.Services.getSessionId</references>
-    <references>nabu.utils.Runtime.getContext</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
     <references>be.nabu.libs.authentication.api.Token</references>
@@ -30,8 +30,7 @@
     <references>nabu.utils.types.Property</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.utils.List.size</references>
-    <references>nabu.utils.Object.first</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
-    <references>nabu.utils.List.group</references>
+    <references>java.lang.Object</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>
 </node>

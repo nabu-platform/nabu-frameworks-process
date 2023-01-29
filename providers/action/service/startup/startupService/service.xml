@@ -1,0 +1,43 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="56678cef0ce647b3a615400cbfa962bb"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="46225da342ff46ff965cbe1f1a54482d"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="45cb8da590bb4680afc589a4192aae92"
+				serviceId="nabu.frameworks.process.providers.action.service.startup.failRunningActions"
+				resultName="result6a56d4436d1a43679800891d40e14ce9"
+				temporaryMapping="true"
+				x="478"
+				y="43"
+				invocationOrder="1"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="4cbc8de532fc4c2ebda6df6163a11f46"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result0c9c804657974e95b5e077e11658a88e/server</from>
+				<to>parameters[0]/serverName</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="f75228fea5c64dc2aa1f1bbc35ffaafc"
+				serviceId="nabu.utils.Server.getServerName"
+				resultName="result0c9c804657974e95b5e077e11658a88e"
+				temporaryMapping="true"
+				x="57"
+				y="162"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+		</steps>
+	</steps>
+</sequence>

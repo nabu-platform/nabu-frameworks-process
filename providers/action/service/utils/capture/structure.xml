@@ -1,0 +1,4 @@
+<structure name="capture">
+    <field name="capture" type="java.lang.String"/>
+    <field comment="They can be known by multiple names cross-process" maxOccurs="unbounded" name="names" type="java.lang.String"/>
+</structure>

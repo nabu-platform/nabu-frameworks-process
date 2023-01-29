@@ -24,15 +24,53 @@ However, in some cases you _do_ want to be more specific and make sure everythin
 You can't really get the process instance id itself, but you can invent your own unique id to be matched with a unique process instance id, so just use the uuid generation service in combination with custom identification.
 On the plus side, the code keeps working with or without the process engine.
 
+## Start/stop vs stop only
+
+Do we log at the start _and_ at the end of a service? 
+Start and end has two downsides:
+
+- more overhead (especially on the update)
+- rollbacks needed in case of server failure
+
+End only has other downsides:
+
+- hard to set foreign keys on things like descriptions etc if the parent does not exist (yet)
+
+## Uniqueness of identifiers
+
+Identifiers are assumed to be unique
+
+## Service repeating
+
+The same service can be called multiple times within a particular process.
+For each service action, you can set varying extractoers, and this might even be needed. For example in the beginning you might only have one id to match on.
+At a later point you might have several ids to match on.
+
+As long as you have only one process _instance_ that matches, we should be fine because the state is likely mutually exclusive in determining which action to run.
+However, if you were to match multiple process instances of the same definition, we are in trouble.
+
 ## Nesting
 
-Some actions can be nested, for example we offer a rest service as an API. It is called and actually executes 3 steps.
-We want to model all 4 to make it clear that everything happened (or not).
-One child might succeed and the second fail. This will revert the whole transaction though undoing the first step as well...
-It is important to keep track of "nested" calls for this reason.
+Ideally we would allow you to track a parent service as the "start" of a process. That parent service then executes 3 steps in sequence.
+A process with 4 steps would be nice.
 
-If a nested task has an automatic child, this will be created as a task in the same (default) transaction context as the child.
-This means, if the child has a scoped transaction, the task will be created. if the child does not (most likely usecase) the transaction will be rolled back, as will the creation of the task. So we should have consistent behavior.
+However, this requires nested resolving, because the parent service isn't actually done by the time the children start.
+I spent a lot of time trying to work this in, but it is really hard. The problems are:
+
+- value capturing is only done at the _end_ of a service, so any linking of actions would be limited to correlation id. Because it's a nested situation this is actually likely OK.
+- complex setups with any, all, state changes due to the parent finishing etc would be hard to "fake" until it actually takes place. but all of these might affect (from the process level) how things play out.
+
+At the very least this requires an almost entirely separate code path and probably a more complex one at that. So I will leave it out of scope for now.
+
+Ideally the process layer can function everywhere, for everything, all the time, but realistically it is to manage more complex processes.
+If absolutely necessary you can structure your parent service correctly so you can actually trace the three child steps as a process, but it is unlikely to be necessary.
+
+## Lax vs strict
+
+The idea was: if a process is not in the correct state, should we allow the service to run or not?
+However, the problem is, if the service is plugged in multiple times in the same process AND it is in none of the correct states, do you need to set them all to lax?
+We'll await an actual usecase before fixing it. Another option might be to configure "lax" on the full process though this might leave instances in weird inbetween states that can never be resolved.
+Again, first let's see the usecases.
 
 ## Blocking
 

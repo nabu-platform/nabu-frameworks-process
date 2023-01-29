@@ -41,7 +41,7 @@
 								recache="false">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="54189f789e164f01a52639a8e54e52eb"
+									id="b0ba2ac983cb4227b7f8de54dd0f8a87"
 									mask="false"
 									optional="false"
 									fixedValue="false">
@@ -50,21 +50,30 @@
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="3121b93d987b43bb8577aa1a44060eaa"
+									id="2f8a3e388ff648bd8c083c658007d2e9"
 									mask="false"
 									optional="false"
 									fixedValue="false">
-								<from>input/token</from>
-								<to>token</to>
+								<from>input/input</from>
+								<to>serviceInput</to>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="85953408a7dc424280dd52ee4cef2cb1"
+									id="23e4c3da356c49b19151482e6b6a561b"
 									mask="false"
 									optional="false"
 									fixedValue="false">
 								<from>input/device</from>
 								<to>device</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="3bd3894d581c461ebbed20e99393e1e1"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/token</from>
+								<to>token</to>
 							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -76,24 +85,454 @@
 							<from>resultf4d0f0c0ce5a4cc48d1cbc83f93d68af/actionsToRun</from>
 							<to>actionsToRun</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="5cb6676326cc40f4b9959b81c026b5a6"
+								serviceId="nabu.utils.Runtime.getCorrelationId"
+								resultName="result71183644ce3d4a8d8d26db10e5fe0521"
+								temporaryMapping="true"
+								x="233"
+								y="255"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="9490a1e195994265a7c9e23074bee75d"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>result71183644ce3d4a8d8d26db10e5fe0521/correlationId</from>
+							<to>correlationId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="184e2e75122d4e9984570e2ce592b04f"
+								serviceId="nabu.utils.Date.now"
+								resultName="result04f0463edd74424996ad484c9aef4276"
+								temporaryMapping="true"
+								x="166"
+								y="382"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="46b21d40be184d3f942921df63c54740"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>result04f0463edd74424996ad484c9aef4276/date</from>
+							<to>date</to>
+						</steps>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.For"
+							disabled="false"
+							id="95972818e71b438f9c52e83cf36f4361"
+							lineNumber="7"
+							variable="actionToRun"
+							into="createdActions">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
+								disabled="false"
+								id="cb05c7ec143f41ccb7c4479c204db9fc"
+								lineNumber="8"
+								query="actionToRun/newProcessInstance">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+									disabled="false"
+									id="cd5bf1d06df247a1a743004c73ef134c"
+									label="true"
+									lineNumber="9">
+								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+										disabled="false"
+										id="f93886d3a05f4ff2a6a3a28e24960cb1"
+										serviceId="nabu.frameworks.process.crud.processInstance.services.create"
+										resultName="result2e26fdcd51434153969c3fd7bdad10d6"
+										temporaryMapping="true"
+										x="5"
+										y="19"
+										invocationOrder="0"
+										asynchronous="false"
+										recache="false">
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="2e18c72b1fba4c14b5361e5ebbaa3f8c"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>actionToRun/processVersionId</from>
+										<to>instance/processVersionId</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="0987cde51fe249b387cb0cc920bd3424"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>date</from>
+										<to>instance/started</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="11cb5a714d88476abacd233b613f69c0"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>actionToRun/processStateId</from>
+										<to>instance/currentStateId</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="89fa93eb59534dca99b839e9e43063b6"
+											mask="false"
+											optional="false"
+											fixedValue="true">
+										<from>RUNNING</from>
+										<to>instance/processState</to>
+									</steps>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+										disabled="false"
+										id="b9fcc7f863614acd96d71245b34a3c67"
+										serviceId="nabu.frameworks.process.crud.processStateInstance.services.create"
+										resultName="result8bd9004fa2cb475da8fdd4300b5a011d"
+										temporaryMapping="true"
+										x="693"
+										y="239"
+										invocationOrder="1"
+										asynchronous="false"
+										recache="false">
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="fb9517e1c0c44f159b217e8c46a3639d"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>actionToRun/processStateId</from>
+										<to>instance/processStateId</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="1ab430f7ae644104856335bb468391f4"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>date</from>
+										<to>instance/started</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="cb23c690a50642628274d2fb4ad8d2e1"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>result2e26fdcd51434153969c3fd7bdad10d6/created/id</from>
+										<to>instance/processInstanceId</to>
+									</steps>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="57280e2af075495f8ea8090653019b69"
+										mask="true"
+										optional="false"
+										fixedValue="false">
+									<from>result8bd9004fa2cb475da8fdd4300b5a011d/created</from>
+									<to>stateInstance</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="af4aac219e07423d854ec1fe1a6b0a87"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>result2e26fdcd51434153969c3fd7bdad10d6/created/id</from>
+									<to>actionToRun/processInstanceId</to>
+								</steps>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+									disabled="false"
+									id="e807219c832e4ce990bf350c70420580"
+									lineNumber="10">
+								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+										disabled="false"
+										id="a7588f91606d4ceeb5b32f6294fcf3ed"
+										serviceId="nabu.frameworks.process.crud.processStateInstance.services.list"
+										resultName="resultcc0cd201f62045f0825e241020bfd43a"
+										temporaryMapping="true"
+										x="244"
+										y="167"
+										invocationOrder="0"
+										asynchronous="false"
+										recache="false">
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="12a5cd1cc76645458c032d2658e8ec28"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>actionToRun/processInstanceId</from>
+										<to>filter/processInstanceId[0]</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="aee4a542b5864c188d25d83503452726"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>actionToRun/processStateId</from>
+										<to>filter/processStateId[0]</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="c4527ac452c04fd2895e38f82bfa9f85"
+											mask="false"
+											optional="false"
+											fixedValue="true">
+										<from>true</from>
+										<to>filter/running</to>
+									</steps>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="f0bc911da13c4a8b9d174870b8fe3e05"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>resultcc0cd201f62045f0825e241020bfd43a/results[0]</from>
+									<to>stateInstance</to>
+								</steps>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+								disabled="false"
+								id="b95f997efe014c32a73722f06dabfc57"
+								label="!stateInstance"
+								lineNumber="11"
+								code="PROCESS-INCONSISTENT-STATE"
+								message="Could not find the the state instance" xsi:nil="true"/>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								disabled="false"
+								id="46b32431bfb44d3491a8bcc9013b6cae"
+								lineNumber="12">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+									disabled="false"
+									id="ffb2ea81b10146448458a63dcf9d62ff"
+									serviceId="nabu.frameworks.process.crud.processActionInstance.services.create"
+									resultName="result6d4a32aa509945bdb6081761dedb93db"
+									temporaryMapping="true"
+									x="422"
+									y="92"
+									invocationOrder="1"
+									asynchronous="false"
+									recache="false">
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="89ebded502ff4be29ec8d207a7a923bf"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>correlationId</from>
+									<to>instance/correlationId</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="46f7bc7cfa58430a8dd8116975b078d2"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>stateInstance/id</from>
+									<to>instance/processStateInstanceId</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="f6e8594688cd4baab04f8ff317a33390"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>actionToRun/processActionId</from>
+									<to>instance/processActionId</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="d1e845b3a49242dabc39f4ce79c9c189"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>input/device/deviceId</from>
+									<to>instance/deviceId</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="e0e4aa3f89a74140994810c22ae71720"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>input/token/authenticationId</from>
+									<to>instance/userId</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="e38c852a8e404d4e9879d51ce6ef006b"
+										mask="false"
+										optional="false"
+										fixedValue="true">
+									<from>RUNNING</from>
+									<to>instance/processState</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="4d04e135f95443bc8cdfee669bfa6fa1"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>resulte46916ba00174ed3a766f8a96a05fdd9/server</from>
+									<to>instance/serverOwner</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="1534d7c881d34526906fba2f4cbbed2c"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>date</from>
+									<to>instance/started</to>
+								</steps>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+									disabled="false"
+									id="43c6aa0cdba44422b0bf86a9b480c2c4"
+									serviceId="nabu.utils.Server.getServerName"
+									resultName="resulte46916ba00174ed3a766f8a96a05fdd9"
+									temporaryMapping="true"
+									x="70"
+									y="213"
+									invocationOrder="0"
+									asynchronous="false"
+									recache="false">
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="c6bfbbef97f44efcb024942501adcce9"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>result6d4a32aa509945bdb6081761dedb93db/created</from>
+								<to>createdActions[0]</to>
+							</steps>
+						</steps>
+						<query>actionsToRun</query>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+							disabled="false"
+							id="c7454bac39ff4f23a099aae104cc6720"
+							label="createdActions"
+							lineNumber="13">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="805498227f834e96a20226d3d0dc9520"
+								serviceId="nabu.utils.Runtime.setContext"
+								resultName="resultffb6241a460d48f59301ed367ffb3d50"
+								temporaryMapping="true"
+								x="86"
+								y="145"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="1f07b00e225b48219bd91f90585181b4"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>process-action-instances</from>
+								<to>key</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="92ce9173945846e5b6145dee6b8391e4"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>createdActions</from>
+								<to>value</to>
+							</steps>
+						</steps>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 						comment="This is an end log"
 						disabled="false"
 						id="6f2534ad05cd40428f01fd6798fda7e7"
-						lineNumber="7">
+						lineNumber="14">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-							comment="TODO: get information from service context, if no information, we are not interested, skip"
 							disabled="false"
-							id="cf48f9f56a154d858f93cabd4a44cbfc"
-							lineNumber="8">
+							id="c0d28d9ed94f406f824403af579579fe"
+							lineNumber="15">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="845c5f375445405a9ac19f6e1c74c66b"
+								serviceId="nabu.utils.Runtime.getContext"
+								resultName="resultbeb16ef9c5614ff3a81febdc3b0c8894"
+								temporaryMapping="true"
+								x="211"
+								y="165"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="978bc03e63a346f7845051c6fb433c3a"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>process-action-instances</from>
+								<to>key</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="61cce57e32454957b58ef0d4d2018667"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>resultbeb16ef9c5614ff3a81febdc3b0c8894/value</from>
+							<to>createdActions</to>
+						</steps>
 					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-							comment="TODO: if we have no identifiers BUT we have no incoming flow lines AND are in initial state, we can start a new process!"
+					<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 							disabled="false"
-							id="85e1bf7ebb2a47d080ffb7c5bfa47213"
-							lineNumber="9">
+							id="82117f972d27437986cdc07e20860da4"
+							label="createdActions"
+							lineNumber="16">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="Update the actions to SUCCEEDED or ERROR depending on state"
+								disabled="false"
+								features="TODO"
+								id="fb5a93d6b9174a69b8b49ce88feed1d5"
+								lineNumber="17">
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="Check target state of the action, create state instance and update process if so"
+								disabled="false"
+								features="TODO"
+								id="756f62e6b6744af5af71f2a7d4e158d2"
+								lineNumber="18">
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="Check for automatic actions to be chained"
+								disabled="false"
+								features="TODO"
+								id="8f731980fec149e49341c936cf1d0074"
+								lineNumber="19">
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="Evaluate any/all/finalizer/..."
+								disabled="false"
+								features="TODO"
+								id="6d792b1235aa4cb981cde7bf8713cd01"
+								lineNumber="20">
+						</steps>
 					</steps>
 				</steps>
 			</steps>
@@ -102,7 +541,55 @@
 				disabled="false"
 				id="e0ee9dd4612349a6ab18bbc8573e9653"
 				label="&quot;DESCRIPTION&quot;"
-				lineNumber="10">
+				lineNumber="21">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="f691e4f47bc64a2291c7c816f065c587"
+					lineNumber="22">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="f74a9369b5a64930a4fa7b4cdb25eff5"
+						serviceId="nabu.utils.Runtime.getContext"
+						resultName="resultbeb16ef9c5614ff3a81febdc3b0c8894"
+						temporaryMapping="true"
+						x="211"
+						y="165"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="9d1a4633d04146c9ae2a568ca58c2f5b"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>process-action-instances</from>
+						<to>key</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="8fb8f045f61a44d18d686f77367258ff"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resultbeb16ef9c5614ff3a81febdc3b0c8894/value</from>
+					<to>createdActions</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+					disabled="false"
+					id="379b6c5d7de74444bd5837dc4aef608b"
+					label="createdActions"
+					lineNumber="23">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						comment="Add it to the process instances"
+						disabled="false"
+						features="TODO"
+						id="1038121c59174d7aacceb1469350e59d"
+						lineNumber="24">
+				</steps>
+			</steps>
 		</steps>
 	</steps>
 </sequence>

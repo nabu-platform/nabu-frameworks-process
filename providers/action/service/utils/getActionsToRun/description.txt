@@ -4,3 +4,16 @@ We want to allow service nesting where a parent service is the trigger and we wa
 But because the parent is still ongoing by the time we get to the child, there will be no entry in the database (nor even a process instance in the case of a root service)
 
 It should not be "reverse" in that a future action is running before this one. That would make the process weird.
+
+A particular service can occur multiple times in the same process.
+Within a particular process, a service can only run _one_ action. This means we will only use the action that actually matches the state. If no action matches the state, we error out.
+
+
+
+There is some weird edge cases because we just throw together all captured values. This means hypothetically you could create weird situations but this requires (within a single process):
+
+- the same service being called multiple times
+- using different identifiers
+- those identifiers are (for some reason) out of sync with regards to process instance
+
+So, instead we assume there is only one hit in the process instance and the state is all that matters to decide which action is chosen.

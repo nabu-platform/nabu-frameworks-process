@@ -84,7 +84,6 @@
     </entries>
     <entries>
         <synchronize>true</synchronize>
-        <type>nabu.frameworks.process.database.types.processActionRelationInstance</type>
         <x>1497</x>
         <y>741</y>
     </entries>
