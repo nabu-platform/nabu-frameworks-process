@@ -12,4 +12,7 @@
     <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" maxOccurs="unbounded" minOccurs="0" name="actionsToRemove"/>
     <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" maxOccurs="unbounded" minOccurs="0" name="statesToRemove"/>
     <structure collectionName="processes" definition="nabu.frameworks.process.crud.processDefinition.types.output" name="processDefinition"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="existingStateRelations"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" minOccurs="0" name="existingStateRelation"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="stateRelationsToRemove"/>
 </structure>

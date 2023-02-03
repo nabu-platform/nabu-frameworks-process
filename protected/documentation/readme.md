@@ -135,3 +135,7 @@ Another control statement is a finalizer, it finalizes the process.
 
 Can repeat until a certain condition is met with a max occurs limiting the amount of tries.
 We could also set a repeat pattern (e.g. for transient error reprocessing)
+
+# Potential todo's:
+
+- conditions on process initializers: may only want to start a process if a subject is in a certain state. note however that it is unlikely a particular service is used when the target is both in a correct and incorrect state, awaiting first usecase

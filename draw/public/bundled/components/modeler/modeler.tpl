@@ -13,7 +13,7 @@
 			</div>
 		</template>
 		<template v-else>
-			<n-form class="is-variant-vertical" content-class="is-column is-spacing-medium is-width-max-xsmall is-width-min-xsmall is-color-background is-border-full">
+			<n-form class="is-variant-vertical" content-class="is-column is-spacing-medium is-width-max-xsmall is-width-min-xsmall is-color-background is-border-full process-modeler-form">
 				<div class="is-column is-spacing-gap-medium">
 					<ul class="is-menu is-variant-toolbar is-align-main-end">
 						<li class="is-column"><button @click="model = null" :disabled="saving" class="is-button is-variant-secondary-outline is-size-xsmall"><icon name="undo"/><span class="is-text">Back</span></button></li>
@@ -51,7 +51,9 @@
 					<n-form-text v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
 					<n-form-combo v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text v-if="selected.target.actionType == 'service'" v-model="selected.target.serviceId" label="Service id that is executed"/>
-					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service"/>
+					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.automatic" v-model="selected.target.reprocessable" label="Allow reprocessing" @input="draw" after="Do you want to be able to reprocess this service if it fails?"/>
+					<n-form-switch v-else-if="selected.target.actionType == 'service' && selected.target.automatic" :value="true" :disabled="true" label="Reprocessing always allowed" @input="draw" after="For automatic services reprocessing always available"/>
+					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.reprocessable" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
 					<n-form-switch v-if="selected.target.actionType == 'signal'" v-model="selected.target.automatic" label="Send signal" after="By default we wait for the signal to occur. When checked, we actually send the signal." @input="draw"/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.automatic">
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
@@ -62,12 +64,13 @@
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
 					</div>
 					<div v-if="selected.target.actionType == 'service'" class="is-column is-spacing-gap-medium">
-						<n-form-combo v-model="model.identificationType" placeholder="correlationId" :items="['correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
-						<p class="is-p is-size-small" v-if="!model.identificationType || model.identificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
-						<p class="is-p is-size-small" v-else-if="model.identificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
-						<p class="is-p is-size-small" v-else-if="model.identificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>
-						<p class="is-p is-size-small" v-else-if="model.identificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
-						<p class="is-p is-size-small" v-else-if="model.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
+						<n-form-combo v-model="selected.target.identificationType" placeholder="global" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
+						<p class="is-p is-size-small" v-if="selected.target.identificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
+						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
+						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>
+						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
+						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
+						<p class="is-p is-size-small" v-else>When set to globally, only one instance of a process can be active at a time</p>
 					</div>
 					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
 				</div>
@@ -75,6 +78,10 @@
 					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="['flow', 'limit']" @input="draw"/>
 					<n-form-text v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" v-if="selected.target.relationType == 'flow'" @input="draw" :timeout="600"/>
 					<n-form-switch v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition && selected.target.relationType == 'flow'" @input="draw"/>
+				</div>
+				<div v-else-if="selected.type == 'stateRelation'" class="is-column is-spacing-gap-medium">
+					<n-form-text v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" @input="draw" :timeout="600"/>
+					<n-form-switch v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition" @input="draw"/>
 				</div>
 				<div v-else-if="selected.type == 'state'" class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="selected.target.name" label="State name" @input="draw" after="A short name for this state"/>
@@ -87,8 +94,18 @@
 					<n-form-text v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue"/>
 					<n-form-combo v-model="model.styling.theme" label="Theme" :items="themes" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text type="area" v-model="model.description" label="Process description" after="Additional description you want to add"/>
+					<div class="is-column is-spacing-gap-medium">
+						<n-form-combo v-model="model.defaultIdentificationType" placeholder="global" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Default identification type" after="How do you want to identify process instances by default? This can be overriden per service action."/>
+						<p class="is-p is-size-small" v-if="model.defaultIdentificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
+						<p class="is-p is-size-small" v-else-if="model.defaultIdentificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
+						<p class="is-p is-size-small" v-else-if="model.defaultIdentificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>
+						<p class="is-p is-size-small" v-else-if="model.defaultIdentificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
+						<p class="is-p is-size-small" v-else-if="model.defaultIdentificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
+						<p class="is-p is-size-small" v-else>When set to globally, only one instance of a process can be active at a time</p>
+					</div>
 				</div>
 			</n-form>
+			<div class="is-column is-width-max-xsmall is-width-min-xsmall process-modeler-spacer"></div>
 			<div class="is-column is-overflow-auto">
 				<svg ref="svg">
 					<defs>

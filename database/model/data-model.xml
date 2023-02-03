@@ -26,14 +26,14 @@
     <entries>
         <synchronize>true</synchronize>
         <type>nabu.frameworks.process.database.types.processActionRelation</type>
-        <x>1519</x>
-        <y>70</y>
+        <x>1551</x>
+        <y>248</y>
     </entries>
     <entries>
         <synchronize>true</synchronize>
         <type>nabu.frameworks.process.database.types.processCapture</type>
-        <x>1521</x>
-        <y>297</y>
+        <x>1550</x>
+        <y>447</y>
     </entries>
     <entries>
         <synchronize>true</synchronize>
@@ -86,5 +86,11 @@
         <synchronize>true</synchronize>
         <x>1497</x>
         <y>741</y>
+    </entries>
+    <entries>
+        <synchronize>true</synchronize>
+        <type>nabu.frameworks.process.database.types.processStateRelation</type>
+        <x>1550</x>
+        <y>63</y>
     </entries>
 </dataModel>

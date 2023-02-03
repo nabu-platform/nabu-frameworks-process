@@ -145,15 +145,51 @@
 			<to>output/content/actionRelations</to>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="c5f47a4629564134a3b9d7510fa05b3f"
+			label="actions"
+			lineNumber="6">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="3e7bdc7ab1ec4b4d8d116bbc7a2bfab9"
+				serviceId="nabu.frameworks.process.crud.processStateRelation.services.list"
+				resultName="resultc8112efaffbb4c929aa9808c074f7ebc"
+				temporaryMapping="true"
+				x="239"
+				y="121"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="bcd657fd4757476b894d894f6bc419fb"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>actions/id</from>
+				<to>filter/actionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="cf0875182c454ba3af14fa004f0e3c9f"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultc8112efaffbb4c929aa9808c074f7ebc/results</from>
+			<to>output/content/stateRelations</to>
+		</steps>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="ce90ed7c30a04a18b9fc5f1f697120b2"
-			lineNumber="6"
+			lineNumber="7"
 			variable="state">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="41f61674752441d5bc801dc2c1581f7e"
-				lineNumber="7">
+				lineNumber="8">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="12df90c7c5a34916ae180eb26a1395c9"

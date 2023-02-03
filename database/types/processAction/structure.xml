@@ -9,7 +9,6 @@
     <field comment="If it is reprocessable, we will store the input" minOccurs="0" name="reprocessable" type="java.lang.Boolean"/>
     <field comment="You can set a delay on the action to be executed" minOccurs="0" name="delay" type="be.nabu.libs.types.base.Duration"/>
     <field comment="You can execute this action according to a schedule" minOccurs="0" name="schedule" type="java.lang.String"/>
-    <field comment="If you fill this in, when the action is done, we move to the result state. Note that all mandatory actions with the same result state must be run!" foreignKey="nabu.frameworks.process.database.types.processState:id" minOccurs="0" name="resultStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="How many times it can be run (0 = unlimited), default is 1" minOccurs="0" name="maxOccurs" type="java.lang.Long"/>
     <field comment="When it is marked as a singleton and it has a maxoccurs of &gt; 1, the previous running instances (and their children) are locked." minOccurs="0" name="singleton" type="java.lang.Boolean"/>
     <field comment="An action can be repeated until a certain condition is met. This condition must be derived from the captured variables." minOccurs="0" name="repeatUntil" type="java.lang.String"/>

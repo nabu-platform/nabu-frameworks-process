@@ -14,6 +14,12 @@ nabu.process.providers = function(spec) {
 }
 
 Vue.view("process-modeler-component", {
+	props: {
+		serviceContext: {
+			type: String,
+			required: false
+		}
+	},
 	data: function() {
 		return {
 			model: null,
@@ -106,7 +112,8 @@ Vue.view("process-modeler-component", {
 			processes: [],
 			saving: false,
 			// keep track of the last state you interacted with, this for more logical generation
-			lastInteractedStateId: null
+			lastInteractedStateId: null,
+			debounceTimer: null
 		}	
 	},
 	created: function() {
@@ -153,9 +160,16 @@ Vue.view("process-modeler-component", {
 				return max;
 			}
 		},
+		debounce: function(runnable) {
+			if (this.debounceTimer) {
+				clearTimeout(this.debounceTimer);
+				this.debounceTimer = null;
+			}
+			this.debounceTimer = setTimeout(runnable, 50);
+		},
 		loadProcesses: function() {
 			var self = this;
-			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.list", {enabled:true}).then(function(available) {
+			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.list", {enabled:true, "$serviceContext": this.serviceContext}).then(function(available) {
 				self.processes.splice(0);
 				if (available.definitions) {
 					nabu.utils.arrays.merge(self.processes, available.definitions);
@@ -164,7 +178,7 @@ Vue.view("process-modeler-component", {
 		},
 		loadProcess: function(processVersionId) {
 			var self = this;
-			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.get", { processVersionId: processVersionId }).then(function(result) {
+			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.get", { processVersionId: processVersionId, "$serviceContext": this.serviceContext }).then(function(result) {
 				if (result) {
 					result.styling = result.style ? JSON.parse(result.style) : {};
 					if (!result.actionRelations) {
@@ -172,6 +186,14 @@ Vue.view("process-modeler-component", {
 					}
 					else {
 						result.actionRelations.forEach(function(relation) {
+							relation.styling = relation.style ? JSON.parse(relation.style) : {}
+						});
+					}
+					if (!result.stateRelations) {
+						result.stateRelations = [];
+					}
+					else {
+						result.stateRelations.forEach(function(relation) {
 							relation.styling = relation.style ? JSON.parse(relation.style) : {}
 						});
 					}
@@ -209,6 +231,9 @@ Vue.view("process-modeler-component", {
 				this.model.actionRelations.forEach(function(relation) {
 					relation.style = JSON.stringify(relation.styling);
 				});
+				this.model.stateRelations.forEach(function(relation) {
+					relation.style = JSON.stringify(relation.styling);
+				});
 				var svg = document.createElement("div");
 				// make a clone
 				svg.innerHTML = this.$refs.svg.outerHTML;
@@ -217,7 +242,7 @@ Vue.view("process-modeler-component", {
 				});
 				this.model.svg = svg.innerHTML;
 				
-				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.update", { processVersionId: this.model.id, body: this.model }).then(function() {
+				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.update", { processVersionId: this.model.id, body: this.model, "$serviceContext": this.serviceContext }).then(function() {
 					self.$services.notifier.push({message: "Saved process " + self.model.name});
 					self.saving = false;
 				}, function(error) {
@@ -294,6 +319,7 @@ Vue.view("process-modeler-component", {
 			this.model.states.forEach(this.drawState);
 			this.model.states.forEach(this.drawActions);
 			this.model.actionRelations.forEach(this.drawActionRelation);
+			this.model.stateRelations.forEach(this.drawStateRelation);
 			
 			var self = this;
 			var keyHandler = function(event) {
@@ -302,7 +328,7 @@ Vue.view("process-modeler-component", {
 					//console.log("key event", event);
 					// delete
 					if (event.keyCode == 46) {
-						self.deleteCurrent();
+						self.debounce(self.deleteCurrent);
 						event.stopPropagation();
 						event.preventDefault();
 					}
@@ -315,7 +341,6 @@ Vue.view("process-modeler-component", {
 						nabu.utils.objects.merge(self.copied, self.selected);
 					}
 					else if (event.key == "v" && (event.ctrlKey || event.metaKey) && self.copied) {
-						console.log("pasting", self.copied, self.selected);
 						// copying an action to a state
 						if (self.copied.type == "action" && self.selected.type == "state") {
 							var cloned = JSON.parse(JSON.stringify(self.copied.target));
@@ -738,28 +763,43 @@ Vue.view("process-modeler-component", {
 				this.model.actionRelations.filter(function(x) {
 					return x.actionId == target.id || x.targetActionId == target.id;
 				}).forEach(this.drawActionRelation);
-				if (target.resultStateId) {
-					this.drawActionResultState(target);
-				}
+				
+				this.model.stateRelations.filter(function(x) {
+					return x.actionId == target.id;
+				}).forEach(this.drawStateRelation);
+				
+				// no longer
+				//if (target.resultStateId) {
+				//	this.drawActionResultState(target);
+				//}
 			}
 			
 			// if it's a state, we want to redraw state actions
 			else if (target.actions) {
 				var self = this;
-				// all actions with this state as target
-				this.model.states.forEach(function(state) {
-					state.actions.forEach(function(action) {
-						if (action.resultStateId == target.id) {
-							self.drawActionResultState(action);
-						}
-					})
-				});
-				// all actions in this state with another state as target
-				target.actions.forEach(function(action) {
-					if (action.resultStateId) {
-						self.drawActionResultState(action);
+				this.model.stateRelations.forEach(function(relation) {
+					if (relation.targetStateId == target.id) {
+						self.drawStateRelation(relation);
 					}
-				})
+					var action = self.getAction(relation.actionId);
+					if (action.processStateId == target.id ){
+						self.drawStateRelation(relation);
+					}
+				});
+				// all actions with this state as target
+				//this.model.states.forEach(function(state) {
+				//	state.actions.forEach(function(action) {
+				//		if (action.resultStateId == target.id) {
+				//			self.drawActionResultState(action);
+				//		}
+				//	})
+				//});
+				// all actions in this state with another state as target
+				//target.actions.forEach(function(action) {
+				//	if (action.resultStateId) {
+				//		self.drawActionResultState(action);
+				//	}
+				//})
 			}
 		},
 		drawActionResultState: function(action) {
@@ -864,6 +904,157 @@ Vue.view("process-modeler-component", {
 				
 				hitbox.raise();
 				path.raise();
+			}
+		},
+		drawStateRelation: function(relation) {
+			var self = this;
+			
+			// check if there is a previous line, we might be redrawing
+			var existing = this.svg.node().getElementById(relation.id);
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			// same for hitbox
+			existing = this.svg.node().getElementById(relation.id + "-hitbox");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			existing = this.svg.node().getElementById(relation.id + "-condition");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			existing = this.svg.node().getElementById(relation.id + "-condition-text");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			
+			var action = this.getAction(relation.actionId);
+			var state = this.getState(relation.targetStateId);
+				
+			// get the group for each action
+			var actionGroup = this.svg.node().getElementById(relation.actionId);
+			var stateGroup = this.svg.node().getElementById(relation.targetStateId);
+			var parentGroup = this.svg.node().getElementById(action.processStateId);
+
+			var rootBounds = this.$refs.svg.getBoundingClientRect();
+			var parentBounds = parentGroup.getBoundingClientRect();
+			var stateBounds = stateGroup.getBoundingClientRect();
+			
+			// relativize to root of svg
+			parentBounds.x -= rootBounds.x;
+			parentBounds.y -= rootBounds.y;
+			stateBounds.x -= rootBounds.x;
+			stateBounds.y -= rootBounds.y;
+			
+			// we always start from the center right, we add 5 because that's the radius of the connection circle
+			var fromX = parentBounds.x + action.styling.x + action.styling.width + this.triangleSize;
+			var fromY = parentBounds.y + action.styling.y + (action.styling.height / 2);
+			
+			// the end is more dynamic depending on where the target action is in relation to the source
+			var to = this.getClosestAttachment(fromX, fromY, stateBounds.x, stateBounds.y, state.styling.width, state.styling.height);
+			
+			var generator = d3.line()
+				.x(function(p) { return p.x })
+				.y(function(p) { return p.y })
+				.curve(d3.curveLinear);
+				
+			var points = [{
+				x: fromX,
+				y: fromY
+			}, {
+				x: fromX + ((to.x - fromX) / 2),
+				y: fromY
+			}, {
+				x: fromX + ((to.x - fromX) / 2),
+				y: to.y
+			}, {
+				x: to.x,
+				y: to.y
+			}];
+			
+			// the want to change the middle two points in case we have a vertical snap point
+			if (to.side == "top" || to.side == "bottom") {
+				points[1].x = fromX;
+				points[1].y = fromY + ((to.y - fromY) / 2);
+				points[2].x = to.x;
+				points[2].y = fromY + ((to.y - fromY) / 2);
+			}
+			
+			var path = this.svg.append("path")
+				.attr("id", relation.id)
+				.attr("fill", "none")
+				.attr("stroke", this.connectorColor)
+				.attr("stroke-width", 2)
+				.attr("d", generator(points))
+				
+			path.on("click", function() {
+				path.node().style.strokeWidth = 4;
+				self.select("stateRelation", relation, function() {
+					path.node().style.strokeWidth = 2;	
+				});
+			})
+			
+			// draw a secondary invisible path purely for click purposes
+			var hitbox = this.svg.append("path")
+				.attr("id", relation.id + "-hitbox")
+				.attr("class", "hitbox")
+				.attr("stroke-width", 15)
+				.attr("fill", "none")
+				.attr("stroke", "transparent")
+				.attr("d", generator(points))
+				
+			hitbox.on("click", function() {
+				path.node().style.strokeWidth = 4;
+				self.select("stateRelation", relation, function() {
+					path.node().style.strokeWidth = 2;	
+				});
+			});
+			
+			hitbox.raise();
+			path.raise();
+			
+			if (relation.condition) {
+				// calculate the mid point of the middle line part
+				// this is the least likely to conflict with other lines visually
+				if (to.side == "top" || to.side == "bottom") {
+					var y = points[2].y;
+					var xFactor = Math.abs(points[2].x - points[1].x) / 2;
+					var x = Math.max(points[2].x, points[1].x) - xFactor;
+				}
+				else {
+					var x = points[2].x;
+					var yFactor = Math.abs(points[2].y - points[1].y) / 2;
+					var y = Math.max(points[2].y, points[1].y) - yFactor;
+				}
+				var color = this.getColor(this.getThemeColor("condition"));
+				var condition = this.svg.append("rect")
+					.attr("id", relation.id + "-condition")
+					.attr("x", x - 5)
+					.attr("y", y - 5)
+					.attr("fill", color.border)
+					.attr("stroke", color.border)
+					.attr("width", 10)
+					.attr("height", 10)
+					
+				var conditionText = this.svg.append("text")
+					.attr("id", relation.id + "-condition-text")
+					.text(relation.condition)
+					.attr("font-size", "x-small")
+					.attr("x", x + 10)
+					.attr("y", y + 3)
+					.attr("fill", color.text)
+					
+				// if we don't want to show the condition permanently, hide it until hover over rectangle
+				if (!relation.styling || !relation.styling.showCondition) {
+					conditionText.node().style.display = "none";
+					condition.node().addEventListener("mouseenter", function() {
+						conditionText.node().style.display = "block";
+					});
+					condition.node().addEventListener("mouseleave", function() {
+						conditionText.node().style.display = "none";
+					});
+				}
+					
 			}
 		},
 		// can only be drawn if the actions are already drawn!
@@ -997,7 +1188,7 @@ Vue.view("process-modeler-component", {
 					.attr("fill", color.text)
 					
 				// if we don't want to show the condition permanently, hide it until hover over rectangle
-				if (!relation.styling.showCondition) {
+				if (!relation.styling || !relation.styling.showCondition) {
 					conditionText.node().style.display = "none";
 					condition.node().addEventListener("mouseenter", function() {
 						conditionText.node().style.display = "block";
@@ -1322,7 +1513,7 @@ Vue.view("process-modeler-component", {
 			*/	
 			
 			this.drawActionMapper(action);
-			this.drawActionResultState(action);
+			//this.drawActionResultState(action);
 			this.drawActionReference(action);
 			this.drawActionTimeout(action);
 			this.drawActionAutomatic(action);
@@ -1478,14 +1669,23 @@ Vue.view("process-modeler-component", {
 							id: self.newId(),
 							actionId: action.id,
 							targetActionId: self.linking.targetAction.id,
-							relationType: event.sourceEvent.ctrlKey ? "limit" :"flow"
+							relationType: event.sourceEvent.ctrlKey ? "limit" :"flow",
+							styling: {}
 						};
 						self.model.actionRelations.push(relation);
 						self.drawActionRelation(relation);
 					}
 					else if (self.linking.state && self.linking.state.id != action.processStateId) {
-						action.resultStateId = self.linking.state.id;
-						self.drawActionResultState(action);
+						var relation = {
+							id: self.newId(),
+							actionId: action.id,
+							targetStateId: self.linking.state.id,
+							styling: {}
+						}
+						self.model.stateRelations.push(relation);
+						self.drawStateRelation(relation);
+						//action.resultStateId = self.linking.state.id;
+						//self.drawActionResultState(action);
 					}
 					self.linking.action = null;
 					self.linking.state = null;

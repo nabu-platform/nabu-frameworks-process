@@ -9,4 +9,5 @@
     <field comment="When was it deprecated in favor of a newer version?" minOccurs="0" name="deprecated" timezone="UTC" type="java.util.Date"/>
     <field minOccurs="0" name="style" type="java.lang.String"/>
     <field comment="Latest drawn svg" minOccurs="0" name="svg" type="java.lang.String"/>
+    <field comment="The default if a specific action does not have a setting" minOccurs="0" name="defaultIdentificationType" type="java.lang.String"/>
 </structure>

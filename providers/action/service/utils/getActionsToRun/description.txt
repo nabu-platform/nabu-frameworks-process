@@ -1,3 +1,10 @@
+Can also support "global" correlation? there can be only one process...
+
+
+TODO:
+- don't always throw an exception (e.g. when used for events, signals or checking during async execution)
+- check conditions on incoming flow relations to make sure they are allowed
+
 This service will fail if it is not allowed to actually run this action.
 
 We want to allow service nesting where a parent service is the trigger and we want to track specific child services.
@@ -17,3 +24,5 @@ There is some weird edge cases because we just throw together all captured value
 - those identifiers are (for some reason) out of sync with regards to process instance
 
 So, instead we assume there is only one hit in the process instance and the state is all that matters to decide which action is chosen.
+
+
