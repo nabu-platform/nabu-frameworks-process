@@ -195,7 +195,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
-			comment="Resolve all captures if we have any input"
+			comment="Resolve all input captures if we have any input"
 			disabled="false"
 			id="0077d501ad594d59b9c29778a23fd89e"
 			label="input/serviceInput"
@@ -211,9 +211,9 @@
 					serviceId="nabu.services.glue.Services.evaluate"
 					resultName="result9e88f29b63c844758b5b0de9cbd6c89f"
 					temporaryMapping="true"
-					x="178"
-					y="53"
-					invocationOrder="0"
+					x="570"
+					y="84"
+					invocationOrder="1"
 					asynchronous="false"
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -227,11 +227,11 @@
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="a89365795add4f168daff945c1c57380"
+						id="ee7b0603d4d341c883a036170596fc57"
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>singleCapture/capture</from>
+					<from>resultf953c592c0ef40a3b6c71e4497dbd2b6/content</from>
 					<to>rule</to>
 				</steps>
 			</steps>
@@ -244,8 +244,47 @@
 				<from>result9e88f29b63c844758b5b0de9cbd6c89f/response</from>
 				<to>singleCapture/value</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="0b46b5b542424c9c85078adddd822552"
+					serviceId="nabu.utils.String.replace"
+					resultName="resultf953c592c0ef40a3b6c71e4497dbd2b6"
+					temporaryMapping="true"
+					x="200"
+					y="295"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="438de24e8a5343b99671ce498627aa51"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>singleCapture/capture</from>
+					<to>content</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="78669f4c45d24583b4d57e1e1b97d472"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>^input/</from>
+					<to>match</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="1ef9a90f90e14771807b9cbbbc436746"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>true</from>
+					<to>useRegex</to>
+				</steps>
+			</steps>
 		</steps>
-		<query>allCaptures</query>
+		<query>allCaptures[capture ~ "^input/.*"]</query>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"

@@ -22,4 +22,6 @@
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <field minOccurs="0" name="serializedInput" type="java.lang.String"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="runningProcess"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="finalCapturedValues"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="stateInstances"/>
 </structure>

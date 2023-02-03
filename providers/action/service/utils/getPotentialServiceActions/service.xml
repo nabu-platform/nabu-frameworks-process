@@ -177,6 +177,36 @@
 				<from>resultc5ba1ed202864d5c809a8c55ca1373d3/result/id</from>
 				<to>action/processId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="2aff20451f274b2799060bead98ee3d8"
+					serviceId="nabu.frameworks.process.crud.processStateRelation.services.list"
+					resultName="result3b40f141bf564c77ae71fcde5a0c41d2"
+					temporaryMapping="true"
+					x="164"
+					y="435"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="c6b78b50c9ef4bc69877718bf0a64818"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>action/id</from>
+					<to>filter/actionId</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="79530cee028844edb58e7172a0d631a4"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result3b40f141bf564c77ae71fcde5a0c41d2/results</from>
+				<to>action/stateRelations</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"
 				disabled="false"

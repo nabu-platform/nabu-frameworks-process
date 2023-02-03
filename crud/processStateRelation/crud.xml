@@ -16,7 +16,7 @@
     </filters>
     <filters>
         <caseInsensitive>false</caseInsensitive>
-        <key>stateId</key>
+        <key>targetStateId</key>
         <operator>=</operator>
         <or>false</or>
         <input>true</input>
