@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:27:18.820+01:00" lastModified="2023-02-04T09:11:27.657+01:00" leaf="true" version="16">
+    <comment>Run any automated actions triggered by this action</comment>
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>nabu.utils.List.toMap</references>
+    <references>java.util.Map</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.action</references>
+    <references>java.lang.Object</references>
+    <references>nabu.services.glue.Services.evaluate</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAction</references>
+    <references>java.util.UUID</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</references>
+</node>

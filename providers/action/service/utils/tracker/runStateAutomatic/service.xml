@@ -1,0 +1,201 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="e3256420fe6f4426ad33b2eb9cdb039a"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="73420df86cfe4bc590ee9d90ba072923"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="0c94674d706b41288c8fd90fb1d70165"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getProcessDefinition"
+				resultName="result0d24545034d34c46a551592eace1c7b9"
+				temporaryMapping="true"
+				x="286"
+				y="387"
+				invocationOrder="1"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ca3a7b81c29b431e871b375247fa31bc"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processVersionId</from>
+				<to>processVersionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="43515498cae84cb7bb857a003a25370f"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result0d24545034d34c46a551592eace1c7b9/definition/states[id == /input/stateInstance/processStateId]</from>
+			<to>state</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="535d62a535fb4d5cb2bfacda5d1e1c48"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result0d24545034d34c46a551592eace1c7b9/definition</from>
+			<to>definition</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get automated actions"
+			disabled="false"
+			id="0ebbe353bffc4de998687803b31566f1"
+			label="state"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="6d723669e88d4a3f8b162407dfd1ecbf"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>state/actions[automatic == true]</from>
+			<to>automaticActions</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+			comment="Need to check if they have incoming flow requirements"
+			disabled="false"
+			id="5211bc19f8bf477db9cfe3c962203866"
+			label="automaticActions"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get a list of the ids"
+				disabled="false"
+				id="3021bf502f6640debfd082f823de7e44"
+				lineNumber="5">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="efd57bcd74dd416d894e6e7793236b43"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>automaticActions/id</from>
+				<to>automaticActionIds</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get all flow relations pertaining to those"
+				disabled="false"
+				id="be0ab7ebc01a4583b3ed288a13d2c277"
+				lineNumber="6">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9ef27e59bc86476a9cc120982089d96d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>definition/actionRelations[targetActionId # /automaticActionIds &amp;&amp; relationType == "flow"]</from>
+				<to>flowRelations</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get a list of _those_ ids"
+				disabled="false"
+				id="c438118bf6174b86b42e2d588e0a7c0a"
+				lineNumber="7">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="7e3cf6d6ec144951bd004dd2d8816668"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>flowRelations/targetActionId</from>
+				<to>actionsWithRequirementIds</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Retain only automatic actions that are not in the new list"
+				disabled="false"
+				id="71b839ff01244f2885cc401fc7e9cfd1"
+				lineNumber="8">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a4763fdf3f724b808ccbf587ff47948b"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>automaticActions[id !# /actionsWithRequirementIds]</from>
+				<to>automaticActions</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="42c08776d0ad4e5e9befc8f401b10e82"
+			lineNumber="9"
+			variable="automaticAction">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="254f6cf149fb47b4981d7b1bf79eaea9"
+				lineNumber="10">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="13ae8989fd3c4550acb6ee97a0a8fa63"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.runAction"
+					resultName="resulta867203194c7446383877ff23aeb92be"
+					temporaryMapping="true"
+					x="149"
+					y="74"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="1b990cba47944b209589d7aa52e04ed0"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/stateInstance/processInstanceId</from>
+					<to>processInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="86831fac07c24648bab892995b500b3d"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/stateInstance/id</from>
+					<to>processStateInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="80314769e90647e499fb25024618f249"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>automaticAction/id</from>
+					<to>actionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a6ed9ca036de425cb5870dabb1afec2b"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/processData</from>
+					<to>processData</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a1ce5321f13e482dbe555fd8a95595d9"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/processVersionId</from>
+					<to>processVersionId</to>
+				</steps>
+			</steps>
+		</steps>
+		<query>automaticActions</query>
+	</steps>
+</sequence>

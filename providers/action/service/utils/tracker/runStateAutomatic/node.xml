@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:23:03.186+01:00" lastModified="2023-02-04T09:11:11.490+01:00" leaf="true" version="25">
+    <comment>Run any automatic actions at the root of a (new) state</comment>
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.frameworks.process.manage.rest.process.version.processStateFull</references>
+    <references>nabu.frameworks.process.manage.rest.process.version.processVersionFull</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAction</references>
+    <references>java.lang.String</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.database.types.processActionRelation</references>
+</node>

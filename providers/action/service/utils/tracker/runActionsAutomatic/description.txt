@@ -1,0 +1,2 @@
+We can NOT run automated actions within the original state if the action also moved the state. The state move is synchronous while the automated action is asynchronous.
+By the time the automated action kicks in, the process is definitely not longer in the correct state.

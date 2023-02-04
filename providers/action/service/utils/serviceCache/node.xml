@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.cache.service.CacheManager" created="2023-01-29T08:13:44.379+01:00" lastModified="2023-01-29T15:57:27.392+01:00" leaf="true" version="5">
+<node artifactManager="be.nabu.eai.module.cache.service.CacheManager" created="2023-01-29T08:13:44.379+01:00" lastModified="2023-02-04T08:50:41.781+01:00" leaf="true" version="6">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.memoryCache</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
 </node>

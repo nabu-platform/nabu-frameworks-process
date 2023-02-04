@@ -301,11 +301,47 @@
 				</steps>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Also update the process instance state"
+				disabled="false"
+				id="657c90194fce4530a7a50c0f0b4dbcb4"
+				lineNumber="12">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="199094c87f4d488e821534f513613dc2"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState"
+					resultName="result24fee13481f141309b84778c7617aa1d"
+					temporaryMapping="true"
+					x="355"
+					y="235"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a7cdf91335ae4974b765f17e47b04f5f"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>stateRelation/targetStateId</from>
+					<to>parameters[0]/stateId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="2863e24e52c543d792dfe0589dee1566"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/stateInstance/processInstanceId</from>
+					<to>parameters[0]/processInstanceId</to>
+				</steps>
+			</steps>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Break"
 				comment="We can only move to one state. First come, first serve"
 				disabled="false"
 				id="e5afb7efdc184015bd1798cc1352cb79"
-				lineNumber="12">
+				lineNumber="13">
 			<count>1</count>
 		</steps>
 		<query>action/stateRelations</query>

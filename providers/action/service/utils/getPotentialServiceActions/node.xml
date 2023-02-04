@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T08:09:39.462+01:00" lastModified="2023-02-03T17:23:00.544+01:00" leaf="true" version="38">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T08:09:39.462+01:00" lastModified="2023-02-04T08:41:52.900+01:00" leaf="true" version="40">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.crud.processActionRelation.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.searchActiveActionsForService</references>
     <references>nabu.utils.List.add</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.services.listEnrichedWithTarget</references>
     <references>nabu.frameworks.process.crud.processStateRelation.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>nabu.frameworks.process.providers.action.service.utils.groupedAction</references>

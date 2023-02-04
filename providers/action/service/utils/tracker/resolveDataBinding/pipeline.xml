@@ -1,0 +1,7 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field comment="A list of key value pairs that contain optional data binding for this action" minOccurs="0" name="dataBinding" type="java.lang.String"/>
+        <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="available"/>
+    </structure>
+    <structure name="output"/>
+</structure>

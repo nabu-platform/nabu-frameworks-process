@@ -1,0 +1,4 @@
+<structure name="parameter">
+    <field name="stateId" type="java.util.UUID"/>
+    <field name="processInstanceId" type="java.util.UUID"/>
+</structure>

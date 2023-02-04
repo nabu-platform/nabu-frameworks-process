@@ -138,36 +138,6 @@
 				<from>resultd3c1e9343be1419eb5031ebc6fd832ed/results</from>
 				<to>action/captures</to>
 			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-					disabled="false"
-					id="ff9736e4adbe43e0a47e9f3c6b1a3d51"
-					serviceId="nabu.frameworks.process.crud.processActionRelation.services.list"
-					resultName="resultc83820878a634dc7ad537524c936d122"
-					temporaryMapping="true"
-					x="39"
-					y="350"
-					invocationOrder="0"
-					asynchronous="false"
-					recache="false">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="df5a856b32f9495b9424db32194b2812"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>action/id</from>
-					<to>filter/anyActionId[0]</to>
-				</steps>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="658633350ec943a08201b9818eaf42e2"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>resultc83820878a634dc7ad537524c936d122/results</from>
-				<to>action/relations</to>
-			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="89fec48cb4a249aa9ca93df209c0e38e"
@@ -206,6 +176,36 @@
 					fixedValue="false">
 				<from>result3b40f141bf564c77ae71fcde5a0c41d2/results</from>
 				<to>action/stateRelations</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="15c552e32370447c9008ca404a9df1ab"
+					serviceId="nabu.frameworks.process.crud.processActionRelation.services.listEnrichedWithTarget"
+					resultName="resultd28415e751bf4254a9a54a9873bab585"
+					temporaryMapping="true"
+					x="144"
+					y="610"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="4c47b9c5a3ae45589a71c629dfb9361a"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>action/id</from>
+					<to>filter/anyActionId[0]</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="877f2839d43b4d3a87dd1a8fa05ad152"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>resultd28415e751bf4254a9a54a9873bab585/results</from>
+				<to>action/relations</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"

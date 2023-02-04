@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-04T08:17:28.567+01:00" leaf="true" version="140">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-04T09:12:03.702+01:00" leaf="true" version="159">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -11,6 +11,7 @@
     <references>nabu.frameworks.process.crud.processStateInstance.services.create</references>
     <references>java.util.Date</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runActionsAutomatic</references>
     <references>be.nabu.libs.authentication.api.Device</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>java.lang.Integer</references>
@@ -24,6 +25,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runStateAutomatic</references>
     <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
@@ -46,4 +48,5 @@
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.moveState</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.list</references>
 </node>

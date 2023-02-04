@@ -25,4 +25,8 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="finalCapturedValues"/>
     <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="stateInstances"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="allData"/>
+    <field name="movedState" type="java.lang.Boolean"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="applicableData"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="processInstances"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" minOccurs="0" name="processInstance"/>
 </structure>

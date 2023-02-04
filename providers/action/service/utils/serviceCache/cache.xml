@@ -2,5 +2,6 @@
 <cache>
     <cacheProvider>nabu.frameworks.process.providers.action.service.utils.memoryCache</cacheProvider>
     <service>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</service>
+    <service>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</service>
     <enableInDevelopment>false</enableInDevelopment>
 </cache>

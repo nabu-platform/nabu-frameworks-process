@@ -1,0 +1,3 @@
+<structure name="propertyList">
+    <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="properties"/>
+</structure>
