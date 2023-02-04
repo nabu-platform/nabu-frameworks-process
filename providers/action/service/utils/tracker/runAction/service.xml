@@ -200,6 +200,15 @@
 				<from>resulta12b334846994bd081346690d2febaff/data</from>
 				<to>binding</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="6fbdf28095f3401aa1c57cc1b8778561"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processStateInstanceId</from>
+				<to>processStateInstanceId</to>
+			</steps>
 			<targetProperties
 					collectionIndex="schedule">=action/schedule</targetProperties>
 			<targetProperties

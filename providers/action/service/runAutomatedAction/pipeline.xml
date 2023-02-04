@@ -2,8 +2,14 @@
     <structure name="input">
         <field name="processVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field name="processStateInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field name="actionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" minOccurs="0" name="binding"/>
     </structure>
     <structure name="output"/>
+    <field name="allowedToProceed" type="java.lang.Boolean"/>
+    <field name="processInError" type="java.lang.Boolean"/>
+    <structure definition="nabu.frameworks.process.manage.rest.process.version.processVersionFull" name="definition"/>
+    <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" minOccurs="0" name="action"/>
+    <structure definition="java.lang.Object" minOccurs="0" name="serviceInput"/>
 </structure>

@@ -961,6 +961,7 @@
 						id="777043430e98478b8e242eee095660cb"
 						label="potentialProcessInstance/processState == &quot;ERROR&quot;"
 						lineNumber="33"
+						code="PROCESS-IN-ERROR"
 						message="The process instance is currently in ERROR" xsi:nil="true"/>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						comment="Get all state for the process so we can evaluate conditions"

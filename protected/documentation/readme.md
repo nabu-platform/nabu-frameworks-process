@@ -17,6 +17,10 @@ If we don't have a capturing identifier in the before phase, we only execute at 
 
 An action WITHOUT an identifier is worthless (?) though we have some automatic identifiers like correlation, device,...
 
+## Synchronous automatic
+
+Currently all automatic actions are performed asynchronously. We may however in the future want to allow for synchronous chaining too. The runAutomatedAction is pretty well designed for it except that it skips by default, when running synchronously you don't want to skip by default because this would mean the process definition is inconsistent in some way.
+
 ## No good identifier
 
 The process framework is designed to be able to wrap around "naturally occuring service interactions" that are not specifically designed to be handled by the process engine.
