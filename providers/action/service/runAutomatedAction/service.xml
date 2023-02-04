@@ -2,4 +2,30 @@
 		disabled="false"
 		id="dd84da9770a14066b1f632b622e4b4d4"
 		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="c9edb60562dc4a1f8a05c671adfce89c"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="626d0be68aab43218ce6e919afed5854"
+				serviceId="nabu.utils.Server.log"
+				resultName="result83cef7340cc043ef9842737795ae8eaa"
+				temporaryMapping="true"
+				x="109"
+				y="62"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="6e45409f8ab445448dda6b3f95729324"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>="Running action: " + input/actionId</from>
+				<to>message</to>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

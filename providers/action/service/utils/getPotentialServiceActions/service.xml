@@ -363,42 +363,64 @@
 			lineNumber="12">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="0798c8197349448ba99d267a066c7975"
-				serviceId="nabu.utils.List.group"
-				resultName="resultc9975be07ad34f77a9f16675f39e9586"
+				id="14e71a85b09d43a6bcde7105712a8eec"
+				serviceId="nabu.utils.List.unique"
+				resultName="result656bc20b882e4af0a34267a4e0a750ec"
 				temporaryMapping="true"
-				x="209"
-				y="79"
+				x="203"
+				y="268"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="21b46dfade3e43fc828d0ad3295690cd"
+					id="2ce0eaef393c4b5d9866cf1a4be18df3"
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>actions</from>
+				<from>actions/process/id</from>
 				<to>list</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="70132859918c423a915b08611ba5a7af"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>nabu.frameworks.process.providers.action.service.utils.groupedAction</from>
-				<to>definition</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="4b4be0b308704f58a820233e26fad721"
+				id="ed9ab964fbdd477f8c3849c78dc2bfd9"
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resultc9975be07ad34f77a9f16675f39e9586/response</from>
-			<to>output/processes</to>
+			<from>result656bc20b882e4af0a34267a4e0a750ec/list</from>
+			<to>processIds</to>
 		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="b69aa48ea5e6443cb25aa5a28bff85b6"
+			lineNumber="13"
+			variable="processId"
+			into="output/processes">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="3aab5797f16b4b2f9656f865ed356503"
+				lineNumber="14">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f2cf7682af5d4521b6aa504144f107ee"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>processId</from>
+				<to>output/processes[0]/processId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="06efa20816ae4977849f1f7276a709cf"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>actions[processId == /processId]</from>
+				<to>output/processes[0]/actions</to>
+			</steps>
+		</steps>
+		<query>processIds</query>
 	</steps>
 </sequence>

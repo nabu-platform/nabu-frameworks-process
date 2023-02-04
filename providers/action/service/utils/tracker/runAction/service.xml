@@ -158,9 +158,9 @@
 				serviceId="nabu.frameworks.process.providers.action.service.runAutomatedAction"
 				resultName="result911d2ec03ae54528b3bbd60b71978d4a"
 				temporaryMapping="true"
-				x="404"
-				y="143"
-				invocationOrder="0"
+				x="685"
+				y="90"
+				invocationOrder="1"
 				target="nabu.frameworks.tasks.providers.executor"
 				asynchronous="false"
 				recache="false">
@@ -191,6 +191,15 @@
 				<from>input/actionId</from>
 				<to>actionId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9b3bf1892f874a41b2717de9897e3d1d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>resulta12b334846994bd081346690d2febaff/data</from>
+				<to>binding</to>
+			</steps>
 			<targetProperties
 					collectionIndex="schedule">=action/schedule</targetProperties>
 			<targetProperties
@@ -201,6 +210,36 @@
 					collectionIndex="runIn">=action/delay</targetProperties>
 			<targetProperties
 					collectionIndex="queue">=queue</targetProperties>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="493c5dfae08945f9a2c7767b9123ec8d"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.resolveDataBinding"
+				resultName="resulta12b334846994bd081346690d2febaff"
+				temporaryMapping="true"
+				x="57"
+				y="229"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2412e49beafa451ea974d82a8d7f9f44"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>action/dataBinding</from>
+				<to>dataBinding</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="3a912fe0f36547c0a7f14148923ceac4"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processData</from>
+				<to>available</to>
+			</steps>
 		</steps>
 	</steps>
 </sequence>

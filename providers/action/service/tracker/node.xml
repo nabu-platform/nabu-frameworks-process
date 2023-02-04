@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-04T09:12:03.702+01:00" leaf="true" version="159">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-04T12:41:31.634+01:00" leaf="true" version="165">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
     <references>nabu.utils.Runtime.summarizeException</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.create</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker.track</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.create</references>
     <references>java.util.Date</references>
@@ -26,7 +25,6 @@
     <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runStateAutomatic</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker$TrackType</references>
@@ -34,6 +32,7 @@
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.utils.Runtime.getContext</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.startProcess</references>
     <references>java.util.UUID</references>
     <references>be.nabu.libs.authentication.api.Token</references>
     <references>java.lang.Exception</references>
@@ -43,6 +42,7 @@
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
     <references>nabu.utils.Server.getServerName</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
+    <references>nabu.services.jdbc.Services.update</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>java.lang.Object</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.moveState</references>

@@ -3,5 +3,9 @@
         <field comment="A list of key value pairs that contain optional data binding for this action" minOccurs="0" name="dataBinding" type="java.lang.String"/>
         <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="available"/>
     </structure>
-    <structure name="output"/>
+    <structure name="output">
+        <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" name="data"/>
+    </structure>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" name="propertyList"/>
+    <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
 </structure>

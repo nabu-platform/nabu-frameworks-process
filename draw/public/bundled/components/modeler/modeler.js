@@ -261,6 +261,7 @@ Vue.view("process-modeler-component", {
 				description: null,
 				states: [],
 				actionRelations: [],
+				stateRelations: [],
 				styling: {}
 			};
 			// for the first version, these are in sync
