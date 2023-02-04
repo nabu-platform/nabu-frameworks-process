@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:07:45.035+01:00" lastModified="2023-02-04T08:22:25.389+01:00" leaf="true" version="20">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.Date.now</references>
+    <references>nabu.utils.Server.uuid</references>
+    <references>nabu.services.glue.Services.evaluate</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.services.jdbc.Services.update</references>
+    <references>nabu.services.jdbc.Services.insert</references>
+    <references>nabu.utils.List.toMap</references>
+    <references>java.util.Map</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.action</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.Object</references>
+    <references>java.lang.String</references>
+</node>
