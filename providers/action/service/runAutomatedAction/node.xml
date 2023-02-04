@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-02-04T14:30:56.227+01:00" leaf="true" version="23">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-02-04T14:40:41.890+01:00" leaf="true" version="24">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.manage.rest.process.version.processVersionFull</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
     <references>nabu.utils.reflection.Service.invoke</references>
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.utils.Date.now</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.frameworks.process.database.types.processAction</references>

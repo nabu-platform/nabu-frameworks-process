@@ -1,0 +1,5 @@
+<structure name="processVersionFull" superType="nabu.frameworks.process.crud.processVersion.types.output">
+    <structure definition="nabu.frameworks.process.manage.rest.process.version.processStateFull" maxOccurs="unbounded" minOccurs="0" name="states"/>
+    <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="actionRelations"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.database.types.processStateRelation" maxOccurs="unbounded" minOccurs="0" name="stateRelations"/>
+</structure>

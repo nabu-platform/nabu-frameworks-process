@@ -116,18 +116,18 @@
 			lineNumber="5">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="c82db634606947b4a866b139c5aab10b"
-				serviceId="nabu.frameworks.process.crud.processActionRelation.services.list"
-				resultName="result9a5cd80834554cc4865b3136032a9bba"
+				id="273ed5a3c0bf47b58ff0c21c52402342"
+				serviceId="nabu.frameworks.process.crud.processActionRelation.services.listEnrichedWithTarget"
+				resultName="result99b707e2bbca4d75b45c2664cecbf96a"
 				temporaryMapping="true"
-				x="201"
-				y="54"
+				x="269"
+				y="279"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="704a4e36a6a74608b66e85efc50690fb"
+					id="e848275773ea4915a9637bf27c49a94c"
 					mask="false"
 					optional="false"
 					fixedValue="false">
@@ -137,11 +137,11 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="1f6edc41810241fea78c62e544232244"
-				mask="true"
+				id="9ec1ed6276a447efaacad767f34d901e"
+				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>result9a5cd80834554cc4865b3136032a9bba/results</from>
+			<from>result99b707e2bbca4d75b45c2664cecbf96a/results</from>
 			<to>output/definition/actionRelations</to>
 		</steps>
 	</steps>

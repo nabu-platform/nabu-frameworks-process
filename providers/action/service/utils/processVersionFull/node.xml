@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-02-04T14:38:48.789+01:00" lastModified="2023-02-04T14:39:53.020+01:00" leaf="true" version="5">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
+    <references>nabu.frameworks.process.manage.rest.process.version.processStateFull</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>nabu.frameworks.process.database.types.processStateRelation</references>
+</node>
