@@ -1,6 +1,10 @@
 <structure collectionName="processInstanceLogs" name="processInstanceLog">
     <field name="id" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
+    <field name="created" timezone="UTC" type="java.util.Date"/>
     <field foreignKey="nabu.frameworks.process.database.types.processInstance:id" name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="If triggered by a specific action, log it" foreignKey="nabu.frameworks.process.database.types.processActionInstance:id" minOccurs="0" name="processActionInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field name="log" type="java.lang.String"/>
+    <field comment="Types can be &quot;flow&quot; when it pertains to flow decisions made by the engine or &quot;information&quot; if it comes from descriptions in blox" name="logType" type="java.lang.String"/>
+    <field comment="A very specific code that can be used to know which data is in the binding" minOccurs="0" name="code" type="java.lang.String"/>
+    <field comment="Structured metadata that can be used for messaging" minOccurs="0" name="dataBinding" type="java.lang.String"/>
 </structure>

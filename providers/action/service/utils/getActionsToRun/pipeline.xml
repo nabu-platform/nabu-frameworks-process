@@ -9,6 +9,8 @@
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.actionToRun" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
+        <field comment="The ids of all the process instances that are in an incorrect state to allow this to proceed" maxOccurs="unbounded" minOccurs="0" name="incorrectStateProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field comment="The ids of all the process instances that are in an incorrect state to allow this to proceed" maxOccurs="unbounded" minOccurs="0" name="conflictingStateProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
     <field maxOccurs="unbounded" minOccurs="0" name="processStates" type="java.lang.String"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="runningProcesses"/>
@@ -44,4 +46,5 @@
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="allInstanceData"/>
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="instanceDataMap"/>
     <field name="conditionResult" type="java.lang.Boolean"/>
+    <field name="processInError" type="java.lang.Boolean"/>
 </structure>

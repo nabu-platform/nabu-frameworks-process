@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-04T12:56:23.280+01:00" leaf="true" version="173">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-04T13:46:04.542+01:00" leaf="true" version="183">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -7,6 +7,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
     <references>nabu.utils.Runtime.summarizeException</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker.track</references>
+    <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.create</references>
     <references>java.util.Date</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
