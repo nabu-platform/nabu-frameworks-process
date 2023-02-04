@@ -1,0 +1,4 @@
+By default it is "any 1", but by tweaking max occurs you can set how many should happen before the any triggers.
+Note that it uses cluster locking to guarantee a consistent state.
+
+Looping into this any multiple times will fail because it does not keep track of actual process flow.

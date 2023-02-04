@@ -12,4 +12,5 @@
     <field comment="The state of the action,  RUNNING, ERROR, FAILED, SUCCEEDED,... (created is for async tasks etc)" name="processState" type="java.lang.String"/>
     <field comment="The server that owns this action, it is also responsible for setting it to FAILED in case of server crash" name="serverOwner" type="java.lang.String"/>
     <field comment="We can optionally capture input of say a service for reprocessing." minOccurs="0" name="input" type="java.lang.String"/>
+    <field generated="true" name="actionIndex" type="java.lang.Long"/>
 </structure>

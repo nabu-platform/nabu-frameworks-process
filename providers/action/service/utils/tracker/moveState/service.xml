@@ -4,53 +4,53 @@
 		lineNumber="1">
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
-			id="24c75dbd9d954a6580b8ca31d0fa64be"
+			id="c417a324f397427e81b9f201823e31c3"
 			lineNumber="2">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="ce8a0599f73049589becad0a78f4f911"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions"
-				resultName="result553846acc68b49bdb177c2df3af3fe6b"
+				id="d0c710bffee14e6aa71750e196261c46"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getProcessDefinition"
+				resultName="resultc93345c2990444e393e48591435b416a"
 				temporaryMapping="true"
-				x="223"
-				y="65"
+				x="250"
+				y="26"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="b1ad0a0829bd41c28f14554ba82690ee"
+					id="0e760a0ad9874b369902323a030617ec"
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>input/serviceId</from>
-				<to>serviceId</to>
+				<from>input/processVersionId</from>
+				<to>processVersionId</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="a85be511c6e048bd8ba4c4761f41350b"
+				id="e2e28deb41b24904b80360923312cdb5"
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>result553846acc68b49bdb177c2df3af3fe6b/processes/actions[id == /input/actionId]</from>
-			<to>action</to>
+			<from>resultc93345c2990444e393e48591435b416a/definition</from>
+			<to>definition</to>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="7feca53a1a38413984005b223c32cc28"
+				id="bd5c8d2078fe4f51bf23e9ef0d35682a"
 				mask="false"
 				optional="false"
-				fixedValue="true">
-			<from>false</from>
-			<to>output/movedState</to>
+				fixedValue="false">
+			<from>resultc93345c2990444e393e48591435b416a/definition/stateRelations[actionId == /input/actionId]</from>
+			<to>stateRelations</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="If we have any conditions, create a map"
 			disabled="false"
 			id="86993ec5f5454b80bf9e39575181321b"
-			label="action/stateRelations/condition != null &amp;&amp; input/processData != null"
+			label="stateRelations/condition != null &amp;&amp; input/processData != null"
 			lineNumber="3">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
@@ -344,6 +344,6 @@
 				lineNumber="13">
 			<count>1</count>
 		</steps>
-		<query>action/stateRelations</query>
+		<query>stateRelations</query>
 	</steps>
 </sequence>

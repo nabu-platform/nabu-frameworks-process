@@ -17,6 +17,12 @@ If we don't have a capturing identifier in the before phase, we only execute at 
 
 An action WITHOUT an identifier is worthless (?) though we have some automatic identifiers like correlation, device,...
 
+## Looping
+
+Going in a loop inside a process is currently not supported and not tested at this time.
+The problem we have is that we can't keep track of actual lines executed, we just keep track of actions executed.
+We do however have an incremental action/state index that allows us to deduce what the last executed step was. It is possible that based on this we can calculate that we are in a loop.
+
 ## Synchronous automatic
 
 Currently all automatic actions are performed asynchronously. We may however in the future want to allow for synchronous chaining too. The runAutomatedAction is pretty well designed for it except that it skips by default, when running synchronously you don't want to skip by default because this would mean the process definition is inconsistent in some way.

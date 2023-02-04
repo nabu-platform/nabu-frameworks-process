@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T15:09:58.596+01:00" lastModified="2023-02-04T15:46:50.160+01:00" leaf="true" version="49">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>nabu.services.glue.Services.evaluate</references>
+    <references>java.lang.Integer</references>
+    <references>java.lang.Long</references>
+    <references>nabu.utils.List.toMap</references>
+    <references>java.util.Map</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>nabu.utils.Date.now</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.web.application.Services.getSessionId</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.utils.List.size</references>
+    <references>nabu.utils.Lock.lock</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
+    <references>nabu.utils.Runtime.getDeviceFromToken</references>
+    <references>java.lang.Object</references>
+    <references>nabu.utils.Lock.unlock</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
+</node>

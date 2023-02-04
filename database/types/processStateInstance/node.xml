@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-26T09:59:52.285+01:00" lastModified="2023-01-29T19:41:18.781+01:00" leaf="true" version="4">
+<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-26T09:59:52.285+01:00" lastModified="2023-02-04T15:49:46.883+01:00" leaf="true" version="5">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -8,4 +8,5 @@
     <references>nabu.frameworks.process.database.types.processState</references>
     <references>java.util.Date</references>
     <references>nabu.frameworks.process.database.types.processInstance</references>
+    <references>java.lang.Long</references>
 </node>

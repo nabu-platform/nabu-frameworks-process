@@ -5,11 +5,7 @@
         <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" name="stateInstance"/>
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="processData"/>
     </structure>
-    <structure name="output">
-        <field name="movedState" type="java.lang.Boolean"/>
-    </structure>
-    <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
-    <structure definition="java.lang.Object" name="result"/>
-    <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
-    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.database.types.processStateRelation" maxOccurs="unbounded" minOccurs="0" name="stateRelations"/>
+    <structure name="output"/>
+    <field name="movedState" type="java.lang.Boolean"/>
+    <field name="blocked" type="java.lang.Boolean"/>
 </structure>
