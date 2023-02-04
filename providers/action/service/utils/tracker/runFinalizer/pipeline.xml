@@ -6,4 +6,7 @@
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="processData"/>
     </structure>
     <structure name="output"/>
+    <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="relationsToRun"/>
+    <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
+    <structure definition="java.lang.Object" name="result"/>
 </structure>

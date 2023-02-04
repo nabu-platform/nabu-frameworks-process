@@ -1,0 +1,4 @@
+<structure name="parameter">
+    <field name="now" timezone="UTC" type="java.util.Date"/>
+    <field name="processStateInstanceId" type="java.util.UUID"/>
+</structure>

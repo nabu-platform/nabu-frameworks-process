@@ -29,15 +29,6 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="e16db4b9b3994bb4bfa2d20e7f29c92d"
-				mask="false"
-				optional="false"
-				fixedValue="false">
-			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/states/actions[id == /input/actionId]</from>
-			<to>action</to>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-				disabled="false"
 				id="e8a1e064cc774bb9bd0a7208d0759ac9"
 				mask="false"
 				optional="false"
