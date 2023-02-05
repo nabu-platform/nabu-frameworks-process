@@ -1,0 +1,8 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<outputDefinition>nabu.frameworks.process.database.types.processAction</outputDefinition>
+	<sql>select * from ~process_actions pa 
+	join ~process_states ps on pa.process_state_id = ps.id
+	join ~process_versions pv on ps.process_version_id = pv.id
+where pv.released is not null and pv.deprecated is null
+	and action_type = 'service'</sql>
+</jdbcService>

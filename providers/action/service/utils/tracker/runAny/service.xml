@@ -450,20 +450,11 @@
 								serviceId="nabu.frameworks.process.crud.processActionInstance.services.list"
 								resultName="result466866a29b2242f0a0968a80e45f9062"
 								temporaryMapping="true"
-								x="348"
-								y="72"
+								x="52"
+								y="57"
 								invocationOrder="0"
 								asynchronous="false"
 								recache="false">
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
-									id="02db10a829e04bacbef64866d4973a90"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>relationsToAny/actionId</from>
-								<to>filter/processActionId</to>
-							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
 									id="63e6410b63fe4bb98fb51ab5ee4463db"
@@ -481,6 +472,15 @@
 									fixedValue="true">
 								<from>SUCCEEDED</from>
 								<to>filter/processState[0]</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="c3809385201241e491168a32f875119c"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>applicableRelations/actionId</from>
+								<to>filter/processActionId</to>
 							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -766,8 +766,8 @@
 							serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials"
 							resultName="result68d873fa51c749e9967746fb86829a29"
 							temporaryMapping="true"
-							x="388"
-							y="69"
+							x="320"
+							y="81"
 							invocationOrder="0"
 							asynchronous="false"
 							recache="false">

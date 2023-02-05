@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-05T10:33:41.889+01:00" lastModified="2023-02-05T10:46:19.660+01:00" leaf="true" version="27">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processActionRelation.services.list</references>
+    <references>nabu.frameworks.process.crud.processAction.services.list</references>
+    <references>nabu.frameworks.process.crud.processStateRelation.services.list</references>
+    <references>java.util.Date</references>
+    <references>nabu.utils.Server.uuid</references>
+    <references>nabu.utils.Date.now</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processStateRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processVersion.services.get</references>
+    <references>nabu.frameworks.process.crud.processCapture.services.list</references>
+    <references>nabu.utils.types.Property</references>
+    <references>nabu.frameworks.process.crud.processState.services.list</references>
+    <references>nabu.services.jdbc.Services.insert</references>
+    <references>nabu.frameworks.process.crud.processCapture.types.output</references>
+    <references>nabu.frameworks.process.crud.processState.types.output</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
+</node>

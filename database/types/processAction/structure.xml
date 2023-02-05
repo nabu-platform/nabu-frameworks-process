@@ -12,7 +12,6 @@
     <field comment="How many times it can be run (0 = unlimited), default is 1" minOccurs="0" name="maxOccurs" type="java.lang.Long"/>
     <field comment="When it is marked as a singleton and it has a maxoccurs of &gt; 1, the previous running instances (and their children) are locked." minOccurs="0" name="singleton" type="java.lang.Boolean"/>
     <field comment="An action can be repeated until a certain condition is met. This condition must be derived from the captured variables." minOccurs="0" name="repeatUntil" type="java.lang.String"/>
-    <field comment="The actor that is allowed to do this" foreignKey="nabu.frameworks.process.database.types.processActor:id" minOccurs="0" name="processActorId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="The permission (if any) that the actor must have to execute this" minOccurs="0" name="permission" type="java.lang.String"/>
     <field minOccurs="0" name="style" type="java.lang.String"/>
     <field comment="There are a number of action types, for example a service call is an action type, so is a finalizer." name="actionType" type="java.lang.String"/>

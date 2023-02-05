@@ -1,6 +1,0 @@
-<structure collectionName="processActors" comment="All the parties that are involved in the process.&#10;We can use that to visualize who does what&#10;" name="processActor">
-    <field name="id" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
-    <field name="name" type="java.lang.String"/>
-    <field comment="Assign a particular color to this actor" minOccurs="0" name="styling" type="java.lang.String"/>
-    <field foreignKey="nabu.frameworks.process.database.types.processVersion:id" name="processVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-</structure>
