@@ -502,15 +502,6 @@
 												recache="false">
 											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 													disabled="false"
-													id="860ae04322ae4f18a37db9d53c931355"
-													mask="false"
-													optional="false"
-													fixedValue="false">
-												<from>input/name</from>
-												<to>serviceId</to>
-											</steps>
-											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-													disabled="false"
 													id="d9083f9d3c294f69800bc6e49bd9f4d6"
 													mask="false"
 													optional="false"
