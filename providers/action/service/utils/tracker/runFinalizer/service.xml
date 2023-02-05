@@ -92,20 +92,55 @@
 			<to>map</to>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="a1865aa6e97b49eabed3604842fa93ee"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="23d41d36a41644ef9033b8f52f26a60a"
+				serviceId="nabu.utils.Map.toProperties"
+				resultName="result136ac064b3794e4ea24f5caeffce00db"
+				temporaryMapping="true"
+				x="21"
+				y="233"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f76be82b305e4bf698cb42600ff0ed8b"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>map</from>
+				<to>map</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="6c00896b94ba418f965fb0a189d6673b"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result136ac064b3794e4ea24f5caeffce00db/properties</from>
+			<to>properties</to>
+		</steps>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="cd2568b9860b484abcf0863ced7c3cdf"
-			lineNumber="4"
+			lineNumber="5"
 			variable="relationToRun">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				disabled="false"
 				id="d4b48f91ab15496e8a6cd57b1ae7378f"
 				label="relationToRun/condition != null"
-				lineNumber="5">
+				lineNumber="6">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="0b2401150317482db5cb4d4398e13a2d"
-					lineNumber="6">
+					lineNumber="7">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="b50f2ccdb38444ac977d27355dc20c57"
@@ -150,7 +185,7 @@
 					disabled="false"
 					id="92d066f1688d4b4ebe9a92f464e302ae"
 					label="result != true"
-					lineNumber="7">
+					lineNumber="8">
 				<count>2</count>
 				<continueExecution>true</continueExecution>
 			</steps>
@@ -159,7 +194,7 @@
 				comment="If we get here, we want to stop the process"
 				disabled="false"
 				id="47351a91913d4ec184ff4497a57fba3e"
-				lineNumber="8">
+				lineNumber="9">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="4937cc7a3abc423eaf85c2e7c2c1d1a0"

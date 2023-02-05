@@ -129,7 +129,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 					disabled="false"
 					id="0847de2ee0aa47968eb06a49a435bc89"
-					label="result"
+					label="result != null"
 					lineNumber="7">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						disabled="false"

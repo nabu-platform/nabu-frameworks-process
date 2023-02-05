@@ -167,7 +167,7 @@
 				comment="We don't update to null"
 				disabled="false"
 				id="4ebe6cb5feb947da8cf7e3b1ff49329a"
-				label="processData/value == null"
+				label="processData[0]/value == null"
 				lineNumber="5">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
 					disabled="false"

@@ -614,21 +614,21 @@
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="cc6f5da4c4a849df83f1e31d7b7f8906"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>input/actionId</from>
-								<to>instance/processActionId</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
 									id="7e7ec806cfb04993b4c131663b2649a1"
 									mask="false"
 									optional="false"
 									fixedValue="false">
 								<from>input/stateInstance/id</from>
 								<to>instance/processStateInstanceId</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="1e13b86ccd6341d9a96fbb620454b245"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>anyDefinition/id</from>
+								<to>instance/processActionId</to>
 							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"

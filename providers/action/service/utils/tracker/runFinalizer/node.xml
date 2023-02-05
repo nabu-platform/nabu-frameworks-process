@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2023-02-04T14:51:39.220+01:00" leaf="true" version="14">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2023-02-05T20:12:01.518+01:00" leaf="true" version="15">
     <comment>This runs any finalizers that might be the consequence of the given action id</comment>
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
-    <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>be.nabu.libs.types.api.KeyValuePair</references>
+    <references>nabu.utils.Map.toProperties</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
-    <references>nabu.utils.List.toMap</references>
     <references>nabu.utils.Date.now</references>
-    <references>java.util.Map</references>
-    <references>java.lang.Object</references>
     <references>nabu.services.glue.Services.evaluate</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeProcess</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.utils.List.toMap</references>
+    <references>java.util.Map</references>
+    <references>java.lang.Object</references>
 </node>

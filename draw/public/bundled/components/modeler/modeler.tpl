@@ -73,7 +73,8 @@
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
 						<p class="is-p is-size-small" v-else>When set to globally, only one instance of a process can be active at a time</p>
-						
+					</div>
+					<div v-if="selected.target.actionType == 'service'" class="is-column is-spacing-gap-medium">
 						<h4 class="is-h4">Value capturing</h4>
 						<p class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
 						<div v-for="(capture, index) in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
@@ -82,9 +83,9 @@
 							<n-form-switch v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
 							<button @click="model.captures.splice(index, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
 						</div>
-						<div class="is-row is-align-end is-spacing-medium">
-							<button class="is-button is-size-xsmall is-variant-primary-outline" type="button" @click="newCapture(selected.target.id)"><icon name="plus"/><span class="is-text">Capture</span></button>
-						</div>
+					</div>
+					<div class="is-row is-align-end is-spacing-medium">
+						<button class="is-button is-size-xsmall is-variant-primary-outline" type="button" @click="newCapture(selected.target.id)"><icon name="plus"/><span class="is-text">Capture</span></button>
 					</div>
 					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
 				</div>

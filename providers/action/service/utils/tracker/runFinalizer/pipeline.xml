@@ -9,4 +9,5 @@
     <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="relationsToRun"/>
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
     <structure definition="java.lang.Object" name="result"/>
+    <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="properties"/>
 </structure>

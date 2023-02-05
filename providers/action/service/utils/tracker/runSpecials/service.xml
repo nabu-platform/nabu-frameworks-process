@@ -297,11 +297,4 @@
 			</steps>
 		</steps>
 	</steps>
-	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			comment="Evaluate any/all/finalizer/..."
-			disabled="false"
-			features="TODO"
-			id="84d45a4a34634cfdb37afcff298ffb7b"
-			lineNumber="9">
-	</steps>
 </sequence>
