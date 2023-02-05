@@ -33,4 +33,7 @@
     <field comment="The ids of all the process instances that are in an incorrect state to allow this to proceed" maxOccurs="unbounded" minOccurs="0" name="conflictingStateProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <structure definition="nabu.frameworks.process.providers.action.service.runAutomatedAction:input" name="automatedRunInput"/>
     <field minOccurs="0" name="sessionId" type="java.lang.String"/>
+    <structure definition="nabu.utils.types.TypeDescription" minOccurs="0" name="description"/>
+    <field name="logMessage" type="java.lang.String"/>
+    <field name="logBinding" type="java.lang.String"/>
 </structure>
