@@ -278,4 +278,31 @@
 				recache="false">
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Clear the runtime cache so we pick up new definitions"
+			disabled="false"
+			id="2f78b21c2b7f43a4b7c4b1b032f902ca"
+			lineNumber="13">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="4a620b04a59547f8b1a241a16a957099"
+				serviceId="nabu.utils.Cache.clear"
+				resultName="result7445b6fc19ec40ad97c6cdcca41013e0"
+				temporaryMapping="true"
+				x="56"
+				y="65"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="951cbde574c64ed2a32a823f7fd7646f"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>nabu.frameworks.process.providers.action.service.utils.memoryCache</from>
+				<to>cacheProviderId</to>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

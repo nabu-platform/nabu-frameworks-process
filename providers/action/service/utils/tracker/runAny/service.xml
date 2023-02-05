@@ -265,7 +265,7 @@
 								mask="false"
 								optional="false"
 								fixedValue="false">
-							<from>definition/actionRelations[targetActionId == /singleAny/actionId &amp;&amp; relationType == "flow"]</from>
+							<from>definition/actionRelations[targetActionId == /singleAny/targetActionId &amp;&amp; relationType == "flow"]</from>
 							<to>relationsToAny</to>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -274,7 +274,7 @@
 								mask="false"
 								optional="false"
 								fixedValue="false">
-							<from>definition/states[id == /singleAny/actionId]/actions</from>
+							<from>definition/states/actions[id == /singleAny/targetActionId]</from>
 							<to>anyDefinition</to>
 						</steps>
 					</steps>
@@ -614,21 +614,21 @@
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="7a6276dfd8394a5baacf7874d76f6635"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>input/stateInstance/processInstanceId</from>
-								<to>instance/processStateInstanceId</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
 									id="cc6f5da4c4a849df83f1e31d7b7f8906"
 									mask="false"
 									optional="false"
 									fixedValue="false">
 								<from>input/actionId</from>
 								<to>instance/processActionId</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="7e7ec806cfb04993b4c131663b2649a1"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/stateInstance/id</from>
+								<to>instance/processStateInstanceId</to>
 							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -800,11 +800,11 @@
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
-								id="dd23961452be43acb9c37d75705d05b8"
+								id="0aa24684a2ae41dd8b69a08e822c2938"
 								mask="false"
 								optional="false"
 								fixedValue="false">
-							<from>singleAny/actionId</from>
+							<from>singleAny/targetActionId</from>
 							<to>actionId</to>
 						</steps>
 					</steps>

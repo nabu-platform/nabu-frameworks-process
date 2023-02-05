@@ -22,6 +22,11 @@ Vue.view("process-modeler-component", {
 		processVersionId: {
 			type: String,
 			required: false
+		},
+		// you can pass in an instance, we will use it to visualize the steps that have been run
+		processInstanceId: {
+			type: String,
+			required: false
 		}
 	},
 	data: function() {
@@ -1814,7 +1819,16 @@ Vue.view("process-modeler-component", {
 				}
 			});
 		},
-		
+		// need to update the width 
+		updateAnyActionOccurs: function(action, value) {
+			Vue.set(action, 'maxOccurs', value);
+			// this takes into account 3 letters
+			var normalWidth = 30;
+			// this is the final name shown in the block
+			var nameResult = action.maxOccurs == 0 ? 'ALL' : 'ANY' + (action.maxOccurs == null || action.maxOccurs == 1 ? '' : ' ' + action.maxOccurs);
+			var overflow = nameResult.length - 3;
+			action.styling.width = normalWidth + (overflow * 6);
+		},	
 		drawAnyAction: function(action) {
 			var self = this;
 			var state = this.getState(action.processStateId);
@@ -1825,10 +1839,11 @@ Vue.view("process-modeler-component", {
 				
 			this.move(group, action.styling.x, action.styling.y);
 
+
 			var rect = group.append("rect")
 				.attr("width", action.styling.width)
 				.attr("height", action.styling.height)
-				.attr("class", "background selectable " + action.actionType)
+				.attr("class", "background selectable " + (action.maxOccurs == 0 ? 'all' : 'any'))
 				.attr("id", action.id + "-rect")
 				// the counter translation is because we can't set a correct transform-origin (??) so instead we move it a bit because it rotates top left
 				// never mind...
@@ -1846,8 +1861,9 @@ Vue.view("process-modeler-component", {
 			}
 				
 			
+			var nameResult = action.maxOccurs == 0 ? 'ALL' : 'ANY' + (action.maxOccurs == null || action.maxOccurs == 1 ? '' : ' ' + action.maxOccurs);
 			var name = group.append("text")
-				.text(action.actionType.toUpperCase())
+				.text(nameResult)
 				.attr("font-size", "x-small")
 				
 			this.move(name, 5, 18);

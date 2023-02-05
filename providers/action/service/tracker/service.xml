@@ -1353,9 +1353,36 @@
 										</steps>
 									</steps>
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+											comment="Update the action BEFORE we run the specials"
+											disabled="false"
+											id="704eb616f52f48268787ac2dd4460bb5"
+											lineNumber="46">
+										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+												disabled="false"
+												id="304131f8988942b8b2e5acdc7aa3e03d"
+												serviceId="nabu.services.jdbc.Services.update"
+												resultName="resulta4491316b050480499905b8d4424bc01"
+												temporaryMapping="true"
+												x="154"
+												y="234"
+												invocationOrder="0"
+												asynchronous="false"
+												recache="false">
+											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+													disabled="false"
+													id="fd3d1298075f4fa0bc50feac535f60dd"
+													mask="false"
+													optional="false"
+													fixedValue="false">
+												<from>createdAction</from>
+												<to>instances[0]</to>
+											</steps>
+										</steps>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											disabled="false"
 											id="313f0e48b34d4ab8b745aa5903c27f77"
-											lineNumber="46">
+											lineNumber="47">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="c2c78cdf6bde4fe4bc07cdcabe396804"
@@ -1406,33 +1433,6 @@
 										</steps>
 									</steps>
 									<query>createdActions</query>
-								</steps>
-								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-										comment="Update the actions"
-										disabled="false"
-										id="704eb616f52f48268787ac2dd4460bb5"
-										lineNumber="47">
-									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-											disabled="false"
-											id="304131f8988942b8b2e5acdc7aa3e03d"
-											serviceId="nabu.services.jdbc.Services.update"
-											resultName="resulta4491316b050480499905b8d4424bc01"
-											temporaryMapping="true"
-											x="154"
-											y="234"
-											invocationOrder="0"
-											asynchronous="false"
-											recache="false">
-										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-												disabled="false"
-												id="78b16f027b444ecf801b8b8af970b1c2"
-												mask="false"
-												optional="false"
-												fixedValue="false">
-											<from>createdActions</from>
-											<to>instances</to>
-										</steps>
-									</steps>
 								</steps>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.For"

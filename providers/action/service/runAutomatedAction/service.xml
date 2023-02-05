@@ -330,8 +330,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="true">
-					<from>
-="{
+					<from>="{
 	properties: [{
 		'key': 'actionId', 
 		'value': '" + input/actionId + "'
