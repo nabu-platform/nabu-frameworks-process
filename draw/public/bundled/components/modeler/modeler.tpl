@@ -65,14 +65,18 @@
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
 					</div>
-					<div v-if="selected.target.actionType == 'service'" class="is-column is-spacing-gap-medium">
-						<n-form-combo v-model="selected.target.identificationType" placeholder="correlationId" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
+					<div v-if="selected.target.actionType == 'service' && !selected.target.automatic" class="is-column is-spacing-gap-medium">
+						<n-form-combo v-model="selected.target.identificationType" :placeholder="model.defaultIdentificationType ? model.defaultIdentificationType : 'correlationId'" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
 						<p class="is-p is-size-small" v-if="selected.target.identificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'deviceId'">Device id can only be used when dealing with browser-based processes.</p>
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
 						<p class="is-p is-size-small" v-else>When set to globally, only one instance of a process can be active at a time</p>
+						
+						<div v-for="capture in getCapturesFor(selected.target.id)">
+							
+						</div>
 					</div>
 					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
 				</div>

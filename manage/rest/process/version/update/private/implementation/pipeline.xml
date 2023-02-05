@@ -15,4 +15,7 @@
     <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="existingStateRelations"/>
     <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" minOccurs="0" name="existingStateRelation"/>
     <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="stateRelationsToRemove"/>
+    <structure collectionName="processCaptures" definition="nabu.frameworks.process.crud.processCapture.types.output" maxOccurs="unbounded" minOccurs="0" name="existingCaptures"/>
+    <structure collectionName="processCaptures" definition="nabu.frameworks.process.crud.processCapture.types.output" minOccurs="0" name="existingCapture"/>
+    <structure collectionName="processCaptures" definition="nabu.frameworks.process.crud.processCapture.types.output" maxOccurs="unbounded" minOccurs="0" name="capturesToRemove"/>
 </structure>

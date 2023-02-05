@@ -4,5 +4,4 @@
     <field comment="The way to capture it (e.g. the path). This is relative to the pipeline so should start with input or output. For blox services the full pipeline is available, for the rest only input/output." name="capture" type="java.lang.String"/>
     <field comment="The name of the captured value" name="name" type="java.lang.String"/>
     <field comment="Whether or not the resulting captured value is an identifier or simply metadata" name="identifier" type="java.lang.Boolean"/>
-    <field comment="You can capture a variable that can be used as the security context for permission checks" name="securityContext" type="java.lang.Boolean"/>
 </structure>

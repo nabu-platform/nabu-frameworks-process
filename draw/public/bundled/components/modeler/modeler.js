@@ -216,6 +216,9 @@ Vue.view("process-modeler-component", {
 							relation.styling = relation.style ? JSON.parse(relation.style) : {}
 						});
 					}
+					if (!result.captures) {
+						result.captures = [];
+					}
 					// initialize some variables
 					if (!result.states) {
 						result.states = [];
@@ -281,6 +284,7 @@ Vue.view("process-modeler-component", {
 				states: [],
 				actionRelations: [],
 				stateRelations: [],
+				captures: [],
 				styling: {},
 				defaultIdentificationType: "correlationId"
 			};
@@ -290,6 +294,11 @@ Vue.view("process-modeler-component", {
 			Vue.set(this, "model", model);
 			// need to first render the svg element before we can start drawing
 			Vue.nextTick(this.draw);
+		},
+		getCapturesFor: function(actionId) {
+			return this.captures.filter(function(x) {
+				return x.actionId == actionId;
+			});
 		},
 		deselect: function() {
 			var element = this.selected.target ? this.$refs.svg.getElementById(this.selected.target.id) : null;

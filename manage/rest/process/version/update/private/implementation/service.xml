@@ -493,6 +493,36 @@
 			<from>result25acc51abd8e4a1a9a84c3220377d35b/results</from>
 			<to>existingStateRelations</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="d4e2ace64e9e4c2988dfe96af685921d"
+				serviceId="nabu.frameworks.process.crud.processCapture.services.list"
+				resultName="result79822d104ca14a37bc5d68883b85a30a"
+				temporaryMapping="true"
+				x="202"
+				y="383"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="3be23ff6d79c4f75b0cd097c1e1000c5"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>existingActions/id</from>
+				<to>filter/processActionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="9c85a01b495a482bb3c26325b7f63f77"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result79822d104ca14a37bc5d68883b85a30a/results</from>
+			<to>existingCaptures</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
@@ -1054,11 +1084,149 @@
 		</steps>
 		<query>input/content/stateRelations</query>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="7977767425d64461832a817c98053761"
+			lineNumber="47"
+			variable="capture">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get existing capture"
+				disabled="false"
+				id="9d37b237bfa0403d959e2dfea715bf58"
+				lineNumber="48">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a4419062168b41dfa1aec2980b9a0a0f"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>existingCaptures[id == /capture/id]</from>
+				<to>existingCapture</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
+				disabled="false"
+				id="dd5783aeee4244ebbcb76342808589fe"
+				lineNumber="49">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="24501cc0ded94bd39a7c1376c5c517a9"
+					label="!existingCapture"
+					lineNumber="50">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="6bef40f5c345449696f2986e326dd08f"
+						serviceId="nabu.frameworks.process.crud.processCapture.services.create"
+						resultName="result9553d72d8fd441d9bfe77a5b5c40adb8"
+						temporaryMapping="true"
+						x="201"
+						y="41"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="74b07ffd5ab74da6889749f11f008121"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>capture</from>
+						<to>instance</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="3c74cb9eb10147dfbe53a979c0ddf554"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>capture/id</from>
+						<to>id</to>
+					</steps>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+					disabled="false"
+					id="1f85e89077374c40a6c0c8cf48ad3cdd"
+					lineNumber="51">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="f4840ecefc844b24b165522d8bdd5d03"
+						lineNumber="52">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="ce6feb903bbc4d4b97a02c7fc3f3e654"
+							serviceId="nabu.utils.Object.mapByKey"
+							resultName="result7cfba8dbcac94fb9b7b38d6fd69e8035"
+							temporaryMapping="true"
+							x="94"
+							y="78"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="c9c8e84242ec4ae888a8071e18dd9964"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>existingCapture</from>
+							<to>into</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="2fc9c36273294475babb7b9e4149c77d"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>capture</from>
+							<to>from</to>
+						</steps>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="5c74492911064aa0b0a6c7f29c2942c8"
+						lineNumber="53">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="6b328b1c3ebe42e7aa941c5a66656a75"
+							serviceId="nabu.frameworks.process.crud.processCapture.services.update"
+							resultName="result1c4ba383f4194bd8912e3eec9724ee7f"
+							temporaryMapping="true"
+							x="153"
+							y="53"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="da1abbe2324c4ba4873ba88876361733"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>capture</from>
+							<to>instance</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="6e6aabd7137c4b5db76209fb039c19fd"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>capture/id</from>
+							<to>id</to>
+						</steps>
+					</steps>
+				</steps>
+			</steps>
+		</steps>
+		<query>input/content/captures</query>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="Get things to remove"
 			disabled="false"
 			id="12629baf183c464b9a24ebc83f008cac"
-			lineNumber="47">
+			lineNumber="54">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
 				id="da549d6664524549b94cd97fd700d633"
@@ -1095,12 +1263,21 @@
 			<from>existingStateRelations[id !# /input/content/stateRelations/id]</from>
 			<to>stateRelationsToRemove</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="4fad52b8e55b402a9fe44f482a61a7c4"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>existingCaptures[id !# /input/content/captures/id]</from>
+			<to>capturesToRemove</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="57c8d3cfd9dc4f92a3a169f3810f842d"
 			label="relationsToRemove"
-			lineNumber="48">
+			lineNumber="55">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="3f60e9a4ab8f435f9f4be0cb2ed89f36"
@@ -1127,7 +1304,7 @@
 			disabled="false"
 			id="fbd902d1f64346a183acab9f155c1b12"
 			label="actionsToRemove"
-			lineNumber="49">
+			lineNumber="56">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="93b1970334b54f3d8df8da49fa1905cc"
@@ -1154,7 +1331,7 @@
 			disabled="false"
 			id="35a7b92ec9bb4db99368b48b47fdc56b"
 			label="statesToRemove"
-			lineNumber="50">
+			lineNumber="57">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="6900b8700388464c9ec13c46136f2075"
@@ -1181,7 +1358,7 @@
 			disabled="false"
 			id="d31e1a45be8e4946a5dcbc24d3ab3ccf"
 			label="stateRelationsToRemove"
-			lineNumber="51">
+			lineNumber="58">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="17d3f659c82b4e7faa784019d1b04f3a"
@@ -1200,6 +1377,33 @@
 					optional="false"
 					fixedValue="false">
 				<from>stateRelationsToRemove/id</from>
+				<to>id</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="b4da792734e445019638fe44e7202eae"
+			label="capturesToRemove"
+			lineNumber="59">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="23c85d2e14e2429c8a890f1dc2e589f0"
+				serviceId="nabu.frameworks.process.crud.processCapture.batch.deleteAll"
+				resultName="resultae04d77d60a24bffb80e90a669306da4"
+				temporaryMapping="true"
+				x="200"
+				y="64"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="dd35d19159b74343973c05a13c0c6947"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>capturesToRemove/id</from>
 				<to>id</to>
 			</steps>
 		</steps>
