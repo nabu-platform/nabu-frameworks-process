@@ -1823,6 +1823,27 @@
 						<from>resultfe86d821158242a4a81b15749e1cbd85/results</from>
 						<to>stateInstances</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="ccc76ffec1684577a606a526aebbfdda"
+							serviceId="nabu.utils.Date.now"
+							resultName="result8a8b6a1964d340d09eeaf03a0766c536"
+							temporaryMapping="true"
+							x="193"
+							y="348"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="d0cad43482c2459587be5e67b6c2d2f8"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>result8a8b6a1964d340d09eeaf03a0766c536/date</from>
+						<to>date</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
@@ -1852,15 +1873,6 @@
 									fixedValue="false">
 								<from>createdAction/id</from>
 								<to>instance/processActionInstanceId</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
-									id="1b06ca3e70814b4fa7a29220537854d8"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>result566a2c1877ac4a82a88c55cb4fa2842e/date</from>
-								<to>instance/created</to>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
@@ -1898,18 +1910,15 @@
 								<from>logBinding</from>
 								<to>instance/dataBinding</to>
 							</steps>
-						</steps>
-						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-								disabled="false"
-								id="31d6ec6a26b04458aa63976ef01aaa74"
-								serviceId="nabu.utils.Date.now"
-								resultName="result566a2c1877ac4a82a88c55cb4fa2842e"
-								temporaryMapping="true"
-								x="70"
-								y="70"
-								invocationOrder="0"
-								asynchronous="false"
-								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="8e6e2ad1ca4d4a648db5d512d670284d"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>date</from>
+								<to>instance/created</to>
+							</steps>
 						</steps>
 					</steps>
 					<query>createdActions</query>
