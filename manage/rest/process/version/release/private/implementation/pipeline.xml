@@ -1,6 +1,6 @@
 <structure interface="nabu.frameworks.process.manage.rest.process.version.release:api" name="pipeline">
     <structure name="input"/>
     <structure name="output"/>
-    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" name="version"/>
     <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" minOccurs="0" name="active"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" name="version"/>
 </structure>

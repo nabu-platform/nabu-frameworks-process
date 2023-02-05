@@ -5,7 +5,6 @@
     <structure name="output">
         <field name="clonedProcessVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
-    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" name="version"/>
     <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" maxOccurs="unbounded" minOccurs="0" name="states"/>
     <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" maxOccurs="unbounded" minOccurs="0" name="actions"/>
     <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="actionRelations"/>
@@ -14,4 +13,5 @@
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" name="stateMapping"/>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" name="actionMapping"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" name="version"/>
 </structure>

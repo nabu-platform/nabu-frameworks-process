@@ -67,21 +67,21 @@
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="2a1881b6d0474d3aa42428a174728210"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>true</from>
-				<to>filter/active</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
 					id="2b9feb5f8e0c4841a07c9352c52645a9"
 					mask="false"
 					optional="false"
 					fixedValue="false">
 				<from>version/processDefinitionId</from>
 				<to>filter/processDefinitionId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="889fcc7e578e40d69b3976c77440b1cd"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/released</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"

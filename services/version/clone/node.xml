@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-05T10:33:41.889+01:00" lastModified="2023-02-05T10:46:19.660+01:00" leaf="true" version="27">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-05T10:33:41.889+01:00" lastModified="2023-02-05T12:01:29.727+01:00" leaf="true" version="29">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.crud.processActionRelation.services.list</references>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
     <references>nabu.frameworks.process.crud.processAction.services.list</references>
     <references>nabu.frameworks.process.crud.processStateRelation.services.list</references>
     <references>java.util.Date</references>
@@ -21,5 +22,4 @@
     <references>nabu.frameworks.process.crud.processState.types.output</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
     <references>nabu.frameworks.process.crud.processActionRelation.types.output</references>
-    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
 </node>

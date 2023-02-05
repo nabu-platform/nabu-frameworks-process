@@ -1,6 +1,6 @@
 <template id="process-modeler-component">
 	<div class="process-modeler-component is-row is-spacing-gap-medium">
-		<template v-if="!model">
+		<template v-if="!model && false">
 			<div class="is-column is-spacing-medium is-width-max-xsmall is-width-min-xsmall is-color-background is-border-full">
 				<ul class="is-menu is-variant-toolbar is-align-center">
 					<li class="is-column"><button @click="startNewModel" class="is-button is-variant-primary is-size-small"><icon name="plus"/><span class="is-text">New process</span></button></li>
@@ -16,7 +16,7 @@
 			<n-form class="is-variant-vertical" content-class="is-column is-spacing-medium is-width-max-xsmall is-width-min-xsmall is-color-background is-border-full process-modeler-form">
 				<div class="is-column is-spacing-gap-medium">
 					<ul class="is-menu is-variant-toolbar is-align-main-end">
-						<li class="is-column"><button type="button" @click="model = null" :disabled="saving" class="is-button is-variant-secondary-outline is-size-xsmall"><icon name="undo"/><span class="is-text">Back</span></button></li>
+						<li class="is-column" v-if="false"><button type="button" @click="model = null" :disabled="saving" class="is-button is-variant-secondary-outline is-size-xsmall"><icon name="undo"/><span class="is-text">Back</span></button></li>
 						<li class="is-column"><button type="submit" @click="save" :disabled="saving" class="is-button is-variant-primary-outline is-size-xsmall"><icon name="save"/><span class="is-text">Save</span></button></li>
 					</ul>
 					<div class="is-column is-spacing-medium is-spacing-gap-small is-color-body">

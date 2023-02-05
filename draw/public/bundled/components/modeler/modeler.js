@@ -18,10 +18,16 @@ Vue.view("process-modeler-component", {
 		serviceContext: {
 			type: String,
 			required: false
+		},
+		processVersionId: {
+			type: String,
+			required: false
 		}
 	},
 	data: function() {
 		return {
+			// check if we can edit it (we can't edit released versions)
+			editable: false,
 			model: null,
 			svg: null,
 			selected: {
@@ -117,7 +123,14 @@ Vue.view("process-modeler-component", {
 		}	
 	},
 	created: function() {
-		this.loadProcesses();
+		console.log("created moedeler", this.processVersionId);
+		//this.loadProcesses();
+		if (this.processVersionId) {
+			this.loadProcess(this.processVersionId);
+		}
+		else {
+			this.startNewModel();
+		}
 	},
 	watch: {
 		selected: function(newValue, oldValue) {
@@ -180,6 +193,7 @@ Vue.view("process-modeler-component", {
 			var self = this;
 			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.get", { processVersionId: processVersionId, "$serviceContext": this.serviceContext }).then(function(result) {
 				if (result) {
+					self.editable = result.released == null;
 					result.styling = result.style ? JSON.parse(result.style) : {};
 					if (!result.actionRelations) {
 						result.actionRelations = [];
@@ -254,7 +268,7 @@ Vue.view("process-modeler-component", {
 		startNewModel: function() {
 			var model = {
 				id: this.newId(),
-				name: "New process",
+				name: "My process",
 				version: 1,
 				created: new Date(),
 				queue: null,
@@ -262,7 +276,8 @@ Vue.view("process-modeler-component", {
 				states: [],
 				actionRelations: [],
 				stateRelations: [],
-				styling: {}
+				styling: {},
+				defaultIdentificationType: "correlationId"
 			};
 			// for the first version, these are in sync
 			model.processDefinitionId = model.id;
