@@ -89,4 +89,6 @@ defs path {
 
 .process-modeler-form {
 	position: fixed;
+	max-height: 100%;
+	overflow: auto;
 }

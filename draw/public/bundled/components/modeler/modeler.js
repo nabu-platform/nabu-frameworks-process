@@ -296,8 +296,14 @@ Vue.view("process-modeler-component", {
 			Vue.nextTick(this.draw);
 		},
 		getCapturesFor: function(actionId) {
-			return this.captures.filter(function(x) {
-				return x.actionId == actionId;
+			return this.model.captures.filter(function(x) {
+				return x.processActionId == actionId;
+			});
+		},
+		newCapture: function(actionId) {
+			this.model.captures.push({
+				id: this.newId(),
+				processActionId: actionId
 			});
 		},
 		deselect: function() {
