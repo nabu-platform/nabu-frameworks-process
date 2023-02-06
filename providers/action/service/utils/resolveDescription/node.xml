@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-06T21:02:39.322+01:00" lastModified="2023-02-06T21:05:14.682+01:00" leaf="true" version="8">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.utils.String.replace</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>java.util.UUID</references>
+    <references>java.lang.String</references>
+</node>

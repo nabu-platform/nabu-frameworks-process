@@ -208,16 +208,32 @@
 				<to>action/relations</to>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Map the default identification"
+				disabled="false"
+				id="dc53dc4503374f14ad864c3d0d086570"
+				label="action/identificationType == null"
+				lineNumber="5">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5735ac1a541548818b0234b8daa7b3fc"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>action/process/defaultIdentificationType</from>
+				<to>action/identificationType</to>
+			</steps>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"
 				disabled="false"
 				id="0e68a7781f5946aab9305bb48abe2a08"
-				lineNumber="5"
+				lineNumber="6"
 				variable="capture">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Get existing capture"
 					disabled="false"
 					id="acbb35fb2f2349928f1b062576676bd4"
-					lineNumber="6">
+					lineNumber="7">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="e3801715b34c407583df3090b380fb4c"
@@ -227,21 +243,39 @@
 					<from>output/captures[capture == /capture/capture]</from>
 					<to>existingCapture</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="c1e05f302b654fa19c98dcb801142084"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>capture/id</from>
+					<to>name/key</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="cd08a47f33974d2988ec0f3479043beb"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>capture/name</from>
+					<to>name/value</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 					disabled="false"
 					id="0b2a8ac00af846ef99cf9f074c70ae06"
-					lineNumber="7">
+					lineNumber="8">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 						disabled="false"
 						id="5be7392c2ae64713bda768c9b7d218a7"
 						label="existingCapture == null"
-						lineNumber="8">
+						lineNumber="9">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							comment="Map initial"
 							disabled="false"
 							id="f703e3e7b5c1436594c0b73d7493be02"
-							lineNumber="9">
+							lineNumber="10">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="b867c8fa5b644cf4958af8ceea8dba3c"
@@ -253,18 +287,18 @@
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
-								id="d21f9983464941d597ec9be9ad17a99f"
+								id="4899f2a4b80b46f8be27aa70280bfee4"
 								mask="false"
 								optional="false"
 								fixedValue="false">
-							<from>capture/name</from>
+							<from>name</from>
 							<to>existingCapture/names[0]</to>
 						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="8818eb5a78934e76ac3a1bd6af8098fb"
-							lineNumber="10">
+							lineNumber="11">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="585c3e36139243a6800cdc061860dde3"
@@ -311,7 +345,7 @@
 						disabled="false"
 						id="c117d656550643938a0eafdcd1e587f9"
 						label="capture/name !# existingCapture/names"
-						lineNumber="11">
+						lineNumber="12">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="fd93030441144be1b4b01dff2b6f21b3"
@@ -334,11 +368,11 @@
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
-								id="7e54d803d5344c52a46db9ab98120f4c"
+								id="045bf1876ad840f0837ce2edc522fb95"
 								mask="false"
 								optional="false"
 								fixedValue="false">
-							<from>capture/name</from>
+							<from>name</from>
 							<to>object</to>
 						</steps>
 					</steps>
@@ -353,6 +387,16 @@
 					</steps>
 				</steps>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Drop name"
+					disabled="false"
+					id="33af3a1257fa405e93241de7fd851486"
+					lineNumber="13">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+						disabled="false"
+						id="8db6b8be48ab432ea55ea9104c4ea09a"
+						path="name" xsi:nil="true"/>
+			</steps>
 			<query>action/captures</query>
 		</steps>
 		<query>actions</query>
@@ -360,7 +404,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="90b1410dcb0145e2b0fd67a310f7a197"
-			lineNumber="12">
+			lineNumber="14">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="14e71a85b09d43a6bcde7105712a8eec"
@@ -395,13 +439,13 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="b69aa48ea5e6443cb25aa5a28bff85b6"
-			lineNumber="13"
+			lineNumber="15"
 			variable="processId"
 			into="output/processes">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="3aab5797f16b4b2f9656f865ed356503"
-				lineNumber="14">
+				lineNumber="16">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="f2cf7682af5d4521b6aa504144f107ee"

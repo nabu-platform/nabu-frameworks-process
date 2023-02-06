@@ -482,6 +482,15 @@
 								<from>applicableRelations/actionId</from>
 								<to>filter/processActionId</to>
 							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="2a4dc8821adc40d3be7ac526d706350d"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/stateInstance/id</from>
+								<to>filter/processStateInstanceId[0]</to>
+							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"

@@ -10,4 +10,8 @@
     <structure collectionName="processCaptures" definition="nabu.frameworks.process.database.types.processCapture" maxOccurs="unbounded" minOccurs="0" name="captures"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" name="processData"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="alreadyCaptured"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" minOccurs="0" name="currentValue"/>
+    <field name="newValue" type="java.lang.String"/>
+    <field minOccurs="0" name="newName" type="java.lang.String"/>
 </structure>

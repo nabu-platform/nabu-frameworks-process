@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.jdbc.JDBCServiceManager" created="2023-02-04T08:32:48.541+01:00" lastModified="2023-02-04T08:33:06.701+01:00" leaf="false" version="4">
+<node artifactManager="be.nabu.eai.module.services.jdbc.JDBCServiceManager" created="2023-02-04T08:32:48.541+01:00" lastModified="2023-02-06T11:07:15.439+01:00" leaf="false" version="5">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>

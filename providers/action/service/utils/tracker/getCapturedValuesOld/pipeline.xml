@@ -1,0 +1,11 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="serviceName" type="java.lang.String"/>
+    </structure>
+    <structure name="output">
+        <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
+    </structure>
+    <structure definition="java.lang.Object" minOccurs="0" name="pipeline"/>
+    <structure definition="java.lang.Object" name="result"/>
+    <structure definition="nabu.utils.types.TypeDescription" minOccurs="0" name="description"/>
+</structure>

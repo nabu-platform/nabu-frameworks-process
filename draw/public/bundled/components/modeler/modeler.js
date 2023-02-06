@@ -301,10 +301,12 @@ Vue.view("process-modeler-component", {
 			});
 		},
 		newCapture: function(actionId) {
-			this.model.captures.push({
+			var capture = {
 				id: this.newId(),
 				processActionId: actionId
-			});
+			};
+			capture.globalReferenceId = capture.id;
+			this.model.captures.push(capture);
 		},
 		deselect: function() {
 			var element = this.selected.target ? this.$refs.svg.getElementById(this.selected.target.id) : null;
@@ -1293,16 +1295,17 @@ Vue.view("process-modeler-component", {
 				if (index >= 0) {
 					this.model.states.splice(index, 1);
 				}
-				// update any actions that might lead to this state
-				this.model.states.forEach(function(state) {
-					state.actions.forEach(function(action) {
-						if (action.resultStateId == self.selected.target.id) {
-							action.resultStateId = null;
-						}
-					})
-				})
-				// remove any relationships linked to actions within this state
+				
 				var actionIds = this.selected.target.actions.map(function(action) { return action.id });
+				
+				// remove any state relations involved with this
+				this.model.stateRelations.filter(function(x) {
+					return x.targetStateId == self.selected.target.id || actionIds.indexOf(x.actionId) >= 0;
+				}).forEach(function(remove) {
+					self.model.stateRelations.splice(self.model.stateRelations.indexOf(remove), 1);
+				});
+				
+				// remove any relationships linked to actions within this state
 				this.model.actionRelations.filter(function(x) {
 					return actionIds.indexOf(x.actionId) >= 0 || actionIds.indexOf(x.targetActionId) >= 0;
 				}).forEach(function(relationToRemove) {
@@ -1327,9 +1330,14 @@ Vue.view("process-modeler-component", {
 			}
 			else if (this.selected.type == "actionRelation" && this.selected.target) {
 				var index = this.model.actionRelations.indexOf(this.selected.target);
-				console.log("deleting", this.selected.target, index);
 				if (index >= 0) {
 					this.model.actionRelations.splice(index, 1);
+				}
+			}
+			else if (this.selected.type == "stateRelation" && this.selected.target) {
+				var index = this.model.stateRelations.indexOf(this.selected.target);
+				if (index >= 0) {
+					this.model.stateRelations.splice(index, 1);
 				}
 			}
 			this.selected.type = null;
@@ -1375,6 +1383,7 @@ Vue.view("process-modeler-component", {
 				processStateId: state.id,
 				id: this.newId()
 			};
+			action.globalReferenceId = action.id;
 			state.actions.push(action);	
 			this.drawAction(action);
 			
@@ -1402,6 +1411,7 @@ Vue.view("process-modeler-component", {
 				id: this.newId(),
 				actions: []
 			};
+			state.globalReferenceId = state.id;
 			this.model.states.push(state);
 			this.drawState(state);
 			this.select("state", state);
@@ -1708,6 +1718,7 @@ Vue.view("process-modeler-component", {
 							relationType: event.sourceEvent.ctrlKey ? "limit" :"flow",
 							styling: {}
 						};
+						relation.globalReferenceId = relation.id;
 						self.model.actionRelations.push(relation);
 						self.drawActionRelation(relation);
 					}
@@ -1717,7 +1728,8 @@ Vue.view("process-modeler-component", {
 							actionId: action.id,
 							targetStateId: self.linking.state.id,
 							styling: {}
-						}
+						};
+						relation.globalReferenceId = relation.id;
 						self.model.stateRelations.push(relation);
 						self.drawStateRelation(relation);
 						//action.resultStateId = self.linking.state.id;

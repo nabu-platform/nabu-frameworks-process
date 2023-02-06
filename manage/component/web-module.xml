@@ -5,5 +5,10 @@
     <webFragments>nabu.frameworks.process.manage.rest.process.version.get</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.version.update</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.version.release</webFragments>
+    <webFragments>nabu.frameworks.process.crud.processInstance.services.listForBrowsing</webFragments>
+    <webFragments>nabu.frameworks.process.crud.processActionInstance.services.listForBrowsing</webFragments>
+    <webFragments>nabu.frameworks.process.crud.processStateInstance.services.listForBrowsing</webFragments>
+    <webFragments>nabu.frameworks.process.crud.processData.services.listForBrowsing</webFragments>
+    <webFragments>nabu.frameworks.process.crud.processInstanceLog.services.listForBrowsing</webFragments>
     <audience>MANAGER</audience>
 </webModule>

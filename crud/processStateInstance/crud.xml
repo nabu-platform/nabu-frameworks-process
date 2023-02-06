@@ -39,7 +39,9 @@
         <input>true</input>
         <vary>false</vary>
     </filters>
+    <getPermission>process.list</getPermission>
     <hooks>false</hooks>
+    <listPermission>process.list</listPermission>
     <listRole>$user</listRole>
     <provider>nabu.services.crud.provider.basic.provider</provider>
     <restLimitToUser>true</restLimitToUser>
@@ -52,4 +54,22 @@
     <useProjectAsPermissionContext>false</useProjectAsPermissionContext>
     <useServiceContextAsPermissionContext>false</useServiceContextAsPermissionContext>
     <useWebApplicationAsPermissionContext>false</useWebApplicationAsPermissionContext>
+    <views>
+        <broadcastCreate>false</broadcastCreate>
+        <broadcastUpdate>false</broadcastUpdate>
+        <filters>
+            <caseInsensitive>false</caseInsensitive>
+            <key>processInstanceId</key>
+            <operator>=</operator>
+            <or>false</or>
+            <input>true</input>
+            <vary>false</vary>
+        </filters>
+        <foreignFields>
+            <foreignName>processStateId:name</foreignName>
+            <localName>processStateName</localName>
+        </foreignFields>
+        <name>For Browsing</name>
+        <type>LIST</type>
+    </views>
 </crud>

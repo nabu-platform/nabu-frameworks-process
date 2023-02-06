@@ -9,4 +9,5 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="actions"/>
     <structure comment="All the relevant captures for one service across all the processes" definition="nabu.frameworks.process.providers.action.service.utils.capture" minOccurs="0" name="existingCapture"/>
     <field maxOccurs="unbounded" minOccurs="0" name="processIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <structure comment="They can be known by multiple names cross-process. The key is the id of the capture definition. Because it is potentially executable, the value contains the final name." definition="nabu.utils.types.Property" name="name"/>
 </structure>

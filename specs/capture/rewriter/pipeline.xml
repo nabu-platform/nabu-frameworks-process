@@ -1,0 +1,11 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field comment="The name of the captured value" name="name" type="java.lang.String"/>
+        <field comment="The value of the captured variable" name="value" type="java.lang.String"/>
+        <field comment="Whether or not the resulting captured value is an identifier or simply metadata" name="identifier" type="java.lang.Boolean"/>
+    </structure>
+    <structure name="output">
+        <field comment="The name of the captured value" name="name" type="java.lang.String"/>
+        <field comment="The value of the captured variable" name="value" type="java.lang.String"/>
+    </structure>
+</structure>

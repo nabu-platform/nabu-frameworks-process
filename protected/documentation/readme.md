@@ -1,3 +1,33 @@
+currently getPotentialServiceActions only returns ACTIVE processes!
+this means we can't actually run processes in from previous versions!
+we need a secondary state after deprecated -> "inactive" or something
+deprecated processes are assumed to still be ongoing (?) every process instance of a deprecated definition should check whether it was the last one and deactivate the process.
+at startup we should automatically do a check for deprecated-not-yet-inactive processes to see if they have running versions
+
+we should NOT start a new process instance for deprecated processes! we just skip it, assuming there is a newer version or we don't care (anymore)
+
+
+
+TODO:
+- multischema support
+	-> for the service listeners, need to check all connections
+	-> for the cached "nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions", need to check all connections, need to feed back info on the connection-to-use as well!
+		-> and feed this back via: nabu.frameworks.process.providers.action.service.utils.getActionsToRun to the tracker
+-> or is the default service context always correct (?) -> in most cases probably yes!
+
+do not update the data if the value hasn't changed
+	-> especially for identification this is extremely annoying
+	
+implement version migration (the simple case -> rerouting to same state) for the endless
+
+
+search instances on captured values (!)
+capture external id values and features etc
+
+
+
+
+
 Suppose you have steps:
 
 login -> get data -> post data
@@ -16,6 +46,36 @@ We must capture both before and after. The before is mostly to BLOCK execution i
 If we don't have a capturing identifier in the before phase, we only execute at the end (?)
 
 An action WITHOUT an identifier is worthless (?) though we have some automatic identifiers like correlation, device,...
+
+## Migrating version
+
+In most cases when you have a new version of a business process, it is OK for running processes to continue using the older version while new instances will get the new version. This is how it works by default.
+
+In some cases however you _do_ want to migrate running instances to a newer version, reasons might be:
+
+- a blocking bug preventing older flows from continuing
+- endless flows that simply never stop would never see a new version otherwise
+
+When migrating versions however, things can have changed drastically:
+
+- entire states may no longer exist
+- particular actions may no longer exist or have been added
+- relations and requirements might have changed meaning the current action instances as they have occurred are no longer valid in a new flow or it may end up in a situation where requirements can not be fulfilled (e.g. new automated actions that never got scheduled but are waited upon).
+
+A number of options:
+
+1) State cleaning: the cleanest is that we reinitialize the process in a state (either the same state in the new version or a state you mapped it to if that no longer exists), that means all action instances no longer count towards future execution of the process in that state. This is clean because the original state instance (and all related action instances etc) will continue pointing to the original version they were evaluated against. This allows us to fully piece together the history. This approach usually works well for endless flows because they tend to be very case oriented without requiring specific action sequences.
+
+2) We do best effort rewriting of state and action instances using the global reference id to link the same state (and action) cross version. This can however end up in a substate that is invalid. When small changes have been done that are guaranteed to be backwards compatible, this approach can work. Especially useful approach for migrating action-sequence-sensitive flows that have a blocking bug. However, there is a large chance this approach will break running processes. Additionally it "rewrites" history, making it harder to figure out what a process actually did.
+
+3) We provide dedicated support for migration where you can add a "migration" action to the a state. this migration action is executed much like a regular action and can be chained (e.g. move to a specific action, add actions that are _only_ relevant for migration purposes as compensation etc.
+Multiple migration blocks can be added to whitelist/blacklist/catch all specific migration source versions (e.g. when migrating from v20 to v30 you might want other compensatory steps than v25 to v30).
+
+In the end we combine option 1 and 3 and do no provide support for option 2 because it is too error prone.
+We will reroute previous versions into the same state. If we detect versions that are in a state that no longer exists, you are prompted to choose a new target state. In that state we can set "migration" actions that can be triggered at the root of the state (they can not have incoming lines) and can be used to trigger compensating actions.
+
+Must be able to inject (or get) current process instance id -> you can plug in migration services that decide which path to take (e.g. output parameters used for conditional routing)
+Custom compensation routines are used for "edge case" problems, most cases don't need migration at all or can be safely rerouted in the same state.
 
 ## Looping
 

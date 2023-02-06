@@ -83,11 +83,12 @@
 							<n-form-switch v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
 							<button @click="model.captures.splice(index, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
 						</div>
+						<n-form-text v-model="selected.target.description" v-if="getCapturesFor(selected.target.id).length > 0" label="Dynamic description" after="You can use variables to create a variable description for this action instance"/>
 					</div>
 					<div class="is-row is-align-end is-spacing-medium">
 						<button class="is-button is-size-xsmall is-variant-primary-outline" type="button" @click="newCapture(selected.target.id)"><icon name="plus"/><span class="is-text">Capture</span></button>
 					</div>
-					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
+					<n-form-text type="area" v-model="selected.target.comment" label="Comment" after="Additional comments you want to add"/>
 				</div>
 				<div v-else-if="selected.type == 'actionRelation'" class="is-column is-spacing-gap-medium">
 					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="['flow', 'limit']" @input="draw"/>
@@ -102,13 +103,13 @@
 					<n-form-text v-model="selected.target.name" label="State name" @input="draw" after="A short name for this state"/>
 					<n-form-combo v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-switch v-model="selected.target.initial" label="Initial state" after="A new process instance can only be created in an initial state. There must be at least one in a process."/>
-					<n-form-text type="area" v-model="selected.target.description" label="Description" after="Additional description you want to add"/>
+					<n-form-text type="area" v-model="selected.target.comment" label="Comment" after="Additional comments you want to add"/>
 				</div>
 				<div v-else class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="model.name" label="Process name"/>
 					<n-form-text v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue"/>
 					<n-form-combo v-model="model.styling.theme" label="Theme" :items="themes" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
-					<n-form-text type="area" v-model="model.description" label="Process description" after="Additional description you want to add"/>
+					<n-form-text type="area" v-model="model.comment" label="Comment" after="Additional comments you want to add"/>
 					<div class="is-column is-spacing-gap-medium">
 						<n-form-combo v-model="model.defaultIdentificationType" placeholder="global" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Default identification type" after="How do you want to identify process instances by default? This can be overriden per service action."/>
 						<p class="is-p is-size-small" v-if="model.defaultIdentificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
@@ -120,7 +121,6 @@
 					</div>
 				</div>
 			</n-form>
-			<div class="is-column is-width-max-xsmall is-width-min-xsmall process-modeler-spacer"></div>
 			<div class="is-column is-overflow-auto">
 				<svg ref="svg">
 					<defs>
@@ -146,6 +146,7 @@
 					</defs>
 				</svg>
 			</div>
+			<div class="is-column is-width-max-xsmall is-width-min-xsmall process-modeler-spacer"></div>
 		</template>
 	</div>
 </template>

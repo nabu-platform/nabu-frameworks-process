@@ -4,156 +4,198 @@
 		lineNumber="1">
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
-			id="b2c1c65f03774a759f6514d81cecef41"
+			id="679ddfb71fe64859bb77b60b38c54a6f"
 			lineNumber="2">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="9177791814ec4de3a152d8e33e5126b3"
-				serviceId="nabu.frameworks.process.startup.selectServicesToListen"
-				resultName="result443b1e26c5284f54a268f8cf161c2ebe"
+				id="5484269fc5894480a91c1bbd6ce4d604"
+				serviceId="nabu.frameworks.process.services.getSupportedConnections"
+				resultName="resultb36a9088a95946909f202f4b8d5a3c29"
 				temporaryMapping="true"
-				x="92"
-				y="50"
+				x="256"
+				y="105"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-				disabled="false"
-				id="8e4d9cbeb96c4a6897def4dbcddc9ae1"
-				serviceId="nabu.utils.List.unique"
-				resultName="result4f8e3b8d005b4ab1936c78b55551d36d"
-				temporaryMapping="true"
-				x="617"
-				y="147"
-				invocationOrder="1"
-				asynchronous="false"
-				recache="false">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="c4f488c84a8b440caf720b944e802814"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>result443b1e26c5284f54a268f8cf161c2ebe/results[serviceId != null]/serviceId</from>
-				<to>list</to>
-			</steps>
-		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="577bfd77d95e405785d6eea4b8b13468"
+				id="eaac93a491ae4b0f90f47cfd4fa7ca46"
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>result4f8e3b8d005b4ab1936c78b55551d36d/list</from>
-			<to>toBeAudited</to>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-				disabled="false"
-				id="900689dbe3fb4bbba2664c2a983ba786"
-				serviceId="nabu.misc.auditing.Services.listAudited"
-				resultName="result8586a24a111e4de382f0a9f95ed239a2"
-				temporaryMapping="true"
-				x="278"
-				y="269"
-				invocationOrder="0"
-				asynchronous="false"
-				recache="false">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="53dbb0f8ce75403f976b68851c8fc861"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>nabu.frameworks.process.providers.action.service.tracker</from>
-				<to>auditServiceId</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="6378a310198d424ca82ffe011a74fbe5"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>false</from>
-				<to>recursive</to>
-			</steps>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-				disabled="false"
-				id="c1356cd4d051479ca7929ce7ff112d4d"
-				mask="false"
-				optional="false"
-				fixedValue="false">
-			<from>result8586a24a111e4de382f0a9f95ed239a2/auditedServices</from>
-			<to>currentlyAudited</to>
+			<from>resultb36a9088a95946909f202f4b8d5a3c29/connectionIds</from>
+			<to>connectionIds</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
-			comment="Start audits that are not ongoing yet"
 			disabled="false"
-			id="2ceadf5aaace4d529d8a390548e29a4a"
+			id="9095bf4a69864d3d9ca66edb587ba5be"
 			lineNumber="3"
-			variable="serviceId">
+			variable="connectionId">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
-				id="5d6839e1dbe14c4f96330bd923dd7117"
+				id="b2c1c65f03774a759f6514d81cecef41"
 				lineNumber="4">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
-					id="18374f784615486b968310da699a2e18"
-					serviceId="nabu.frameworks.process.providers.action.service.startListener"
-					resultName="resultfe5d5861eb604747a08b7c54ab7fe072"
+					id="9177791814ec4de3a152d8e33e5126b3"
+					serviceId="nabu.frameworks.process.startup.selectServicesToListen"
+					resultName="result443b1e26c5284f54a268f8cf161c2ebe"
 					temporaryMapping="true"
-					x="239"
-					y="117"
+					x="92"
+					y="50"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="c699d542665a4cdeae8b93e7de0ba8da"
+						id="169487de084949a2bbac9a3d43f28c57"
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>serviceId</from>
-					<to>properties/serviceId</to>
+					<from>connectionId</from>
+					<to>connection</to>
 				</steps>
 			</steps>
-		</steps>
-		<query>toBeAudited[$this !# /currentlyAudited]</query>
-	</steps>
-	<steps xsi:type="be.nabu.libs.services.vm.step.For"
-			comment="Stop audits that are no longer relevant"
-			disabled="false"
-			id="2d4231646569432ea10d3282e2fa9ed2"
-			lineNumber="5"
-			variable="serviceId">
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				disabled="false"
-				id="48d687c3089f4327baa8d323a3c94f69"
-				lineNumber="6">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
-					id="47d01edb7e9a4db981582356f7b98894"
-					serviceId="nabu.frameworks.process.providers.action.service.stopListener"
-					resultName="resultc44f212e36a5449aa1e0e45a42773bbb"
+					id="8e4d9cbeb96c4a6897def4dbcddc9ae1"
+					serviceId="nabu.utils.List.unique"
+					resultName="result4f8e3b8d005b4ab1936c78b55551d36d"
 					temporaryMapping="true"
-					x="18"
-					y="100"
+					x="617"
+					y="147"
+					invocationOrder="1"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="c4f488c84a8b440caf720b944e802814"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result443b1e26c5284f54a268f8cf161c2ebe/results[serviceId != null]/serviceId</from>
+					<to>list</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="577bfd77d95e405785d6eea4b8b13468"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result4f8e3b8d005b4ab1936c78b55551d36d/list</from>
+				<to>toBeAudited</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="900689dbe3fb4bbba2664c2a983ba786"
+					serviceId="nabu.misc.auditing.Services.listAudited"
+					resultName="result8586a24a111e4de382f0a9f95ed239a2"
+					temporaryMapping="true"
+					x="278"
+					y="269"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="dea68fc5cf534e02ac90e9bec84cf9bf"
+						id="53dbb0f8ce75403f976b68851c8fc861"
 						mask="false"
 						optional="false"
-						fixedValue="false">
-					<from>serviceId</from>
-					<to>properties/serviceId</to>
+						fixedValue="true">
+					<from>nabu.frameworks.process.providers.action.service.tracker</from>
+					<to>auditServiceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6378a310198d424ca82ffe011a74fbe5"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>false</from>
+					<to>recursive</to>
 				</steps>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="c1356cd4d051479ca7929ce7ff112d4d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result8586a24a111e4de382f0a9f95ed239a2/auditedServices</from>
+				<to>currentlyAudited</to>
+			</steps>
 		</steps>
-		<query>currentlyAudited[$this !# /toBeAudited]</query>
+		<steps xsi:type="be.nabu.libs.services.vm.step.For"
+				comment="Start audits that are not ongoing yet"
+				disabled="false"
+				id="2ceadf5aaace4d529d8a390548e29a4a"
+				lineNumber="5"
+				variable="serviceId">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="5d6839e1dbe14c4f96330bd923dd7117"
+					lineNumber="6">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="18374f784615486b968310da699a2e18"
+						serviceId="nabu.frameworks.process.providers.action.service.startListener"
+						resultName="resultfe5d5861eb604747a08b7c54ab7fe072"
+						temporaryMapping="true"
+						x="239"
+						y="117"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="c699d542665a4cdeae8b93e7de0ba8da"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>serviceId</from>
+						<to>properties/serviceId</to>
+					</steps>
+				</steps>
+			</steps>
+			<query>toBeAudited[$this !# /currentlyAudited]</query>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.For"
+				comment="Stop audits that are no longer relevant"
+				disabled="false"
+				id="2d4231646569432ea10d3282e2fa9ed2"
+				lineNumber="7"
+				variable="serviceId">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="48d687c3089f4327baa8d323a3c94f69"
+					lineNumber="8">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="47d01edb7e9a4db981582356f7b98894"
+						serviceId="nabu.frameworks.process.providers.action.service.stopListener"
+						resultName="resultc44f212e36a5449aa1e0e45a42773bbb"
+						temporaryMapping="true"
+						x="18"
+						y="100"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="dea68fc5cf534e02ac90e9bec84cf9bf"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>serviceId</from>
+						<to>properties/serviceId</to>
+					</steps>
+				</steps>
+			</steps>
+			<query>currentlyAudited[$this !# /toBeAudited]</query>
+		</steps>
+		<query>connectionIds</query>
 	</steps>
 </sequence>

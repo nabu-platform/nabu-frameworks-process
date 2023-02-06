@@ -270,7 +270,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="true">
-					<from>^input/</from>
+					<from>^=input/</from>
 					<to>match</to>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -284,7 +284,7 @@
 				</steps>
 			</steps>
 		</steps>
-		<query>allCaptures[capture ~ "^input/.*"]</query>
+		<query>allCaptures[capture ~ "^=input/.*"]</query>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
@@ -350,15 +350,6 @@
 						fixedValue="false">
 					<from>potentialProcess/actions/identificationType</from>
 					<to>list</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="8454c936afd64d76a4ae6db3382c600b"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>potentialProcess/actions[0]/process/defaultIdentificationType</from>
-					<to>object</to>
 				</steps>
 			</steps>
 		</steps>
@@ -548,7 +539,7 @@
 				comment="If we explicitly look for correlation id or have no other means of identification, fall back to correlationId"
 				disabled="false"
 				id="ccd56bb07c26466585568a61bbe4a10f"
-				label="&quot;correlationId&quot; # identificationTypes || identifierValues == null"
+				label="&quot;correlationId&quot; # identificationTypes || identificationTypes == null"
 				lineNumber="17">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -636,9 +627,10 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				comment="Get all process instances that match on some of those identifiers"
+				comment="Only try to find the instances if we have _some_ identifier OR we have explicitly set global"
 				disabled="false"
 				id="eb6273958a0d4e06bf7108f529f31f2f"
+				label="identifierValues != null || &quot;global&quot; # identificationTypes"
 				lineNumber="19">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"

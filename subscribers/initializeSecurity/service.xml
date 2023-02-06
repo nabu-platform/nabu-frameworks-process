@@ -92,7 +92,7 @@
 					mask="false"
 					optional="false"
 					fixedValue="true">
-				<from>process.list,process.manage</from>
+				<from>process.list,process.manage,processInstance.manage</from>
 				<to>string</to>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"

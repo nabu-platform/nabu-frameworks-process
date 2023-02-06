@@ -1,0 +1,136 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="d6fc00fc21c94b3d936e92e62ef0a994"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="27e6dd3d12654673b4e66d317e9d6d78"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="28d2ea4895e045228582765de8a21021"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getProcessDefinition"
+				resultName="result72b57a3e8ecb45a2bfd0728e49752033"
+				temporaryMapping="true"
+				x="136"
+				y="84"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="3897998ceb354fae89cb68d17217d9be"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processVersionId</from>
+				<to>processVersionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="e4b4a6fdc0de4e8fa8c4553889ff67d0"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result72b57a3e8ecb45a2bfd0728e49752033/definition/states/actions[id == /input/processActionId]</from>
+			<to>action</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+			disabled="false"
+			id="d3e22052cd754d72b17bd6f08f050cbd"
+			label="action/description != null"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="d33bbd0ac17d4e4896f3ed9832b76ade"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9082c1589285467a9143b0e7bdf735d7"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>action/description</from>
+				<to>output/description</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.For"
+				disabled="false"
+				id="04d165dc455647c284db269ad6293dfa"
+				lineNumber="5"
+				variable="captured">
+			<steps xsi:type="be.nabu.libs.services.vm.step.For"
+					disabled="false"
+					id="cde55cab8f1842288862c9bacb8e011b"
+					lineNumber="6"
+					variable="name">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="2f380ef26a1b42418da0cbca359c291d"
+						lineNumber="7">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="a8412e1f952a4fd5a868ec830ce631c8"
+							serviceId="nabu.utils.String.replace"
+							resultName="result9e9b87b605074d399c57fd5401774542"
+							temporaryMapping="true"
+							x="194"
+							y="154"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="3f6a76ff65614a00bb7065510b65d270"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>output/description</from>
+							<to>content</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="6f8c03b780784b03ab6f0d3015f77256"
+								mask="false"
+								optional="false"
+								fixedValue="true">
+							<from>="{" + name/value + "}"</from>
+							<to>match</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="1a17a1ec017b482e8d3a9a0332aa93ca"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>captured/value</from>
+							<to>replace</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="e8d741e7a96243ddb6fce3d2746c92d5"
+								mask="false"
+								optional="false"
+								fixedValue="true">
+							<from>false</from>
+							<to>useRegex</to>
+						</steps>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="fa71d7fa50b94a249ba97db04c09b4b3"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>result9e9b87b605074d399c57fd5401774542/content</from>
+						<to>output/description</to>
+					</steps>
+				</steps>
+				<query>captured/names</query>
+			</steps>
+			<query>input/capturedValues</query>
+		</steps>
+	</steps>
+</sequence>

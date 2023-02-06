@@ -1329,36 +1329,9 @@
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
-			id="35a7b92ec9bb4db99368b48b47fdc56b"
-			label="statesToRemove"
-			lineNumber="57">
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-				disabled="false"
-				id="6900b8700388464c9ec13c46136f2075"
-				serviceId="nabu.frameworks.process.crud.processState.batch.deleteAll"
-				resultName="result9ffe89ba1d8543ad8a37ae1df2a7aea1"
-				temporaryMapping="true"
-				x="276"
-				y="130"
-				invocationOrder="0"
-				asynchronous="false"
-				recache="false">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="a93f38eb37e14da68358d4ccb2429dfb"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>statesToRemove/id</from>
-				<to>id</to>
-			</steps>
-		</steps>
-	</steps>
-	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			disabled="false"
 			id="d31e1a45be8e4946a5dcbc24d3ab3ccf"
 			label="stateRelationsToRemove"
-			lineNumber="58">
+			lineNumber="57">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="17d3f659c82b4e7faa784019d1b04f3a"
@@ -1377,6 +1350,33 @@
 					optional="false"
 					fixedValue="false">
 				<from>stateRelationsToRemove/id</from>
+				<to>id</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="35a7b92ec9bb4db99368b48b47fdc56b"
+			label="statesToRemove"
+			lineNumber="58">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="6900b8700388464c9ec13c46136f2075"
+				serviceId="nabu.frameworks.process.crud.processState.batch.deleteAll"
+				resultName="result9ffe89ba1d8543ad8a37ae1df2a7aea1"
+				temporaryMapping="true"
+				x="276"
+				y="130"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a93f38eb37e14da68358d4ccb2429dfb"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>statesToRemove/id</from>
 				<to>id</to>
 			</steps>
 		</steps>

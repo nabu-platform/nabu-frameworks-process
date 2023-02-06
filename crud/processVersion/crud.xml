@@ -46,8 +46,8 @@
         <localName>name</localName>
     </foreignFields>
     <foreignFields>
-        <foreignName>processDefinitionId:description</foreignName>
-        <localName>description</localName>
+        <foreignName>processDefinitionId:comment</foreignName>
+        <localName>comment</localName>
     </foreignFields>
     <getPermission>process.list</getPermission>
     <hooks>false</hooks>

@@ -59,16 +59,96 @@
 			<to>date</to>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get the current captured data, we only want to store changed values"
+			disabled="false"
+			id="0b5e930418f3489c85f3bbfc048fff6c"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="7637fcf937e24223a61b81037b266293"
+				serviceId="nabu.frameworks.process.crud.processData.services.list"
+				resultName="result53e1b59bae704335bac31bec89fd7f55"
+				temporaryMapping="true"
+				x="73"
+				y="70"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="6a064ec83f904e0d934688df6c149c41"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processInstanceId</from>
+				<to>filter/processInstanceId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8fee63c317e9467f9889bbffb77d60e6"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/active</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="388a34ae208c4962bcc05957163ebdba"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result53e1b59bae704335bac31bec89fd7f55/results</from>
+			<to>alreadyCaptured</to>
+		</steps>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="f590a0d51d6743cfa866db86b16b7cdc"
-			lineNumber="3"
+			lineNumber="4"
 			variable="capture"
 			into="processData">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get already captured"
+				disabled="false"
+				id="dc25cb0abbf0451dadf36bd487e3f4be"
+				lineNumber="5">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ada262d969b1451f819df4cc84b22239"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>alreadyCaptured[0]</from>
+				<to>currentValue</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="942aafad5bf24049ae26581ad3951edd"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/capturedValues[capture == /capture/capture]/value</from>
+				<to>newValue</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="eb84b7bdd1f24a32afd01d52592ba372"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/capturedValues/names[key == /capture/id]/value</from>
+				<to>newName</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Map to be stored"
 				disabled="false"
 				id="8e32003669c849f3a599ff2af580a7ff"
-				lineNumber="4">
+				label="newName != null &amp;&amp; (currentValue == null || currentValue/value != newValue)"
+				lineNumber="6">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="86d8207ed1fc450e9cd7f0bc435d65f5"
@@ -146,33 +226,22 @@
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="d1353a2590764f7abc96e2e22dffbc4d"
+					id="2f3be06fcc794f2f8c8ef843d72c2308"
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>capture/name</from>
-				<to>processData[0]/name</to>
+				<from>newValue</from>
+				<to>processData[0]/value</to>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="a0fb6d695a5a4967908fff42be8bebd2"
+					id="8445c54ac46c425689050aea7bad54c2"
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>input/capturedValues[capture == /capture/capture]/value</from>
-				<to>processData[0]/value</to>
+				<from>newName</from>
+				<to>processData[0]/name</to>
 			</steps>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				comment="We don't update to null"
-				disabled="false"
-				id="4ebe6cb5feb947da8cf7e3b1ff49329a"
-				label="processData[0]/value == null"
-				lineNumber="5">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
-					disabled="false"
-					id="1e7a2b4c6593492682e094b2eb0b73f3"
-					path="processData" xsi:nil="true"/>
 		</steps>
 		<query>captures</query>
 	</steps>
@@ -180,12 +249,12 @@
 			disabled="false"
 			id="d9661955e5a84892956d2e0bd304c504"
 			label="processData"
-			lineNumber="6">
+			lineNumber="7">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="First deactivate any existing values"
 				disabled="false"
 				id="bab086c4ec5d4939b4f9e8d43d115977"
-				lineNumber="7">
+				lineNumber="8">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="5d9e52112da14b5c84c77060e444f292"
@@ -220,7 +289,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="d8f2be273ad244e4aee8ff90968a9260"
-				lineNumber="8">
+				lineNumber="9">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="6ebbab5e1491421b882043edb558d115"

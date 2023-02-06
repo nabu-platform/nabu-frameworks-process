@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-05T19:48:15.272+01:00" leaf="true" version="214">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-06T21:11:41.561+01:00" leaf="true" version="219">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -19,6 +19,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.resolveDescription</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker$TrackType</references>
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>

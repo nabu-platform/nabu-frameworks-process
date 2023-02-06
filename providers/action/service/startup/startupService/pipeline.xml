@@ -1,4 +1,8 @@
 <structure name="pipeline">
     <structure name="input"/>
     <structure name="output"/>
+    <field maxOccurs="unbounded" name="connectionIds" type="java.lang.String"/>
+    <field minOccurs="0" name="server" type="java.lang.String"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="actionInstances"/>
+    <field minOccurs="0" name="date" type="java.util.Date"/>
 </structure>

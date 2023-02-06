@@ -24,4 +24,5 @@
     <field minOccurs="0" name="amountOfTimesRun" type="java.lang.Integer"/>
     <field maxOccurs="unbounded" minOccurs="0" name="actionStates" type="java.lang.String"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" minOccurs="0" name="currentStateInstance"/>
 </structure>
