@@ -1,10 +1,19 @@
-currently getPotentialServiceActions only returns ACTIVE processes!
+!!! currently getPotentialServiceActions only returns ACTIVE processes!
+-> basically once you release a new version of a process, the older instances are no longer picked up for matching
 this means we can't actually run processes in from previous versions!
 we need a secondary state after deprecated -> "inactive" or something
 deprecated processes are assumed to still be ongoing (?) every process instance of a deprecated definition should check whether it was the last one and deactivate the process.
 at startup we should automatically do a check for deprecated-not-yet-inactive processes to see if they have running versions
 
 we should NOT start a new process instance for deprecated processes! we just skip it, assuming there is a newer version or we don't care (anymore)
+
+we could do a secondary check for process matches of deprecated processes
+-> note that we still can not have the same process (even different versions) match the same invocation (TOO-MANY-PROCESSES)
+
+
+
+description should use the "=" syntax and work on the full pipeline
+-> you are not limited to captured values, this stretches the system beyond what it was meant for and clutters data
 
 
 
@@ -15,9 +24,6 @@ TODO:
 		-> and feed this back via: nabu.frameworks.process.providers.action.service.utils.getActionsToRun to the tracker
 -> or is the default service context always correct (?) -> in most cases probably yes!
 
-do not update the data if the value hasn't changed
-	-> especially for identification this is extremely annoying
-	
 implement version migration (the simple case -> rerouting to same state) for the endless
 
 
@@ -46,6 +52,16 @@ We must capture both before and after. The before is mostly to BLOCK execution i
 If we don't have a capturing identifier in the before phase, we only execute at the end (?)
 
 An action WITHOUT an identifier is worthless (?) though we have some automatic identifiers like correlation, device,...
+
+## Nesting
+
+It would be nice to know which action instances are actually nested because suppose you have this setup:
+
+- wrapper-action: ERROR
+	- nested-action1: SUCCEEDED
+	- nested-action2: ERROR
+
+In the vast majority of acses the transaction of nested-action1 will also have been reverted, so even though it is marked as successful, it actually did not fully work.
 
 ## Migrating version
 

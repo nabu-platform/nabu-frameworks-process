@@ -47,4 +47,7 @@
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="instanceDataMap"/>
     <field name="conditionResult" type="java.lang.Boolean"/>
     <field name="processInError" type="java.lang.Boolean"/>
+    <field name="potentialNested" type="java.lang.Boolean"/>
+    <field name="nested" type="java.lang.Boolean"/>
+    <field name="amountOfStrictActions" type="java.lang.Long"/>
 </structure>

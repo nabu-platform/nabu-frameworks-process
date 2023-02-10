@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-06T21:11:41.561+01:00" leaf="true" version="219">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-02-09T14:22:46.940+01:00" leaf="true" version="233">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -23,6 +23,7 @@
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker$TrackType</references>
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.registerFailure</references>
     <references>nabu.utils.Runtime.getContext</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.startProcess</references>
     <references>java.util.UUID</references>
@@ -32,9 +33,12 @@
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
     <references>nabu.utils.Server.getServerName</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessVariables</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.registerForRollback</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>
     <references>nabu.utils.Runtime.summarizeException</references>
+    <references>nabu.utils.List.add</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker.track</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
@@ -50,6 +54,7 @@
     <references>nabu.data.xml.Services.marshal</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.services.jdbc.Services.update</references>
+    <references>nabu.utils.Transaction.defaultTransactionId</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.utils.reflection.Type.whatIs</references>
     <references>java.lang.Object</references>

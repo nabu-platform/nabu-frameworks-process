@@ -14,4 +14,6 @@
     <field comment="We can optionally capture input of say a service for reprocessing." minOccurs="0" name="input" type="java.lang.String"/>
     <field comment="A runtime description based on the definition" minOccurs="0" name="description" type="java.lang.String"/>
     <field generated="true" name="actionIndex" type="java.lang.Long"/>
+    <field minOccurs="0" name="nested" type="java.lang.Boolean"/>
+    <field minOccurs="0" name="rolledBack" type="java.lang.Boolean"/>
 </structure>

@@ -1,0 +1,1 @@
+The core variables (like correlation id, device id, user id etc) are updated BEFORE we start an action, this can be especially useful for correlating nested services.

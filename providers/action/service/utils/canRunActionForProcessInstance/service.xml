@@ -777,6 +777,15 @@
 				<from>true</from>
 				<to>output/allowedToProceed</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a50f1466debc4e929a21cdf28acd89ea"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>="RUNNING" # /runIncomingActions/processState</from>
+				<to>output/nested</to>
+			</steps>
 		</steps>
 	</steps>
 </sequence>

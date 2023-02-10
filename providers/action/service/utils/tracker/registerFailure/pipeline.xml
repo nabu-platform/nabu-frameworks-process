@@ -1,0 +1,7 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="transactionId" type="java.lang.String"/>
+    </structure>
+    <structure name="output"/>
+    <field name="alreadyRegistered" type="java.lang.Boolean"/>
+</structure>

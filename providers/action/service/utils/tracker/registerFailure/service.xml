@@ -1,0 +1,122 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="33c15576b0f04a28860d22029ff15ee8"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="9326e5bca7f74036adc88dfe26bad169"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="3da185b923cc49a9a4fc06c8f3e9f701"
+				serviceId="nabu.utils.Runtime.getContext"
+				resultName="result51babbea6ece4a219f07a1d22183b538"
+				temporaryMapping="true"
+				x="56"
+				y="43"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="0cafaa6416bc4a0e85c9b2d1eecf4656"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>="process-instance-fail-correlated-" + input/transactionId</from>
+				<to>key</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="5255535006fb4cdea04631b71644b2c9"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result51babbea6ece4a219f07a1d22183b538/value</from>
+			<to>alreadyRegistered</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+			disabled="false"
+			id="5bc3b8af6ce943ba9fb5ffcc49a8dfd6"
+			label="alreadyRegistered == true"
+			lineNumber="3">
+		<count>1</count>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="98662169e45547c7a7f674f94d8a965f"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="a9e92d1f5caf48a09dee9d0bd4d280d6"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.failCorrelated"
+				resultName="result9d6f47c6fcf341ad9158739da189d3d5"
+				temporaryMapping="true"
+				x="19"
+				y="55"
+				invocationOrder="0"
+				target="nabu.utils.providers.onTransactionClose"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="761af01950e64eecbd9c2822228cee19"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/transactionId</from>
+				<to>transactionId</to>
+			</steps>
+			<targetProperties
+					collectionIndex="onCommit">false</targetProperties>
+			<targetProperties
+					collectionIndex="onRollback">true</targetProperties>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="038306cdd6be48ca93beec81a6c5ef88"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>true</from>
+			<to>alreadyRegistered</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="37460e0704d24bdabd208c206fb26dea"
+			lineNumber="5">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="8ed9df2da6ef46f79621a43467422266"
+				serviceId="nabu.utils.Runtime.setContext"
+				resultName="result8de1d29263e84bcc8e2725e705a4c189"
+				temporaryMapping="true"
+				x="57"
+				y="31"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="c05c3567e96e44d29684382388c97e10"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>alreadyRegistered</from>
+				<to>value</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5706d49811744ab2a83ac545b90b0682"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>="process-instance-fail-correlated-" + input/transactionId</from>
+				<to>key</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

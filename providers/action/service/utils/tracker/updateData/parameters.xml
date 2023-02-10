@@ -1,0 +1,5 @@
+<structure name="parameter">
+    <field name="value" type="java.lang.String"/>
+    <field name="processInstanceId" type="java.util.UUID"/>
+    <field name="key" type="java.lang.String"/>
+</structure>

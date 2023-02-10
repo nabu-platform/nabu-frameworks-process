@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T12:22:31.373+01:00" lastModified="2023-02-04T12:26:40.360+01:00" leaf="true" version="17">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T12:22:31.373+01:00" lastModified="2023-02-09T13:22:00.504+01:00" leaf="true" version="19">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.database.types.processState</references>
+    <references>nabu.utils.List.add</references>
     <references>nabu.frameworks.process.crud.processInstance.services.create</references>
     <references>java.util.Date</references>
     <references>nabu.utils.Date.now</references>
+    <references>nabu.utils.Runtime.setContext</references>
+    <references>nabu.web.application.Services.getSessionId</references>
+    <references>nabu.utils.Runtime.getContext</references>
+    <references>java.util.UUID</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.frameworks.process.crud.processData.services.create</references>
-    <references>nabu.web.application.Services.getSessionId</references>
-    <references>java.util.UUID</references>
     <references>java.lang.String</references>
     <references>nabu.frameworks.process.crud.processInstance.types.createOutput</references>
 </node>

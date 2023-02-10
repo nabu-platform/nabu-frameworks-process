@@ -1,0 +1,260 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="7f30afc7ad094c5fb8204eff70db3537"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
+			disabled="false"
+			id="24305e337ee24aa58209b987ef71c2e1"
+			lineNumber="2"
+			query="input/query/parameterSearch">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="e4b1a5b261c04302a821ecebeb2133e1"
+				label="null"
+				lineNumber="3">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="33e9830484a94671b9860b17b7802b73"
+					serviceId="nabu.frameworks.process.crud.processInstance.services.listForBrowsing"
+					resultName="result598de8230f6a4239bb1c07b0d00ff388"
+					temporaryMapping="true"
+					x="216"
+					y="72"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="1b27d0f184fa4b0a9b5781ee3c254a72"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/limit</from>
+					<to>limit</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="4fa714e11a67485b81d4e03e23396758"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/offset</from>
+					<to>offset</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6a1923d450d84b28b8c99ecb2d1607fd"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/orderBy</from>
+					<to>orderBy</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="203a180937284a179aa02e469cb3c05f"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/processDefinitionId</from>
+					<to>filter/processDefinitionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f7b249d67e4345549f2fa1c189aa57ab"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/processVersionId</from>
+					<to>filter/processVersionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="06ddfb761a404db8968cd9b668a064c4"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/currentStateId</from>
+					<to>filter/currentStateId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="788f3704107046f6995c5855d3947f91"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/processState</from>
+					<to>filter/processState</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="57dd054ce94243febd87e8a46e398ad5"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result598de8230f6a4239bb1c07b0d00ff388</from>
+				<to>output/content</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				disabled="false"
+				id="038fabde3d874bbebf05a241db117d7e"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="493bf8d9b2fe42c49bd7238edaec8c27"
+					lineNumber="5">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="26e49aec599d433893c620b7ac301b09"
+						serviceId="nabu.frameworks.process.crud.processData.services.listForSearch"
+						resultName="result69a06619ee6648d99dfaf8f46a999110"
+						temporaryMapping="true"
+						x="249"
+						y="118"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="c883779a937844f798516c270b1f8b72"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/limit</from>
+						<to>limit</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="bef75142249c4cc192e4a272d898f4dc"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/offset</from>
+						<to>offset</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="56b40a6ede184eeba0830a21489db313"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/orderBy</from>
+						<to>orderBy</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="85dac7258db94d9ca78edfc27d099398"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/processDefinitionId</from>
+						<to>filter/processDefinitionId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="2fb0e0a22f2d4b27b71b4e57c4bc0171"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/currentStateId</from>
+						<to>filter/currentStateId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="4fb7110a62ee4a339430fcfd6a188165"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/processState</from>
+						<to>filter/processState</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="5410960077964c77843b96f4fe84d8ef"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/parameterSearch</from>
+						<to>filter/q</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="6d4d2f94debb4fd49419d1cd4e119739"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/processVersionId</from>
+						<to>filter/processVersionId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="36746a19de19476fbe6f103bf0a3655e"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>true</from>
+						<to>filter/active</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="14cb44b7d7bb406dad2601b75942bad8"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result69a06619ee6648d99dfaf8f46a999110/page</from>
+					<to>output/content/page</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="5b407dc6b3bc4209800e63da3e43dc1a"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result69a06619ee6648d99dfaf8f46a999110/results</from>
+					<to>dataProcesses</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.For"
+					disabled="false"
+					id="165f20c4feb14dbaa724979b2f7364da"
+					lineNumber="6"
+					variable="dataProcess"
+					into="output/content/results">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						comment="Map initial"
+						disabled="false"
+						id="1c736917fd874b1690158ab0515728bb"
+						lineNumber="7">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="2a2a70f729624e8e8331aaa32d2cb7f0"
+							mask="true"
+							optional="false"
+							fixedValue="false">
+						<from>dataProcess</from>
+						<to>output/content/results[0]</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						comment="Map special"
+						disabled="false"
+						id="4182162bbf0b4b829c18a7b871231f9b"
+						lineNumber="8">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="5816c7ec4d074b8ebdc774ba0a27d244"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>dataProcess/processInstanceId</from>
+						<to>output/content/results[0]/id</to>
+					</steps>
+				</steps>
+				<query>dataProcesses</query>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

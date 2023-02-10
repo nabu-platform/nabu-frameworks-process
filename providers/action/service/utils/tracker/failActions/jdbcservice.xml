@@ -1,0 +1,5 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sql>update ~process_action_instances set process_state = 'FAILED', rolled_back = true
+where process_state &lt;&gt; 'ERROR' 
+	and id = any(:actionInstanceIds)</sql>
+</jdbcService>

@@ -85,15 +85,6 @@
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"
-							id="6316b83c60044c7fa81c4e790f57cb3e"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>input/content/description</from>
-						<to>instance/description</to>
-					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
 							id="43f3a4abd2374791adad27e5b0bf91a0"
 							mask="false"
 							optional="false"
@@ -109,6 +100,15 @@
 							fixedValue="false">
 						<from>input/content/processDefinitionId</from>
 						<to>id</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="13eff44e3ba949759fd2476792118a01"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/content/comment</from>
+						<to>instance/comment</to>
 					</steps>
 				</steps>
 			</steps>

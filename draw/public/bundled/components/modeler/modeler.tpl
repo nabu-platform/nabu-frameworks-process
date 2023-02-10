@@ -61,7 +61,7 @@
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
 						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this according to a certain schedule" @input="draw"/>
 					</div>
-					<n-form-switch v-if="false && selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process we stop its execution. If lax is turned on, we allow execution but don't log it to this process."/>
+					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process instance we stop its execution. If lax is turned on, we allow execution to proceed."/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
 					</div>
@@ -80,7 +80,8 @@
 						<div v-for="(capture, index) in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
 							<n-form-text v-model="capture.name" label="Name"/>
 							<n-form-text v-model="capture.capture" label="Capture" after="The query to run on the pipeline to capture the value"/>
-							<n-form-switch v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
+							<n-form-switch v-if="!capture.transient" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
+							<n-form-switch v-if="!capture.identifier" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
 							<button @click="model.captures.splice(index, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
 						</div>
 						<n-form-text v-model="selected.target.description" v-if="getCapturesFor(selected.target.id).length > 0" label="Dynamic description" after="You can use variables to create a variable description for this action instance"/>

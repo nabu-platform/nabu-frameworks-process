@@ -1,0 +1,9 @@
+Suppose we have a batch service that executes the same step multiple times.
+The first few times might be successful but then one fails.
+
+In most cases that failure will bubble up and fail the full instance, hence rolling back all transactions.
+In some cases you will work with batches where you scope a number of instances that might be successful AND committed
+Then one fails.
+You only want to roll back the ones that were in the rolled back transaction.
+
+If you don't do anything and hitch a ride on the main transaction, everything will work except you won't see anything at all in case of error, which is not OK.

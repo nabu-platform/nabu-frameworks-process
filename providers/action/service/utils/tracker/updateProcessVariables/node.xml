@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-09T09:34:06.124+01:00" lastModified="2023-02-09T12:15:06.898+01:00" leaf="true" version="13">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters</references>
+    <references>nabu.utils.List.add</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.utils.Runtime.setContext</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
+    <references>nabu.utils.Runtime.getContext</references>
+    <references>nabu.utils.Runtime.getDeviceFromToken</references>
+    <references>nabu.web.application.Services.getSessionId</references>
+    <references>java.util.UUID</references>
+    <references>java.lang.String</references>
+    <references>be.nabu.libs.authentication.api.Token</references>
+</node>

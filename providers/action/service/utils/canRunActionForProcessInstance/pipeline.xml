@@ -7,6 +7,7 @@
     <structure name="output">
         <field name="allowedToProceed" type="java.lang.Boolean"/>
         <field name="processInError" type="java.lang.Boolean"/>
+        <field name="nested" type="java.lang.Boolean"/>
     </structure>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="potentialProcessInstance"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="allInstanceData"/>

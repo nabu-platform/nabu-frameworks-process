@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2023-02-06T21:02:15.205+01:00" leaf="true" version="252">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2023-02-10T10:44:05.407+01:00" leaf="true" version="258">
     <comment>Get all the actions that need to be triggered</comment>
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
@@ -15,6 +15,7 @@
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>java.lang.Integer</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</references>
+    <references>java.lang.Long</references>
     <references>nabu.utils.List.toMap</references>
     <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
     <references>java.util.Map</references>

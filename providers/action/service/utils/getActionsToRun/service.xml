@@ -303,18 +303,18 @@
 					serviceId="nabu.utils.List.unique"
 					resultName="result6a78b7d8576e4004862e24b34da76d92"
 					temporaryMapping="true"
-					x="539"
-					y="125"
+					x="235"
+					y="122"
 					invocationOrder="1"
 					asynchronous="false"
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="9daf2f3d7a294d71b5cfa282bd5b5d60"
+						id="e2d1437a455a468cb0924469d7ef70eb"
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>result6d61ddf59c1740bdbd4ea5fe2819c470/list</from>
+					<from>potentialProcess/actions/identificationType</from>
 					<to>list</to>
 				</steps>
 			</steps>
@@ -331,27 +331,6 @@
 					disabled="false"
 					id="ef3bbcb534e2475696303cec7e1a3982"
 					path="matchingActions" xsi:nil="true"/>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-					disabled="false"
-					id="b8ca368aa7ea4e0792f31f46e9a8bc75"
-					serviceId="nabu.utils.List.add"
-					resultName="result6d61ddf59c1740bdbd4ea5fe2819c470"
-					temporaryMapping="true"
-					x="158"
-					y="218"
-					invocationOrder="0"
-					asynchronous="false"
-					recache="false">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="3adc84f525c04c57b9c93f4048163e84"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>potentialProcess/actions/identificationType</from>
-					<to>list</to>
-				</steps>
-			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="We combine all the captured identifiers for all the possible actions within a process"
@@ -368,8 +347,8 @@
 					serviceId="nabu.utils.List.unique"
 					resultName="result7c35b522c5514b51a6356370fafd493a"
 					temporaryMapping="true"
-					x="542"
-					y="117"
+					x="94"
+					y="97"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
@@ -379,7 +358,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>potentialProcess/actions/captures/capture</from>
+					<from>potentialProcess/actions/captures[identifier == true]/capture</from>
 					<to>list</to>
 				</steps>
 			</steps>
@@ -874,19 +853,62 @@
 						id="d17ed91b4c0d43e29a02a4d7d8f6c33a"
 						lineNumber="28"
 						query="amountOfTriggerActions">
-					<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+					<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 							disabled="false"
-							id="9a0302e0081246bd969a33f9182dd1d5"
+							id="33bc1241e43d42c1a50bd6084b395e79"
 							label="0"
-							lineNumber="29"
-							code="PROCESS-NOT-FOUND"
-							message="No active process instances found and no trigger actions" xsi:nil="true"/>
+							lineNumber="29">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="Check how many actions do NOT have lax set to true."
+								disabled="false"
+								id="4adabeebe6db4f459c99cce3ce154d00"
+								lineNumber="30">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+									disabled="false"
+									id="b8d0dae5c8f149698161305f4a5a6691"
+									serviceId="nabu.utils.List.size"
+									resultName="result099fad22b757426bbb9efbe1c1f695e0"
+									temporaryMapping="true"
+									x="87"
+									y="392"
+									invocationOrder="0"
+									asynchronous="false"
+									recache="false">
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="5f2ad3ac224343b19dd884598eccb876"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>potentialProcess/actions[lax != true]</from>
+									<to>list</to>
+								</steps>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="5b7133d38445489f8460e6a067b0d3c6"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>result099fad22b757426bbb9efbe1c1f695e0/size</from>
+								<to>amountOfStrictActions</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+								comment="If the matching is lax, it is OK"
+								disabled="false"
+								id="9a0302e0081246bd969a33f9182dd1d5"
+								label="amountOfStrictActions &gt; 0"
+								lineNumber="31"
+								code="PROCESS-NOT-FOUND"
+								message="No active process instances found and no trigger actions" xsi:nil="true"/>
+					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							comment="Map output"
 							disabled="false"
 							id="2ae23a3743424acf9ca7a9ce590b2ff2"
 							label="1"
-							lineNumber="30">
+							lineNumber="32">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="8f0c4f409f8447fc8c6291d0c825f6c8"
@@ -936,7 +958,7 @@
 					<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 							disabled="false"
 							id="3770d08647bb48b091c9e5cefd34449a"
-							lineNumber="31"
+							lineNumber="33"
 							code="PROCESS-CONFUSING-STATE"
 							message="Too many trigger actions found" xsi:nil="true"/>
 				</steps>
@@ -946,20 +968,20 @@
 					disabled="false"
 					id="d3db8720f52d4ed99b933bd3133772fd"
 					label="1"
-					lineNumber="32">
+					lineNumber="34">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 						description="=&quot;The process instance is currently in ERROR: &quot; + potentialProcessInstance/processInstanceId"
 						disabled="false"
 						id="777043430e98478b8e242eee095660cb"
 						label="potentialProcessInstance/processState == &quot;ERROR&quot;"
-						lineNumber="33"
+						lineNumber="35"
 						code="PROCESS-IN-ERROR"
 						message="The process instance is currently in ERROR" xsi:nil="true"/>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						comment="Get all state for the process so we can evaluate conditions"
 						disabled="true"
 						id="38a5beb02a0b4eb59f20e836f6b81fac"
-						lineNumber="34">
+						lineNumber="36">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="b8cf0c6283ad45bfa945514a603b3256"
@@ -1004,7 +1026,7 @@
 						disabled="true"
 						id="5ef9b863bd4f4bfd87a0d6a8ea5fe44e"
 						label="allInstanceData"
-						lineNumber="35">
+						lineNumber="37">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="065e60295b544a7ba57540c9001b101a"
@@ -1057,13 +1079,13 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
 						id="dce23007cf3b41da8e1f6655b0525a88"
-						lineNumber="36"
+						lineNumber="38"
 						variable="potentialAction"
 						into="matchingActions">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="b9341d6dce0540909307d6fe8404671b"
-							lineNumber="37">
+							lineNumber="39">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="a6ecae83a5964ecf8ca120d2cd59c558"
@@ -1121,13 +1143,22 @@
 							<from>result453b95a9e16543d7ba17a316e4173d48/processInError</from>
 							<to>processInError</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="d70cbfa46ea94ddbb05eafa109888f0f"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>result453b95a9e16543d7ba17a316e4173d48/nested</from>
+							<to>potentialNested</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							comment="Add it to the list"
 							disabled="false"
 							id="4e850687880840e9b292b95b0a8cb430"
 							label="allowedToProceed"
-							lineNumber="38">
+							lineNumber="40">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="d759464d603f4eee9a0d6975c00d411b"
@@ -1137,24 +1168,33 @@
 							<from>potentialAction</from>
 							<to>matchingActions[0]</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="f47dfc69d4774bf9aa7e942762046b74"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>potentialNested</from>
+							<to>nested</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.For"
 							disabled="true"
 							id="a706eb0bb536493592a5315b0f12c72d"
-							lineNumber="39"
+							lineNumber="41"
 							variable="relationToCheck"
 							into="applicableRelations">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 								disabled="false"
 								id="62bd62187b654d3aad86a8c6b9ff685f"
-								lineNumber="40"
+								lineNumber="42"
 								query="relationToCheck/condition">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									comment="Always allowed"
 									disabled="false"
 									id="9340dbe9feb44cdcb1a1e888fb935421"
 									label="null"
-									lineNumber="41">
+									lineNumber="43">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
 										id="a211691a6178424f86f2381364f26bf2"
@@ -1169,11 +1209,11 @@
 									comment="Check condition"
 									disabled="false"
 									id="cea9e1b588db458395a6e91c745e0b20"
-									lineNumber="42">
+									lineNumber="44">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 										disabled="false"
 										id="33d616ee15214c40862c3d2f615e65e6"
-										lineNumber="43">
+										lineNumber="45">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"
 											id="4c996fc81df2447b8e0426d3e05c0096"
@@ -1218,7 +1258,7 @@
 										disabled="false"
 										id="a601cc90f91240b4ad27a91363c887e3"
 										label="conditionResult"
-										lineNumber="44">
+										lineNumber="46">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 											disabled="false"
 											id="d795c1494f064919a9b832f3ea4cbe8f"
@@ -1237,7 +1277,7 @@
 							comment="Get incoming relations and outgoing relations and any process instance already flagged during this run"
 							disabled="true"
 							id="bfc78793d44a4d868e2bd6badeab5b6a"
-							lineNumber="45">
+							lineNumber="47">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="ab402ac87f2a4fbeaedd5477fd6ee389"
@@ -1262,7 +1302,7 @@
 							disabled="true"
 							id="6690f9744fbe4510a061b68d4232032a"
 							label="potentialAction/maxOccurs == null"
-							lineNumber="46">
+							lineNumber="48">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="be3cf3cee7c940c9820f5fe9320261ba"
@@ -1278,12 +1318,12 @@
 							disabled="true"
 							id="b125befa9bae416f887dee7034f5519e"
 							label="potentialAction/processStateId == potentialProcessInstance/currentStateId"
-							lineNumber="47">
+							lineNumber="49">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 								comment="Get all the related action instances for this process instance"
 								disabled="false"
 								id="3d46cc2fb3c44d4eb8f1d8f462aaf683"
-								lineNumber="48">
+								lineNumber="50">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 									disabled="false"
 									id="e8cee927c2d6412a9fa0b2d07e5a95cc"
@@ -1398,12 +1438,12 @@
 								disabled="false"
 								id="fb5c3769edcd42d187b1229fca0894c9"
 								label="incomingFlows"
-								lineNumber="49">
+								lineNumber="51">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									comment="Get all run incoming flows"
 									disabled="false"
 									id="96870e1120fd45c1b9a1d93866bec19e"
-									lineNumber="50">
+									lineNumber="52">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
 										id="eb022486ff4e4b698aa3fd81ad3823f1"
@@ -1418,13 +1458,13 @@
 									disabled="false"
 									id="3ebc9fb93078418599cdec3ea4560931"
 									label="&quot;ERROR&quot; # runIncomingActions/processState"
-									lineNumber="51"
+									lineNumber="53"
 									message="Parent step is currently in ERROR" xsi:nil="true"/>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									comment="Set the allowed based on the existence of any incoming finished flows"
 									disabled="false"
 									id="311991d695d94112b43d0222e86bb939"
-									lineNumber="52">
+									lineNumber="54">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
 										id="3942523cbcf04c6a9bc5b8872f428930"
@@ -1441,12 +1481,12 @@
 								disabled="false"
 								id="fda7117a3eb84734a73e0c8551b3efbc"
 								label="allowedToProceed &amp;&amp; outgoingFlows != null"
-								lineNumber="53">
+								lineNumber="55">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									comment="Get all finished outgoing flows"
 									disabled="false"
 									id="6a4071ae36a74389be4337d144216ab0"
-									lineNumber="54">
+									lineNumber="56">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
 										id="65e805731dc04f7daf05c78bd65a1928"
@@ -1461,7 +1501,7 @@
 									comment="Set the allowed based on the existence of NO outgoing flows"
 									disabled="false"
 									id="78f11741d0a14ee79c9276449c055293"
-									lineNumber="55">
+									lineNumber="57">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
 										id="6ea21b540f464fb3be3afd27aa3baac7"
@@ -1478,12 +1518,12 @@
 								disabled="false"
 								id="06b8ea8304524479a80b64044bfaceb7"
 								label="allowedToProceed &amp;&amp; potentialAction/maxOccurs != 0"
-								lineNumber="56">
+								lineNumber="58">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									comment="We ignore failed for this count"
 									disabled="false"
 									id="ba00e6cb7e6e46d9ae7e1c626d76a190"
-									lineNumber="57">
+									lineNumber="59">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 										disabled="false"
 										id="cf7999ab1a8d4781bafd97188079f6ee"
@@ -1519,7 +1559,7 @@
 									comment="Set the allowed to proceed based on the count"
 									disabled="false"
 									id="1d3b394314cc49a788b9e9e4f64b50d6"
-									lineNumber="58">
+									lineNumber="60">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
 										id="891a21fc1f89456aab90129fe3613cc8"
@@ -1536,7 +1576,7 @@
 								disabled="false"
 								id="86521b1bc8a34626954144810d36b257"
 								label="allowedToProceed"
-								lineNumber="59">
+								lineNumber="61">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
 									id="fdea7e75fde24a74b54b662764e20ad4"
@@ -1553,7 +1593,7 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						disabled="false"
 						id="a3285e6e4ad0437783a4845a68bd5fac"
-						lineNumber="60">
+						lineNumber="62">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="f62e7979b5264488b1c38c4fe433bd7e"
@@ -1588,13 +1628,13 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 						disabled="false"
 						id="01c1600419e54689902630ee7eb79c4c"
-						lineNumber="61"
+						lineNumber="63"
 						query="amountOfMatchingActions">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 							disabled="true"
 							id="88eca6a64d82476babcde88be9fbdf53"
 							label="0"
-							lineNumber="62"
+							lineNumber="64"
 							code="PROCESS-INCORRECT-STATE"
 							message="The process is in an incorrect state to run this service" xsi:nil="true"/>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -1602,7 +1642,7 @@
 							disabled="false"
 							id="cdeef3a89a724201a175213855ca02be"
 							label="0"
-							lineNumber="63">
+							lineNumber="65">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="7a561bc086484a82aa7942adc9272dec"
@@ -1648,7 +1688,7 @@
 							disabled="false"
 							id="7f238d077ceb4967992683c8ed3297ca"
 							label="1"
-							lineNumber="64">
+							lineNumber="66">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="ca71453f362d4eee89cd0327fcb71132"
@@ -1694,18 +1734,27 @@
 							<from>matchingActions[0]/reprocessable</from>
 							<to>output/actionsToRun[0]/reprocessable</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="04f644a6c05e4c65aa4f40208e7c271d"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>nested</from>
+							<to>output/actionsToRun[0]/nested</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 							disabled="true"
 							id="89cab2dc5e5d449692bf785e204c6a11"
-							lineNumber="65"
+							lineNumber="67"
 							code="PROCESS-CONFLICTING-STATE"
 							message="The process has conflicting state" xsi:nil="true"/>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							comment="The process has conflicting state"
 							disabled="false"
 							id="d40a9090bb234542a49e80c9e31e3225"
-							lineNumber="66">
+							lineNumber="68">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="5eb22b4b5200460686d339d0c8b1bcd9"
@@ -1752,8 +1801,22 @@
 					comment="Currently there should only be one running process instance for the combination of: service - process definition - matching identifiers"
 					disabled="false"
 					id="2f8ebe8ef80a407892b9d6159693ab0a"
-					lineNumber="67"
+					lineNumber="69"
 					code="TOO-MANY-PROCESSES" xsi:nil="true"/>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Cleanup"
+				disabled="false"
+				id="15fbbcdec5124c12b6387fee56ab5f18"
+				lineNumber="70">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="214cf026a0e549f280265e56a5c8503a"
+					path="identifierValues" xsi:nil="true"/>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="24dd85c0f05341eeadafe7ba9303518c"
+					path="identificationTypes" xsi:nil="true"/>
 		</steps>
 		<query>potentialProcesses</query>
 	</steps>

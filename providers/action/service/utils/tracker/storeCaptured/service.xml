@@ -243,7 +243,7 @@
 				<to>processData[0]/name</to>
 			</steps>
 		</steps>
-		<query>captures</query>
+		<query>captures[transient != true]</query>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 			disabled="false"

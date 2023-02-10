@@ -1,0 +1,16 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field minOccurs="0" name="deviceId" type="java.lang.String"/>
+    </structure>
+    <structure name="output"/>
+    <structure definition="be.nabu.libs.authentication.api.Token" minOccurs="0" name="token"/>
+    <field minOccurs="0" name="sessionId" type="java.lang.String"/>
+    <field minOccurs="0" name="correlationId" type="java.lang.String"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" maxOccurs="unbounded" name="parameters"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" name="sessionParameter"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" name="correlationParameter"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" name="userParameter"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" name="deviceParameter"/>
+    <field maxOccurs="unbounded" name="processInstancesAlreadyUpdated" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+</structure>
