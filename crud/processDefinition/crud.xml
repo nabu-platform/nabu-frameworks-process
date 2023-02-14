@@ -25,7 +25,7 @@
     </filters>
     <filters>
         <caseInsensitive>false</caseInsensitive>
-        <key>description</key>
+        <key>comment</key>
         <operator>ilike</operator>
         <or>true</or>
         <alias>q</alias>

@@ -1384,6 +1384,10 @@ Vue.view("process-modeler-component", {
 				id: this.newId()
 			};
 			action.globalReferenceId = action.id;
+			// by default we want reprocessable
+			if (type == "service") {
+				action.reprocessable = true;
+			}
 			state.actions.push(action);	
 			this.drawAction(action);
 			
@@ -1943,6 +1947,79 @@ Vue.view("process-modeler-component", {
 					self.redrawImpactedRelations(action);
 				}
 			});
+		},
+		exportAsPng: function() {
+			// code thanks to https://stackoverflow.com/questions/3975499/convert-svg-to-image-jpeg-png-etc-in-the-browser
+			// currently most of the styling seems to make it through except for the coloring of the icons
+			var copyStylesInline = function(destinationNode, sourceNode) {
+				var containerElements = ["svg","g"];
+				for (var cd = 0; cd < destinationNode.childNodes.length; cd++) {
+					var child = destinationNode.childNodes[cd];
+					if (containerElements.indexOf(child.tagName) != -1) {
+						copyStylesInline(child, sourceNode.childNodes[cd]);
+						continue;
+					}
+					var style = sourceNode.childNodes[cd].currentStyle || window.getComputedStyle(sourceNode.childNodes[cd]);
+					if (style == "undefined" || style == null) {
+						continue;
+					}
+					for (var st = 0; st < style.length; st++){
+						child.style.setProperty(style[st], style.getPropertyValue(style[st]));
+					}
+				}
+			}
+			
+			var triggerDownload = function(imgURI, fileName) {
+				var evt = new MouseEvent("click", {
+					view: window,
+					bubbles: false,
+					cancelable: true
+				});
+				var a = document.createElement("a");
+				a.setAttribute("download", fileName);
+				a.setAttribute("href", imgURI);
+				a.setAttribute("target", '_blank');
+				a.dispatchEvent(evt);
+			}
+			
+			var downloadSvg = function(svg, fileName) {
+				var copy = svg.cloneNode(true);
+				copyStylesInline(copy, svg);
+				var canvas = document.createElement("canvas");
+				// this bounding box is off for some reason (width-wise), it is always like 50px short
+				// but we go through lengths to make sure the svg dimensions attributes are set correctly so we just use them
+				var bbox = svg.getBBox();
+				canvas.width = bbox.width;
+				canvas.height = bbox.height;
+				canvas.width = parseInt(svg.getAttribute("width"));
+				canvas.height = parseInt(svg.getAttribute("height"));
+				var ctx = canvas.getContext("2d");
+				ctx.clearRect(0, 0, bbox.width, bbox.height);
+				var data = (new XMLSerializer()).serializeToString(copy);
+				var DOMURL = window.URL || window.webkitURL || window;
+				var img = new Image();
+				var svgBlob = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
+				var url = DOMURL.createObjectURL(svgBlob);
+				img.onload = function () {
+					ctx.drawImage(img, 0, 0);
+					DOMURL.revokeObjectURL(url);
+					if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob)	{
+						var blob = canvas.msToBlob();         
+						navigator.msSaveOrOpenBlob(blob, fileName);
+					} 
+					else {
+						var imgURI = canvas
+							.toDataURL("image/png")
+							.replace("image/png", "image/octet-stream");
+						triggerDownload(imgURI, fileName);
+					}
+					// was never added?
+					//document.removeChild(canvas);
+				};
+				img.src = url;
+			}
+			
+			downloadSvg(this.$refs.svg, this.model.name + ".png");
 		}
 	}
 })

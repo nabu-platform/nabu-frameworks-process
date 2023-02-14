@@ -1,4 +1,18 @@
-!!! currently getPotentialServiceActions only returns ACTIVE processes!
+# TODO
+
+## Input mapping
+
+When calling automatic services, allow mapping input from the available state
+
+## Still check actions for automated
+
+Currently automated actions bypass a number of checks because we assume we know the process instance it is for.
+That is true...for that process definition. We might want to capture the service call still in another process.
+For instance we send a mail to a business relation and want to auto-capture it in the user process as well.
+
+## Get earlier versions!!
+
+currently getPotentialServiceActions only returns ACTIVE processes!
 -> basically once you release a new version of a process, the older instances are no longer picked up for matching
 this means we can't actually run processes in from previous versions!
 we need a secondary state after deprecated -> "inactive" or something
@@ -10,10 +24,23 @@ we should NOT start a new process instance for deprecated processes! we just ski
 we could do a secondary check for process matches of deprecated processes
 -> note that we still can not have the same process (even different versions) match the same invocation (TOO-MANY-PROCESSES)
 
+## Allow identification at end
 
+Some services (login, remember,...) simply can't be designed with an identifier in the input.
+However, we _can_ capture identifying data from the pipeline (or the output).
 
-description should use the "=" syntax and work on the full pipeline
--> you are not limited to captured values, this stretches the system beyond what it was meant for and clutters data
+So basically, in the beginning we check for services that either have an identifier in the input OR can be used to kickstart a process.
+At the END of a service, we want to check specifically for actions that have no input identifiers but do have output identifiers and can not be used to kickstart a process.
+
+We still (retroactively) link it to the process.
+
+## Support multiple correlation ids
+
+Currently, each action will _update_ the correlation id in the process data for nested matching.
+This is OK unless we have parallel execution WITH nesting.
+
+For correlation-id based identification of an action, perhaps check action instance logs as well?
+
 
 
 

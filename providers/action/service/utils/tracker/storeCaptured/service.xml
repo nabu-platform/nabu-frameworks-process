@@ -117,15 +117,6 @@
 				lineNumber="5">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="ada262d969b1451f819df4cc84b22239"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>alreadyCaptured[0]</from>
-				<to>currentValue</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
 					id="942aafad5bf24049ae26581ad3951edd"
 					mask="false"
 					optional="false"
@@ -144,11 +135,27 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get the current value"
+				disabled="false"
+				id="1956000d87b14132b259c3eb543482e3"
+				label="newName != null"
+				lineNumber="6">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="d87cdaf0ad7441569ef31bd52dae801e"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>alreadyCaptured[name == /newName]</from>
+				<to>currentValue</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Map to be stored"
 				disabled="false"
 				id="8e32003669c849f3a599ff2af580a7ff"
 				label="newName != null &amp;&amp; (currentValue == null || currentValue/value != newValue)"
-				lineNumber="6">
+				lineNumber="7">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="86d8207ed1fc450e9cd7f0bc435d65f5"
@@ -249,12 +256,12 @@
 			disabled="false"
 			id="d9661955e5a84892956d2e0bd304c504"
 			label="processData"
-			lineNumber="7">
+			lineNumber="8">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="First deactivate any existing values"
 				disabled="false"
 				id="bab086c4ec5d4939b4f9e8d43d115977"
-				lineNumber="8">
+				lineNumber="9">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="5d9e52112da14b5c84c77060e444f292"
@@ -289,7 +296,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="d8f2be273ad244e4aee8ff90968a9260"
-				lineNumber="9">
+				lineNumber="10">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="6ebbab5e1491421b882043edb558d115"

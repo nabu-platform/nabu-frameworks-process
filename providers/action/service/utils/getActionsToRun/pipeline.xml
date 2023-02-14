@@ -50,4 +50,5 @@
     <field name="potentialNested" type="java.lang.Boolean"/>
     <field name="nested" type="java.lang.Boolean"/>
     <field name="amountOfStrictActions" type="java.lang.Long"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="filteredActions"/>
 </structure>

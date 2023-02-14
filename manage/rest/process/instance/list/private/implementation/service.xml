@@ -5,12 +5,11 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			disabled="false"
 			id="24305e337ee24aa58209b987ef71c2e1"
-			lineNumber="2"
-			query="input/query/parameterSearch">
+			lineNumber="2">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="e4b1a5b261c04302a821ecebeb2133e1"
-				label="null"
+				label="input/query/parameterSearch == null &amp;&amp; input/query/identifierSearch == null"
 				lineNumber="3">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -196,6 +195,15 @@
 							fixedValue="true">
 						<from>true</from>
 						<to>filter/active</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="e7b7a727921e4b5697f05a055784f5bf"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/identifierSearch</from>
+						<to>filter/value</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

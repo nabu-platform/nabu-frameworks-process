@@ -1,6 +1,6 @@
 <structure collectionName="processCaptures" name="processCapture">
     <field name="id" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
-    <field foreignKey="nabu.frameworks.process.database.types.processAction:id" name="processActionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field foreignKey="nabu.frameworks.process.database.types.processAction:id" indexed="true" name="processActionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="The way to capture it (e.g. the path). This is relative to the pipeline so should start with input or output. For blox services the full pipeline is available, for the rest only input/output." name="capture" type="java.lang.String"/>
     <field comment="The name of the captured value" name="name" type="java.lang.String"/>
     <field comment="Whether or not the resulting captured value is an identifier or simply metadata" name="identifier" type="java.lang.Boolean"/>
