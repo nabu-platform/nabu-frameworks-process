@@ -18,9 +18,11 @@
     <field comment="Additional configuration for that given action type" minOccurs="0" name="configuration" type="java.lang.String"/>
     <field comment="If it's a service action, the service id to track. A dedicated field for fast lookup." minOccurs="0" name="serviceId" type="java.lang.String"/>
     <field comment="If the action is set to lax, we will not stop the service from executing if not allowed, we simply don't log it" minOccurs="0" name="lax" type="java.lang.Boolean"/>
+    <field comment="If strict is set and no process is found, we throw an exception" minOccurs="0" name="strict" type="java.lang.Boolean"/>
     <field comment="Defaults are: correlationId, userId, deviceId, sessionId, custom. Once custom you need to set up captures." minOccurs="0" name="identificationType" type="java.lang.String"/>
     <field comment="A list of key value pairs that contain optional data binding for this action" minOccurs="0" name="dataBinding" type="java.lang.String"/>
     <field comment="The global reference id remains static between versions" name="globalReferenceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="Additional comments you want to make" minOccurs="0" name="comment" type="java.lang.String"/>
     <field comment="You can set a capture condition. If set, it must return true, otherwise we ignore this. The condition is executed at the START of the service." minOccurs="0" name="condition" type="java.lang.String"/>
+    <field comment="In some cases we expect periodic errors to occur and want to ignore them. We set this immediately to failed." minOccurs="0" name="autoFail" type="java.lang.Boolean"/>
 </structure>

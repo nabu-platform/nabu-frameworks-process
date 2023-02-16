@@ -41,6 +41,12 @@ This is OK unless we have parallel execution WITH nesting.
 
 For correlation-id based identification of an action, perhaps check action instance logs as well?
 
+# DONE
+
+## Auto fail
+
+Some actions are expected to fail from time to time. We want to automatically set them to failed instead of halting the process until someone looks at it.
+
 
 
 
@@ -182,8 +188,12 @@ If absolutely necessary you can structure your parent service correctly so you c
 
 The idea was: if a process is not in the correct state, should we allow the service to run or not?
 However, the problem is, if the service is plugged in multiple times in the same process AND it is in none of the correct states, do you need to set them all to lax?
-We'll await an actual usecase before fixing it. Another option might be to configure "lax" on the full process though this might leave instances in weird inbetween states that can never be resolved.
-Again, first let's see the usecases.
+We have identified two separate situations:
+
+- there IS a matching process instance and it is not in the correct state: we do not allow execution regardless of the lax/strict setting
+- there is NO matching process instance: by default we allow execution of the service. By toggling "strict", we block the execution.
+
+At first the second rule was not in place and everything was strict by default. However we quickly noticed that utility services immediately bump up against this problem. For example you have different processes around nodes (to track their lifecycles). If you set an external id on a node and want to track this action in multiple processes, most of them will not agree with this action.
 
 ## Blocking
 
