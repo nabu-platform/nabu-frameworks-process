@@ -59,6 +59,7 @@ Vue.view("process-modeler-component", {
 				any: "black",
 				all: "black",
 				finalizer: "black",
+				initializer: "black",
 				connector: "blue",
 				condition: "black"
 			}, {
@@ -70,6 +71,7 @@ Vue.view("process-modeler-component", {
 				any: "black",
 				all: "black",
 				finalizer: "black",
+				initializer: "black",
 				connector: "black",
 				condition: "black"
 			}],
@@ -124,7 +126,9 @@ Vue.view("process-modeler-component", {
 			saving: false,
 			// keep track of the last state you interacted with, this for more logical generation
 			lastInteractedStateId: null,
-			debounceTimer: null
+			debounceTimer: null,
+			lastServiceInputs: [],
+			lastService: null
 		}	
 	},
 	created: function() {
@@ -230,6 +234,8 @@ Vue.view("process-modeler-component", {
 						state.styling = state.style ? JSON.parse(state.style) : {};
 						state.actions.forEach(function(action) {
 							action.styling = action.style ? JSON.parse(action.style) : {};	
+							action.json = action.configuration ? JSON.parse(action.configuration) : {};
+							action.binding = action.dataBinding ? JSON.parse(action.dataBinding) : [];
 						})
 					});
 					Vue.set(self, "model", result);
@@ -248,6 +254,8 @@ Vue.view("process-modeler-component", {
 					state.style = JSON.stringify(state.styling);
 					state.actions.forEach(function(action) {
 						action.style = JSON.stringify(action.styling);
+						action.configuration = JSON.stringify(action.json);
+						action.dataBinding = JSON.stringify(action.binding);
 					});
 				});
 				this.model.actionRelations.forEach(function(relation) {
@@ -295,10 +303,42 @@ Vue.view("process-modeler-component", {
 			// need to first render the svg element before we can start drawing
 			Vue.nextTick(this.draw);
 		},
+		addInputMapping: function(action) {
+			action.binding.push({
+				key: null,
+				value: null
+			});
+		},
+		getServiceInputs: function(action, value) {
+			if (action.serviceId == this.lastService) {
+				return this.lastServiceInputs.filter(function(x) {
+					return !value || x.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
+				});
+			}
+			else {
+				var self = this;
+				var promise = this.$services.q.defer();
+				self.lastServiceInputs.splice(0);
+				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.service.definition", {serviceId: action.serviceId}).then(function(result) {
+					self.lastServiceInputs.splice(0);
+					if (result && result.inputs) {
+						nabu.utils.arrays.merge(self.lastServiceInputs, result.inputs);
+					}
+					promise.resolve(self.lastServiceInputs);
+				}, promise);
+				return promise;
+			}
+		},
 		getCapturesFor: function(actionId) {
 			return this.model.captures.filter(function(x) {
 				return x.processActionId == actionId;
 			});
+		},
+		removeCapture: function(capture) {
+			var index = this.model.captures.indexOf(capture);	
+			if (index >= 0) {
+				this.model.captures.splice(index, 1);
+			}
 		},
 		newCapture: function(actionId) {
 			var capture = {
@@ -731,6 +771,9 @@ Vue.view("process-modeler-component", {
 			}
 			else if (action.actionType == "finalizer") {
 				this.drawFinalizerAction(action);
+			}
+			else if (action.actionType == "initializer") {
+				this.drawInitializerAction(action);
 			}
 			else if (action.actionType == "any" || action.actionType == "all") {
 				this.drawAnyAction(action);
@@ -1380,6 +1423,8 @@ Vue.view("process-modeler-component", {
 					minOccurs: 1,
 					maxOccurs: 1
 				},
+				json: {},
+				binding: [],
 				processStateId: state.id,
 				id: this.newId()
 			};
@@ -1796,7 +1841,7 @@ Vue.view("process-modeler-component", {
 			// draw name
 			// the name is not split over multiple lines, use the summary for that!
 			var name = group.append("text")
-				.text(action.name ? action.name : "Unnamed")
+				.text(action.name ? action.name : "")
 				//.attr("fill", "black")
 				.attr("font-size", "smaller")
 			// not sure why we need 20 in y-direction but not questioning it now...
@@ -1850,6 +1895,77 @@ Vue.view("process-modeler-component", {
 				}
 			});
 		},
+		
+		// ---------------------------------------- INITIALIZER implementation
+		drawInitializerAction: function(action) {
+			var self = this;
+			var state = this.getState(action.processStateId);
+			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
+			var group = stateGroup.append("g")
+				.attr("id", action.id)
+				.attr("class", "process-finalizer")
+				
+			this.move(group, action.styling.x, action.styling.y);
+			
+			// we want visually half a circle and half a rectangle
+			// the rectangle part is partly so we can attach the triangle to it
+			var rect = group.append("rect")
+				.attr("width", action.styling.width / 2)
+				.attr("height", action.styling.height)
+				.attr("class", "background-dark initializer")
+				.attr("fill", "black")
+				
+			this.move(rect, action.styling.width / 2, 0);
+			
+			var circle = group.append("circle")
+				.attr("r", action.styling.width / 2)
+				.attr("class", "background initializer")
+				.attr("fill", "black")
+				.attr("id", action.id + "-figure")
+				.attr("cx", action.styling.width / 2)
+				.attr("cy",  action.styling.height / 2)
+			
+			circle.on("click", function() {
+				self.select("action", action, function() {
+					// do nothing
+				});
+			})
+			
+			// draw name
+			// the name is not split over multiple lines, use the summary for that!
+			var name = group.append("text")
+				.text(action.name ? action.name : "")
+				//.attr("fill", "black")
+				.attr("font-size", "smaller")
+			// not sure why we need 20 in y-direction but not questioning it now...
+			this.move(name, 0, -10);
+			
+			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
+				
+			
+			this.drawActionMapper(action);
+			this.autosizeState(state);
+			
+			// dragging
+			// to the right and bottom you make the state larger
+			self.draggable(group, function(target, event) {
+				var moved = false;
+				if (action.styling.x + event.dx >= 0) {
+					action.styling.x += event.dx;
+					moved = true;
+				}
+				if (action.styling.y + event.dy >= 0) {
+					action.styling.y += event.dy;
+					moved = true;
+				}
+				if (moved) {
+					self.autosizeState(state);
+					self.move(group, action.styling.x, action.styling.y);	
+					self.redrawImpactedRelations(action);
+				}
+			});	
+		},
+		
 		// need to update the width 
 		updateAnyActionOccurs: function(action, value) {
 			Vue.set(action, 'maxOccurs', value);

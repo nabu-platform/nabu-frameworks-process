@@ -25,4 +25,6 @@
     <field comment="Additional comments you want to make" minOccurs="0" name="comment" type="java.lang.String"/>
     <field comment="You can set a capture condition. If set, it must return true, otherwise we ignore this. The condition is executed at the START of the service." minOccurs="0" name="condition" type="java.lang.String"/>
     <field comment="In some cases we expect periodic errors to occur and want to ignore them. We set this immediately to failed." minOccurs="0" name="autoFail" type="java.lang.Boolean"/>
+    <field comment="You can run actions on separate queues (e.g. emails on an email queue)" minOccurs="0" name="queue" type="java.lang.String"/>
+    <field comment="Stable code to identify this action. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
 </structure>

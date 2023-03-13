@@ -10,5 +10,6 @@
     <webFragments>nabu.frameworks.process.crud.processData.services.listForBrowsing</webFragments>
     <webFragments>nabu.frameworks.process.crud.processInstanceLog.services.listForBrowsing</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.instance.list</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.service.definition</webFragments>
     <audience>MANAGER</audience>
 </webModule>

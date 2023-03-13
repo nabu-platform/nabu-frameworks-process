@@ -56,10 +56,26 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Use the action-specific queue"
+			disabled="false"
+			id="8443162ddaa74f0599b518d0879e3c11"
+			label="action/queue != null"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="651f7dc82181400aba97038109611764"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>action/queue</from>
+			<to>queue</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="c8671179758f497eb9c1b45857345f85"
 			label="queue == null"
-			lineNumber="3">
+			lineNumber="4">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="9e1c2a0c217f4c2fa4fcbdc69139a8e1"
@@ -151,7 +167,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="4456c350543f40c49af7bafa09909ee7"
-			lineNumber="4">
+			lineNumber="5">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="16fc50f2a4ec424ca9c4c2ea6af96429"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2023-02-14T22:40:39.582+01:00" leaf="true" version="266">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2023-03-13T13:29:11.619+01:00" leaf="true" version="275">
     <comment>Get all the actions that need to be triggered</comment>
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
@@ -24,6 +24,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.groupedAction</references>
     <references>java.lang.String</references>
     <references>nabu.utils.String.split</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.web.application.Services.getSessionId</references>
     <references>java.util.UUID</references>
@@ -34,6 +35,7 @@
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.utils.String.replace</references>
     <references>nabu.utils.List.size</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>java.lang.Object</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>

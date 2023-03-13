@@ -1,0 +1,4 @@
+<structure name="definitionOutput">
+    <structure definition="nabu.frameworks.process.manage.rest.process.service.definitionField" maxOccurs="unbounded" minOccurs="0" name="inputs"/>
+    <structure definition="nabu.frameworks.process.manage.rest.process.service.definitionField" maxOccurs="unbounded" minOccurs="0" name="outputs"/>
+</structure>

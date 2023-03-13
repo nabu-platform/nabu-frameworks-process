@@ -1,0 +1,7 @@
+<structure name="definitionField">
+    <field name="name" type="java.lang.String"/>
+    <field name="list" nillable="false" type="java.lang.Boolean"/>
+    <field name="optional" nillable="false" type="java.lang.Boolean"/>
+    <field minOccurs="0" name="type" type="java.lang.String"/>
+    <field name="simple" nillable="false" type="java.lang.Boolean"/>
+</structure>

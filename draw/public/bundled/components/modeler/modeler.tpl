@@ -24,6 +24,7 @@
 						<div class="is-row is-align-cross-center">
 							<ul class="is-menu is-variant-toolbar">
 								<li class="is-column"><button @click="addState" class="is-button is-variant-primary is-size-xsmall"><icon name="plus"/><span class="is-text">State</span></button></li>
+								<li class="is-column"><button @click="addActionToCurrent('initializer', 'Start', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Initializer</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('finalizer', 'Exit', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Finalizer</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('any', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Any</span></button></li>
 								<li v-if="false" class="is-column"><button @click="addActionToCurrent('all', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">All</span></button></li>
@@ -49,6 +50,7 @@
 						<n-form-text class="is-fill-normal" v-model="selected.target.name" label="Action name" @input="updatedActionName(selected.target)" after="A short name for this action"/>
 						<n-form-text class="is-fill-half" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal'" v-model="selected.target.reference" label="Reference" @input="draw" />
 					</div>
+					<n-form-text v-model="selected.target.code" label="Code" after="Use this to query the action programmatically. Change with caution as you might break references."/>
 					<n-form-switch v-if="selected.target.actionType == 'any'" :value="selected.target.maxOccurs == 0" label="Require all" @input="updateAnyActionOccurs(selected.target, selected.target.maxOccurs == 0 ? null : 0); draw()"/>
 					<n-form-text :value="selected.target.maxOccurs" v-if="selected.target.actionType == 'any' && selected.target.maxOccurs != 0" label="How many inputs must be resolved?" placeholder="1" @input="function(value) { updateAnyActionOccurs(selected.target, value); draw() }"/>
 					<n-form-text v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
@@ -56,15 +58,28 @@
 					<n-form-combo v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text v-if="selected.target.actionType == 'service'" v-model="selected.target.serviceId" label="Service id that is executed"/>
 					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.automatic" v-model="selected.target.reprocessable" label="Allow reprocessing" @input="draw" after="Do you want to be able to reprocess this service if it fails?"/>
-					<n-form-switch v-else-if="selected.target.actionType == 'service' && selected.target.automatic" :value="true" :disabled="true" label="Reprocessing always allowed" @input="draw" after="For automatic services reprocessing always available"/>
 					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.reprocessable" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
 					<n-form-switch v-if="selected.target.actionType == 'signal'" v-model="selected.target.automatic" label="Send signal" after="By default we wait for the signal to occur. When checked, we actually send the signal." @input="draw"/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.automatic">
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
 						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this according to a certain schedule" @input="draw"/>
+						<n-form-text v-model="selected.target.queue" label="Task queue" after="You can set a specific queue for this automated task" :placeholder="model.queue ? model.queue : 'anonymous'"/>
 					</div>
-					<n-form-switch v-if="selected.target.lax" v-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process instance we stop its execution. If lax is turned on, we allow execution to proceed."/>
-					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.strict" @input="draw" label="Strict" after="By default if we do not find a matching process instance for this service, we will simply let it execute. By setting it to strict, further execution is blocked"/>
+					<div v-if="selected.target.automatic" class="is-column is-spacing-gap-medium">
+						<div v-if="selected.target.binding" class="is-column is-spacing-gap-medium">
+							<div v-for="(input, inputIndex) in selected.target.binding" class="is-column has-button-close is-spacing-medium is-color-body">
+								<n-form-combo v-model="input.key" label="Key" :filter="getServiceInputs.bind($self, selected.target)" :formatter="function(x) { return x.name }" :extracter="function(x) { return x.name }"/>
+								<n-form-text v-model="input.value" label="Value"/>
+								<button @click="selected.target.binding.splice(inputIndex, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
+							</div>
+						</div>
+						<div class="is-row is-align-end">
+							<button @click="addInputMapping(selected.target)" class="is-button is-variant-primary-outline is-size-small"><icon name="plus"/><span class="is-text">Input Mapping</span></button>
+						</div>
+					</div>
+					<n-form-switch v-if="selected.target.lax && selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process instance we stop its execution. If lax is turned on, we allow execution to proceed."/>
+					<n-form-switch v-if="selected.target.actionType == 'service' && false" v-model="selected.target.strict" @input="draw" label="Strict" after="By default if we do not find a matching process instance for this service, we will simply let it execute. By setting it to strict, further execution is blocked"/>
+					<n-form-switch v-else-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default if we do not find a matching process instance for this service, we will block execution. If you set it to lax, we will allow execution without a matching instance. Primarily relevant for reusable utility services."/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
 					</div>
@@ -80,12 +95,12 @@
 					<div v-if="selected.target.actionType == 'service'" class="is-column is-spacing-gap-medium">
 						<h4 class="is-h4">Value capturing</h4>
 						<p class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
-						<div v-for="(capture, index) in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
+						<div v-for="capture in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
 							<n-form-text v-model="capture.name" label="Name"/>
 							<n-form-text v-model="capture.capture" label="Capture" after="The query to run on the pipeline to capture the value"/>
 							<n-form-switch v-if="!capture.transient" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
 							<n-form-switch v-if="!capture.identifier" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
-							<button @click="model.captures.splice(index, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
+							<button @click="removeCapture(capture)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
 						</div>
 						<n-form-text v-model="selected.target.description" v-if="getCapturesFor(selected.target.id).length > 0" label="Dynamic description" after="You can use variables to create a variable description for this action instance"/>
 					</div>
@@ -105,13 +120,15 @@
 				</div>
 				<div v-else-if="selected.type == 'state'" class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="selected.target.name" label="State name" @input="draw" after="A short name for this state"/>
+					<n-form-text v-model="selected.target.code" label="Code" after="Use this to query the state programmatically. Change with caution as you might break references."/>
 					<n-form-combo v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
-					<n-form-switch v-model="selected.target.initial" label="Initial state" after="A new process instance can only be created in an initial state. There must be at least one in a process."/>
+					<n-form-switch v-if="selected.target.initial" v-model="selected.target.initial" label="Initial state" after="A new process instance can only be created in an initial state. There must be at least one in a process."/>
 					<n-form-text type="area" v-model="selected.target.comment" label="Comment" after="Additional comments you want to add"/>
 				</div>
 				<div v-else class="is-column is-spacing-gap-medium">
 					<n-form-text v-model="model.name" label="Process name"/>
-					<n-form-text v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue"/>
+					<n-form-text v-model="model.code" label="Code" after="Use this to query the process programmatically. Change with caution as you might break references."/>
+					<n-form-text v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue" placeholder="anonymous"/>
 					<n-form-combo v-model="model.styling.theme" label="Theme" :items="themes" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text type="area" v-model="model.comment" label="Comment" after="Additional comments you want to add"/>
 					<div class="is-column is-spacing-gap-medium">

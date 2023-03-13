@@ -41,6 +41,10 @@ This is OK unless we have parallel execution WITH nesting.
 
 For correlation-id based identification of an action, perhaps check action instance logs as well?
 
+## Synchronous automatic services
+
+Perhaps we want synchronous automatic service execution in the future to preprocess/block/transactionally hook into...running services.
+
 # DONE
 
 ## Auto fail

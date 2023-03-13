@@ -20,8 +20,8 @@
     <entries>
         <synchronize>true</synchronize>
         <type>nabu.frameworks.process.database.types.processAction</type>
-        <x>1072</x>
-        <y>57</y>
+        <x>1068</x>
+        <y>20</y>
     </entries>
     <entries>
         <synchronize>true</synchronize>

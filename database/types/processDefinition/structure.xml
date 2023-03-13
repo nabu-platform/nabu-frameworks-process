@@ -3,4 +3,5 @@
     <field name="name" type="java.lang.String"/>
     <field minOccurs="0" name="comment" type="java.lang.String"/>
     <field name="enabled" type="java.lang.Boolean"/>
+    <field comment="Stable code to identify this process. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
 </structure>

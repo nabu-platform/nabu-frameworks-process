@@ -51,4 +51,8 @@
     <field name="nested" type="java.lang.Boolean"/>
     <field name="amountOfStrictActions" type="java.lang.Long"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="filteredActions"/>
+    <field name="strictByDefault" type="java.lang.Boolean"/>
+    <field name="requireInitializer" type="java.lang.Boolean"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="initializerActions"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="processDefinition"/>
 </structure>

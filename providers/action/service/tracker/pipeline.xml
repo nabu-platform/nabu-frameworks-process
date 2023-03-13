@@ -40,4 +40,6 @@
     <field maxOccurs="unbounded" minOccurs="0" name="createdProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
     <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" maxOccurs="unbounded" minOccurs="0" name="errorActionDefinitions"/>
     <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" minOccurs="0" name="errorActionDefinition"/>
+    <field minOccurs="0" name="serviceContextConnectionId" type="java.lang.String"/>
+    <field maxOccurs="unbounded" name="synchronizedConnections" type="java.lang.String"/>
 </structure>
