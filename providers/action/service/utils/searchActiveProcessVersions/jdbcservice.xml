@@ -1,0 +1,12 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<outputDefinition>nabu.frameworks.process.database.types.processVersion</outputDefinition>
+	<sql>select distinct *
+from ~process_versions pv
+	join ~process_instances pi on pi.process_version_id = pv.id
+-- not yet deactivated
+where pv.deactivated is null
+	-- but already deprecated
+	and pv.deprecated is not null
+	-- and still ongoing
+	and pi.process_state in ('RUNNING', 'ERROR')</sql>
+</jdbcService>

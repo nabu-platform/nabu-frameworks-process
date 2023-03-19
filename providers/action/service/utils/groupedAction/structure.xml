@@ -1,4 +1,5 @@
 <structure name="groupedAction">
     <field name="processId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field minOccurs="0" name="deprecated" type="java.util.Date"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="actions"/>
 </structure>

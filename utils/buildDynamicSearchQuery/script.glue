@@ -1,0 +1,56 @@
+@return
+be.nabu.libs.types.api.KeyValuePair [] properties ?= null
+
+string processCode ?= null
+string stateCode ?= null
+# running etc
+string [] processState ?= null
+string [] notProcessState ?= null
+
+additionalProperties = series()
+
+from = "~process_instances pi"
+where = ""
+if (processCode != null)
+	from = from + " join ~process_versions pv on pi.process_version_id = pv.id join ~process_definitions pd on pv.process_definition_id = pd.id and pd.code = :processCode"
+	additionalProperties = merge(additionalProperties, structure(key: "processCode", value: processCode))
+	
+
+if (stateCode != null)
+	from = from + " join ~process_states ps on pi.current_state_id = ps.id and ps.code = :stateCode"
+	additionalProperties = merge(additionalProperties, structure(key: "stateCode", value: stateCode))
+	
+if (processState != null)
+	where = where + "pi.process_state in ("
+	for (single : processState)
+		if ($index > 0)
+			where = where + ", "
+		where = where + "'" + single + "'"
+	where = where + ")"
+
+if (notProcessState != null)
+	if (where != "")
+		where = where + " and "
+	where = where + "pi.process_state not in ("
+	for (single : notProcessState)
+		if ($index > 0)
+			where = where + ", "
+		where = where + "'" + single + "'"
+	where = where + ")"
+
+for (property : properties)
+	from = from + " join ~process_data pd" + $index + " on pd" + $index + ".process_instance_id = pi.id"
+		+ " and pd" + $index + ".name = '" + property/key + "' and pd" + $index + ".value = :" + property/key + " and pd" + $index + ".active = true"
+
+if (properties == null)
+	properties = additionalProperties
+else
+	properties = merge(properties, additionalProperties)
+
+@return
+string sql = "select * from " + from
+
+if (where != "")
+	sql = sql + " where " + where
+
+

@@ -1,0 +1,5 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sql>update ~process_versions set deactivated = :deactivated
+where deprecated is not null
+	and (:activeProcessVersionIds is null or id &lt;&gt; all(:activeProcessVersionIds))</sql>
+</jdbcService>

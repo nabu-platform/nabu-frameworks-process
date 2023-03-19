@@ -1,0 +1,2 @@
+The state MUST be mapped, otherwise the process goes into a situation that it can never progress.
+So we will always want a to state id.

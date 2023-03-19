@@ -1,0 +1,78 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="be5b1184811b4da681b9fcbaa14fed19"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="07768f30704d4bbc800be8e804390025"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="906891f693064ba6a37f0509f3868ada"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.searchActiveProcessVersions"
+				resultName="resulte73c06d35d0b4ce994f7a7185d872534"
+				temporaryMapping="true"
+				x="137"
+				y="105"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="cf515bae329142e68114d913ae6bee81"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resulte73c06d35d0b4ce994f7a7185d872534/results</from>
+			<to>active</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="49bb8cda906a44b4910eb19645ee275b"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="4c85f96f55d1497eaac23e022981e171"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.deactivateProcessVersions"
+				resultName="result09bb142ee07540e6835cf6073c55311f"
+				temporaryMapping="true"
+				x="314"
+				y="215"
+				invocationOrder="1"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="60a7d44313cb43d5910714d89f3b1d2c"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>active/id</from>
+				<to>parameters[0]/activeProcessVersionIds</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9b49212fdb40416e95f52fefeb34bf84"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>resultd5c25de2d37540f892bcd941a50ade1d/date</from>
+				<to>parameters[0]/deactivated</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="82333cd044484eb0b6f28dcbb463bd56"
+				serviceId="nabu.utils.Date.now"
+				resultName="resultd5c25de2d37540f892bcd941a50ade1d"
+				temporaryMapping="true"
+				x="55"
+				y="82"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+		</steps>
+	</steps>
+</sequence>

@@ -16,4 +16,5 @@
     <field generated="true" name="actionIndex" type="java.lang.Long"/>
     <field minOccurs="0" name="nested" type="java.lang.Boolean"/>
     <field minOccurs="0" name="rolledBack" type="java.lang.Boolean"/>
+    <field comment="The reason for execution. Usually this is just flow, but it could also be &quot;migration&quot;" minOccurs="0" name="reason" type="java.lang.String"/>
 </structure>

@@ -58,7 +58,7 @@
 					<n-form-combo v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text v-if="selected.target.actionType == 'service'" v-model="selected.target.serviceId" label="Service id that is executed"/>
 					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.automatic" v-model="selected.target.reprocessable" label="Allow reprocessing" @input="draw" after="Do you want to be able to reprocess this service if it fails?"/>
-					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.reprocessable" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
+					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
 					<n-form-switch v-if="selected.target.actionType == 'signal'" v-model="selected.target.automatic" label="Send signal" after="By default we wait for the signal to occur. When checked, we actually send the signal." @input="draw"/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.automatic">
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
@@ -77,11 +77,10 @@
 							<button @click="addInputMapping(selected.target)" class="is-button is-variant-primary-outline is-size-small"><icon name="plus"/><span class="is-text">Input Mapping</span></button>
 						</div>
 					</div>
-					<n-form-switch v-if="selected.target.lax && selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default, if the service is not allowed for the current process instance we stop its execution. If lax is turned on, we allow execution to proceed."/>
 					<n-form-switch v-if="selected.target.actionType == 'service' && false" v-model="selected.target.strict" @input="draw" label="Strict" after="By default if we do not find a matching process instance for this service, we will simply let it execute. By setting it to strict, further execution is blocked"/>
 					<n-form-switch v-else-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default if we do not find a matching process instance for this service, we will block execution. If you set it to lax, we will allow execution without a matching instance. Primarily relevant for reusable utility services."/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
-						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="1" after="How many times should the action at most be executed" />
+						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="0" after="How many times should the action at most be executed? Default is 0 which means unlimited because execution is typically blocked by flow rather than amount." />
 					</div>
 					<div v-if="selected.target.actionType == 'service' && !selected.target.automatic" class="is-column is-spacing-gap-medium">
 						<n-form-combo v-model="selected.target.identificationType" :placeholder="model.defaultIdentificationType ? model.defaultIdentificationType : 'correlationId'" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
@@ -97,7 +96,8 @@
 						<p class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
 						<div v-for="capture in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
 							<n-form-text v-model="capture.name" label="Name"/>
-							<n-form-text v-model="capture.capture" label="Capture" after="The query to run on the pipeline to capture the value"/>
+							<n-form-text v-model="capture.capture" label="Capture" after="The query to run on the pipeline to capture the value" :timeout="300" @input="function(value) { var phase = getCapturePhase(value); if (phase) capture.phase = phase }"/>
+							<n-form-combo v-if="capture.capture && !getCapturePhase(capture.capture)" v-model="capture.phase" label="Phase" after="The phase in which it should be captured" :items="['input', 'output']" placeholder="output"/>
 							<n-form-switch v-if="!capture.transient" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
 							<n-form-switch v-if="!capture.identifier" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
 							<button @click="removeCapture(capture)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>

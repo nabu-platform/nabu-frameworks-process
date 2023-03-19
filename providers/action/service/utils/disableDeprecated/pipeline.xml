@@ -1,0 +1,5 @@
+<structure name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" maxOccurs="unbounded" minOccurs="0" name="active"/>
+</structure>

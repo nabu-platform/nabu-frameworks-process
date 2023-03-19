@@ -29,8 +29,8 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="56b13feb67bf4774bd6b588311d9ae5f"
-				mask="false"
+				id="67d6fc00de094118b5ad9cb53daa660c"
+				mask="true"
 				optional="false"
 				fixedValue="false">
 			<from>result4c38d58b0c9440f79e2309946701c6d5/result</from>

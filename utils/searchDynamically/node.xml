@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-14T14:06:58.085+01:00" lastModified="2023-03-15T09:47:39.714+01:00" leaf="true" version="19">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.services.jdbc.Services.paging</references>
+    <references>be.nabu.libs.types.api.KeyValuePair</references>
+    <references>nabu.services.jdbc.Services.selectDynamic</references>
+    <references>java.lang.Long</references>
+    <references>nabu.frameworks.process.utils.buildDynamicSearchQuery</references>
+    <references>nabu.services.jdbc.Services.page</references>
+    <references>nabu.frameworks.process.database.types.processInstance</references>
+    <references>java.lang.String</references>
+    <references>nabu.services.jdbc.types.Page</references>
+</node>

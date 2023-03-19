@@ -182,6 +182,29 @@ Vue.view("process-modeler-component", {
 				return max;
 			}
 		},
+		getCapturePhase: function(capture) {
+			// if we have a query, we need to check whether it is possible during input
+			if (capture.indexOf("=") == 0) {
+				// in most cases we straight capture a value from the input or output, make it easy then
+				if (capture.indexOf("=input/") == 0) {
+					return "input";
+				}
+				else if (capture.indexOf("=output/") == 0) {
+					return "output";
+				}
+				// if it is not quite as clear, we let the user decide
+				// note that "in theory" any plain variable access that is not from input or output, comes straight from the pipeline so is also during output phase
+				// but we might call services and do calculations on that which is hard to determine
+				// can finetune this in the future
+				else {
+					return null;
+				}
+			}
+			// fixed values don't matter when they are captured, might as well do it during input phase
+			else {
+				return "input";
+			}
+		},
 		debounce: function(runnable) {
 			if (this.debounceTimer) {
 				clearTimeout(this.debounceTimer);
@@ -319,7 +342,7 @@ Vue.view("process-modeler-component", {
 				var self = this;
 				var promise = this.$services.q.defer();
 				self.lastServiceInputs.splice(0);
-				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.service.definition", {serviceId: action.serviceId}).then(function(result) {
+				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.service.definition", {serviceId: action.serviceId, "$serviceContext": this.serviceContext}).then(function(result) {
 					self.lastServiceInputs.splice(0);
 					if (result && result.inputs) {
 						nabu.utils.arrays.merge(self.lastServiceInputs, result.inputs);
@@ -1449,7 +1472,7 @@ Vue.view("process-modeler-component", {
 			var state = {
 				processVersionId: this.model.id,
 				name: this.model.states.length == 0 ? "Initial" : "Unnamed",
-				initial: this.model.states.length == 0,
+				//initial: this.model.states.length == 0,
 				styling: {
 					color: null,
 					x: (this.gridSize * 4),

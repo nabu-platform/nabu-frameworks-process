@@ -1,0 +1,7 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field comment="The code name of the process" name="process" type="java.lang.String"/>
+        <structure comment="The captured values to check for" definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="properties"/>
+    </structure>
+    <structure name="output"/>
+</structure>

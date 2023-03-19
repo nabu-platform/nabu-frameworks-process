@@ -794,7 +794,7 @@
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 										disabled="false"
 										id="e270dc19dfe34413ab46799e0cef2429"
-										label="actionToRun/reprocessable"
+										label="actionToRun/reprocessable &amp;&amp; input/input != null"
 										lineNumber="28">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"

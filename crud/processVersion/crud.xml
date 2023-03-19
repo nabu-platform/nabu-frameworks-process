@@ -49,6 +49,10 @@
         <foreignName>processDefinitionId:comment</foreignName>
         <localName>comment</localName>
     </foreignFields>
+    <foreignFields>
+        <foreignName>processDefinitionId:code</foreignName>
+        <localName>code</localName>
+    </foreignFields>
     <getPermission>process.list</getPermission>
     <hooks>false</hooks>
     <listPermission>process.list</listPermission>
