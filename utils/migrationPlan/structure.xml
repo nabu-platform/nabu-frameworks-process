@@ -1,4 +1,4 @@
 <structure name="migrationPlan">
-    <field comment="Best effort replay the current state. We do not replay historic states (so non-active ones)" minOccurs="0" name="replayStates" type="java.lang.Boolean"/>
+    <field comment="Best effort replay of actions to redo substate" minOccurs="0" name="replayActions" type="java.lang.Boolean"/>
     <structure definition="nabu.frameworks.process.utils.migrationStatePlan" maxOccurs="unbounded" minOccurs="0" name="states"/>
 </structure>

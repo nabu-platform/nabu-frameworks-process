@@ -9,7 +9,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="6ada9762709e4c2698b8ce6bc295ff6f"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.disableDeprecated"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.deactivateDeprecated"
 				resultName="result1a3cbfb6868b4be6a78d7aafbc63c373"
 				temporaryMapping="true"
 				x="59"

@@ -11,4 +11,5 @@
     <field comment="Latest drawn svg" minOccurs="0" name="svg" type="java.lang.String"/>
     <field comment="The default if a specific action does not have a setting" minOccurs="0" name="defaultIdentificationType" type="java.lang.String"/>
     <field comment="We deactivate a version if it is deprecated and there are no running processes left." minOccurs="0" name="deactivated" timezone="UTC" type="java.util.Date"/>
+    <field minOccurs="0" name="defaultMigrationStrategy" type="java.lang.String"/>
 </structure>

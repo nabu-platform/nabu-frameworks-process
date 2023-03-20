@@ -514,6 +514,15 @@
 					<from>potentialProcessInstance/id</from>
 					<to>filter/processInstanceId[0]</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="da71ac14f47e4836a376b60488a9e6e9"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>potentialProcessInstance/currentStateId</from>
+					<to>filter/processStateId[0]</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"

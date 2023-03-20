@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T08:09:39.462+01:00" lastModified="2023-03-19T14:00:21.152+01:00" leaf="true" version="51">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T08:09:39.462+01:00" lastModified="2023-03-20T08:58:59.312+01:00" leaf="true" version="52">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.providers.action.service.utils.disableDeprecated</references>
     <references>nabu.frameworks.process.providers.action.service.utils.searchActiveActionsForService</references>
     <references>nabu.utils.List.add</references>
     <references>nabu.frameworks.process.crud.processStateRelation.services.list</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.deactivateDeprecated</references>
     <references>nabu.utils.List.unique</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processState.services.get</references>

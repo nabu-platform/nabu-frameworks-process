@@ -1,2 +1,8 @@
 The state MUST be mapped, otherwise the process goes into a situation that it can never progress.
 So we will always want a to state id.
+
+
+Migration strategies:
+
+- stateOnly: only replay the current state, we don't replay actions within it. This is mostly relevant for long running CMMN-like processes where internal order is not really relevant
+- stateAndActions: replay the current state and the actions, this is relevant when internal order _is_ important (default)
