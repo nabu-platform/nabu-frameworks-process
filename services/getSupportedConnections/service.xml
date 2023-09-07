@@ -29,12 +29,70 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="2a1682dda06643cb88c3f6cccf7c9f25"
+				id="9b72fbce2e1b477a921834f4c97d3eb5"
 				mask="false"
 				optional="false"
 				fixedValue="false">
 			<from>result90612c9329024397994c9bd9eb218846/nodes[artifactClass == "be.nabu.eai.module.jdbc.pool.JDBCPoolArtifact"]/id</from>
-			<to>output/connectionIds</to>
+			<to>connectionIds</to>
 		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="3a756e78c64b41c8942048c02ff9954c"
+			lineNumber="3"
+			variable="connectionId"
+			into="output/connectionIds">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="10f8bf2bf77a4017b9db72bbd7a7dea5"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="17cc84eea1c1488fb0419e3ee1c7a5f8"
+					serviceId="nabu.protocols.jdbc.pool.Services.information"
+					resultName="result87b78bc92afd46ee888950f4a2718603"
+					temporaryMapping="true"
+					x="100"
+					y="88"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="75255ec3b37d4f59ac97468a49270d88"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>connectionId</from>
+					<to>jdbcPoolId</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="17ae5eb78a6545399bea29ee5ca5367e"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result87b78bc92afd46ee888950f4a2718603/information</from>
+				<to>information</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="e41db9b798ae479e90fea9e9265eaaad"
+				label="!information/proxy"
+				lineNumber="5">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="bd8ef66074d149248ab088013c3384a4"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>connectionId</from>
+				<to>output/connectionIds[0]</to>
+			</steps>
+		</steps>
+		<query>connectionIds</query>
 	</steps>
 </sequence>

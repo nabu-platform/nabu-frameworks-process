@@ -1,0 +1,7 @@
+<structure name="pipeline">
+    <structure name="input"/>
+    <structure name="output">
+        <structure definition="nabu.frameworks.process.providers.action.service.actionInstanceDescriptor" maxOccurs="unbounded" minOccurs="0" name="instances"/>
+    </structure>
+    <field maxOccurs="unbounded" minOccurs="0" name="services" type="java.lang.String"/>
+</structure>

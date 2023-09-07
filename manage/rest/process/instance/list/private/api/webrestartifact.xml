@@ -4,7 +4,7 @@
     <path>/process/instance</path>
     <queryParameters>limit, offset, orderBy, processDefinitionId, processVersionId, currentStateId, processState, parameterSearch, identifierSearch</queryParameters>
     <role>$user</role>
-    <permissionAction>process.list</permissionAction>
+    <permissionAction>processInstance.list</permissionAction>
     <useServiceContextAsPermissionContext>false</useServiceContextAsPermissionContext>
     <useWebApplicationAsPermissionContext>false</useWebApplicationAsPermissionContext>
     <useProjectAsPermissionContext>false</useProjectAsPermissionContext>

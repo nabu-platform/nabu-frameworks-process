@@ -8,6 +8,7 @@
         <field name="allowedToProceed" type="java.lang.Boolean"/>
         <field name="processInError" type="java.lang.Boolean"/>
         <field name="nested" type="java.lang.Boolean"/>
+        <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
     </structure>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="potentialProcessInstance"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="allInstanceData"/>

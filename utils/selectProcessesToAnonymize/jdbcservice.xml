@@ -1,0 +1,8 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<outputDefinition>nabu.frameworks.process.database.types.processInstance</outputDefinition>
+	<sql>select * from process_instances pi join process_versions pv on pi.process_version_id = pv.id
+where pi.anonymized = false
+	and pi.stopped is not null
+	and pi.stopped &lt; :before
+	and pv.process_definition_id = :processDefinitionId</sql>
+</jdbcService>

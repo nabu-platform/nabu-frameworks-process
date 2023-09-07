@@ -1,6 +1,7 @@
 <structure name="pipeline">
     <structure name="input">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="actions"/>
+        <structure definition="java.lang.Object" minOccurs="0" name="context"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="filteredActions"/>

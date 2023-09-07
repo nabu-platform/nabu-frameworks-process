@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-02-05T15:39:27.853+01:00" leaf="true" version="25">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-06-01T10:42:51.255+02:00" leaf="true" version="48">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
     <references>nabu.utils.reflection.Service.invoke</references>
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.utils.Date.now</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.utils.Runtime.getContext</references>
     <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.update</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>java.lang.Long</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
     <references>java.lang.Boolean</references>
     <references>java.lang.Object</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
     <references>nabu.frameworks.process.providers.action.service.utils.propertyList</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.utils.Properties.toObject</references>
 </node>

@@ -212,6 +212,15 @@
 					<from>input/processVersionId</from>
 					<to>processVersionId</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6c6f681341fe47b7af1561c58dd99bb1"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/transactionId</from>
+					<to>transactionId</to>
+				</steps>
 			</steps>
 		</steps>
 		<query>automaticActions</query>

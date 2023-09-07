@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-07-06T14:18:12.751+02:00" lastModified="2023-07-06T14:53:57.831+02:00" leaf="true" version="16">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.types.ExceptionSummary</references>
+    <references>nabu.services.jdbc.Services.update</references>
+    <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
+    <references>java.util.Date</references>
+    <references>nabu.frameworks.process.database.types.processInstance</references>
+    <references>nabu.frameworks.process.crud.processDefinition.types.output</references>
+    <references>nabu.frameworks.process.crud.processDefinition.services.get</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.specs.process.anonymize</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.frameworks.process.crud.processVersion.services.get</references>
+    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
+</node>

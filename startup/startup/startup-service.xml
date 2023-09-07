@@ -8,4 +8,5 @@
     <runDuringDeployment>false</runDuringDeployment>
     <runAtStartup>true</runAtStartup>
     <runAfterStartup>false</runAfterStartup>
+    <startPhase>EARLY</startPhase>
 </startupService>

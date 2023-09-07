@@ -1,0 +1,4 @@
+<structure name="parameter">
+    <field name="before" timezone="UTC" type="java.util.Date"/>
+    <field name="processDefinitionId" type="java.util.UUID"/>
+</structure>

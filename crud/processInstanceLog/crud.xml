@@ -14,15 +14,15 @@
         <input>true</input>
         <vary>false</vary>
     </filters>
-    <getPermission>process.list</getPermission>
+    <getPermission>processInstance.list</getPermission>
     <hooks>false</hooks>
-    <listPermission>process.list</listPermission>
+    <listPermission>processInstance.list</listPermission>
     <listRole>$user</listRole>
     <provider>nabu.services.crud.provider.basic.provider</provider>
     <restLimitToUser>true</restLimitToUser>
     <updateRole>$user</updateRole>
     <useExplicitLanguage>false</useExplicitLanguage>
-    <useGlobalPermissionContext>false</useGlobalPermissionContext>
+    <useGlobalPermissionContext>true</useGlobalPermissionContext>
     <useLanguage>false</useLanguage>
     <useListOutputForCreate>false</useListOutputForCreate>
     <useListOutputForUpdate>false</useListOutputForUpdate>

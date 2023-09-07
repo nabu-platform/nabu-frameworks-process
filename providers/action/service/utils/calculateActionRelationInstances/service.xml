@@ -1,0 +1,58 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="1287a16568184cfb94dfd357972f857d"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="4fe9274290ab490cbeeb1494810d1dad"
+			lineNumber="2"
+			variable="activatedRelation">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get applicable action instances"
+				disabled="false"
+				id="e7538e806aff4f18ac88a78a72938771"
+				lineNumber="3">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="68f33235cd50415bb5bfe44d802eef5f"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/runIncomingActions[processActionId == /activatedRelation/actionId]/id</from>
+				<to>actionInstanceIds</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.For"
+				disabled="false"
+				id="1b9340970c384822a0fdf672e0334c44"
+				lineNumber="4"
+				variable="actionInstanceId"
+				into="output/activatedRelations">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="d741d9fb319042bf8c2dcf18f1c59040"
+					lineNumber="5">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="bc9ce6c9502743cc84262ffcbb647f29"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>activatedRelation/id</from>
+					<to>output/activatedRelations[0]/processActionRelationId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="3b90121373cb495cb8f5b740f164c7d1"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>actionInstanceId</from>
+					<to>output/activatedRelations[0]/sourceActionInstanceId</to>
+				</steps>
+			</steps>
+			<query>actionInstanceIds</query>
+		</steps>
+		<query>input/activatedRelations</query>
+	</steps>
+</sequence>

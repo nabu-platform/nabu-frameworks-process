@@ -7,4 +7,7 @@
     <field comment="Whether the id is a new id that needs to be created or already exists" minOccurs="0" name="newProcessInstance" type="java.lang.Boolean"/>
     <field minOccurs="0" name="reprocessable" type="java.lang.Boolean"/>
     <field minOccurs="0" name="nested" type="java.lang.Boolean"/>
+    <field minOccurs="0" name="forced" type="java.lang.Boolean"/>
+    <field comment="Check if we have a strategy" minOccurs="0" name="forceStrategy" type="java.lang.String"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
 </structure>

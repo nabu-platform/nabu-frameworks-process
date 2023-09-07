@@ -14,4 +14,6 @@
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" minOccurs="0" name="currentValue"/>
     <field name="newValue" type="java.lang.String"/>
     <field minOccurs="0" name="newName" type="java.lang.String"/>
+    <field minOccurs="0" name="newTypeId" type="java.lang.String"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" name="dataToStore"/>
 </structure>

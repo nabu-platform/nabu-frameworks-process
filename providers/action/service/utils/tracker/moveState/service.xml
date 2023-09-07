@@ -274,6 +274,15 @@
 				<from>true</from>
 				<to>output/movedState</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a102e1347110407db1bea36569949c50"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>flow</from>
+				<to>input/stateInstance/reason</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"

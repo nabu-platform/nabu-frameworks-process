@@ -7,4 +7,5 @@
     <field comment="The global reference id remains static between versions" name="globalReferenceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="You can have non-stored captures values and use them for example for description enrichment" minOccurs="0" name="transient" type="java.lang.Boolean"/>
     <field comment="The phase where it can be captured. E.g &quot;input&quot; or &quot;output&quot;." minOccurs="0" name="phase" type="java.lang.String"/>
+    <field comment="The type of the captured value. This can be used to show enrichment pages that use the value to show more. E.g. a node detail page" minOccurs="0" name="captureType" type="java.lang.String"/>
 </structure>

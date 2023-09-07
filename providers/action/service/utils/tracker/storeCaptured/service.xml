@@ -133,6 +133,15 @@
 				<from>input/capturedValues/names[key == /capture/id]/value</from>
 				<to>newName</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="1009b38052764e44a1f34473647ed1a1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/capturedValues[capture == /capture/capture]/typeId</from>
+				<to>newTypeId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Get the current value"
@@ -249,6 +258,15 @@
 				<from>newName</from>
 				<to>processData[0]/name</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5931a17c892547f1971d1c5df3fc0475"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>newTypeId</from>
+				<to>processData[0]/typeId</to>
+			</steps>
 		</steps>
 		<query>captures[transient != true]</query>
 	</steps>
@@ -292,10 +310,21 @@
 					<to>parameters[0]/name</to>
 				</steps>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b61187ef052d423d98b84fc518206522"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>processData[value != null &amp;&amp; value != "$deactivate"]</from>
+				<to>dataToStore</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Only store new values. So not &quot;null&quot; values or specifically set to &quot;$deactivate&quot;"
 				disabled="false"
 				id="d8f2be273ad244e4aee8ff90968a9260"
+				label="dataToStore"
 				lineNumber="10">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"

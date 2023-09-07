@@ -49,15 +49,6 @@
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="7f04ea94-6640-4a97-bc7b-9adb41cae76f"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>managerPermissions</from>
-				<to>actions</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
 					id="be0bae70-cacf-4144-b8a9-d48062d532e7"
 					mask="false"
 					optional="false"

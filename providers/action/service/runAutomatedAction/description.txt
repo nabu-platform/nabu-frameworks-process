@@ -1,0 +1,10 @@
+If the process is in error due to this task, we want to continue the process if we retry the task.
+This is mainly interesting for things like transient retry but also manual task retry via the screens.
+
+Note that this does not (currently) support more complex usecases:
+
+- parallel tasks in error
+- nested actions in error
+
+Because the process engine uses its own transaction management, we also _have_ to commit the changes on the process instance table, otherwise we get table locks.
+This means however that there is an edge case where we have successfully updated the process but not successfully updated the task. Hopefully rollback & retry procedures in the task framework itself will plug these holes.

@@ -1,0 +1,19 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="processVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field name="processStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="identifiers"/>
+        <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="metadata"/>
+    </structure>
+    <structure name="output"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" name="processVersion"/>
+    <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" name="processState"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.createOutput" name="processInstance"/>
+    <field minOccurs="0" name="date" type="java.util.Date"/>
+    <field minOccurs="0" name="correlationId" type="java.lang.String"/>
+    <field name="userId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
+    <field minOccurs="0" name="sessionId" type="java.lang.String"/>
+    <field minOccurs="0" name="deviceId" type="java.lang.String"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.createOutput" name="stateInstance"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.createOutput" maxOccurs="unbounded" minOccurs="0" name="processData"/>
+</structure>

@@ -1,0 +1,9 @@
+<structure name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" maxOccurs="unbounded" minOccurs="0" name="definitions"/>
+    <field minOccurs="0" name="before" type="java.util.Date"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.database.types.processInstance" maxOccurs="unbounded" minOccurs="0" name="instancesToAnonymize"/>
+    <field minOccurs="0" name="date" type="java.util.Date"/>
+    <structure definition="nabu.utils.types.ExceptionSummary" minOccurs="0" name="summary"/>
+</structure>

@@ -414,10 +414,26 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="If we have an input capture _anywhere_, set it as input!"
+					disabled="false"
+					id="8428e334d08b4566a67dd859a21bc7bf"
+					label="capture/phase == &quot;input&quot;"
+					lineNumber="14">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="346458bd8484411ba2b07fc34aba734e"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>capture/phase</from>
+					<to>existingCapture/phase</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Drop name"
 					disabled="false"
 					id="33af3a1257fa405e93241de7fd851486"
-					lineNumber="14">
+					lineNumber="15">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
 						disabled="false"
 						id="8db6b8be48ab432ea55ea9104c4ea09a"
@@ -430,7 +446,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="90b1410dcb0145e2b0fd67a310f7a197"
-			lineNumber="15">
+			lineNumber="16">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="14e71a85b09d43a6bcde7105712a8eec"
@@ -465,13 +481,13 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="b69aa48ea5e6443cb25aa5a28bff85b6"
-			lineNumber="16"
+			lineNumber="17"
 			variable="processId"
 			into="output/processes">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="3aab5797f16b4b2f9656f865ed356503"
-				lineNumber="17">
+				lineNumber="18">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="f2cf7682af5d4521b6aa504144f107ee"
@@ -527,7 +543,7 @@
 			comment="Sort deprecated first"
 			disabled="false"
 			id="3147bcf5a963422e80f610a92a40a2d8"
-			lineNumber="18">
+			lineNumber="19">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="dbdc8e5b926b48ad8621b6a380378c3e"

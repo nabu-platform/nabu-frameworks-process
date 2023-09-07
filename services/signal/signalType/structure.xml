@@ -1,0 +1,4 @@
+<structure name="signalType">
+    <field comment="Logical name for the signal" name="name" type="java.lang.String"/>
+    <structure definition="java.lang.Object" name="object"/>
+</structure>

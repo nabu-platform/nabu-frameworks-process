@@ -7,4 +7,6 @@
     <field minOccurs="0" name="comment" type="java.lang.String"/>
     <field comment="The global reference id remains static between versions" name="globalReferenceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="Stable code to identify this state. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
+    <field comment="Whether or not to force actions in this state. For example if we are modeling a process that mirrors reality." minOccurs="0" name="force" type="java.lang.Boolean"/>
+    <field comment="The default force strategy used in this state unless more specifically overriden." minOccurs="0" name="forceStrategy" type="java.lang.String"/>
 </structure>

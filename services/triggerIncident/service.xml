@@ -1,0 +1,145 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="7025ec10e28f4626a0cdd63a8176c925"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
+			disabled="false"
+			id="3ee3f2fba5674d63a649c0b653ae51b5"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Incidents starting with $ are pseudo incidents (e.g. $force, $any) etc. If we have a non-pseudo, we also want to use $any"
+				disabled="false"
+				id="f2d4711c671645b8b57094a540ebc18f"
+				label="input/incident !~ &quot;^\$.*&quot;"
+				lineNumber="3">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="aa0a50762fc8446fb9e9daaf750dec8f"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/incident</from>
+				<to>incidents[1]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f934e3265be74acf91049e3dc8abf9ad"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>$any</from>
+				<to>incidents[0]</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="6ae8baf8f2024e77a86376f949653970"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b8b210c0c9fd41ce9a48815c07d351bb"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/incident</from>
+				<to>incidents[0]</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="827eb393439348089352f4e7fe93f99c"
+			lineNumber="5">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="52f907e276ab45d1a8246037f6d7386d"
+				serviceId="nabu.frameworks.process.crud.processInstance.services.get"
+				resultName="result10bc7cbf1a734f228b5819f4a7d7862b"
+				temporaryMapping="true"
+				x="176"
+				y="144"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="d30f69e11aa54d3889534c46be248feb"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processInstanceId</from>
+				<to>id</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="a74cd5af2bd3461fad73c70f777f6d80"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result10bc7cbf1a734f228b5819f4a7d7862b/result</from>
+			<to>processInstance</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+			disabled="false"
+			id="c2f0093c0e2f4f37aeb6355be2707434"
+			label="!processInstance"
+			lineNumber="6" xsi:nil="true"/>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="3e9b767eb2cf4be7b1af658a25b1a2fe"
+			lineNumber="7">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="876eba89e1ae42f3889e3002ad8d75f9"
+				serviceId="nabu.frameworks.process.crud.processIncidentSubscriber.services.list"
+				resultName="result0f7dc80d9d6444be9dc3063ee7caeb58"
+				temporaryMapping="true"
+				x="252"
+				y="52"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2c5fc0529f4744f0a58f66575bb0331b"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>processInstance/processVersionId</from>
+				<to>filter/processVersionId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="280734d4f67440789832e1081ebbec4d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>incidents</from>
+				<to>filter/incident</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="13a6aa1d559040a0bf29b0e4f36d9256"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result0f7dc80d9d6444be9dc3063ee7caeb58/results</from>
+			<to>subscribers</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="e65cc5e830584f3aa3b6393af50191a9"
+			lineNumber="8"
+			variable="subscriber">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="f0a94e73750545d29ac481fd09598449"
+				lineNumber="9">
+		</steps>
+		<query>subscribers</query>
+	</steps>
+</sequence>

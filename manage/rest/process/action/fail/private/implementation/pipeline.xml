@@ -1,0 +1,7 @@
+<structure interface="$self:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" name="actionInstance"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="process"/>
+    <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" name="task"/>
+</structure>

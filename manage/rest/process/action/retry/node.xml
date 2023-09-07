@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-03-20T16:22:10.661+01:00" lastModified="2023-03-21T13:17:50.617+01:00" leaf="true" version="50">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>be.nabu.libs.types.api.KeyValuePair</references>
+    <references>nabu.frameworks.tasks.manage.rest.task.retry</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.runAutomatedAction</references>
+    <references>nabu.frameworks.tasks.types.model.tasks.Task</references>
+    <references>nabu.data.xml.Services.unmarshal</references>
+    <references>nabu.utils.String.join</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.get</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
+    <references>nabu.frameworks.tasks.crud.task.services.get</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
+    <references>nabu.frameworks.tasks.crud.task.types.output</references>
+    <references>nabu.services.jdbc.Services.update</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.utils.String.replace</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>nabu.frameworks.tasks.database.taskQueue.resumeQueue</references>
+    <references>nabu.frameworks.tasks.providers.executor</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAction</references>
+    <references>nabu.utils.String.conventionize</references>
+    <references>nabu.frameworks.tasks.database.task.fail</references>
+    <references>nabu.utils.Object.toProperties</references>
+</node>

@@ -1,0 +1,82 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="c465a255b61a4cc788cef6a01ad99d5b"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="1d00f721ba5641788ff353f7055754cd"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="2219bbe377f74aaa9bed27fcfdc9406b"
+				serviceId="nabu.utils.Runtime.getServices"
+				resultName="result19e4cf7cd695479dbdd2d80b9f5ffcf7"
+				temporaryMapping="true"
+				x="164"
+				y="240"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="ba47bbc1eb744ae8b0af6b46433ec905"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result19e4cf7cd695479dbdd2d80b9f5ffcf7/services</from>
+			<to>services</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="2d95352dd81a4851bc875fdf48d76b20"
+			lineNumber="3"
+			variable="serviceToCheck">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Try to get process descriptors for this service"
+				disabled="false"
+				id="7cd3831f6eb64ab991cfcc88d9c7643c"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="106d1bfb7e134291b13f7a932aab6d5a"
+					serviceId="nabu.utils.Runtime.getContext"
+					resultName="resultdc2479006bc44a0d841ae2306dd2b2f4"
+					temporaryMapping="true"
+					x="132"
+					y="55"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f5c4909a98cf460eb692cb6b30a95712"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>="process-action-descriptors:" + serviceToCheck</from>
+					<to>key</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="1753a79d1e494d1683556a92e437ea98"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>resultdc2479006bc44a0d841ae2306dd2b2f4/value</from>
+				<to>output/instances</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+				comment="We got instances"
+				disabled="false"
+				id="c9adda8813f845ba8223f78f7cbc31d7"
+				label="output/instances"
+				lineNumber="5">
+			<count>1</count>
+		</steps>
+		<query>services</query>
+	</steps>
+</sequence>

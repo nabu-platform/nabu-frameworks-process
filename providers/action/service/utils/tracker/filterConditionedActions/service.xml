@@ -56,6 +56,15 @@
 							<from>action/condition</from>
 							<to>rule</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="568b08e2040c4131a4c64b1e5530b4ec"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>input/context</from>
+							<to>context[0]</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"

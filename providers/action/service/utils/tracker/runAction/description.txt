@@ -1,0 +1,4 @@
+# Queue names
+
+On the one hand we don't want the queue name to be subject to name changes in the process as this might mean creation of a new queue for a particular instance (when you migrate it).
+However, we _do_ want to be able to set custom queue templates per process which means we can't just prefix it with a generic "process".

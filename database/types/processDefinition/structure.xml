@@ -4,4 +4,6 @@
     <field minOccurs="0" name="comment" type="java.lang.String"/>
     <field name="enabled" type="java.lang.Boolean"/>
     <field comment="Stable code to identify this process. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
+    <field comment="Which service do you want to use to anonymize" minOccurs="0" name="anonymizationServiceId" type="java.lang.String"/>
+    <field comment="After how much time should it be anonymized" minOccurs="0" name="anonymizationTimeout" type="be.nabu.libs.types.base.Duration"/>
 </structure>

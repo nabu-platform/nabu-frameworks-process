@@ -1,0 +1,9 @@
+nabu.utils.types.Property [] properties ?= null
+
+@return
+object = structure()
+for (property : properties)
+	object = structure(object, lambda(property/key): property/value)
+	
+@return
+string stringified = json.stringify(object)

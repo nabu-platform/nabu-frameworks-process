@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-19T13:18:13.718+01:00" lastModified="2023-03-19T13:27:18.182+01:00" leaf="true" version="6">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-19T13:18:13.718+01:00" lastModified="2023-03-24T12:55:15.493+01:00" leaf="true" version="7">
     <comment>Disable all deprecated processes that are no longer running</comment>
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
@@ -7,6 +7,7 @@
     <properties/>
     <references>nabu.frameworks.process.database.types.processVersion</references>
     <references>nabu.utils.Date.now</references>
+    <references>java.lang.String</references>
     <references>nabu.frameworks.process.providers.action.service.utils.deactivateProcessVersions</references>
     <references>nabu.frameworks.process.providers.action.service.utils.searchActiveProcessVersions</references>
 </node>

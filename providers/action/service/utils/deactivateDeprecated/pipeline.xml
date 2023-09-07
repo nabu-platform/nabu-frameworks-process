@@ -1,5 +1,7 @@
 <structure name="pipeline">
-    <structure name="input"/>
+    <structure name="input">
+        <field minOccurs="0" name="connectionId" type="java.lang.String"/>
+    </structure>
     <structure name="output"/>
     <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" maxOccurs="unbounded" minOccurs="0" name="active"/>
 </structure>

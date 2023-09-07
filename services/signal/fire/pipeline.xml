@@ -1,0 +1,7 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="name" type="java.lang.String"/>
+        <structure definition="java.lang.Object" name="object"/>
+    </structure>
+    <structure name="output"/>
+</structure>

@@ -3,6 +3,10 @@ be.nabu.libs.types.api.KeyValuePair [] properties ?= null
 
 string processCode ?= null
 string stateCode ?= null
+
+# action codes you have achieved
+string [] actionCodes ?= null
+
 # running etc
 string [] processState ?= null
 string [] notProcessState ?= null
@@ -40,17 +44,24 @@ if (notProcessState != null)
 
 for (property : properties)
 	from = from + " join ~process_data pd" + $index + " on pd" + $index + ".process_instance_id = pi.id"
-		+ " and pd" + $index + ".name = '" + property/key + "' and pd" + $index + ".value = :" + property/key + " and pd" + $index + ".active = true"
+		+ " and pd" + $index + ".name = '" + property/key + "' and pd" + $index + ".value = :property" + $index + " and pd" + $index + ".active = true"
+	additionalProperties = merge(additionalProperties, structure(key: "property" + $index, value: property/value))
 
-if (properties == null)
-	properties = additionalProperties
-else
-	properties = merge(properties, additionalProperties)
+for (actionCode : actionCodes)
+	from = from + " join ~process_state_instances psi" + $index + " on psi" + $index + ".process_instance_id = pi.id"
+	# localize binding
+	stateBinding = "psi" + $index
+	from = from + " join ~process_action_instances pai" + $index + " on pai" + $index + ".process_state_instance_id = " + stateBinding + ".id"
+	# join to the definition to check the code
+	from = from + " join ~process_actions pa" + $index + " on pa" + $index + ".id = pai" + $index + ".process_action_id and pa" + $index + ".code = :actionCode" + $index
+	additionalProperties = merge(additionalProperties, structure(key: "actionCode" + $index, value: actionCode))
 
 @return
-string sql = "select * from " + from
+string sql = "select distinct * from " + from
 
 if (where != "")
 	sql = sql + " where " + where
+	
+properties = additionalProperties
 
 

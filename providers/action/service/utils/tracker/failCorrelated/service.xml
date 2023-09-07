@@ -67,6 +67,27 @@
 			<from>result4fe116d591744b80a5a90de3e2243d6e/value</from>
 			<to>processActionInstanceIds</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="4e6beeaa4e944dbe85c3942f62baf5a5"
+				serviceId="nabu.utils.Date.now"
+				resultName="resulte32fdbc0ac7248b2b2718bdc37f73f00"
+				temporaryMapping="true"
+				x="166"
+				y="265"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="da10aa96ca994e0d8ef982e94e524498"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resulte32fdbc0ac7248b2b2718bdc37f73f00/date</from>
+			<to>now</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
@@ -92,6 +113,15 @@
 					fixedValue="false">
 				<from>processInstanceIds</from>
 				<to>parameters[0]/processInstanceIds</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="1374476e165942ad90b40bf736621d78"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>now</from>
+				<to>parameters[0]/stopped</to>
 			</steps>
 		</steps>
 	</steps>
@@ -119,6 +149,15 @@
 					fixedValue="false">
 				<from>processActionInstanceIds</from>
 				<to>parameters[0]/actionInstanceIds</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8cd9325803f845f6a39d835f9c8f1c4e"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>now</from>
+				<to>parameters[0]/stopped</to>
 			</steps>
 		</steps>
 	</steps>

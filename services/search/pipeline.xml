@@ -1,7 +1,20 @@
 <structure name="pipeline">
     <structure name="input">
-        <field comment="The code name of the process" name="process" type="java.lang.String"/>
-        <structure comment="The captured values to check for" definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="properties"/>
+        <field minOccurs="0" name="connectionId" type="java.lang.String"/>
+        <field minOccurs="0" name="processCode" type="java.lang.String"/>
+        <field minOccurs="0" name="stateCode" type="java.lang.String"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="actionCodes" type="java.lang.String"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="processState" type="java.lang.String"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="notProcessState" type="java.lang.String"/>
+        <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" name="properties"/>
+        <field minOccurs="0" name="limit" type="java.lang.Long"/>
+        <field minOccurs="0" name="offset" type="java.lang.Long"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="orderBy" type="java.lang.String"/>
     </structure>
-    <structure name="output"/>
+    <structure name="output">
+        <structure collectionName="processInstances" definition="nabu.frameworks.process.database.types.processInstance" maxOccurs="unbounded" minOccurs="0" name="results"/>
+        <structure definition="nabu.services.jdbc.types.Page" minOccurs="0" name="page"/>
+    </structure>
+    <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" name="properties"/>
+    <field name="sql" type="java.lang.String"/>
 </structure>

@@ -1,0 +1,5 @@
+If we have incoming flows, we need to validate that at least one of them is done.
+If we have outgoing flows, we need to validate that NONE of them are done.
+
+However, if we have outgoing flows and NO incoming flows, we have a "root" action which can always be run as long as you are in the current state. Use maxOccurs to limit this if necessary.
+This means, if we have NO incoming flows, we do NOT need to check the outgoing flows, because it doesn't matter what state they are in.

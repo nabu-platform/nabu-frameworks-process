@@ -216,6 +216,15 @@
 					<from>input/processVersionId</from>
 					<to>processVersionId</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="e120e1a3a62f4b0aa6840f7666bb7c8c"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/transactionId</from>
+					<to>transactionId</to>
+				</steps>
 			</steps>
 		</steps>
 		<query>relationsToRun</query>

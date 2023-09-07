@@ -1,0 +1,8 @@
+<structure collectionName="processActionIncidents" name="processActionIncident">
+    <field name="id" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
+    <field foreignKey="nabu.frameworks.process.database.types.processAction:id" name="processActionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field name="incident" type="java.lang.String"/>
+    <field comment="Can be run on a stack trace to detect a certain type of incident" minOccurs="0" name="stacktraceRegex" type="java.lang.String"/>
+    <field comment="A condition run on the &quot;output&quot; of an action to determine non-exception incidents" minOccurs="0" name="condition" type="java.lang.String"/>
+    <field comment="A code (usually in an exception) that can be used to identify a particular type of incident" minOccurs="0" name="code" type="java.lang.String"/>
+</structure>

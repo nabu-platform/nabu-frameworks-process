@@ -1,0 +1,13 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field comment="The actual properties (key/value pair list in json)" minOccurs="0" name="properties" type="java.lang.String"/>
+        <field comment="The service id involved" name="serviceId" type="java.lang.String"/>
+        <field comment="The properties field if any. Otherwise, the full service input is used" minOccurs="0" name="propertiesField" type="java.lang.String"/>
+    </structure>
+    <structure name="output">
+        <structure definition="java.lang.Object" minOccurs="0" name="properties"/>
+        <structure definition="nabu.frameworks.io.specs.propertyList" minOccurs="0" name="propertyList"/>
+        <field minOccurs="0" name="marshalledProperties" type="java.lang.String"/>
+    </structure>
+    <structure definition="nabu.utils.types.ParameterDescription" minOccurs="0" name="propertiesParameter"/>
+</structure>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-06-08T08:55:01.086+02:00" lastModified="2023-06-08T13:56:00.541+02:00" leaf="true" version="13">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>java.lang.Object</references>
+    <references>nabu.frameworks.process.crud.processIncidentSubscriber.types.output</references>
+    <references>java.util.UUID</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.crud.processIncidentSubscriber.services.list</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+</node>

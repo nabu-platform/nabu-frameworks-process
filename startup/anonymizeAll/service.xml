@@ -1,0 +1,63 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="4906b78a7bf74713af8308bb6fd6a363"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="85bf2ca114b1426ca64fb9984c02911d"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="2e4febb5060e43e7bb86ca41ca5356a0"
+				lineNumber="3">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="2cd489d38aeb4c23a0f31aeb29fd524a"
+					serviceId="nabu.frameworks.process.services.anonymize"
+					resultName="result3906c59ed2e043efb511d9b0e2f4c171"
+					temporaryMapping="true"
+					x="30"
+					y="30"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="d043c29673f147368e3d9c508472eea9"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="59094ff32c58409c8186a49c2a23c2d2"
+					serviceId="nabu.utils.Server.sleep"
+					resultName="result8fdf66eb64214bf8b3fd597aa21c962a"
+					temporaryMapping="true"
+					x="83"
+					y="111"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="838445a2c55043f4ac56ba31e7a6a6ff"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>1</from>
+					<to>amount</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f11092f292a84bcdb3f06693ca768000"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>HOURS</from>
+					<to>unit</to>
+				</steps>
+			</steps>
+		</steps>
+		<query>true</query>
+	</steps>
+</sequence>

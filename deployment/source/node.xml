@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-22T11:49:57.238+01:00" lastModified="2023-03-22T11:53:53.435+01:00" leaf="true" version="9">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
+    <references>nabu.frameworks.process.database.types.processState</references>
+    <references>nabu.frameworks.process.database.types.processCapture</references>
+    <references>nabu.frameworks.process.database.types.processDefinition</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>nabu.services.jdbc.Services.select</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.database.types.processStateRelation</references>
+    <references>nabu.frameworks.process.database.types.processActionRelation</references>
+</node>

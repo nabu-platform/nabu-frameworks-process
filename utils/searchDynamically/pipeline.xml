@@ -1,6 +1,6 @@
 <structure name="pipeline">
     <structure name="input">
-        <field name="processCode" type="java.lang.String"/>
+        <field minOccurs="0" name="processCode" type="java.lang.String"/>
         <field minOccurs="0" name="stateCode" type="java.lang.String"/>
         <field maxOccurs="unbounded" minOccurs="0" name="processState" type="java.lang.String"/>
         <field maxOccurs="unbounded" minOccurs="0" name="notProcessState" type="java.lang.String"/>

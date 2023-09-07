@@ -56,6 +56,7 @@ Vue.view("process-modeler-component", {
 				service: "blue",
 				event: "yellow",
 				signal: "green",
+				human: "purple",
 				any: "black",
 				all: "black",
 				finalizer: "black",
@@ -68,6 +69,7 @@ Vue.view("process-modeler-component", {
 				service: "black",
 				event: "black",
 				signal: "black",
+				human: "black",
 				any: "black",
 				all: "black",
 				finalizer: "black",
@@ -169,9 +171,33 @@ Vue.view("process-modeler-component", {
 		connectorColor: function() {
 			var color = this.getColor(this.getThemeColor("connector"));
 			return color.border;
+		},
+		hasServiceLister: function() {
+			return this.$services.swagger.operations["nabu.web.core.manage.reflection.service.list"] != null;
 		}
 	},
 	methods: {
+		listAnonymizationServices: function(value) {
+			return this.$services.swagger.execute("nabu.web.core.manage.reflection.service.list", {
+				interfaceId: "nabu.frameworks.process.specs.process.anonymize",
+				q: value
+			});
+		},
+		getCapturedValueNames: function(value) {
+			var result = [];
+			var available = ["$correlationId", "$deviceId", "$userId", "$sessionId"];
+			nabu.utils.arrays.merge(available, this.model.captures.filter(function(x) { return !!x.name }).map(function(x) {
+				return x.name;
+			}));
+			console.log("merged is", available);
+			available.forEach(function(x) {
+				console.log("checking", x, value);
+				if (result.indexOf(x) < 0 && (!value || x.toLowerCase().indexOf(value.toLowerCase()) >= 0)) {
+					result.push(x);
+				}
+			})
+			return result;
+		},
 		gridify: function(value) {
 			var min = value - value % this.gridSize;
 			var max = value + (this.gridSize - value % this.gridSize);
@@ -363,10 +389,11 @@ Vue.view("process-modeler-component", {
 				this.model.captures.splice(index, 1);
 			}
 		},
-		newCapture: function(actionId) {
+		newCapture: function(actionId, capture) {
 			var capture = {
 				id: this.newId(),
-				processActionId: actionId
+				processActionId: actionId,
+				capture: capture
 			};
 			capture.globalReferenceId = capture.id;
 			this.model.captures.push(capture);
@@ -446,6 +473,7 @@ Vue.view("process-modeler-component", {
 						if (self.copied.type == "action" && self.selected.type == "state") {
 							var cloned = JSON.parse(JSON.stringify(self.copied.target));
 							cloned.id = self.newId();
+							cloned.globalReferenceId = cloned.id;
 							cloned.processStateId = self.selected.target.id;
 							self.selected.target.actions.push(cloned);
 							cloned.styling.x = 20;
@@ -789,7 +817,7 @@ Vue.view("process-modeler-component", {
 			}
 		},
 		drawAction: function(action) {
-			if (action.actionType == null || action.actionType == "service" || action.actionType == "event" || action.actionType == "signal") {
+			if (action.actionType == null || action.actionType == "service" || action.actionType == "event" || action.actionType == "signal" || action.actionType == "human") {
 				this.drawMainAction(this.getState(action.processStateId), action);
 			}
 			else if (action.actionType == "finalizer") {
@@ -1384,11 +1412,22 @@ Vue.view("process-modeler-component", {
 				if (index >= 0) {
 					state.actions.splice(index, 1);
 				}
+				// remove any state relations involved with this
+				this.model.stateRelations.filter(function(x) {
+					return x.actionId == self.selected.target.id;
+				}).forEach(function(remove) {
+					self.model.stateRelations.splice(self.model.stateRelations.indexOf(remove), 1);
+				});
 				// remove any relations with this action
 				this.model.actionRelations.filter(function(x) {
 					return x.actionId == self.selected.target.id || x.targetActionId == self.selected.target.id;
 				}).forEach(function(remove) {
 					self.model.actionRelations.splice(self.model.actionRelations.indexOf(remove), 1);
+				});
+				this.model.captures.filter(function(x) {
+					return x.processActionId == self.selected.target.id;
+				}).forEach(function(remove) {
+					self.model.captures.splice(self.model.captures.indexOf(remove), 1);
 				});
 			}
 			else if (this.selected.type == "actionResult" && this.selected.target) {
@@ -1455,6 +1494,11 @@ Vue.view("process-modeler-component", {
 			// by default we want reprocessable
 			if (type == "service") {
 				action.reprocessable = true;
+			}
+			else if (type == "human") {
+				// currently we will always automatically create a human task rather than wait for it to occur naturally
+				// to indicate this, set this boolean
+				action.automatic = true;
 			}
 			state.actions.push(action);	
 			this.drawAction(action);
@@ -1787,7 +1831,7 @@ Vue.view("process-modeler-component", {
 							id: self.newId(),
 							actionId: action.id,
 							targetActionId: self.linking.targetAction.id,
-							relationType: event.sourceEvent.ctrlKey ? "limit" :"flow",
+							relationType: event.sourceEvent.ctrlKey ? "flow-stop" :"flow",
 							styling: {}
 						};
 						relation.globalReferenceId = relation.id;

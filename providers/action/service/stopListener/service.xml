@@ -47,4 +47,35 @@
 			</steps>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Catch"
+			disabled="false"
+			id="6371124936a1409b9ebf55985a7fe1be"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="558581d37c944ad5b0afc25effe89c66"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="dc1fe71255da4f66a12fdaf986275ac2"
+					serviceId="nabu.utils.Server.log"
+					resultName="result6029514499cf47e0a45da2827254c6c5"
+					temporaryMapping="true"
+					x="47"
+					y="116"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="7633517b92194cf1979191d4051b4480"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>="Can not stop tracking service: " + input/properties/serviceId</from>
+					<to>message</to>
+				</steps>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

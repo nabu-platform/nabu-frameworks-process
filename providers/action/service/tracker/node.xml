@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-03-19T13:56:26.299+01:00" leaf="true" version="242">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-09-07T13:14:06.936+02:00" leaf="true" version="282">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.frameworks.process.providers.action.service.actionInstanceDescriptor</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.create</references>
     <references>java.util.Date</references>
     <references>nabu.utils.types.TypeDescription</references>
@@ -15,6 +16,7 @@
     <references>nabu.frameworks.process.crud.processInstance.services.update</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
     <references>java.lang.Long</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.ensureQueueId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>nabu.protocols.jdbc.pool.Services.connectionForContext</references>
@@ -46,7 +48,9 @@
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker.track</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runError</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getActionsToRun</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
     <references>be.nabu.libs.artifacts.api.ExternalDependency</references>
     <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
@@ -55,6 +59,7 @@
     <references>nabu.frameworks.process.providers.action.service.runAutomatedAction:input</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.web.application.Services.getSessionId</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>
     <references>nabu.data.xml.Services.marshal</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.services.jdbc.Services.update</references>

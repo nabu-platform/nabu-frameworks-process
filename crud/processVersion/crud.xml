@@ -53,6 +53,14 @@
         <foreignName>processDefinitionId:code</foreignName>
         <localName>code</localName>
     </foreignFields>
+    <foreignFields>
+        <foreignName>processDefinitionId:anonymizationServiceId</foreignName>
+        <localName>anonymizationServiceId</localName>
+    </foreignFields>
+    <foreignFields>
+        <foreignName>processDefinitionId:anonymizationTimeout</foreignName>
+        <localName>anonymizationTimeout</localName>
+    </foreignFields>
     <getPermission>process.list</getPermission>
     <hooks>false</hooks>
     <listPermission>process.list</listPermission>

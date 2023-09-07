@@ -146,6 +146,14 @@
             <foreignName>processVersionId:processDefinitionId:name</foreignName>
             <localName>processDefinitionName</localName>
         </foreignFields>
+        <foreignFields>
+            <foreignName>processVersionId:queue</foreignName>
+            <localName>processVersionQueue</localName>
+        </foreignFields>
+        <foreignFields>
+            <foreignName>processVersionId:processDefinitionId:code</foreignName>
+            <localName>processDefinitionCode</localName>
+        </foreignFields>
         <name>For Browsing</name>
         <type>LIST</type>
     </views>

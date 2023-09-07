@@ -303,6 +303,15 @@
 								<from>result</from>
 								<to>output/capturedValues[0]/value</to>
 							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="311bc648b6d245f38532fa119ed5d2d9"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>description/id</from>
+								<to>output/capturedValues[0]/typeId</to>
+							</steps>
 						</steps>
 					</steps>
 				</steps>
@@ -318,6 +327,15 @@
 							fixedValue="false">
 						<from>capture/capture</from>
 						<to>output/capturedValues[0]/value</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="52a94b2c313f457d920ebfebebdba90f"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>description/id</from>
+						<to>output/capturedValues[0]/typeId</to>
 					</steps>
 				</steps>
 			</steps>

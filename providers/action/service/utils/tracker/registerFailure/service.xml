@@ -73,6 +73,8 @@
 					collectionIndex="onCommit">false</targetProperties>
 			<targetProperties
 					collectionIndex="onRollback">true</targetProperties>
+			<targetProperties
+					collectionIndex="transactionId">=input/transactionId</targetProperties>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
