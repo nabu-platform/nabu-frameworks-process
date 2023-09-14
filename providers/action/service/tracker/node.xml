@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-09-07T13:14:06.936+02:00" leaf="true" version="282">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-09-14T11:59:13.739+02:00" leaf="true" version="289">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -48,7 +48,6 @@
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker.track</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runError</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getActionsToRun</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
     <references>be.nabu.libs.artifacts.api.ExternalDependency</references>
@@ -66,6 +65,7 @@
     <references>nabu.utils.Transaction.defaultTransactionId</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.utils.reflection.Type.whatIs</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.unregisterForRollback</references>
     <references>java.lang.Object</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.frameworks.process.crud.processInstance.services.list</references>

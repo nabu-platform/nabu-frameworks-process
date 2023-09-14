@@ -1113,6 +1113,7 @@ Vue.view("process-modeler-component", {
 			}
 			
 			var path = this.svg.append("path")
+				.attr("class", "relation type-" + relation.relationType)
 				.attr("id", relation.id)
 				.attr("fill", "none")
 				.attr("stroke", this.connectorColor)

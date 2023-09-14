@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2023-02-05T20:12:01.518+01:00" leaf="true" version="15">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2023-09-14T11:13:54.134+02:00" leaf="true" version="17">
     <comment>This runs any finalizers that might be the consequence of the given action id</comment>
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
@@ -18,5 +18,6 @@
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.List.toMap</references>
     <references>java.util.Map</references>
+    <references>java.lang.Boolean</references>
     <references>java.lang.Object</references>
 </node>

@@ -265,4 +265,135 @@
 			</steps>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="92bc94001a57457f865f0eb9638434f7"
+			lineNumber="13">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="d2e150a2ae194c99894c34cdd3a44451"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials"
+				resultName="result9454928f325d4da3946388b9f3780ba4"
+				temporaryMapping="true"
+				x="647"
+				y="116"
+				invocationOrder="1"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="af842f801d284522acac207fd45f2e13"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>process/processVersionId</from>
+				<to>processVersionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="3a8b66a2c912476ba3cdba5ffce6231a"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>actionInstance/processActionId</from>
+				<to>actionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="1200f9d84e7d407eb106ad645610d609"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>failed</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e0d55f9c443143b1a87db1a9f476993a"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result4339f10baa754ff1aa7c7ce81ead715b/results[0]</from>
+				<to>stateInstance</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2def60de73364f6db72fc42e271da3c1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>resultd4abb21b196c4e55a0cb2bd84758d664/results</from>
+				<to>processData</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="f43b4aaa293247d39896c87610fa5b8d"
+				serviceId="nabu.frameworks.process.crud.processStateInstance.services.list"
+				resultName="result4339f10baa754ff1aa7c7ce81ead715b"
+				temporaryMapping="true"
+				x="29"
+				y="67"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="adfe46d4890947d184a6eea652e15ce0"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>process/id</from>
+				<to>filter/processInstanceId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9f987c0ea7414efc88b523099b1e3889"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>process/currentStateId</from>
+				<to>filter/processStateId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f0c92ae8aea643c2a37f1195563350f4"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/running</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="2803c18121164b4ba59eb5f972c07f9e"
+				serviceId="nabu.frameworks.process.crud.processData.services.list"
+				resultName="resultd4abb21b196c4e55a0cb2bd84758d664"
+				temporaryMapping="true"
+				x="51"
+				y="458"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="82e65d7f0bb7476aaf22a55fde6829c1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>process/id</from>
+				<to>filter/processInstanceId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="3cad3a948ca24913a7beefd862d86450"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/active</to>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

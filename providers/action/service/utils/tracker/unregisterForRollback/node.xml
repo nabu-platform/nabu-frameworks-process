@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-14T11:18:15.395+02:00" lastModified="2023-09-14T11:20:06.860+02:00" leaf="true" version="4">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.List.removeAll</references>
+    <references>nabu.utils.Runtime.setContext</references>
+    <references>nabu.utils.Runtime.getContext</references>
+    <references>java.lang.String</references>
+    <references>java.util.UUID</references>
+</node>

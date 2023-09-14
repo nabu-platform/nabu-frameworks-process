@@ -5,8 +5,11 @@
         <field name="actionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" name="stateInstance"/>
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="processData"/>
+        <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
     </structure>
-    <structure name="output"/>
+    <structure name="output">
+        <field name="ranAnything" type="java.lang.Boolean"/>
+    </structure>
     <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="relationsToRun"/>
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
     <structure definition="java.lang.Object" name="result"/>

@@ -33,8 +33,17 @@
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; relationType == "flow" &amp;&amp; actionType == "finalizer"]</from>
+			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed != true &amp;&amp; relationType == "flow") || (/input/failed == true &amp;&amp; relationType == "flow-failed") ) &amp;&amp; actionType == "finalizer"]</from>
 			<to>relationsToRun</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="d7ca160f53a942f9bce9a0a3ac76bb05"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>false</from>
+			<to>output/ranAnything</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -266,6 +275,15 @@
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ef1efbd32d864c2a817c9a78c65123b4"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>output/ranAnything</to>
 			</steps>
 		</steps>
 		<query>relationsToRun</query>

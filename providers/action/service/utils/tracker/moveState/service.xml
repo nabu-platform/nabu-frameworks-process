@@ -42,7 +42,7 @@
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resultc93345c2990444e393e48591435b416a/definition/stateRelations[actionId == /input/actionId]</from>
+			<from>resultc93345c2990444e393e48591435b416a/definition/stateRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed == true &amp;&amp; relationType == "flow-failed") || (/input/failed != true &amp;&amp; (relationType == "flow" || relationType == null)) )]</from>
 			<to>stateRelations</to>
 		</steps>
 	</steps>

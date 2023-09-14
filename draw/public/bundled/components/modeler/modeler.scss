@@ -75,6 +75,9 @@ text {
 .relation.type-flow-start {
 	stroke-dasharray: 3;
 }
+.relation.type-flow-failed {
+	stroke: #f7a0a0;
+}
 .finalizer, .any, .all {
 	stroke-width: 2;
 }

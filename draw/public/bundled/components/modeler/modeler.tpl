@@ -124,7 +124,7 @@
 					<n-form-text type="area" v-model="selected.target.comment" label="Comment" after="Additional comments you want to add"/>
 				</div>
 				<div v-else-if="selected.type == 'actionRelation'" class="is-column is-spacing-gap-medium">
-					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-start', title: 'Start flow'}, {name: 'flow-stop', title: 'Stop flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
+					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-start', title: 'Start flow'}, {name: 'flow-stop', title: 'Stop flow'}, {name: 'flow-failed', title: 'Failure flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
 					<n-form-text v-model="selected.target.code" label="Code" after="Use this to query the action relation programmatically. Change with caution as you might break references."/>
 					<p class="is-p is-variant-subscript" v-if="selected.target.relationType == 'flow'">A flow line limits the lifecycle of the source and the target. The source service can only be invoked until at least one flow line is resolved. A target service can only be invoked once at least one flow line is resolved.</p>
 					<p class="is-p is-variant-subscript" v-else-if="selected.target.relationType == 'flow-start'">A start flow line limits the lifecycle of the target without limiting the source. The source service can be invoked regardless of whether this line is resolved. The target service can only be invoked once this line (or a sibling) is resolved.</p>
@@ -133,6 +133,7 @@
 					<n-form-switch v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition" @input="draw"/>
 				</div>
 				<div v-else-if="selected.type == 'stateRelation'" class="is-column is-spacing-gap-medium">
+					<n-form-combo v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-failed', title: 'Failure flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
 					<n-form-text v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" @input="draw" :timeout="600"/>
 					<n-form-switch v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition" @input="draw"/>
 				</div>

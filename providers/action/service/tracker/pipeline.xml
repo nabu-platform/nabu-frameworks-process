@@ -47,4 +47,5 @@
     <structure definition="nabu.frameworks.process.providers.action.service.actionInstanceDescriptor" name="actionDescriptor"/>
     <structure definition="nabu.frameworks.process.providers.action.service.actionInstanceDescriptor" maxOccurs="unbounded" minOccurs="0" name="actionDescriptors"/>
     <field name="force" type="java.lang.Boolean"/>
+    <field name="ranAnything" type="java.lang.Boolean"/>
 </structure>

@@ -18,7 +18,7 @@
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>input/runIncomingActions[processActionId == /activatedRelation/actionId]/id</from>
+				<from>input/runIncomingActions[processActionId == /activatedRelation/actionId &amp;&amp; ((/activatedRelation/relationType == "flow" &amp;&amp; processState == "SUCCEEDED") || (/activatedRelation/relationType == "flow-failed" &amp;&amp; processState == "FAILED"))]/id</from>
 				<to>actionInstanceIds</to>
 			</steps>
 		</steps>

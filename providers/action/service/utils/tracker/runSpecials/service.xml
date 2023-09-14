@@ -54,6 +54,15 @@
 				<from>input/processVersionId</from>
 				<to>processVersionId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="21bc3031da964350b0a1e165825caa0d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/failed</from>
+				<to>failed</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -63,6 +72,15 @@
 				fixedValue="false">
 			<from>resultff74b77b2e0f4212bc352f997d8da552/movedState</from>
 			<to>movedState</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="e033b0f633714fe1b0838143276b5310"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>false</from>
+			<to>output/ranAnything</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
@@ -121,6 +139,15 @@
 					<from>input/processData</from>
 					<to>processData</to>
 				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9b84b50a96a54d30a90c38fe4d13936c"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>output/ranAnything</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
@@ -187,12 +214,45 @@
 						<from>input/transactionId</from>
 						<to>transactionId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="4743ee80ed204e5dbc1bbf649d646446"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/failed</from>
+						<to>failed</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="95ef010b73614c8683a568a98ac8b762"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result5e83411e114b42109d327f628bcae347/ranAnything</from>
+					<to>ranAnything</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Update output ranAnything"
+					disabled="false"
+					id="6a9bf253e4314c98abfbf624467e7237"
+					lineNumber="7">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f02dea662e384825aa914685e4790daa"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>=output/ranAnything || ranAnything</from>
+					<to>output/ranAnything</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="bd9f8eb8b61a4bec9029fc5ce1b1ef60"
-					lineNumber="7">
+					lineNumber="8">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="ba22a9c641ff43349b56228d78041078"
@@ -240,12 +300,45 @@
 						<from>input/processData</from>
 						<to>processData</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="6b1b7aa85e554292a7504f676be7465d"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/failed</from>
+						<to>failed</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f8654d0cdd0d428d8b1c1b32822af9ea"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result75586535221749bc9bcf8c152644400f/ranAnything</from>
+					<to>ranAnything</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Update output ranAnything"
+					disabled="false"
+					id="6f8c9a9f7db142c1ab1746eaec79a75d"
+					lineNumber="9">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6a85ae69910b4f4fa6849045d59f3940"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>=output/ranAnything || ranAnything</from>
+					<to>output/ranAnything</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="60e23f7231604cb0918542a67daa5796"
-					lineNumber="8">
+					lineNumber="10">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="c9fbf179b20a4ad78b35ea6c1ccfbde1"
@@ -302,6 +395,15 @@
 						<from>input/transactionId</from>
 						<to>transactionId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="df1ae20a6d744fdea4d1a606382a21ae"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/failed</from>
+						<to>failed</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
@@ -311,6 +413,30 @@
 						fixedValue="false">
 					<from>result78c75689878c4549a9294294c33a5fb3/blocked</from>
 					<to>blocked</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="c883e6688d7e40ac8920521b877229df"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result78c75689878c4549a9294294c33a5fb3/ranAnything</from>
+					<to>ranAnything</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Update output ranAnything"
+					disabled="false"
+					id="dd4e4eef83184efcaaeac5c7b6f84392"
+					lineNumber="11">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="7ea39a01a6214924aedf60412f890265"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>=output/ranAnything || ranAnything</from>
+					<to>output/ranAnything</to>
 				</steps>
 			</steps>
 		</steps>

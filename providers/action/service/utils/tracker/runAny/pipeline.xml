@@ -5,9 +5,11 @@
         <field name="actionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" name="stateInstance"/>
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="processData"/>
+        <field comment="Whether or not the action was failed" minOccurs="0" name="failed" type="java.lang.Boolean"/>
     </structure>
     <structure name="output">
         <field name="blocked" type="java.lang.Boolean"/>
+        <field name="ranAnything" type="java.lang.Boolean"/>
     </structure>
     <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="relationsToRun"/>
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
@@ -18,7 +20,7 @@
     <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="relationsToAny"/>
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="actionInstances"/>
     <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" minOccurs="0" name="anyDefinition"/>
-    <field minOccurs="0" name="amountOfSuccessfulActions" type="java.lang.Integer"/>
+    <field minOccurs="0" name="amountOfUsefulActions" type="java.lang.Integer"/>
     <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget" maxOccurs="unbounded" minOccurs="0" name="applicableRelations"/>
     <field comment="How many times it can be run (0 = unlimited), default is 1" minOccurs="0" name="maxOccurs" type="java.lang.Long"/>
     <field name="continueAnyExecution" type="java.lang.Boolean"/>

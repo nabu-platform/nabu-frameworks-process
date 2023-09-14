@@ -1,8 +1,12 @@
 # TODO
 
-## Input mapping
+- finalizer: allow to be run in the future and choose the state (succeeded or failed). usecase is autocleanup of processes where after 3 reminder mails and still no progress, you just want to stop the process.
+- flow-failed: allow flow lines that are specifically triggered on "failed" steps (so finalized errors), this can be used for human tasks, service exceptions,...
+- state transition: allow executing the target state in a different process instance, this (combined with flow-failed) can be used for complex compensation flows. the instances should obviously be related somehow
+- send signal: allow sending of signal to the process instance externally
+- rest service for sending signal: /signal/{processActionId}?identifier=value where you can use a limited set of explicitly whitelisted identifiers
+	- also need to add security where you can set an permissionAction on the process action (defaults to the process code + process action code) and specify a captured data value to use as permission context
 
-When calling automatic services, allow mapping input from the available state
 
 ## Still check actions for automated
 
