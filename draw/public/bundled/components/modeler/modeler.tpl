@@ -57,10 +57,10 @@
 					<n-form-text v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
 					<n-form-text v-if="selected.target.actionType == 'service'" label="Condition" v-model="selected.target.condition" after="You can set an additional condition that must be true before this action is matched"/>
 					<div v-if="selected.target.actionType == 'signal'">
-						<n-form-text v-model="selected.target.signalName" label="Signal Name" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
+						<n-form-text v-model="selected.target.signalId" label="Signal Id" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
 					</div>
-					<div v-else-if="selected.target.actionType == 'event'">
-						<n-form-text v-model="selected.target.eventName" label="Signal Name" after="The name of the event"/>
+					<div v-else-if="selected.target.actionType == 'event' && false">
+						<n-form-text v-model="selected.target.eventId" label="Event Id" after="The id of an event is has the following format: <eventCategory>:<eventName>"/>
 					</div>
 					<n-form-text v-if="selected.target.actionType == 'service'" label="Force Condition" v-model="selected.target.forceCondition" after="If this evaluates to true, the action is forced to run, even if it is not allowed due to the state of the process instance"/>
 					<n-form-combo v-if="selected.target.forceCondition" label="Force strategy" v-model="selected.target.forceStrategy"
@@ -96,7 +96,7 @@
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">
 						<n-form-text v-model="selected.target.maxOccurs" label="Max occurs" placeholder="0" after="How many times should the action at most be executed? Default is 0 which means unlimited because execution is typically blocked by flow rather than amount." />
 					</div>
-					<div v-if="selected.target.actionType == 'service' && !selected.target.automatic" class="is-column is-spacing-gap-medium">
+					<div v-if="['service', 'signal'].indexOf(selected.target.actionType) >= 0 && !selected.target.automatic" class="is-column is-spacing-gap-medium">
 						<n-form-combo v-model="selected.target.identificationType" :placeholder="model.defaultIdentificationType ? model.defaultIdentificationType : 'correlationId'" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Identification type" after="How do you want to identify process instances?"/>
 						<p class="is-p is-size-small" v-if="selected.target.identificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
@@ -105,14 +105,16 @@
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
 						<p class="is-p is-size-small" v-else>When set to globally, only one instance of a process can be active at a time</p>
 					</div>
-					<div v-if="selected.target.actionType == 'service'" class="is-column is-spacing-gap-medium">
+					<div v-if="selected.target.actionType == 'service' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" class="is-column is-spacing-gap-medium">
 						<h4 class="is-h4">Value capturing</h4>
-						<p class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
+						<p v-if="selected.target.actionType == 'service'" class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
+						<p v-else-if="selected.target.actionType == 'signal'" class="is-p is-size-small">You can capture values from the signal data to either identify the process instance or enrich it with metadata</p>
+						<p v-else-if="selected.target.actionType == 'human'" class="is-p is-size-small">You can capture values from the human task data to enrich the process with metadata</p>
 						<div v-for="capture in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
 							<n-form-text v-model="capture.name" label="Name" v-if="capture.capture != '$deactivate'"/>
 							<n-form-combo v-model="capture.name" label="Name" v-else :filter="getCapturedValueNames"/>
-							<n-form-text v-if="capture.capture != '$deactivate'" v-model="capture.capture" label="Capture" after="The query to run on the pipeline to capture the value" :timeout="300" @input="function(value) { var phase = getCapturePhase(value); if (phase) capture.phase = phase }"/>
-							<n-form-combo v-if="capture.capture && !getCapturePhase(capture.capture)" v-model="capture.phase" label="Phase" after="The phase in which it should be captured" :items="['input', 'output']" placeholder="output"/>
+							<n-form-text v-if="capture.capture != '$deactivate'" v-model="capture.capture" label="Capture" after="The query to run to capture the value" :timeout="300" @input="updatePhase(capture, value)"/>
+							<n-form-combo v-if="selected.target.actionType == 'service' && capture.capture && !getCapturePhase(capture.capture)" v-model="capture.phase" label="Phase" after="The phase in which it should be captured" :items="['input', 'output']" placeholder="output"/>
 							<n-form-switch v-if="!capture.transient && capture.capture != '$deactivate'" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
 							<n-form-switch v-if="!capture.identifier && capture.capture != '$deactivate'" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
 							<p class="is-p is-variant-subscript" v-if="capture.capture == '$deactivate'">Deactivate this value when the action is done, preventing further use in mapping or identifying the process instance.</p>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-03T16:42:58.958+01:00" lastModified="2023-09-06T10:27:40.944+02:00" leaf="true" version="33">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-03T16:42:58.958+01:00" lastModified="2023-09-15T10:56:23.602+02:00" leaf="true" version="43">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
     <references>nabu.utils.Runtime.getPipeline</references>
     <references>nabu.utils.String.substring</references>
     <references>nabu.utils.types.TypeDescription</references>
@@ -14,6 +15,5 @@
     <references>java.lang.String</references>
     <references>nabu.data.json.Services.marshal</references>
     <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions</references>
     <references>nabu.utils.Stream.toString</references>
 </node>

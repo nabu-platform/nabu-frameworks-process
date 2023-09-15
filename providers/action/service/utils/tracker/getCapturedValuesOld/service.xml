@@ -9,7 +9,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="eb1283746155437993ab0965981640b1"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialActions"
 				resultName="result7deed1d27af84f92b112c51d069c876b"
 				temporaryMapping="true"
 				x="244"
@@ -19,7 +19,7 @@
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="fd48b29f49874913a67a646801a9eb8d"
+					id="5201c5f785b344c180a60250e3024170"
 					mask="false"
 					optional="false"
 					fixedValue="false">

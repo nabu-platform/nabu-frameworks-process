@@ -10,7 +10,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="f4aef9b42476470ba304a48ebf6a7c87"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialActions"
 				resultName="resultc400e81b6b014b498a7c77ac526123cb"
 				temporaryMapping="true"
 				x="143"
@@ -24,8 +24,17 @@
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>input/service</from>
+				<from>input/serviceId</from>
 				<to>serviceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8e2a936722c34bb28c4fe1a7fd82153d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/signalId</from>
+				<to>signalId</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -346,6 +355,15 @@
 					<from>processData</from>
 					<to>instances</to>
 				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f0bee98bab3048139f9905aea6a1b9ac"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>processData</from>
+				<to>output/processData</to>
 			</steps>
 		</steps>
 	</steps>

@@ -9,7 +9,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="eb1283746155437993ab0965981640b1"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialServiceActions"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getPotentialActions"
 				resultName="result7deed1d27af84f92b112c51d069c876b"
 				temporaryMapping="true"
 				x="244"
@@ -19,12 +19,21 @@
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="fd48b29f49874913a67a646801a9eb8d"
+					id="38e26174f7934db18ec7a5223cefe48c"
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>input/serviceName</from>
+				<from>input/serviceId</from>
 				<to>serviceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ea47bd42bde54bf99003027f7a76e8f1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/signalId</from>
+				<to>signalId</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -63,7 +72,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>input/serviceName</from>
+					<from>input/serviceId</from>
 					<to>serviceId</to>
 				</steps>
 			</steps>
@@ -109,21 +118,21 @@
 								recache="false">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="502db4c5ddcd45b4a5617c16a54bacdf"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>pipeline</from>
-								<to>context[0]</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
 									id="b4e75b15af0d441bb845c7f0303d8661"
 									mask="false"
 									optional="false"
 									fixedValue="false">
 								<from>result65c8337832614052a06a39e6be614b85/substring</from>
 								<to>rule</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="6377d7f872644871b848e5bfa2d318df"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/data</from>
+								<to>context[0]</to>
 							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -388,21 +397,21 @@
 									recache="false">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 										disabled="false"
-										id="4c660df0203346ba965a25fce3235290"
-										mask="false"
-										optional="false"
-										fixedValue="false">
-									<from>pipeline</from>
-									<to>context[0]</to>
-								</steps>
-								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-										disabled="false"
 										id="621ba4ace8224e60ac676a9df7bab0c5"
 										mask="false"
 										optional="false"
 										fixedValue="false">
 									<from>result65c8337832614052a06a39e6be614b85/substring</from>
 									<to>rule</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="a3c3f546714a4ed28048b2d67cabaebe"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>input/data</from>
+									<to>context[0]</to>
 								</steps>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"

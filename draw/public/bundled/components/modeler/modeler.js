@@ -208,6 +208,19 @@ Vue.view("process-modeler-component", {
 				return max;
 			}
 		},
+		updatePhase: function(capture, value) {
+			// a service has multiple phases (input and output)
+			if (this.selected.target.actionType == "service") {
+				var phase = this.getCapturePhase(value); 
+				if (phase) {
+					capture.phase = phase;
+				}
+			}
+			// non-services only have the data phase which means it is available at the start (so input)
+			else {
+				capture.phase = "input";
+			}
+		},
 		getCapturePhase: function(capture) {
 			// if we have a query, we need to check whether it is possible during input
 			if (capture.indexOf("=") == 0) {

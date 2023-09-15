@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-08-11T13:53:14.229+02:00" lastModified="2023-09-15T09:50:35.500+02:00" leaf="true" version="7">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-08-11T13:53:14.229+02:00" lastModified="2023-09-15T11:04:34.341+02:00" leaf="true" version="32">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>java.lang.Object</references>
+    <references>nabu.frameworks.process.providers.action.service.actionInstanceDescriptor</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.utils.List.add</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.services.create</references>
+    <references>java.util.Date</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getActionsToRun</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
+    <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runStateAutomatic</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.handleGetActionsProblems</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.resolveDescription</references>
+    <references>nabu.utils.Date.now</references>
+    <references>nabu.frameworks.process.database.types.processData</references>
+    <references>nabu.web.application.Services.getSessionId</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.startProcess</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>
+    <references>java.util.UUID</references>
+    <references>nabu.utils.Runtime.getCurrentDevice</references>
+    <references>nabu.data.xml.Services.marshal</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.services.jdbc.Services.update</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessVariables</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
+    <references>java.lang.Object</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
 </node>

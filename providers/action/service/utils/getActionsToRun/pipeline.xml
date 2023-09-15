@@ -2,10 +2,13 @@
     <structure name="input">
         <structure definition="be.nabu.libs.authentication.api.Token" minOccurs="0" name="token"/>
         <structure definition="be.nabu.libs.authentication.api.Device" minOccurs="0" name="device"/>
+        <field minOccurs="0" name="authenticationId" type="java.lang.String"/>
+        <field minOccurs="0" name="deviceId" type="java.lang.String"/>
         <field comment="You can pass in a custom correlation id, this can be useful for example for asynchronous tasks that have still be bound correctly" minOccurs="0" name="correlationId" type="java.lang.String"/>
         <field minOccurs="0" name="sessionId" type="java.lang.String"/>
         <field minOccurs="0" name="serviceId" type="java.lang.String"/>
-        <structure definition="java.lang.Object" minOccurs="0" name="serviceInput"/>
+        <field minOccurs="0" name="signalId" type="java.lang.String"/>
+        <structure definition="java.lang.Object" minOccurs="0" name="inputData"/>
         <field minOccurs="0" name="force" type="java.lang.Boolean"/>
         <field minOccurs="0" name="forceStrategy" type="java.lang.String"/>
     </structure>

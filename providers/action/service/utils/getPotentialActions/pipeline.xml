@@ -1,6 +1,7 @@
 <structure name="pipeline">
     <structure name="input">
-        <field name="serviceId" type="java.lang.String"/>
+        <field minOccurs="0" name="serviceId" type="java.lang.String"/>
+        <field minOccurs="0" name="signalId" type="java.lang.String"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.groupedAction" maxOccurs="unbounded" minOccurs="0" name="processes"/>

@@ -14,6 +14,10 @@ V flow-failed: allow flow lines that are specifically triggered on "failed" step
 - lijntjes kunnen manueel verbeteren
 - correlation id matching waarschuwen als dit 2x op dezelfde service gebeurt en met loops enz
 
+- for task system: do we want to differentiate between "best effort" services and regular services. the best effort does not fail if the process is no longer in the correct state (the current behavior), the other one just runs it
+	- we will always need the wrapper though because it contains the identification of the process, otherwise we would need capture-based identification of the process (or we could use contextId?? inject in runtime as taskContextId and pick it up as process instance id?)
+	- if we don't need identification, we could run a "raw" task without a wrapper service, it would be more readable at least
+
 ## Still check actions for automated
 
 Currently automated actions bypass a number of checks because we assume we know the process instance it is for.
