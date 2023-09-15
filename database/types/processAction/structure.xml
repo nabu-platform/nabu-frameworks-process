@@ -30,4 +30,5 @@
     <field comment="If this resolves to true, we want to force the process to run this action even if it is not allowed. For instance some processes model actual real-life processes. We can't alter reality (yet) so we must allow it but we do want to flag it." minOccurs="0" name="forceCondition" type="java.lang.String"/>
     <field comment="When forcing execution, there are a number of strategies to use. &quot;actionOnly&quot; only forces the action to be run within the current state instance (even if it is the wrong type). &quot;actionAndState&quot; will force a new state instance of the correct type to be routed even if it is routed already" minOccurs="0" name="forceStrategy" type="java.lang.String"/>
     <field minOccurs="0" name="signalName" type="java.lang.String"/>
+    <field comment="The name of the event you are subscribing to (if it is an event)" minOccurs="0" name="eventName" type="java.lang.String"/>
 </structure>

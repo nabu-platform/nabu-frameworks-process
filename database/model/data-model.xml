@@ -84,8 +84,8 @@
     <entries>
         <synchronize>true</synchronize>
         <type>nabu.frameworks.process.database.types.processStateRelation</type>
-        <x>1550</x>
-        <y>63</y>
+        <x>1525</x>
+        <y>16</y>
     </entries>
     <entries>
         <synchronize>true</synchronize>

@@ -59,6 +59,9 @@
 					<div v-if="selected.target.actionType == 'signal'">
 						<n-form-text v-model="selected.target.signalName" label="Signal Name" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
 					</div>
+					<div v-else-if="selected.target.actionType == 'event'">
+						<n-form-text v-model="selected.target.eventName" label="Signal Name" after="The name of the event"/>
+					</div>
 					<n-form-text v-if="selected.target.actionType == 'service'" label="Force Condition" v-model="selected.target.forceCondition" after="If this evaluates to true, the action is forced to run, even if it is not allowed due to the state of the process instance"/>
 					<n-form-combo v-if="selected.target.forceCondition" label="Force strategy" v-model="selected.target.forceStrategy"
 						:items="[{name: 'actionOnly', title: 'Run the action without updating the state'}, {name: 'actionAndState', title: 'Always start a new state instance'}]"

@@ -1,7 +1,7 @@
 <structure name="pipeline">
     <structure name="input">
         <field name="name" type="java.lang.String"/>
-        <structure definition="java.lang.Object" name="object"/>
+        <structure definition="java.lang.Object" minOccurs="0" name="data"/>
     </structure>
     <structure name="output"/>
 </structure>

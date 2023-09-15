@@ -376,7 +376,8 @@
 			id="36a5974c875844d8add39a60b5a5cbc0"
 			label="processInError"
 			lineNumber="11"
-			code="PROCESS-IN-ERROR" xsi:nil="true"/>
+			code="PROCESS-IN-ERROR"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			disabled="false"
 			id="cf743db751d34ff19e7545fe3f418eff"
@@ -503,7 +504,8 @@
 							id="1113af91b48d49728cb52ad8534a1baa"
 							label="action/serviceId == null"
 							lineNumber="18"
-							message="Service id not specified" xsi:nil="true"/>
+							message="Service id not specified"
+							whitelist="false" xsi:nil="true"/>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="565364cde03340f9a67148ae1d3dfeb7"
@@ -620,18 +622,103 @@
 						</steps>
 					</steps>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+						disabled="false"
+						id="0033a549c370446bbee2d85c46a615c7"
+						label="&quot;finalizer&quot;"
+						lineNumber="22">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+							comment="If we get here, we want to stop the process"
+							disabled="false"
+							id="47351a91913d4ec184ff4497a57fba3e"
+							lineNumber="23">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="4937cc7a3abc423eaf85c2e7c2c1d1a0"
+								serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState"
+								resultName="resultda1d2075e19347578874afd0397f2812"
+								temporaryMapping="true"
+								x="428"
+								y="156"
+								invocationOrder="1"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="8becef7475d04bc29054caabd5539971"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>resultab07355d2a834045b34f574cb15c6824/date</from>
+								<to>parameters[0]/now</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="c4b383b1e77c44f88a61c44b8ff67e2f"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/processStateInstanceId</from>
+								<to>parameters[0]/processStateInstanceId</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="359eaa38b19447428f883dd6bfd56668"
+								serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.finalizeProcess"
+								resultName="resultd2e12b7e011e412dbb532c0700eac020"
+								temporaryMapping="true"
+								x="515"
+								y="37"
+								invocationOrder="1"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="e5ee98d75e6b4706b3183339d201738c"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>resultab07355d2a834045b34f574cb15c6824/date</from>
+								<to>parameters[0]/now</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="8e803860f2304c6189437d18b5e57b33"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/processInstanceId</from>
+								<to>parameters[0]/processInstanceId</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="c0ed8094a3e34877a753aa5246e48ff1"
+								serviceId="nabu.utils.Date.now"
+								resultName="resultab07355d2a834045b34f574cb15c6824"
+								temporaryMapping="true"
+								x="20"
+								y="163"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+						</steps>
+					</steps>
+				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 						description="=&quot;Action type not supported for automatic running: &quot; + action/actionType"
 						disabled="false"
 						id="407875cdce9d4f84a851c4a4fd8d1912"
-						lineNumber="22"
-						message="Action type not supported for automatic running" xsi:nil="true"/>
+						lineNumber="24"
+						message="Action type not supported for automatic running"
+						whitelist="false" xsi:nil="true"/>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="c0a4a51007a9422f91b6b23271dc2e0d"
-				lineNumber="23">
+				lineNumber="25">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="96ef5f43f47f4d7fba76940b7d92b9a1"
