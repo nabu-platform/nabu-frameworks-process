@@ -59,6 +59,10 @@
 					<div v-if="selected.target.actionType == 'signal'">
 						<n-form-text v-model="selected.target.signalId" label="Signal Id" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
 					</div>
+					<div v-else-if="selected.target.actionType == 'human'">
+						<n-form-text v-model="selected.target.dataTypeId" label="Human task data type id" after="The data type of the data accompanying the human task (if any)"/>
+						<n-form-text v-model="selected.target.contextIdQuery" label="Context id query" after="Set a fixed value or use '=' syntax to retrieve a value from the process data to use as context id. This may be useful for security purposes."/>
+					</div>
 					<div v-else-if="selected.target.actionType == 'event' && false">
 						<n-form-text v-model="selected.target.eventId" label="Event Id" after="The id of an event is has the following format: <eventCategory>:<eventName>"/>
 					</div>

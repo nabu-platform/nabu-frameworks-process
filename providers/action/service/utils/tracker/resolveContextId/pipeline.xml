@@ -1,0 +1,10 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field minOccurs="0" name="contextIdQuery" type="java.lang.String"/>
+        <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="available"/>
+    </structure>
+    <structure name="output">
+        <field minOccurs="0" name="contextId" type="java.lang.String"/>
+    </structure>
+    <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="instanceDataMap"/>
+</structure>

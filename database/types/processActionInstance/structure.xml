@@ -19,6 +19,6 @@
     <field minOccurs="0" name="nested" type="java.lang.Boolean"/>
     <field minOccurs="0" name="rolledBack" type="java.lang.Boolean"/>
     <field comment="The reason for execution. Usually this is just flow, but it could also be &quot;migration&quot;" minOccurs="0" name="reason" type="java.lang.String"/>
-    <field comment="If run via task framework, we keep the task id here" foreignKey="nabu.frameworks.tasks.types.model.tasks.Task:id" minOccurs="0" name="taskId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field comment="If run via task framework, we keep the task id here" foreignKey="nabu.frameworks.tasks.types.model.tasks.Task:id" indexed="true" minOccurs="0" name="taskId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="Whether or not this was forced" minOccurs="0" name="forced" type="java.lang.Boolean"/>
 </structure>

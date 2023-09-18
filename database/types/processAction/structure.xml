@@ -3,9 +3,10 @@
     <field comment="The name of this step" minOccurs="0" name="name" type="java.lang.String"/>
     <field minOccurs="0" name="summary" type="java.lang.String"/>
     <field comment="A short description, it can use variables that will be filled in from the capture" minOccurs="0" name="description" type="java.lang.String"/>
-    <field comment="Services can have references for logical naming" minOccurs="0" name="reference" type="java.lang.String"/>
+    <field comment="Actions can have references for logical naming" minOccurs="0" name="reference" type="java.lang.String"/>
     <field foreignKey="nabu.frameworks.process.database.types.processState:id" indexed="true" name="processStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <field comment="If this is an automatic action, it will be created as a task" minOccurs="0" name="automatic" type="java.lang.Boolean"/>
+    <field comment="Wether or not the process engine should proactively run the action or wait until it occurs" minOccurs="0" name="automatic" type="java.lang.Boolean"/>
+    <field comment="When automatic is turned on, do we want it to be run synchronously or asynchronously?" minOccurs="0" name="synchronous" type="java.lang.Boolean"/>
     <field comment="If it is reprocessable, we will store the input" minOccurs="0" name="reprocessable" type="java.lang.Boolean"/>
     <field comment="You can set a delay on the action to be executed" minOccurs="0" name="delay" type="be.nabu.libs.types.base.Duration"/>
     <field comment="You can execute this action according to a schedule" minOccurs="0" name="schedule" type="java.lang.String"/>
@@ -18,6 +19,8 @@
     <field comment="Additional configuration for that given action type" minOccurs="0" name="configuration" type="java.lang.String"/>
     <field comment="If it's a service action, the service id to track. A dedicated field for fast lookup." minOccurs="0" name="serviceId" type="java.lang.String"/>
     <field minOccurs="0" name="signalId" type="java.lang.String"/>
+    <field comment="Actions usually revolve around data: the input of a service, a signal body, a human task body,... When relevant, this is the data type id." minOccurs="0" name="dataTypeId" type="java.lang.String"/>
+    <field comment="When permissions are necessary, you can set a context id query to extract a context id from the process parameters" minOccurs="0" name="contextIdQuery" type="java.lang.String"/>
     <field comment="If the action is set to lax, we will not stop the service from executing if not allowed, we simply don't log it" minOccurs="0" name="lax" type="java.lang.Boolean"/>
     <field comment="If strict is set and no process is found, we throw an exception" minOccurs="0" name="strict" type="java.lang.Boolean"/>
     <field comment="Defaults are: correlationId, userId, deviceId, sessionId, custom. Once custom you need to set up captures." minOccurs="0" name="identificationType" type="java.lang.String"/>

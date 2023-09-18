@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-09-14T14:00:52.395+02:00" leaf="true" version="49">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-09-18T14:25:09.328+02:00" leaf="true" version="68">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
     <references>nabu.utils.reflection.Service.invoke</references>
+    <references>java.util.Date</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.tasks.services.human.create</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.update</references>
+    <references>java.lang.Long</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.String</references>
+    <references>nabu.data.json.Services.marshal</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.utils.Properties.toObject</references>
+    <references>nabu.frameworks.tasks.services.schedule.parse</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.utils.Date.now</references>
-    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>nabu.utils.Runtime.getContext</references>
+    <references>nabu.web.application.Services.getSessionId</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeProcess</references>
-    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.update</references>
+    <references>nabu.utils.Runtime.getCurrentDevice</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.getQueueForAction</references>
+    <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
-    <references>java.lang.Long</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
-    <references>java.lang.Boolean</references>
+    <references>nabu.utils.Object.first</references>
     <references>java.lang.Object</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
     <references>nabu.frameworks.process.providers.action.service.utils.propertyList</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
-    <references>nabu.utils.Properties.toObject</references>
+    <references>nabu.utils.Date.incrementDuration</references>
+    <references>nabu.frameworks.tasks.services.schedule.next</references>
 </node>

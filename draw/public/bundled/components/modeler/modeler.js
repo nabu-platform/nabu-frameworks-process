@@ -1513,6 +1513,8 @@ Vue.view("process-modeler-component", {
 				// currently we will always automatically create a human task rather than wait for it to occur naturally
 				// to indicate this, set this boolean
 				action.automatic = true;
+				// and always synchronous, no use in waiting for a new task just to create this task
+				action.synchronous = true;
 			}
 			state.actions.push(action);	
 			this.drawAction(action);

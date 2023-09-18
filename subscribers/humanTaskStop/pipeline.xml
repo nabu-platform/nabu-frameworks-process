@@ -1,0 +1,7 @@
+<structure interface="nabu.frameworks.tasks.hooks.human.stop" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.database.types.processActionInstance" name="actionInstance"/>
+    <field foreignKey="nabu.frameworks.process.database.types.processInstance:id" foreignName="processStateInstanceId:processInstanceId" indexed="true" name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="false" type="java.util.UUID"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="processInstance"/>
+</structure>
