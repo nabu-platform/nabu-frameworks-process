@@ -1426,6 +1426,12 @@ Vue.view("process-modeler-component", {
 					var xFactor = Math.abs(points[2].x - points[1].x) / 2;
 					var x = Math.max(points[2].x, points[1].x) - xFactor;
 				}
+				else if (to.side == "left") {
+					var deltaX = (points[2].x - points[1].x);
+					var x = points[1].x + (deltaX / 2);
+					var yFactor = Math.abs(points[2].y - points[1].y) / 2;
+					var y = Math.max(points[2].y, points[1].y) - yFactor;
+				}
 				else {
 					var x = points[2].x;
 					var yFactor = Math.abs(points[2].y - points[1].y) / 2;
