@@ -9,6 +9,7 @@
         <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" minOccurs="0" name="binding"/>
         <field comment="When run synchronously, we don't need to double check whether or not we can be run" minOccurs="0" name="synchronous" type="java.lang.Boolean"/>
         <field minOccurs="0" name="contextId" type="java.lang.String"/>
+        <field minOccurs="0" name="defaultTransactionId" type="java.lang.String"/>
     </structure>
     <structure name="output"/>
     <field name="allowedToProceed" type="java.lang.Boolean"/>

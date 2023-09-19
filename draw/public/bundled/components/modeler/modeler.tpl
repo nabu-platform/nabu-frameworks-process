@@ -76,7 +76,8 @@
 					<n-form-switch v-if="selected.target.actionType == 'service' && !selected.target.automatic" v-model="selected.target.reprocessable" label="Allow reprocessing" @input="draw" after="Do you want to be able to reprocess this service if it fails?"/>
 					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
 					<n-form-switch v-if="selected.target.actionType == 'signal'" v-model="selected.target.automatic" label="Send signal" after="By default we wait for the signal to occur. When checked, we actually send the signal." @input="draw"/>
-					<div class="is-row is-spacing-gap-medium" v-if="selected.target.automatic">
+					<n-form-switch v-if="['signal', 'service', 'human'].indexOf(selected.target.actionType) >= 0 && selected.target.automatic" v-model="selected.target.synchronous" label="Execute synchronously"  @input="draw" after="The action can be run asynchronously or synchronously depending on this setting"/>
+					<div class="is-row is-spacing-gap-medium" v-if="selected.target.automatic && !selected.target.synchronous">
 						<n-form-text v-model="selected.target.delay" label="Delay" :disabled="selected.target.schedule" after="You can run this after a certain delay (e.g. 24 hours)" @input="draw"/>
 						<n-form-text v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this according to a certain schedule" @input="draw"/>
 						<n-form-text v-model="selected.target.queue" label="Task queue" after="You can set a specific queue for this automated task" :placeholder="model.queue ? model.queue : 'anonymous'"/>
@@ -215,6 +216,11 @@
 									c-4.158,0-7.529-3.371-7.529-7.53C15.237,10.18,18.608,6.808,22.766,6.808z M22.761,39.579c-4.149,0-7.949-1.511-10.88-4.012
 									c-0.714-0.609-1.126-1.502-1.126-2.439c0-4.217,3.413-7.592,7.631-7.592h8.762c4.219,0,7.619,3.375,7.619,7.592
 									c0,0.938-0.41,1.829-1.125,2.438C30.712,38.068,26.911,39.579,22.761,39.579z"/>
+							</g>
+						</symbol>
+						<symbol id="icon-synchronous" viewBox="0 0 128 128">
+							<g style="stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1;"  >
+								<path d="M85.275,18.308c9.75,1.166,18.492,5.614,25.09,12.21c7.732,7.732,12.514,18.415,12.514,30.212 c0,11.799-4.781,22.482-12.514,30.215s-18.416,12.516-30.215,12.516s-22.48-4.783-30.213-12.516S37.422,72.529,37.422,60.73 c0-11.798,4.783-22.48,12.515-30.212c7.083-7.083,16.643-11.691,27.266-12.415v-7.167c0-0.109,0.006-0.216,0.014-0.323h-8.004 c-1.313,0-2.385-1.074-2.385-2.386V2.386C66.828,1.074,67.9,0,69.213,0h24.053c1.313,0,2.387,1.074,2.387,2.386v5.841 c0,1.313-1.074,2.386-2.387,2.386h-8.004c0.01,0.106,0.014,0.214,0.014,0.323V18.308L85.275,18.308z M83.582,54.348 c2.271,1.223,3.814,3.623,3.814,6.383c0,4.002-3.244,7.248-7.246,7.248s-7.246-3.246-7.246-7.248c0-2.76,1.545-5.16,3.816-6.383 V37.744c0-1.895,1.535-3.431,3.43-3.431s3.432,1.536,3.432,3.431V54.348L83.582,54.348z M10.527,84.598 c-1.895,0-3.431-1.537-3.431-3.432s1.536-3.43,3.431-3.43h19.378c1.895,0,3.43,1.535,3.43,3.43s-1.536,3.432-3.43,3.432H10.527 L10.527,84.598z M3.43,64.424c-1.895,0-3.43-1.535-3.43-3.43s1.536-3.432,3.43-3.432h22.447c1.894,0,3.43,1.537,3.43,3.432 s-1.536,3.43-3.43,3.43H3.43L3.43,64.424z M10.354,44.774c-1.895,0-3.43-1.536-3.43-3.43s1.536-3.431,3.43-3.431h19.229 c1.895,0,3.431,1.536,3.431,3.431s-1.536,3.43-3.431,3.43H10.354L10.354,44.774z M118.527,31.215 c1.658-3.958,1.461-8.104-0.912-10.882c-2.848-3.333-7.996-3.715-12.777-1.37C109.902,22.436,114.5,26.476,118.527,31.215 L118.527,31.215z M41.775,31.215c-1.659-3.958-1.462-8.104,0.911-10.882c2.848-3.333,7.996-3.715,12.777-1.37 C50.4,22.436,45.801,26.476,41.775,31.215L41.775,31.215z M105.514,35.369c-6.49-6.491-15.457-10.505-25.363-10.505 c-9.904,0-18.872,4.015-25.362,10.505c-6.491,6.49-10.505,15.458-10.505,25.362c0,9.906,4.015,18.873,10.505,25.363 S70.246,96.6,80.15,96.6c9.906,0,18.873-4.016,25.363-10.506S116.02,70.637,116.02,60.73 C116.02,50.826,112.004,41.859,105.514,35.369L105.514,35.369z"/>
 							</g>
 						</symbol>
 					</defs>

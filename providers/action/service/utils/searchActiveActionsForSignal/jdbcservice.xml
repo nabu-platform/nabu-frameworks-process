@@ -6,5 +6,7 @@ from ~process_actions pa
 	join ~process_versions pv on ps.process_version_id = pv.id
 -- only active ones!
 where pv.released is not null and pv.deactivated is null
-	and pa.signal_id = :signalId</sql>
+	and pa.signal_id = :signalId
+	-- if we _send_ the signal, we don't want to subscribe to it as well
+	and pa.automatic = false</sql>
 </jdbcService>

@@ -28,6 +28,9 @@ text {
 .automatic {
 	stroke-width: 2;
 	stroke-dasharray: 10 0 10 0 10;
+	&.synchronous {
+		/*stroke-dasharray: 4;*/
+	}
 }
 
 .drop-highlight {

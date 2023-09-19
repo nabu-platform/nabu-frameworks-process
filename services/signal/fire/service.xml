@@ -95,6 +95,24 @@
 				<from>force</from>
 				<to>force</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b5ca932e41dc41bda9b401c450d84f58"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>allowMultiple</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="0b3dfe6f186d4f1c8a04460fa7a76fbe"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>allowNone</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"

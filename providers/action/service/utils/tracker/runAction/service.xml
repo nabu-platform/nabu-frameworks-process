@@ -131,6 +131,15 @@
 					<from>action/synchronous</from>
 					<to>synchronous</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="78131ecf85b44a0c95f9c650f07678eb"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/transactionId</from>
+					<to>defaultTransactionId</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"

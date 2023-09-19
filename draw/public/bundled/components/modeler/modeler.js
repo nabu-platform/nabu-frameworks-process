@@ -1516,6 +1516,14 @@ Vue.view("process-modeler-component", {
 				// and always synchronous, no use in waiting for a new task just to create this task
 				action.synchronous = true;
 			}
+			else if (type == "finalizer") {
+				action.automatic = true;
+				action.synchronous = true;
+			}
+			else if (type == "any") {
+				action.automatic = true;
+				action.synchronous = true;
+			}
 			state.actions.push(action);	
 			this.drawAction(action);
 			
@@ -1720,7 +1728,10 @@ Vue.view("process-modeler-component", {
 			})
 			group.querySelectorAll(":scope > .timeout > text").forEach(function(element) {
 				element.setAttribute("style", "fill: " + color.background);
-			})	
+			})
+			group.querySelectorAll(":scope > .timeout > .icon").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.border + "; stroke:" + color.border);
+			});
 		},
 		drawActionAutomatic: function(action) {
 			var existing = this.svg.node().getElementById(action.id + "-automatic");
@@ -1739,7 +1750,7 @@ Vue.view("process-modeler-component", {
 				var mapper = group.append("path")
 					.attr("d", trianglePath)
 					.attr("id", action.id + "-automatic")
-					.attr("class", "automatic")
+					.attr("class", "automatic" + (action.synchronous ? " synchronous" : " asynchronous"))
 			}
 		},
 		drawActionReference: function(action) {
@@ -1783,22 +1794,36 @@ Vue.view("process-modeler-component", {
 			if (existing) {
 				reference = d3.select(existing);
 			}
-			if (action.automatic && (action.delay || action.schedule)) {
+			if (action.automatic && (action.delay || action.schedule || action.synchronous)) {
 				if (reference == null) {
 					reference = group.append("g")
 						.attr("class", "timeout")
 						.attr("id", action.id + "-timeout")
-					var text = action.delay ? action.delay : action.schedule;
-					reference.append("rect")
-						// 4 px padding on each side
-						.attr("width", 8 + (text.length * 8))
-						.attr("height", 14)
-						.attr("x", 0)
-						.attr("y", 0)
-					var referenceText = reference.append("text")
-						.text(text)
-						.attr("font-size", "13px")
-					this.move(referenceText, 4, 11);
+						
+					var showIcon = true;
+					if (action.synchronous && showIcon) {
+						var icon = reference.append("use")
+							.attr("class", "icon")
+							.attr("x", 0)
+							.attr("y", 0)
+							.attr("width", 20)
+							.attr("height", 16)
+							.attr("href", "#icon-synchronous");
+						this.move(icon, 4, -2);
+					}
+					else {
+						var text = action.synchronous ? "Synchronous" : (action.delay ? action.delay : action.schedule);
+						reference.append("rect")
+							// 4 px padding on each side
+							.attr("width", 8 + (text.length * 8))
+							.attr("height", 14)
+							.attr("x", 0)
+							.attr("y", 0)
+						var referenceText = reference.append("text")
+							.text(text)
+							.attr("font-size", "13px")
+						this.move(referenceText, 4, 11);
+					}
 				}
 				this.move(reference, 0, -14);
 			}

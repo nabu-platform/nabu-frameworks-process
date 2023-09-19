@@ -11,6 +11,8 @@
         <structure definition="java.lang.Object" minOccurs="0" name="inputData"/>
         <field minOccurs="0" name="force" type="java.lang.Boolean"/>
         <field minOccurs="0" name="forceStrategy" type="java.lang.String"/>
+        <field minOccurs="0" name="allowMultiple" type="java.lang.Boolean"/>
+        <field minOccurs="0" name="allowNone" type="java.lang.Boolean"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.actionToRun" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
@@ -43,7 +45,6 @@
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="matchingDataForAction"/>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="identifiers"/>
     <field minOccurs="0" name="amountOfProcessInstances" type="java.lang.Integer"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" name="potentialProcessInstance"/>
     <field name="allowedToProceed" type="java.lang.Boolean"/>
     <field minOccurs="0" name="amountOfMatchingActions" type="java.lang.Integer"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="actionsInInitialState"/>
@@ -70,4 +71,5 @@
     <field comment="When forcing execution, there are a number of strategies to use. &quot;actionOnly&quot; only forces the action to be run within the current state instance (even if it is the wrong type). &quot;actionAndState&quot; will force a new state instance of the correct type to be routed even if it is routed already" minOccurs="0" name="forceStrategy" type="java.lang.String"/>
     <field maxOccurs="unbounded" minOccurs="0" name="forcedMatchingActionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" name="potentialProcessInstances"/>
 </structure>

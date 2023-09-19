@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-09-18T14:25:09.328+02:00" leaf="true" version="68">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:09:58.968+01:00" lastModified="2023-09-19T10:49:56.858+02:00" leaf="true" version="77">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -22,11 +22,13 @@
     <references>nabu.utils.Properties.toObject</references>
     <references>nabu.frameworks.tasks.services.schedule.parse</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
+    <references>nabu.frameworks.process.services.signal.fire</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
     <references>nabu.utils.Runtime.setContext</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.utils.Runtime.getContext</references>
     <references>nabu.web.application.Services.getSessionId</references>
     <references>java.util.UUID</references>
@@ -41,6 +43,8 @@
     <references>nabu.utils.Object.first</references>
     <references>java.lang.Object</references>
     <references>nabu.frameworks.process.providers.action.service.utils.propertyList</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.utils.Date.incrementDuration</references>
     <references>nabu.frameworks.tasks.services.schedule.next</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
 </node>
