@@ -35,6 +35,11 @@ Vue.view("process-modeler-component", {
 			editable: false,
 			model: null,
 			svg: null,
+			// "mouse" or "trackpad"
+			mouseMode: "mouse",
+			root: null,
+			allowMultiselect: true,
+			multiselect: [],
 			selected: {
 				type: null,
 				target: null,
@@ -134,7 +139,11 @@ Vue.view("process-modeler-component", {
 		}	
 	},
 	created: function() {
-		console.log("created moedeler", this.processVersionId);
+		console.log("Created modeler", this.processVersionId);
+		var previousMouseMode = localStorage.getItem("process-modeler:mouseMode");
+		if (["mouse", "trackpad"].indexOf(previousMouseMode) >= 0) {
+			this.mouseMode = previousMouseMode;
+		}
 		//this.loadProcesses();
 		if (this.processVersionId) {
 			this.loadProcess(this.processVersionId);
@@ -144,6 +153,9 @@ Vue.view("process-modeler-component", {
 		}
 	},
 	watch: {
+		mouseMode: function(newValue) {
+			localStorage.setItem("process-modeler:mouseMode", newValue);
+		},
 		selected: function(newValue, oldValue) {
 			if (oldValue) {
 				var element = oldValue.node().querySelector(":scope > rect");	
@@ -332,6 +344,7 @@ Vue.view("process-modeler-component", {
 				svg.querySelectorAll(".hitbox").forEach(function(element) {
 					element.parentNode.removeChild(element);
 				});
+				svg.querySelector(".root").removeAttribute("transform");
 				this.model.svg = svg.innerHTML;
 				
 				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.update", { processVersionId: this.model.id, body: this.model, "$serviceContext": this.serviceContext }).then(function() {
@@ -450,19 +463,52 @@ Vue.view("process-modeler-component", {
 			}
 		},
 		draw: function() {
+			var self = this;
 			// clear any content except defs
 			this.$refs.svg.querySelectorAll(":scope > :not(defs)").forEach(function(child) {
 				child.parentNode.removeChild(child);
 			});
 			this.svg = d3.select(this.$refs.svg);
+			
+			this.multiselectDrag();
+			
+			this.root = this.svg.append("g")
+				.attr("class", "root");
+			
+			// add zoomability + dragging to move around!
+			var handleZoom = function(event) {
+				self.root.attr('transform', event.transform);
+			};
+			// https://devdocs.io/d3~7/d3-zoom#zoom
+			// without the filter, you get the default filter which pans (moving the map) with the left mouse button
+			// to enable panning while also supporting drag drop to place stuff and selection etc, we want to move this to the middle button
+			var zoom = d3.zoom().on('zoom', handleZoom)
+				// the default filter:
+				// return (!event.ctrlKey || event.type === 'wheel') && !event.button;
+				.filter(function(event) {
+					if (self.mouseMode == "trackpad") {
+						return (event.ctrlKey && event.type === 'wheel') || event.button == 1;
+					}
+					else {
+						// 1 == middle button
+						return (!event.ctrlKey && event.button == 1) || event.type === "wheel";
+					}
+				})
+				// the default scale is Infinity
+				.scaleExtent([0.2, 3])
+			this.svg.call(zoom);
+			this.$el.addEventListener("wheel", function(event) {
+				if (self.mouseMode != "trackpad" || event.ctrlKey) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+			})
 
 			// need to draw all the states before we draw the actions, we might have links			
 			this.model.states.forEach(this.drawState);
 			this.model.states.forEach(this.drawActions);
 			this.model.actionRelations.forEach(this.drawActionRelation);
 			this.model.stateRelations.forEach(this.drawStateRelation);
-			
-			var self = this;
 			var keyHandler = function(event) {
 				// check that event originates is not aimed at something else
 				if (event.target == document.body) {
@@ -517,10 +563,56 @@ Vue.view("process-modeler-component", {
 		move: function(element, x, y) {
 			element.attr("transform", "translate(" + Math.round(x) + "," + Math.round(y) + ")");
 		},
+		
+		multiselectDrag: function() {
+			var rect = null;
+			var self = this;
+			var dragStart = function(event) {
+				if (self.allowMultiselect) {
+					rect = self.root.append("rect")
+						.attr("x", event.x)
+						.attr("y", event.y)
+						.attr("width", 0)
+						.attr("height", 0)
+						.attr("style", "fill: steelblue; opacity: 0.2");
+				}
+			}
+			
+			var dragMove = function(event) {
+				if (self.allowMultiselect) {
+					rect.attr("width", event.x - rect.attr("x"));
+					rect.attr("height", event.y - rect.attr("y"));
+				}
+			}
+			
+			var dragEnd = function(event) {
+				if (self.allowMultiselect) {
+					rect.remove();
+					rect = null;
+				}
+			}
+			
+			var dragBehavior = d3.drag()
+			    .on("drag", dragMove)
+			    .on("start", dragStart)
+			    .on("end", dragEnd);
+			
+			this.svg.call(dragBehavior);	
+		},
+		
 		autosize: function() {
+			var factor = 1;
+			if (this.root.attr("transform")) {
+				var index = this.root.attr("transform").indexOf("scale(");
+				if (index >= 0) {
+					var scale = this.root.attr("transform").substring(index).replace(/scale\((.*?)\).*/, "$1");
+					console.log("extracted scale", scale);
+					factor = parseFloat(scale);
+				}
+			}
 			// make sure its big enough to accomodate, we add some padding for stuff like borders
-			this.svg.attr("width", this.maxWidth + 10)
-				.attr("height", this.maxHeight + 10);	
+			this.svg.attr("width", (this.maxWidth + 10))
+				.attr("height", (this.maxHeight + 10));	
 		},
 		autosizeState: function(state) {
 			var maxWidth = state.actions.reduce(function(current, action) {
@@ -626,7 +718,7 @@ Vue.view("process-modeler-component", {
 		drawState: function(state) {
 			var self = this;
 			
-			var group = this.svg.append("g")
+			var group = this.root.append("g")
 				.attr("id", state.id)
 				.attr("class", "process-state")
 				
@@ -1017,7 +1109,7 @@ Vue.view("process-modeler-component", {
 					points[2].y = fromY + ((to.y - fromY) / 2);
 				}
 				
-				var path = this.svg.append("path")
+				var path = this.root.append("path")
 					.attr("id", id)
 					.attr("fill", "none")
 					.attr("stroke", this.connectorColor)
@@ -1032,7 +1124,7 @@ Vue.view("process-modeler-component", {
 				})
 				
 				// draw a secondary invisible path purely for click purposes
-				var hitbox = this.svg.append("path")
+				var hitbox = this.root.append("path")
 					.attr("id", id + "-hitbox")
 					.attr("class", "hitbox")
 					.attr("stroke-width", 15)
@@ -1125,7 +1217,7 @@ Vue.view("process-modeler-component", {
 				points[2].y = fromY + ((to.y - fromY) / 2);
 			}
 			
-			var path = this.svg.append("path")
+			var path = this.root.append("path")
 				.attr("class", "relation type-" + relation.relationType)
 				.attr("id", relation.id)
 				.attr("fill", "none")
@@ -1141,7 +1233,7 @@ Vue.view("process-modeler-component", {
 			})
 			
 			// draw a secondary invisible path purely for click purposes
-			var hitbox = this.svg.append("path")
+			var hitbox = this.root.append("path")
 				.attr("id", relation.id + "-hitbox")
 				.attr("class", "hitbox")
 				.attr("stroke-width", 15)
@@ -1173,7 +1265,7 @@ Vue.view("process-modeler-component", {
 					var y = Math.max(points[2].y, points[1].y) - yFactor;
 				}
 				var color = this.getColor(this.getThemeColor("condition"));
-				var condition = this.svg.append("rect")
+				var condition = this.root.append("rect")
 					.attr("id", relation.id + "-condition")
 					.attr("x", x - 5)
 					.attr("y", y - 5)
@@ -1182,7 +1274,7 @@ Vue.view("process-modeler-component", {
 					.attr("width", 10)
 					.attr("height", 10)
 					
-				var conditionText = this.svg.append("text")
+				var conditionText = this.root.append("text")
 					.attr("id", relation.id + "-condition-text")
 					.text(relation.condition)
 					.attr("font-size", "x-small")
@@ -1242,12 +1334,28 @@ Vue.view("process-modeler-component", {
 			
 			// the end is more dynamic depending on where the target action is in relation to the source
 			
-			var to = this.getClosestAttachment(fromX, fromY, targetAction.styling.x, targetAction.styling.y, targetAction.styling.width, targetAction.styling.height);
+			var leftOffset = 100;
+			if (this.curvature == "linear") {
+				var to = this.getClosestAttachment(fromX, fromY, targetAction.styling.x, targetAction.styling.y, targetAction.styling.width, targetAction.styling.height);
+				var curvature = d3.curveLinear;
+			}
+			else {
+				var curvature = d3.curveBasis;
+				var to = {x: targetAction.styling.x, y: targetAction.styling.y + (targetAction.styling.height / 2)};
+				if (to.x < fromX + leftOffset) {
+					to.side = "left";
+				}
+			}
+			
 			
 			var generator = d3.line()
 				.x(function(p) { return p.x })
 				.y(function(p) { return p.y })
-				.curve(d3.curveLinear);
+				.curve(curvature);
+				
+			// d3.curveLinear
+			// d3.curveCardinal
+			// d3.curveCatmullRom
 				
 			var points = [{
 				x: fromX,
@@ -1269,6 +1377,14 @@ Vue.view("process-modeler-component", {
 				points[1].y = fromY + ((to.y - fromY) / 2);
 				points[2].x = to.x;
 				points[2].y = fromY + ((to.y - fromY) / 2);
+			}
+			// if the target action is on the left of the source action, we want to do additional stuff
+			else if (to.side == "left") {
+				var resultingOffset = Math.max(0, to.x - fromX);
+				points[1].x = fromX + (leftOffset - resultingOffset);
+				points[1].y = points[0].y;
+				points[2].x = to.x - (leftOffset - resultingOffset);
+				points[2].y = points[3].y;
 			}
 			
 			var path = d3.select(stateGroup).append("path")

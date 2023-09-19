@@ -17,6 +17,7 @@
 				<div class="is-column is-spacing-gap-medium">
 					<ul class="is-menu is-variant-toolbar is-align-main-end">
 						<li class="is-column" v-if="false"><button type="button" @click="model = null" :disabled="saving" class="is-button is-variant-secondary-outline is-size-xsmall"><icon name="undo"/><span class="is-text">Back</span></button></li>
+						<li class="is-column"><n-form-combo class="is-size-small mouse-mode" v-model="mouseMode" :items="['mouse', 'trackpad']" placeholder="mouse"/></li>
 						<li class="is-column"><button type="button" @click="exportAsPng" class="is-button is-variant-secondary-outline is-size-xsmall"><icon name="save"/><span class="is-text">Export as PNG</span></button></li>
 						<li class="is-column"><button type="submit" @click="save" :disabled="saving" class="is-button is-variant-primary-outline is-size-xsmall"><icon name="save"/><span class="is-text">Save</span></button></li>
 					</ul>
@@ -95,7 +96,7 @@
 							<button @click="addInputMapping(selected.target)" class="is-button is-variant-primary-outline is-size-small"><icon name="plus"/><span class="is-text">Input Mapping</span></button>
 						</div>
 					</div>
-					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.autoFail" @input="draw" label="Ignore error" after="In some cases errors are expected and already handled (e.g. by reporting them to a third party). Set this if errors should immediately go to failed state."/>
+					<n-form-switch v-if="selected.target.actionType == 'service'" v-model="selected.target.autoFail" @input="draw" label="Auto fail" after="In some cases errors are expected and already handled (e.g. by reporting them to a third party). Set this if errors should immediately go to failed state."/>
 					<n-form-switch v-if="selected.target.actionType == 'service' && false" v-model="selected.target.strict" @input="draw" label="Strict" after="By default if we do not find a matching process instance for this service, we will simply let it execute. By setting it to strict, further execution is blocked"/>
 					<n-form-switch v-else-if="selected.target.actionType == 'service'" v-model="selected.target.lax" @input="draw" label="Lax" after="By default if we do not find a matching process instance for this service, we will block execution. If you set it to lax, we will allow execution without a matching instance. Primarily relevant for reusable utility services."/>
 					<div class="is-row is-spacing-gap-medium" v-if="selected.target.actionType == 'service'">

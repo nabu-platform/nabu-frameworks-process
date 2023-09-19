@@ -100,4 +100,15 @@ defs path {
 	max-height: 100%;
 	overflow: auto;
 	right:0;
+	.mouse-mode {
+		.is-icon {
+			display: none;
+		}
+		input {
+			max-width: 7rem;
+			width: 100% !important;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
 }
