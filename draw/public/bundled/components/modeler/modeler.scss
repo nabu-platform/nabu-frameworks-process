@@ -44,11 +44,21 @@ text {
 	stroke-width: 4;
 }
 
+.process-state.used .process-state-rect {
+	stroke-width: 6;
+	stroke: #ccc !important;
+}
+
 .process-action:not(.selected) .process-action-rect {
 	stroke-width: 2;
 }
 .process-action.selected .process-action-rect {
 	stroke-width: 4;
+}
+
+.process-action.used .process-action-rect {
+	stroke-width: 6;
+	stroke: #ccc !important;
 }
 
 .selected > .selectable {
@@ -66,6 +76,11 @@ text {
 
 .process-action.optional rect {
 	stroke-dasharray: 3;
+}
+
+.relation.used {
+	stroke-width: 6;
+	stroke: #ccc !important;
 }
 
 .relation.type-not {

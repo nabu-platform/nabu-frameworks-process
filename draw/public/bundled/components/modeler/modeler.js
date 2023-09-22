@@ -13,6 +13,9 @@ nabu.process.providers = function(spec) {
 	return nabu.process.state && nabu.process.state.providers[spec] ? nabu.process.state.providers[spec] : [];
 }
 
+// if a version has been released, we store it in memory for reuse
+nabu.process.versions = {};
+
 Vue.view("process-modeler-component", {
 	props: {
 		serviceContext: {
@@ -38,6 +41,7 @@ Vue.view("process-modeler-component", {
 			// "mouse" or "trackpad"
 			mouseMode: "mouse",
 			root: null,
+			stateRelations: null,
 			allowMultiselect: true,
 			multiselect: [],
 			selected: {
@@ -59,9 +63,10 @@ Vue.view("process-modeler-component", {
 				name: "basic",
 				state: "basic",
 				service: "blue",
+				serviceAutomatic: "orange",
 				event: "yellow",
 				signal: "green",
-				human: "purple",
+				human: "pink",
 				any: "black",
 				all: "black",
 				finalizer: "black",
@@ -89,9 +94,9 @@ Vue.view("process-modeler-component", {
 				text: "#7286D3"
 			}, {
 				name: "orange",
-				border: "#FF9F9F",
-				background: "#FCDDB0", // FFFAD7
-				text: "#E97777"
+				border: "#CC6600",
+				background: "#FFE6CC", // FFFAD7
+				text: "#994C00"
 			}, {
 				name: "basic",
 				border: "#8EA7E9",
@@ -109,20 +114,31 @@ Vue.view("process-modeler-component", {
 				text: "black"
 			}, {
 				name: "yellow",
-				border: "#d0c500",
-				background: "#FFFAA0",
-				text: "#a69d00"
+				border: "#CCCC00",
+				background: "#FFFFCC",
+				text: "#999900"
 			}, {
 				name: "green",
 				border: "#7cb987",
 				background: "#d7e9da",
 				text: "#3d7348"
+			}, {
+				name: "red",
+				border: "#CC0000",
+				background: "#FFCCCC",
+				text: "#990000"
+			}, {
+				name: "pink",
+				border: "#CC0066",
+				background: "#fce5f1",
+				text: "#CC0066"
 			}],
 			// the offset of the draggable rectangle to resize
 			draggableOffset: 2,
 			editing: true,
 			snapToGrid: true,
-			gridSize: 10,
+			// grid size has to be even, otherwise dividing by 2 (to position the lines) might end in unmatching start/end stuff
+			gridSize: 6,
 			//connectorColor: "#8EA7E9",
 			// make sure its a multiple of gridsize!
 			actionHeight: 30,
@@ -135,7 +151,10 @@ Vue.view("process-modeler-component", {
 			lastInteractedStateId: null,
 			debounceTimer: null,
 			lastServiceInputs: [],
-			lastService: null
+			lastService: null,
+			instance: null,
+			// a list of all instantiated items for quick lookup of highlighting
+			instantiated: []
 		}	
 	},
 	created: function() {
@@ -147,6 +166,9 @@ Vue.view("process-modeler-component", {
 		//this.loadProcesses();
 		if (this.processVersionId) {
 			this.loadProcess(this.processVersionId);
+		}
+		else if (this.processInstanceId) {
+			this.loadProcessInstance(this.processInstanceId);
 		}
 		else {
 			this.startNewModel();
@@ -272,8 +294,41 @@ Vue.view("process-modeler-component", {
 				}
 			});
 		},
+		loadProcessInstance: function(processInstanceId) {
+			var self = this;
+			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.instance.get", { instanceId: processInstanceId, "$serviceContext": this.serviceContext }).then(function(result) {
+				if (result) {
+					// make sure we load the correct definition
+					self.loadProcess(result.processVersionId);
+					// store instance so we can highlight stuff
+					self.instance = result;
+					
+					if (result.actionInstances) {
+						result.actionInstances.forEach(function(x) {
+							self.instantiated.push(x.processActionId);
+						});
+					}
+					if (result.actionRelationInstances) {
+						result.actionRelationInstances.forEach(function(x) {
+							self.instantiated.push(x.processActionRelationId);
+						});
+					}
+					if (result.stateInstances) {
+						result.stateInstances.forEach(function(x) {
+							self.instantiated.push(x.processStateId);
+						});
+					}
+				}
+			});
+		},
 		loadProcess: function(processVersionId) {
 			var self = this;
+			if (nabu.process.versions[processVersionId]) {
+				var model = nabu.process.versions[processVersionId];
+				Vue.set(self, "model", model);
+				Vue.nextTick(self.draw);
+				return model;
+			}
 			this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.version.get", { processVersionId: processVersionId, "$serviceContext": this.serviceContext }).then(function(result) {
 				if (result) {
 					self.editable = result.released == null;
@@ -312,6 +367,9 @@ Vue.view("process-modeler-component", {
 							action.binding = action.dataBinding ? JSON.parse(action.dataBinding) : [];
 						})
 					});
+					if (result.released != null) {
+						nabu.process.versions[processVersionId] = result;
+					}
 					Vue.set(self, "model", result);
 					Vue.nextTick(self.draw);
 				}
@@ -463,6 +521,9 @@ Vue.view("process-modeler-component", {
 			}
 		},
 		draw: function() {
+			
+			var transform = this.root ? this.root.attr("transform") : null;
+			
 			var self = this;
 			// clear any content except defs
 			this.$refs.svg.querySelectorAll(":scope > :not(defs)").forEach(function(child) {
@@ -474,6 +535,13 @@ Vue.view("process-modeler-component", {
 			
 			this.root = this.svg.append("g")
 				.attr("class", "root");
+				
+			if (transform) {
+				this.root.attr("transform", transform);
+			}
+				
+			this.stateRelations = this.root.append("g")
+				.attr("class", "state-relations");
 			
 			// add zoomability + dragging to move around!
 			var handleZoom = function(event) {
@@ -563,7 +631,7 @@ Vue.view("process-modeler-component", {
 		move: function(element, x, y) {
 			element.attr("transform", "translate(" + Math.round(x) + "," + Math.round(y) + ")");
 		},
-		
+
 		multiselectDrag: function() {
 			var rect = null;
 			var self = this;
@@ -635,9 +703,15 @@ Vue.view("process-modeler-component", {
 				.attr("cx", state.styling.width - this.draggableOffset)
 				.attr("cy", state.styling.height - this.draggableOffset)
 		},
+		resizable: function(target, handler, start, stop) {
+			this.draggable(target, handler, start, stop, true);
+		},
 		// make sure the target you are dragging is also the one you are moving!
 		// otherwise you can get stutters
-		draggable: function(target, handler, start, stop) {
+		draggable: function(target, handler, start, stop, isResize) {
+			if (!this.editable) {
+				return false;
+			}
 			var self = this;
 			// keep track of suppressed movement because of grid snapping
 			var dx = 0, dy = 0;
@@ -651,9 +725,11 @@ Vue.view("process-modeler-component", {
 					if (self.snapToGrid) {
 						dx += event.dx;
 						dy += event.dy;
+						// when resizing, we take steps that are twice the grid size
+						// this makes sure that when we move (in single gridsize increments), we can always find a layout where the line is "straight"
 						// need to be more forceful in overwriting...
-						Object.defineProperty(event, "dx", {value:dx - (dx % self.gridSize)})
-						Object.defineProperty(event, "dy", {value:dy - (dy % self.gridSize)})
+						Object.defineProperty(event, "dx", {value:dx - (dx % (self.gridSize * (isResize ? 2 : 1)))})
+						Object.defineProperty(event, "dy", {value:dy - (dy % (self.gridSize * (isResize ? 2 : 1)))})
 						//event.dx = dx - (dx % self.gridSize);
 						//event.dy = dy - (dy % self.gridSize);
 						dx -= event.dx;
@@ -722,6 +798,8 @@ Vue.view("process-modeler-component", {
 				.attr("id", state.id)
 				.attr("class", "process-state")
 				
+			this.addUsed(state.id, group);
+				
 			this.move(group, state.styling.x, state.styling.y);
 				
 			var rect = group.append("rect")
@@ -769,7 +847,7 @@ Vue.view("process-modeler-component", {
 				.attr("cx", state.styling.width - this.draggableOffset)
 				.attr("cy", state.styling.height - this.draggableOffset)
 			
-			self.draggable(resizer, function(target, event) {
+			self.resizable(resizer, function(target, event) {
 				state.styling.width += event.dx;
 				state.styling.height += event.dy;
 				self.autosizeState(state);
@@ -795,7 +873,7 @@ Vue.view("process-modeler-component", {
 			// add some default colors
 			this.defaultColorize(group, this.getThemeColor("state", state.styling.color));
 		},
-		getThemeColor: function(type, override) {
+		getThemeColor: function(type, override, automatic) {
 			if (override) {
 				return override;
 			}
@@ -807,6 +885,9 @@ Vue.view("process-modeler-component", {
 			var current = this.themes.filter(function(theme) {
 				return theme.name == currentTheme;
 			})[0];
+			if (automatic && current && current[type + "Automatic"]) {
+				return current[type + "Automatic"];
+			}
 			return current && current[type] ? current[type] : "basic";
 		},
 		hasRelation: function(action, targetAction) {
@@ -1143,6 +1224,17 @@ Vue.view("process-modeler-component", {
 				path.raise();
 			}
 		},
+		getScale: function() {
+			if (this.root.attr("transform")) {
+				var index = this.root.attr("transform").indexOf("scale(");
+				if (index >= 0) {
+					var scale = this.root.attr("transform").substring(index).replace(/scale\((.*?)\).*/, "$1");
+					factor = parseFloat(scale);
+					return factor;
+				}
+			}
+			return 1;
+		},
 		drawStateRelation: function(relation) {
 			var self = this;
 			
@@ -1178,22 +1270,38 @@ Vue.view("process-modeler-component", {
 			var stateBounds = stateGroup.getBoundingClientRect();
 			
 			// relativize to root of svg
+			// does not work with scaling/moving!
 			parentBounds.x -= rootBounds.x;
 			parentBounds.y -= rootBounds.y;
 			stateBounds.x -= rootBounds.x;
 			stateBounds.y -= rootBounds.y;
 			
+			// parent is the one containing the action
+			parentBounds = this.getState(action.processStateId).styling;
+			stateBounds = state.styling;
+			
 			// we always start from the center right, we add 5 because that's the radius of the connection circle
 			var fromX = parentBounds.x + action.styling.x + action.styling.width + this.triangleSize;
 			var fromY = parentBounds.y + action.styling.y + (action.styling.height / 2);
 			
-			// the end is more dynamic depending on where the target action is in relation to the source
-			var to = this.getClosestAttachment(fromX, fromY, stateBounds.x, stateBounds.y, state.styling.width, state.styling.height);
+			var leftOffset = 100;
+			if (this.curvature == "linear") {
+				// the end is more dynamic depending on where the target action is in relation to the source
+				var to = this.getClosestAttachment(fromX, fromY, stateBounds.x, stateBounds.y, state.styling.width, state.styling.height);
+				var curvature = d3.curveLinear;
+			}
+			else {
+				var curvature = d3.curveBasis;
+				var to = {x: state.styling.x, y: state.styling.y + (state.styling.height / 2)};
+				if (to.x < fromX + leftOffset) {
+					to.side = "left";
+				}
+			}
 			
 			var generator = d3.line()
 				.x(function(p) { return p.x })
 				.y(function(p) { return p.y })
-				.curve(d3.curveLinear);
+				.curve(curvature);
 				
 			var points = [{
 				x: fromX,
@@ -1216,8 +1324,16 @@ Vue.view("process-modeler-component", {
 				points[2].x = to.x;
 				points[2].y = fromY + ((to.y - fromY) / 2);
 			}
+			// if the target action is on the left of the source action, we want to do additional stuff
+			else if (to.side == "left") {
+				var resultingOffset = Math.max(0, to.x - fromX);
+				points[1].x = fromX + (leftOffset - resultingOffset);
+				points[1].y = points[0].y;
+				points[2].x = to.x - (leftOffset - resultingOffset);
+				points[2].y = points[3].y;
+			}
 			
-			var path = this.root.append("path")
+			var path = this.stateRelations.append("path")
 				.attr("class", "relation type-" + relation.relationType)
 				.attr("id", relation.id)
 				.attr("fill", "none")
@@ -1233,7 +1349,7 @@ Vue.view("process-modeler-component", {
 			})
 			
 			// draw a secondary invisible path purely for click purposes
-			var hitbox = this.root.append("path")
+			var hitbox = this.stateRelations.append("path")
 				.attr("id", relation.id + "-hitbox")
 				.attr("class", "hitbox")
 				.attr("stroke-width", 15)
@@ -1250,6 +1366,7 @@ Vue.view("process-modeler-component", {
 			
 			hitbox.raise();
 			path.raise();
+			this.stateRelations.raise();
 			
 			if (relation.condition) {
 				// calculate the mid point of the middle line part
@@ -1259,13 +1376,19 @@ Vue.view("process-modeler-component", {
 					var xFactor = Math.abs(points[2].x - points[1].x) / 2;
 					var x = Math.max(points[2].x, points[1].x) - xFactor;
 				}
+				else if (to.side == "left") {
+					var deltaX = (points[2].x - points[1].x);
+					var x = points[1].x + (deltaX / 2);
+					var yFactor = Math.abs(points[2].y - points[1].y) / 2;
+					var y = Math.max(points[2].y, points[1].y) - yFactor;
+				}
 				else {
 					var x = points[2].x;
 					var yFactor = Math.abs(points[2].y - points[1].y) / 2;
 					var y = Math.max(points[2].y, points[1].y) - yFactor;
 				}
 				var color = this.getColor(this.getThemeColor("condition"));
-				var condition = this.root.append("rect")
+				var condition = this.stateRelations.append("rect")
 					.attr("id", relation.id + "-condition")
 					.attr("x", x - 5)
 					.attr("y", y - 5)
@@ -1274,7 +1397,7 @@ Vue.view("process-modeler-component", {
 					.attr("width", 10)
 					.attr("height", 10)
 					
-				var conditionText = this.root.append("text")
+				var conditionText = this.stateRelations.append("text")
 					.attr("id", relation.id + "-condition-text")
 					.text(relation.condition)
 					.attr("font-size", "x-small")
@@ -1394,6 +1517,8 @@ Vue.view("process-modeler-component", {
 				.attr("stroke", this.connectorColor)
 				.attr("stroke-width", 2)
 				.attr("d", generator(points))
+				
+			this.addUsed(relation.id, path);
 				
 			path.on("click", function() {
 				path.node().style.strokeWidth = 4;
@@ -1710,12 +1835,23 @@ Vue.view("process-modeler-component", {
 			
 			this.colorizeDefaultAction(action);
 		},
+		addUsed: function(id, target) {
+			if (this.instantiated.indexOf(id) >= 0) {
+				var existing = target.attr("class");
+				if (!existing) {
+					existing = "";
+				}
+				target.attr("class", existing + " used");
+			}
+		},
 		drawMainAction: function(state, action) {
 			var self = this;
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
 			var group = stateGroup.append("g")
 				.attr("id", action.id)
 				.attr("class", "process-action " + (action.lax ? "optional" : ""))
+
+			this.addUsed(action.id, group);
 				
 			this.move(group, action.styling.x, action.styling.y);
 			
@@ -1725,6 +1861,7 @@ Vue.view("process-modeler-component", {
 				.attr("class", "process-action-rect background")
 				.attr("style", action.styling.css)
 				.attr("id", action.id + "-rect")
+				
 				
 			// d3 does not use html dragging
 			group.node().addEventListener("mouseover", function(event) {
@@ -1804,7 +1941,7 @@ Vue.view("process-modeler-component", {
 				.attr("cx", action.styling.width - this.draggableOffset)
 				.attr("cy", action.styling.height - this.draggableOffset)
 			
-			self.draggable(resizer, function(target, event) {
+			self.resizable(resizer, function(target, event) {
 				action.styling.width += event.dx;
 				action.styling.height += event.dy;
 				self.autosizeAction(action, state);
@@ -1828,9 +1965,9 @@ Vue.view("process-modeler-component", {
 			this.colorizeDefaultAction(action);
 		},
 		colorizeDefaultAction(action) {
-			var color = this.getColor(this.getThemeColor(action.actionType, action.styling.color));
+			var color = this.getColor(this.getThemeColor(action.actionType, action.styling.color, action.automatic));
 			var group = this.$refs.svg.getElementById(action.id);
-			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
+			this.defaultColorize(group, this.getThemeColor(action.actionType, color ? color.name : action.styling.color));
 			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
 				element.setAttribute("style", "fill: " + color.border + "; stroke: " + color.border);
 			});
@@ -2210,12 +2347,12 @@ Vue.view("process-modeler-component", {
 			var self = this;
 			var state = this.getState(action.processStateId);
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
+			
 			var group = stateGroup.append("g")
 				.attr("id", action.id)
 				.attr("class", "process-" + action.actionType)
 				
 			this.move(group, action.styling.x, action.styling.y);
-
 
 			var rect = group.append("rect")
 				.attr("width", action.styling.width)

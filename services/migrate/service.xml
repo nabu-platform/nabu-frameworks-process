@@ -348,11 +348,13 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+				description="=&quot;Could not find matching state for global reference id: &quot; + sourceState/globalReferenceId"
 				disabled="false"
 				id="61db759653944b9d8c13247783a8f0bb"
 				label="statePlan/toStateId == null"
 				lineNumber="14"
-				message="Could not find matching state, need to update migration plan" xsi:nil="true"/>
+				message="Could not find matching state, need to update migration plan"
+				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Get target state"
 				disabled="false"
@@ -373,7 +375,8 @@
 				id="290d2c06037d44029a4765c1fe124aac"
 				label="!targetState"
 				lineNumber="16"
-				message="Invalid target state" xsi:nil="true"/>
+				message="Invalid target state"
+				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="ced0922307584c2f97a2e7f4f4f70b32"
@@ -432,7 +435,8 @@
 				id="1ae44242e9ce46dfac04511dd9f73777"
 				label="!currentStateInstance"
 				lineNumber="18"
-				message="Could not find current state instance" xsi:nil="true"/>
+				message="Could not find current state instance"
+				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Create new state instance, update existing"
 				disabled="false"
@@ -611,7 +615,8 @@
 				id="709039425be74a97a991f3e889a36cec"
 				label="&quot;RUNNING&quot; # actionInstances/processState"
 				lineNumber="22"
-				message="Can't migrate running processes" xsi:nil="true"/>
+				message="Can't migrate running processes"
+				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"
 				disabled="false"
 				id="e2259e86b4b24e098c6d76941fa6375e"
@@ -638,7 +643,8 @@
 					id="c190949f7d12478fa662474ee1dfff71"
 					label="!sourceAction"
 					lineNumber="25"
-					message="Invalid source action" xsi:nil="true"/>
+					message="Invalid source action"
+					whitelist="false" xsi:nil="true"/>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Get action mapping"
 					disabled="false"

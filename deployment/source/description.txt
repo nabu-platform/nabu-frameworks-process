@@ -1,0 +1,4 @@
+We don't want to deploy drafts, this has two reasons:
+
+- deployments are meant to be for non-development systems, we want to prevent draft editing in production systems because this will ensure that the processes get out of sync and become impossible to merge
+- the target service does not (currently) delete things, it only merges. We've had issues where a deployment of a draft included a line that was later removed before it was released. That released version in dev did not contain the line anymore, but in prd it did.

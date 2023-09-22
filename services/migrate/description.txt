@@ -1,3 +1,6 @@
+IMPORTANT: the servers should be in offline mode when migrating, if an action is _currently_ running while the process is being migrated, you can end up with errors in the best case or inconsistent state in the worst case.
+
+
 The state MUST be mapped, otherwise the process goes into a situation that it can never progress.
 So we will always want a to state id.
 

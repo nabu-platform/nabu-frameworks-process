@@ -15,5 +15,6 @@
     <webFragments>nabu.frameworks.process.manage.rest.process.action.fail</webFragments>
     <webFragments>nabu.frameworks.process.crud.processActionRelationInstance.services.list</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.delete</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.instance.get</webFragments>
     <audience>MANAGER</audience>
 </webModule>

@@ -1,0 +1,7 @@
+<structure name="instanceDetail" superType="nabu.frameworks.process.database.types.processInstance">
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.database.types.processStateInstance" maxOccurs="unbounded" minOccurs="0" name="stateInstances"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.database.types.processActionInstance" maxOccurs="unbounded" minOccurs="0" name="actionInstances"/>
+    <structure collectionName="processActionRelationInstances" definition="nabu.frameworks.process.database.types.processActionRelationInstance" maxOccurs="unbounded" minOccurs="0" name="actionRelationInstances"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="data"/>
+    <structure collectionName="processInstanceLogs" definition="nabu.frameworks.process.database.types.processInstanceLog" maxOccurs="unbounded" minOccurs="0" name="logs"/>
+</structure>
