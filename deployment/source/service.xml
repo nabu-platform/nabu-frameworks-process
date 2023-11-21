@@ -305,15 +305,6 @@
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="89474ab4c0b34a1fb4bd956180cdec01"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>true</from>
-				<to>filter/released</to>
-			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -321,7 +312,7 @@
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>result4b9aa29d8a344fe4b4168fc692e4bde4/results</from>
+			<from>result4b9aa29d8a344fe4b4168fc692e4bde4/results[released != null]</from>
 			<to>output/versions</to>
 		</steps>
 	</steps>

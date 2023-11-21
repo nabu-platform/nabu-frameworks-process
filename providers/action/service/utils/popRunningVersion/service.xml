@@ -1,0 +1,119 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="4137874df1a1485ba5e79956f67d209b"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="718638ad4f674a6c97383ddce47aaf68"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="c90312a790a94ceaa68fdf20761d97ac"
+				serviceId="nabu.utils.Runtime.getContext"
+				resultName="resulte3e978831e7946279c182fb153fdff1a"
+				temporaryMapping="true"
+				x="46"
+				y="69"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="af41c5c46f5c47bb91a54f8cd52bed04"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>process-running-versions</from>
+				<to>key</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="5d00f253fe914861a721f47f78267865"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resulte3e978831e7946279c182fb153fdff1a/value</from>
+			<to>runningVersions</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="605bfab06ea94bf7b253d72e43f5d3fc"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="d694a6b4e40e410eba5b6013fc7a80e1"
+				serviceId="nabu.utils.List.remove"
+				resultName="resultf464e7461d4a4825a41004cf849f694e"
+				temporaryMapping="true"
+				x="100"
+				y="117"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="600a89a22acf4624addd9037b6d33d96"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>runningVersions</from>
+				<to>list</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="0d0e1ccd9966483087766a6c72260d98"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processVersionId</from>
+				<to>object</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="3cb47e99bf6b449ab48f47ee0498598c"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultf464e7461d4a4825a41004cf849f694e/list</from>
+			<to>runningVersions</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="d8c0dcf6ee1e412b934c0d28751819c3"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="684e072e53e047feae826ca23360cf04"
+				serviceId="nabu.utils.Runtime.setContext"
+				resultName="result6d51826fed96466eae10d2bdbb821041"
+				temporaryMapping="true"
+				x="47"
+				y="88"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="554748c8b2d74f66ab57c389dba01a7c"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>runningVersions</from>
+				<to>value</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="992383dd0c5a4e67b2b17eee0fd771f2"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>process-running-versions</from>
+				<to>key</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

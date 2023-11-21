@@ -163,7 +163,7 @@
 				<div v-else class="is-column is-spacing-gap-medium">
 					<n-form-text :edit="editable" v-model="model.name" label="Process name"/>
 					<n-form-text :edit="editable" v-model="model.code" label="Code" after="Use this to query the process programmatically. Change with caution as you might break references."/>
-					<n-form-text :edit="editable" v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue" placeholder="anonymous"/>
+					<n-form-text :edit="editable" v-model="model.queue" label="Process queue" after="By default each process instance has its own anonymous queue, you can however set a shared queue" :placeholder="model.code ? model.code : (model.name ? model.name.replace(/[^\w]+/g, '-').toLowerCase() : 'process')"/>
 					<n-form-combo :edit="editable" v-model="model.defaultMigrationStrategy" label="Default migration strategy" :items="['stateOnly', 'stateAndActions']" placeholder="stateAndActions"/>
 					<n-form-combo :edit="editable" v-model="model.styling.theme" label="Theme" :items="themes" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text :edit="editable" type="area" v-model="model.comment" label="Comment" after="Additional comments you want to add"/>

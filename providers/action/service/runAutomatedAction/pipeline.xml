@@ -10,6 +10,8 @@
         <field comment="When run synchronously, we don't need to double check whether or not we can be run" minOccurs="0" name="synchronous" type="java.lang.Boolean"/>
         <field minOccurs="0" name="contextId" type="java.lang.String"/>
         <field minOccurs="0" name="defaultTransactionId" type="java.lang.String"/>
+        <field minOccurs="0" name="bestEffort" type="java.lang.Boolean"/>
+        <field comment="Purely informative to whoever is reading the task input" minOccurs="0" name="serviceId" type="java.lang.String"/>
     </structure>
     <structure name="output"/>
     <field name="allowedToProceed" type="java.lang.Boolean"/>

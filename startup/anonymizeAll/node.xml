@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-07-06T14:17:56.965+02:00" lastModified="2023-07-06T14:47:22.811+02:00" leaf="true" version="3">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-07-06T14:17:56.965+02:00" lastModified="2023-10-01T14:00:06.235+02:00" leaf="true" version="5">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.services.getSupportedConnections</references>
+    <references>nabu.utils.Runtime.setServiceContext</references>
+    <references>java.lang.String</references>
     <references>nabu.frameworks.process.services.anonymize</references>
     <references>nabu.utils.Server.sleep</references>
 </node>

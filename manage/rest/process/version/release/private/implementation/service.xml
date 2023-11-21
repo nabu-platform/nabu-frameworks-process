@@ -42,13 +42,15 @@
 			id="fff92920a61b43429b2800f645424526"
 			label="version/released != null"
 			lineNumber="3"
-			message="Already released" xsi:nil="true"/>
+			message="Already released"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 			disabled="false"
 			id="ad4ad0762e6c48eb86ec3568154952a5"
 			label="version/deprecated != null"
 			lineNumber="4"
-			message="Already deprecated" xsi:nil="true"/>
+			message="Already deprecated"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="Get the currently active version (if any)"
 			disabled="false"
@@ -86,19 +88,19 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="61b5ec4bd94244db9a789ef2f6b007aa"
+				id="57be5b783d114eeebbfa95dc53012f65"
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resulte895e089be8740f19818b572cd23c85f/results[0]</from>
-			<to>active</to>
+			<from>resulte895e089be8740f19818b572cd23c85f/results</from>
+			<to>activeVersions</to>
 		</steps>
 	</steps>
-	<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
-			id="438833326d1b4c51a896e318dbf9b764"
-			label="active != null"
-			lineNumber="6">
+			id="6e277090b47445509d5db1442bc8fd02"
+			lineNumber="6"
+			variable="active">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Deprecate it"
 				disabled="false"
@@ -118,7 +120,7 @@
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="7dfc3508c3774e0eb394311a715862f2"
+					id="0f25c0c202ab42b5b1667088c37f9489"
 					mask="false"
 					optional="false"
 					fixedValue="false">
@@ -136,8 +138,8 @@
 					serviceId="nabu.frameworks.process.crud.processVersion.services.update"
 					resultName="resultcaf61f30a7ac4aa289a2aa2e74ad4794"
 					temporaryMapping="true"
-					x="296"
-					y="59"
+					x="186"
+					y="74"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
@@ -161,12 +163,19 @@
 				</steps>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				disabled="false"
+				id="438833326d1b4c51a896e318dbf9b764"
+				label="active != null"
+				lineNumber="9">
+		</steps>
+		<query>activeVersions</query>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="We need to clone it"
 			disabled="false"
 			id="edbf6359c3bf451da650988624964b1b"
-			lineNumber="9">
+			lineNumber="10">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="7b521b1d47b8420f86ac4f280ae36567"
@@ -202,7 +211,7 @@
 			comment="Release this version"
 			disabled="false"
 			id="e23f237e7d404bfca3827aacf5b51a50"
-			lineNumber="10">
+			lineNumber="11">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="f07ec8c2ad6a44fd82b386aeb4fca168"
@@ -228,7 +237,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="14c53427c56b48dba76a9e74810d0b89"
-			lineNumber="11">
+			lineNumber="12">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="3b1dd0a263c04a7b9a2e2e11735cb87d"
@@ -264,7 +273,7 @@
 			comment="Refresh all the listeners so we are capturing whatever might be new"
 			disabled="false"
 			id="5fa4b4e6dcf449769b10ddbd97423a6b"
-			lineNumber="12">
+			lineNumber="13">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="ebf671967dd74ce6a4c5a4a70574727d"
@@ -282,7 +291,7 @@
 			comment="Clear the runtime cache so we pick up new definitions"
 			disabled="false"
 			id="2f78b21c2b7f43a4b7c4b1b032f902ca"
-			lineNumber="13">
+			lineNumber="14">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="4a620b04a59547f8b1a241a16a957099"

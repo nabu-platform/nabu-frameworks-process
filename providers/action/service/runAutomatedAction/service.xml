@@ -1976,93 +1976,107 @@
 						whitelist="false" xsi:nil="true"/>
 			</steps>
 		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+		<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 				disabled="false"
-				id="c0a4a51007a9422f91b6b23271dc2e0d"
-				lineNumber="50">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				id="4c50b6e6f79c433d810fb84d2920c141"
+				lineNumber="50"
+				query="input/bestEffort">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
-					id="96ef5f43f47f4d7fba76940b7d92b9a1"
-					serviceId="nabu.frameworks.process.crud.processInstanceLog.services.create"
-					resultName="result6abb354997df4778a1740c537003c2f9"
-					temporaryMapping="true"
-					x="484"
-					y="80"
-					invocationOrder="1"
-					asynchronous="false"
-					recache="false">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					id="c0a4a51007a9422f91b6b23271dc2e0d"
+					label="true"
+					lineNumber="51">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
-						id="21aa220810764857abd98262884dbf18"
-						mask="false"
-						optional="false"
-						fixedValue="true">
-					<from>Skipped automated step because it is no longer allowed</from>
-					<to>instance/log</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="c3082cd37d9d4ca381f88cff1b10c5a0"
-						mask="false"
-						optional="false"
-						fixedValue="true">
-					<from>flow</from>
-					<to>instance/logType</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="3717be42683a42a385dd1c805a1712d2"
-						mask="false"
-						optional="false"
-						fixedValue="true">
-					<from>SKIPPED-ACTION</from>
-					<to>instance/code</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="a6b5267e8298449e8ee62b4e0eca67cf"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>input/processInstanceId</from>
-					<to>instance/processInstanceId</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="9e7ab4088af64c3baedb7280295834a1"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>result946c20ef5b5744c6a4a4a2721cab700a/date</from>
-					<to>instance/created</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="ab2914c72e8a4e4fb719eff0c5d562ad"
-						mask="false"
-						optional="false"
-						fixedValue="true">
-					<from>="{
+						id="96ef5f43f47f4d7fba76940b7d92b9a1"
+						serviceId="nabu.frameworks.process.crud.processInstanceLog.services.create"
+						resultName="result6abb354997df4778a1740c537003c2f9"
+						temporaryMapping="true"
+						x="484"
+						y="80"
+						invocationOrder="1"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="21aa220810764857abd98262884dbf18"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>Skipped automated step because it is no longer allowed</from>
+						<to>instance/log</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="c3082cd37d9d4ca381f88cff1b10c5a0"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>flow</from>
+						<to>instance/logType</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="3717be42683a42a385dd1c805a1712d2"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>SKIPPED-ACTION</from>
+						<to>instance/code</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="a6b5267e8298449e8ee62b4e0eca67cf"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/processInstanceId</from>
+						<to>instance/processInstanceId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="9e7ab4088af64c3baedb7280295834a1"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>result946c20ef5b5744c6a4a4a2721cab700a/date</from>
+						<to>instance/created</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="ab2914c72e8a4e4fb719eff0c5d562ad"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>="{
 	properties: [{
 		'key': 'actionId', 
 		'value': '" + input/actionId + "'
 	}]
 }"</from>
-					<to>instance/dataBinding</to>
+						<to>instance/dataBinding</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="479e869b42a14293ad599aae61bfab60"
+						serviceId="nabu.utils.Date.now"
+						resultName="result946c20ef5b5744c6a4a4a2721cab700a"
+						temporaryMapping="true"
+						x="9"
+						y="48"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
 				</steps>
 			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 					disabled="false"
-					id="479e869b42a14293ad599aae61bfab60"
-					serviceId="nabu.utils.Date.now"
-					resultName="result946c20ef5b5744c6a4a4a2721cab700a"
-					temporaryMapping="true"
-					x="9"
-					y="48"
-					invocationOrder="0"
-					asynchronous="false"
-					recache="false">
-			</steps>
+					id="266f4bd94a9c41deb4fd9424b690b052"
+					lineNumber="52"
+					code="PROCESS-INCORRECT-STATE"
+					message="Action is not allowed at this time"
+					whitelist="false" xsi:nil="true"/>
 		</steps>
 	</steps>
 </sequence>

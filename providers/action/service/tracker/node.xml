@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-09-15T10:55:56.914+02:00" leaf="true" version="295">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2023-09-26T12:12:12.299+02:00" leaf="true" version="298">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
     <references>nabu.frameworks.process.providers.action.service.actionInstanceDescriptor</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getRunningVersions</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.create</references>
     <references>nabu.utils.Runtime.getPipeline</references>
     <references>java.util.Date</references>
@@ -22,6 +23,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>nabu.protocols.jdbc.pool.Services.connectionForContext</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.pushRunningVersion</references>
     <references>nabu.frameworks.process.crud.processAction.services.list</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
     <references>nabu.frameworks.process.providers.action.service.utils.resolveDescription</references>
@@ -56,6 +58,7 @@
     <references>java.lang.String</references>
     <references>nabu.data.json.Services.marshal</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runStateAutomatic</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.popRunningVersion</references>
     <references>nabu.frameworks.process.providers.action.service.runAutomatedAction:input</references>
     <references>nabu.frameworks.process.providers.action.service.utils.handleGetActionsProblems</references>
     <references>nabu.utils.Date.now</references>

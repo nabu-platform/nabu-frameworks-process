@@ -1755,6 +1755,8 @@ Vue.view("process-modeler-component", {
 			// by default we want reprocessable
 			if (type == "service") {
 				action.reprocessable = true;
+				// because we now have failure lines, let's set autofail as default
+				action.autoFail = true;
 			}
 			else if (type == "human") {
 				// currently we will always automatically create a human task rather than wait for it to occur naturally

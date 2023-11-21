@@ -300,6 +300,24 @@
 						<from>resultefb22a023177446bbd2f85965b102987/contextId</from>
 						<to>contextId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="5c9c83679a334ede88ff4ee3517b4763"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>action/serviceId</from>
+						<to>serviceId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="05e9b2b936ad41d9b8e7e14fefabd9e6"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>=action/schedule != null || action/delay != null</from>
+						<to>bestEffort</to>
+					</steps>
 					<targetProperties
 							collectionIndex="schedule">=action/schedule</targetProperties>
 					<targetProperties

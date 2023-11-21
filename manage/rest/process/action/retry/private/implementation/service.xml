@@ -42,7 +42,8 @@
 			id="415b02cb6aa74b81a2e3361cc328ab23"
 			label="action/nested == true"
 			lineNumber="3"
-			message="Can not retry nested actions" xsi:nil="true"/>
+			message="Can not retry nested actions"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			disabled="false"
 			id="5593398a67614f71b78b0f5bc58cdd02"
@@ -578,7 +579,8 @@
 					id="9127d6cd94aa4b929af35356e0873f0c"
 					label="actionDefinition/reprocessable != true"
 					lineNumber="28"
-					message="Can not be reprocessed" xsi:nil="true"/>
+					message="Can not be reprocessed"
+					whitelist="false" xsi:nil="true"/>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Use the action-specific queue"
 					disabled="false"
@@ -945,6 +947,15 @@
 							fixedValue="false">
 						<from>properties</from>
 						<to>binding/properties</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="33e2724536e148ab8f53ffba062bda02"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>actionDefinition/serviceId</from>
+						<to>serviceId</to>
 					</steps>
 					<targetProperties
 							collectionIndex="groupId">=process/processVersionId</targetProperties>

@@ -59,7 +59,26 @@ For correlation-id based identification of an action, perhaps check action insta
 
 Perhaps we want synchronous automatic service execution in the future to preprocess/block/transactionally hook into...running services.
 
+## Best effort
+
+When you run automatic tasks, you have the option to run it at some point in the future.
+If you run say a task 7 days into the future, the process can do other stuff in the meantime and progress to a point that the task is no longer allowed to run.
+However, if the task is no longer allowed to run, throwing an error does not really help you solve this: you can't retry and if you set to failed any failure flows are equally likely not allowed to run anymore.
+
+When you run tasks asynchronously "immediately" though (so without an explicit timeout), you expect them to either execute or end in an error.
+
+So currently the "best effort" ability of an automated task is fully dependent on whether or not you have filled in a schedule/delay or not. In the future we might add an explicit boolean if necessary.
+
 # DONE
+
+## ERROR
+
+If we set an action to ERROR, we also set the process to ERROR, blocking further moves.
+The reason is that the ERROR needs to be resolved, this can be done in 2 ways: reprocess and set to failed
+
+However, both reprocess and set to failed (assuming failure flows exist), require the process to be in a certain state. Allowing the process to continue executing with an error means we might never be able to resolve that error.
+
+Because we have failure flows however, we have decided to set actions to autofail by default because too many processes are accidently stopped because someone forgot to set the toggle. Especially given the explicit modeling option of a failure flow, this becomes useless.
 
 ## Auto fail
 

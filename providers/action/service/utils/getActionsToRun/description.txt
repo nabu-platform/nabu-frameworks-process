@@ -26,3 +26,18 @@ There is some weird edge cases because we just throw together all captured value
 So, instead we assume there is only one hit in the process instance and the state is all that matters to decide which action is chosen.
 
 
+# Automated service identification
+
+If a service is marked as automatic, it can also be triggered manually using identification. However because automated services don't actually need identification, it is often not configured on truely automatic steps (which is to say most of them).
+If you then accidentally call the service that is marked as automated, it may be flagged as incorrect. This is however solved by the nested service identification.
+
+An additional concern is that the process engine needs to enforce state, if we skip automated services for identification, we may allow a service to be run in a state that it is not allowed in (suppose you have no other reference to this service direct or indirect and we skip it during identification...)
+Currently it should be allowed that an automatic service is also run manually. This may change in the future, though the process engine should still need to enforce state.
+
+# Nested service identification
+
+The process engine _should_ enforce state, that means a service can only be run if the state of the process allows for it (unless you mark it as lax).
+However, if you track utility services and wrapper services in various setups, it is possible that the wrapper service is allowed, it calls the utility service which the process engine deduces is not allowed at that point.
+However, a hard dependency made in blox as a design decision, should be allowed by the process engine.
+For that reason we send in a number of process versions that are allowed to remain unmatched, they will not return an action to be run and as such the tracker will not really do much with them.
+
