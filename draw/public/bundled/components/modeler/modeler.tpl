@@ -30,7 +30,7 @@
 								<li class="is-column"><button @click="addActionToCurrent('any', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Any</span></button></li>
 								<li v-if="false" class="is-column"><button @click="addActionToCurrent('all', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">All</span></button></li>
 							</ul>
-							<div class="is-column is-position-right">
+							<div class="is-column is-position-right" v-if="false">
 								<span class="is-content is-size-xxsmall is-decoration-upper">Control</span>
 							</div>
 						</div>
@@ -41,7 +41,7 @@
 								<li class="is-column"><button @click="addActionToCurrent('event', 'Event', 150, actionHeight, 'event')" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Event</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('signal', 'Signal', 150, actionHeight, 'signal')" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Signal</span></button></li>
 							</ul>
-							<div class="is-column is-position-right">
+							<div class="is-column is-position-right" v-if="false">
 								<span class="is-content is-size-xxsmall is-decoration-upper">Steps</span>
 							</div>
 						</div>
@@ -56,7 +56,7 @@
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'any'" :value="selected.target.maxOccurs == 0" label="Require all" @input="updateAnyActionOccurs(selected.target, selected.target.maxOccurs == 0 ? null : 0); draw()"/>
 					<n-form-text :edit="editable" :value="selected.target.maxOccurs" v-if="selected.target.actionType == 'any' && selected.target.maxOccurs != 0" label="How many inputs must be resolved?" placeholder="1" @input="function(value) { updateAnyActionOccurs(selected.target, value); draw() }"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
-					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service'" label="Condition" v-model="selected.target.condition" after="You can set an additional condition that must be true before this action is matched"/>
+					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service'" label="Condition" v-model="selected.target.condition" after="You can set an additional condition that must be true before this action is matched. As a rule: the more generic the service you are capturing, the more specific your condition should be."/>
 					<div v-if="selected.target.actionType == 'signal'">
 						<n-form-text :edit="editable" v-model="selected.target.signalId" label="Signal Id" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
 					</div>

@@ -1,0 +1,47 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="5a54c9fd92d44df4bff1c7cbd7eec9e1"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="04da287757024f5a9a595fd6e95da8d9"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="a4e9ad7e57ed4b0a95a6e6a962bc5aa3"
+				serviceId="nabu.protocols.jdbc.pool.Services.execute"
+				resultName="result72c26c10da934fc89a16a61b2b70782b"
+				temporaryMapping="true"
+				x="103"
+				y="18"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="4b26c9d776884425ad98afeb28dc8580"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>="
+delete from process_instance_logs where process_instance_id = '" + input/instanceId + "';
+delete from process_data where process_instance_id = '" + input/instanceId + "';
+delete from process_action_relation_instances where target_action_instance_id in (select id from process_action_instances where process_state_instance_id in (select id from process_state_instances where process_instance_id='" + input/instanceId + "'));
+delete from process_action_instances where process_state_instance_id in (select id from process_state_instances where process_instance_id='" + input/instanceId + "');
+delete from process_state_instances where process_instance_id = '" + input/instanceId + "';
+delete from process_instances where id='" + input/instanceId + "';
+"</from>
+				<to>sql</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="035f90be6a0f40638dcdf31d86bea8fe"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/jdbcPoolId</from>
+				<to>jdbcPoolId</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

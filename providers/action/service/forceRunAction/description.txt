@@ -1,0 +1,4 @@
+Automatic asynchronous actions are put on a task queue, this is done transactionally.
+This means if the transaction is rolled back, the task is never published.
+
+In some specific cases you may want to publish the task anyway (or even publish a new task for one that _did_ work) so we added this.

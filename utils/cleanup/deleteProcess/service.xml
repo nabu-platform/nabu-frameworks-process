@@ -1,0 +1,99 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="e1c51bdf36e34fc299e26248a6edddc2"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="c45aec05fbac47bc87b8b1d78ea2c707"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="1efe2294cae74d81bdba66fc2a723f9e"
+				serviceId="nabu.frameworks.process.crud.processInstance.services.listForBrowsing"
+				resultName="result857cad27becc4913a506af56101826f5"
+				temporaryMapping="true"
+				x="85"
+				y="42"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e5050f8e3bbe47a8b89e7cdcbadd1806"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processDefinitionId</from>
+				<to>filter/processDefinitionId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="050967113c6049fea3fc7e59bd0e9400"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>1</from>
+				<to>limit</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="af3fcc16f735485c9e9a44255357005e"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result857cad27becc4913a506af56101826f5/results</from>
+			<to>instances</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+			disabled="false"
+			id="7f449853906247639449630e6bc9899b"
+			label="instances"
+			lineNumber="3"
+			message="There are still instances for this definition, delete them first"
+			whitelist="false" xsi:nil="true"/>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="04da287757024f5a9a595fd6e95da8d9"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="a4e9ad7e57ed4b0a95a6e6a962bc5aa3"
+				serviceId="nabu.protocols.jdbc.pool.Services.execute"
+				resultName="result72c26c10da934fc89a16a61b2b70782b"
+				temporaryMapping="true"
+				x="103"
+				y="18"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="4b26c9d776884425ad98afeb28dc8580"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>="
+delete from process_captures where process_action_id in (select pa.id from process_actions pa join process_states ps on ps.id = pa.process_state_id join process_versions pv on ps.process_version_id = pv.id where pv.process_definition_id='" + input/processDefinitionId + "');
+delete from process_action_relations where action_id in (select pa.id from process_actions pa join process_states ps on ps.id = pa.process_state_id join process_versions pv on ps.process_version_id = pv.id where pv.process_definition_id='" + input/processDefinitionId + "');
+delete from process_state_relations where action_id in (select pa.id from process_actions pa join process_states ps on ps.id = pa.process_state_id join process_versions pv on ps.process_version_id = pv.id where pv.process_definition_id='" + input/processDefinitionId + "');
+delete from process_actions where process_state_id in (select ps.id from process_states ps join process_versions pv on ps.process_version_id = pv.id where pv.process_definition_id='" + input/processDefinitionId + "');
+delete from process_states where process_version_id in (select id from process_versions where process_definition_id='" + input/processDefinitionId + "');
+delete from process_versions where process_definition_id='" + input/processDefinitionId + "';
+delete from process_definitions where id='" + input/processDefinitionId + "';
+"</from>
+				<to>sql</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="035f90be6a0f40638dcdf31d86bea8fe"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/jdbcPoolId</from>
+				<to>jdbcPoolId</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

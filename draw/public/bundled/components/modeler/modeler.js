@@ -427,7 +427,7 @@ Vue.view("process-modeler-component", {
 				stateRelations: [],
 				captures: [],
 				styling: {},
-				defaultIdentificationType: "correlationId"
+				defaultIdentificationType: "custom"
 			};
 			// for the first version, these are in sync
 			model.processDefinitionId = model.id;
@@ -435,6 +435,7 @@ Vue.view("process-modeler-component", {
 			Vue.set(this, "model", model);
 			// need to first render the svg element before we can start drawing
 			Vue.nextTick(this.draw);
+			this.editable = true;
 		},
 		addInputMapping: function(action) {
 			action.binding.push({
@@ -1666,6 +1667,13 @@ Vue.view("process-modeler-component", {
 				}).forEach(function(relationToRemove) {
 					self.model.actionRelations.splice(self.model.actionRelations.indexOf(relationToRemove), 1);
 				})
+				
+				// remove any captures from the actions within this state
+				this.model.captures.filter(function(x) {
+					return actionIds.indexOf(x.processActionId) >= 0;
+				}).forEach(function(remove) {
+					self.model.captures.splice(self.model.captures.indexOf(remove), 1);
+				});
 			}
 			else if (this.selected.type == "action" && this.selected.target) {
 				var state = this.getState(this.selected.target.processStateId);

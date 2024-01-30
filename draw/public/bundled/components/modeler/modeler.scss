@@ -110,11 +110,16 @@ defs path {
 	stroke-width: 2px !important;
 }
 
+[route="process-modeler-component"] {
+	width: calc(100% - 24rem);
+	min-height: 75vh;
+}
+
 .process-modeler-form {
-	position: fixed;
-	max-height: 100%;
+	position: absolute;
 	overflow: auto;
-	right:0;
+	max-height: 85%;
+	right: 0;
 	.mouse-mode {
 		.is-icon {
 			display: none;
