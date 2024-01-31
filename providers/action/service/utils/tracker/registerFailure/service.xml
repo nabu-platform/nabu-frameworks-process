@@ -69,6 +69,15 @@
 				<from>input/transactionId</from>
 				<to>transactionId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5889c8ceeefa491f86275436e7e5fbf5"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
 			<targetProperties
 					collectionIndex="onCommit">false</targetProperties>
 			<targetProperties

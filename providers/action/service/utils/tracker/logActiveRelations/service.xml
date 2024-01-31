@@ -124,6 +124,15 @@
 				<from>instances</from>
 				<to>instances</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8f0c9857a30640b292a4e88807f68ec0"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connection</to>
+			</steps>
 		</steps>
 	</steps>
 </sequence>

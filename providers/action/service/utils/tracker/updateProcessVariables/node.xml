@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-09T09:34:06.124+01:00" lastModified="2023-03-22T15:26:04.077+01:00" leaf="true" version="16">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-09T09:34:06.124+01:00" lastModified="2024-01-31T10:20:58.529+01:00" leaf="true" version="17">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -13,7 +13,7 @@
     <references>nabu.utils.Runtime.getContext</references>
     <references>nabu.utils.Runtime.getDeviceFromToken</references>
     <references>nabu.web.application.Services.getSessionId</references>
-    <references>java.util.UUID</references>
     <references>java.lang.String</references>
+    <references>java.util.UUID</references>
     <references>be.nabu.libs.authentication.api.Token</references>
 </node>

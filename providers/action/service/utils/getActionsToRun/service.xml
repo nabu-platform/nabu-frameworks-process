@@ -68,6 +68,15 @@
 				<from>input/signalId</from>
 				<to>signalId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8f2a12ff89c84448bddc989a36d056f8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -878,6 +887,15 @@
 						<from>potentialProcess/processId</from>
 						<to>filter/processVersionId[0]</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="e918691cf52e46cca97cc3041df8d2aa"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/connectionId</from>
+						<to>connectionId</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
@@ -1051,6 +1069,15 @@
 										fixedValue="false">
 									<from>potentialProcess/processId</from>
 									<to>processVersionId</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="684fa1d7741443c696b580be2de8e7ee"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>input/connectionId</from>
+									<to>connectionId</to>
 								</steps>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -1553,6 +1580,15 @@
 												fixedValue="false">
 											<from>potentialAction/id</from>
 											<to>actionId</to>
+										</steps>
+										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+												disabled="false"
+												id="1f461f851b8949879cb3b6f3bd271e1d"
+												mask="false"
+												optional="false"
+												fixedValue="false">
+											<from>input/connectionId</from>
+											<to>connectionId</to>
 										</steps>
 									</steps>
 									<steps xsi:type="be.nabu.libs.services.vm.step.Link"

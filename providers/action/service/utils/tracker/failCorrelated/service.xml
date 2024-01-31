@@ -123,6 +123,15 @@
 				<from>now</from>
 				<to>parameters[0]/stopped</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9dd7d2765d34452a9901b977208d53e2"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connection</to>
+			</steps>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -158,6 +167,15 @@
 					fixedValue="false">
 				<from>now</from>
 				<to>parameters[0]/stopped</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="86a83911422c43ca856a058ed6b7ef1f"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connection</to>
 			</steps>
 		</steps>
 	</steps>

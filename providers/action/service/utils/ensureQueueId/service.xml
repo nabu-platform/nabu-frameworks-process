@@ -28,6 +28,15 @@
 				<from>input/taskId</from>
 				<to>id</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9afe6aec59b24ff28412b5fd1e7a58e1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -72,6 +81,15 @@
 					fixedValue="false">
 				<from>task/taskQueueId</from>
 				<to>parameters[0]/taskQueueId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="1d1b3be14def429f9cf8f8936291c083"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connection</to>
 			</steps>
 		</steps>
 	</steps>

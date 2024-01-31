@@ -125,6 +125,15 @@
 								<from>date</from>
 								<to>instance/created</to>
 							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="54ad556cbe8e46e9a5b1403b5d0f73d8"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/connectionId</from>
+								<to>connectionId</to>
+							</steps>
 						</steps>
 					</steps>
 					<query>input/incorrectStateProcessInstanceIds</query>
@@ -229,6 +238,15 @@
 								<from>conflictingStateProcessInstanceId</from>
 								<to>instance/processInstanceId</to>
 							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="4044818c0a1943138940ca06118b070d"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/connectionId</from>
+								<to>connectionId</to>
+							</steps>
 						</steps>
 					</steps>
 					<query>input/conflictingStateProcessInstanceIds</query>
@@ -332,6 +350,15 @@
 									fixedValue="false">
 								<from>errorProcessInstanceId</from>
 								<to>instance/processInstanceId</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="3774b94421c746a5813d5178076c1d70"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/connectionId</from>
+								<to>connectionId</to>
 							</steps>
 						</steps>
 					</steps>

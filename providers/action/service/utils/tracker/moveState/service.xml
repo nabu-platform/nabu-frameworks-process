@@ -26,6 +26,15 @@
 				<from>input/processVersionId</from>
 				<to>processVersionId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="602920d58cbc45dc82e8043c82541999"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -215,6 +224,15 @@
 					<from>input/stateInstance</from>
 					<to>instances[0]</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="18ac3aa11f0c446d9e34c5289bc8d618"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/connectionId</from>
+					<to>connection</to>
+				</steps>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -308,6 +326,15 @@
 					<from>input/stateInstance</from>
 					<to>instances[0]</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="5c2ea6c64e9645cebd7ed525f8f26886"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/connectionId</from>
+					<to>connection</to>
+				</steps>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -343,6 +370,15 @@
 						fixedValue="false">
 					<from>input/stateInstance/processInstanceId</from>
 					<to>parameters[0]/processInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="ba9ef2c737e6496e9dd38d38bf4698d9"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/connectionId</from>
+					<to>connection</to>
 				</steps>
 			</steps>
 		</steps>

@@ -26,6 +26,15 @@
 				<from>input/processVersionId</from>
 				<to>processVersionId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="fc915d4e86be46668665f8a256c5b90b"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -140,6 +149,15 @@
 					<from>input/transactionId</from>
 					<to>defaultTransactionId</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="73db6d5c0f93453bb788aba850c83c88"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/connectionId</from>
+					<to>connectionId</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -218,6 +236,15 @@
 						<from>input/actionId</from>
 						<to>actionId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="ae4856a8752e4c1ab6d89dcb05c26cdf"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/connectionId</from>
+						<to>connectionId</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
@@ -240,8 +267,8 @@
 						serviceId="nabu.frameworks.process.providers.action.service.runAutomatedAction"
 						resultName="result911d2ec03ae54528b3bbd60b71978d4a"
 						temporaryMapping="true"
-						x="1017"
-						y="69"
+						x="654"
+						y="56"
 						invocationOrder="1"
 						target="nabu.frameworks.tasks.providers.executor"
 						asynchronous="false"
@@ -330,6 +357,8 @@
 							collectionIndex="queue">=queue</targetProperties>
 					<targetProperties
 							collectionIndex="transactionId">=input/transactionId</targetProperties>
+					<targetProperties
+							collectionIndex="connectionId">=input/connectionId</targetProperties>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
