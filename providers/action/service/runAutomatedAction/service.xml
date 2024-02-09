@@ -1069,8 +1069,8 @@
 								serviceId="nabu.frameworks.tasks.services.human.create"
 								resultName="result92d673c9af6d450b88c20cdc418649b0"
 								temporaryMapping="true"
-								x="363"
-								y="169"
+								x="618"
+								y="97"
 								invocationOrder="1"
 								asynchronous="false"
 								recache="false">
@@ -1137,6 +1137,15 @@
 								<from>input/defaultTransactionId</from>
 								<to>transactionId</to>
 							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="796ed88d63234a3887d4ce730bb652c1"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>validate</from>
+								<to>taskSubType</to>
+							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
@@ -1169,11 +1178,11 @@
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="4dd8d44b80d947dd86a5847c30a3ed4f"
+									id="2225130d739b441a9069d36854849265"
 									mask="false"
 									optional="false"
 									fixedValue="false">
-								<from>action/id</from>
+								<from>action/globalReferenceId</from>
 								<to>options[2]</to>
 							</steps>
 						</steps>

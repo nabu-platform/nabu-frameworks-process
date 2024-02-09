@@ -1,0 +1,49 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="1ea994d3e02a42dd8118abb2e08b82d8"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="3333fdb6e58e48258d972081fcf404aa"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="5184f61a434f45ebbc1585ccfcd7435a"
+				serviceId="nabu.utils.reflection.Type.describe"
+				resultName="result16f6482b3df742638e72dc91822490a5"
+				temporaryMapping="true"
+				x="272"
+				y="46"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="c985988c34004ecea18d4aabc72da727"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>recursive</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="8d8372312bfc4d579e6bb4d1b2859ea8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/path/typeId</from>
+				<to>typeId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="058ef4e27cf5495a9c77fcaf247af3cb"
+				mask="true"
+				optional="false"
+				fixedValue="false">
+			<from>result16f6482b3df742638e72dc91822490a5/parameters</from>
+			<to>output/content/fields</to>
+		</steps>
+	</steps>
+</sequence>

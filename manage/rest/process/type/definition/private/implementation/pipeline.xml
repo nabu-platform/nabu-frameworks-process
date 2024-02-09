@@ -1,0 +1,4 @@
+<structure interface="nabu.frameworks.process.manage.rest.process.type.definition:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+</structure>

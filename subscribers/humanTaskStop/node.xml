@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-18T13:44:09.841+02:00" lastModified="2023-09-18T13:51:17.712+02:00" leaf="true" version="11">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-18T13:44:09.841+02:00" lastModified="2024-02-07T15:54:12.462+01:00" leaf="true" version="20">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.frameworks.process.crud.processAction.services.get</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.data.xml.Services.unmarshal</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.frameworks.tasks.crud.task.services.get</references>
     <references>nabu.utils.Date.now</references>
+    <references>nabu.utils.String.toStream</references>
+    <references>nabu.frameworks.process.database.types.processData</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>nabu.web.application.Services.getSessionId</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
-    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.utils.Runtime.getCurrentDevice</references>
+    <references>nabu.frameworks.tasks.crud.task.types.output</references>
+    <references>nabu.utils.Server.getServerName</references>
     <references>nabu.services.jdbc.Services.update</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.frameworks.process.database.types.processInstance</references>
-    <references>java.lang.String</references>
+    <references>java.lang.Object</references>
     <references>nabu.frameworks.process.database.types.processActionInstance</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
     <references>nabu.frameworks.tasks.hooks.human.stop</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
 </node>

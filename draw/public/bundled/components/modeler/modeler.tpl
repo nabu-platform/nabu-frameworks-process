@@ -86,7 +86,8 @@
 					<div v-if="selected.target.automatic" class="is-column is-spacing-gap-medium">
 						<div v-if="selected.target.binding" class="is-column is-spacing-gap-medium">
 							<div v-for="(input, inputIndex) in selected.target.binding" class="is-column has-button-close is-spacing-medium is-color-body">
-								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getServiceInputs.bind($self, selected.target)" :formatter="function(x) { return x.name }" :extracter="function(x) { return x.name }" v-if="selected.target.actionType == 'service'"/>
+								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getServiceInputs.bind($self, selected.target)" :formatter="function(x) { return x.path }" :extracter="function(x) { return x.path }" v-if="selected.target.actionType == 'service'"/>
+								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getTypeDefinition.bind($self, selected.target)" :formatter="function(x) { return x.path }" :extracter="function(x) { return x.path }" v-else-if="selected.target.actionType == 'human'"/>
 								<n-form-text :edit="editable" v-model="input.key" label="Key" v-else/>
 								<n-form-text :edit="editable" v-model="input.value" label="Value"/>
 								<button v-if="editable" @click="selected.target.binding.splice(inputIndex, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>

@@ -4,4 +4,9 @@
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.database.types.processActionInstance" name="actionInstance"/>
     <field foreignKey="nabu.frameworks.process.database.types.processInstance:id" foreignName="processStateInstanceId:processInstanceId" indexed="true" name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="false" type="java.util.UUID"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="processInstance"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" name="processAction"/>
+    <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" name="task"/>
+    <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="processData"/>
 </structure>

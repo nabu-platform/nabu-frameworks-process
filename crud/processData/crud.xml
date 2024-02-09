@@ -9,7 +9,7 @@
     <filters>
         <caseInsensitive>false</caseInsensitive>
         <key>value</key>
-        <operator>=</operator>
+        <operator>=~</operator>
         <or>false</or>
         <input>true</input>
         <vary>false</vary>
@@ -81,6 +81,7 @@
     <provider>nabu.services.crud.provider.basic.provider</provider>
     <restLimitToUser>true</restLimitToUser>
     <updateRole>$user</updateRole>
+    <useAsAuthorizationServiceContext>false</useAsAuthorizationServiceContext>
     <useExplicitLanguage>false</useExplicitLanguage>
     <useGlobalPermissionContext>true</useGlobalPermissionContext>
     <useLanguage>false</useLanguage>

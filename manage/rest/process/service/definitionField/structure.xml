@@ -4,4 +4,5 @@
     <field name="optional" nillable="false" type="java.lang.Boolean"/>
     <field minOccurs="0" name="type" type="java.lang.String"/>
     <field name="simple" nillable="false" type="java.lang.Boolean"/>
+    <field name="path" type="java.lang.String"/>
 </structure>

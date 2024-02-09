@@ -152,6 +152,8 @@ Vue.view("process-modeler-component", {
 			debounceTimer: null,
 			lastServiceInputs: [],
 			lastService: null,
+			lastTypeId: null,
+			lastTypeFields: [],
 			instance: null,
 			// a list of all instantiated items for quick lookup of highlighting
 			instantiated: []
@@ -463,6 +465,26 @@ Vue.view("process-modeler-component", {
 				return promise;
 			}
 		},
+		getTypeDefinition: function(action, value) {
+			if (action.dataTypeId == this.lastTypeId) {
+				return this.lastTypeFields.filter(function(x) {
+					return !value || x.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
+				});
+			}
+			else if (action.dataTypeId) {
+				var self = this;
+				var promise = this.$services.q.defer();
+				self.lastTypeFields.splice(0);
+				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.type.definition", {typeId: action.dataTypeId, "$serviceContext": this.serviceContext}).then(function(result) {
+					self.lastTypeFields.splice(0);
+					if (result && result.fields) {
+						nabu.utils.arrays.merge(self.lastTypeFields, result.fields);
+					}
+					promise.resolve(self.lastTypeFields);
+				}, promise);
+				return promise;
+			}
+		},
 		getCapturesFor: function(actionId) {
 			return this.model.captures.filter(function(x) {
 				return x.processActionId == actionId;
@@ -594,6 +616,11 @@ Vue.view("process-modeler-component", {
 						event.preventDefault();
 					}
 					else if (event.key == "c" && (event.ctrlKey || event.metaKey) && self.model) {
+						// reset the copied so we don't accidently update stuff by reference (?)
+						Vue.set(self, "copied", {
+							type: null,
+							target: null
+						});
 						nabu.utils.objects.merge(self.copied, self.selected);
 					}
 					else if (event.key == "v" && (event.ctrlKey || event.metaKey) && self.copied) {
@@ -607,10 +634,20 @@ Vue.view("process-modeler-component", {
 							cloned.styling.x = 20;
 							cloned.styling.y = 50;
 							cloned.resultStateId = null;
+							// duplicate the captures as well
+							self.model.captures.filter(function(x) {
+								return x.processActionId == self.copied.target.id;
+							}).forEach(function(capture) {
+								var clonedCapture = JSON.parse(JSON.stringify(capture));	
+								clonedCapture.id = self.newId();
+								clonedCapture.globalReferenceId = clonedCapture.id;
+								clonedCapture.processActionId = cloned.id;
+								self.model.captures.push(clonedCapture);
+							});
 							self.autosizeState(self.selected.target);
 							self.drawAction(cloned);
-							// don't do again!
-							self.copied.type = null;
+							event.stopPropagation();
+							event.preventDefault();
 						}
 					}
 				}
@@ -626,7 +663,7 @@ Vue.view("process-modeler-component", {
 			this.subscriptions.push(function() {
 				document.body.removeEventListener("keydown", keyHandler);	
 				//document.body.removeEventListener("mousedown", mouseHandler);
-				this.$refs.svg.removeEventListener("mousedown", mouseHandler);	
+				self.$refs.svg.removeEventListener("mousedown", mouseHandler);
 			})
 		},
 		move: function(element, x, y) {
@@ -683,6 +720,14 @@ Vue.view("process-modeler-component", {
 			this.svg.attr("width", (this.maxWidth + 10))
 				.attr("height", (this.maxHeight + 10));	
 		},
+		moveStateContent: function(state, dx, dy) {
+			var self = this;
+			// move actions in opposite way to remain at the same place
+			state.actions.forEach(function(action) {
+				self.moveAction(action, -dx, -dy);
+				self.redrawImpactedRelations(action);
+			});
+		},
 		autosizeState: function(state) {
 			var maxWidth = state.actions.reduce(function(current, action) {
 				return Math.max(current, action.styling.x + action.styling.width);
@@ -699,10 +744,11 @@ Vue.view("process-modeler-component", {
 			d3.select(this.$refs.svg.getElementById(state.id + "-rect"))
 				.attr("width", state.styling.width)
 				.attr("height", state.styling.height)
-				
+
 			d3.select(this.$refs.svg.getElementById(state.id + "-resizer"))
 				.attr("cx", state.styling.width - this.draggableOffset)
 				.attr("cy", state.styling.height - this.draggableOffset)
+				
 		},
 		resizable: function(target, handler, start, stop) {
 			this.draggable(target, handler, start, stop, true);
@@ -852,6 +898,24 @@ Vue.view("process-modeler-component", {
 				state.styling.width += event.dx;
 				state.styling.height += event.dy;
 				self.autosizeState(state);
+				self.redrawImpactedRelations(state);
+			});
+			
+			var resizer2 = group.append("circle")
+				.attr("id", state.id + "-resizer2")
+				.attr("class", "process-state-resizer resizer")
+				.attr("r", this.draggableOffset * 2)
+				.attr("cx", 0)
+				.attr("cy", 0);
+				
+			self.resizable(resizer2, function(target, event) {
+				state.styling.width -= event.dx;
+				state.styling.height -= event.dy;
+				state.styling.x += event.dx;
+				state.styling.y += event.dy;
+				self.move(group, state.styling.x, state.styling.y);
+				self.autosizeState(state);
+				self.moveStateContent(state, event.dx, event.dy);
 				self.redrawImpactedRelations(state);
 			});
 			
@@ -1853,6 +1917,12 @@ Vue.view("process-modeler-component", {
 				}
 				target.attr("class", existing + " used");
 			}
+		},
+		moveAction: function(action, dx, dy) {
+			action.styling.x += dx;
+			action.styling.y += dy;
+			var group = d3.select(this.$refs.svg.getElementById(action.id));
+			this.move(group, action.styling.x, action.styling.y);
 		},
 		drawMainAction: function(state, action) {
 			var self = this;

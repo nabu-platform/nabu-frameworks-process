@@ -3,12 +3,12 @@
         <field minOccurs="0" name="connectionId" type="java.lang.String"/>
         <field minOccurs="0" name="serviceId" type="java.lang.String"/>
         <field minOccurs="0" name="signalId" type="java.lang.String"/>
+        <field minOccurs="0" name="actionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
     </structure>
-    <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="pipeline"/>
     <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" name="result"/>
     <structure definition="nabu.utils.types.TypeDescription" minOccurs="0" name="description"/>
     <structure comment="All the relevant captures for one service across all the processes" definition="nabu.frameworks.process.providers.action.service.utils.capture" maxOccurs="unbounded" minOccurs="0" name="captures"/>

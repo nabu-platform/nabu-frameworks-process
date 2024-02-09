@@ -73,7 +73,7 @@
 				comment="Run synchronously"
 				disabled="false"
 				id="aa052320a6654bd99e9399aa1afdf780"
-				label="true"
+				label="action/synchronous == true || input/forceSynchronous == true"
 				lineNumber="4">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -165,8 +165,8 @@
 					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.resolveDataBinding"
 					resultName="resulta12b334846994bd081346690d2febaff"
 					temporaryMapping="true"
-					x="148"
-					y="312"
+					x="125"
+					y="409"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">

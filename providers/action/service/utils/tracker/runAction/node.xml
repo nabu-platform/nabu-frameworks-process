@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:44:59.276+01:00" lastModified="2024-01-31T10:16:57.728+01:00" leaf="true" version="49">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:44:59.276+01:00" lastModified="2024-02-07T13:15:59.206+01:00" leaf="true" version="52">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -10,6 +10,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>java.lang.Boolean</references>
     <references>nabu.frameworks.tasks.providers.executor</references>
     <references>java.lang.String</references>
     <references>java.util.UUID</references>

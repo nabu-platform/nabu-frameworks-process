@@ -123,23 +123,59 @@
 				<to>actions</to>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="7d68bad7ebf8456886983054ac55639f"
+				label="input/actionId != null"
+				lineNumber="6">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="893e61d7e20f4070af86dd180622d7e0"
+					serviceId="nabu.frameworks.process.crud.processAction.services.get"
+					resultName="result54d7ab2c378943b886512a8250e49a9d"
+					temporaryMapping="true"
+					x="121"
+					y="67"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="aaa914e6180e415e90157cddfd9ab6b0"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/actionId</from>
+					<to>id</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="261f2b018bc346d2954a418164d39f29"
+					mask="true"
+					optional="false"
+					fixedValue="false">
+				<from>result54d7ab2c378943b886512a8250e49a9d/result</from>
+				<to>actions[0]</to>
+			</steps>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 				disabled="false"
 				id="358295ac8a2e43f3a44eadb8f35ae646"
-				lineNumber="6"
+				lineNumber="7"
 				message="Not sure what you're asking"
 				whitelist="false" xsi:nil="true"/>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="5a1e8474d8d14117b31014f739a0bb64"
-			lineNumber="7"
+			lineNumber="8"
 			variable="action">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Enrich action"
 				disabled="false"
 				id="e7f6e84b260643f0b77f99a04c1f88f8"
-				lineNumber="8">
+				lineNumber="9">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="a16b796ed2ab432a843996859e720e90"
@@ -350,7 +386,7 @@
 				disabled="false"
 				id="dc53dc4503374f14ad864c3d0d086570"
 				label="action/identificationType == null"
-				lineNumber="9">
+				lineNumber="10">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="5735ac1a541548818b0234b8daa7b3fc"
@@ -364,13 +400,13 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"
 				disabled="false"
 				id="0e68a7781f5946aab9305bb48abe2a08"
-				lineNumber="10"
+				lineNumber="11"
 				variable="capture">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Get existing capture"
 					disabled="false"
 					id="acbb35fb2f2349928f1b062576676bd4"
-					lineNumber="11">
+					lineNumber="12">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="e3801715b34c407583df3090b380fb4c"
@@ -402,17 +438,17 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 					disabled="false"
 					id="0b2a8ac00af846ef99cf9f074c70ae06"
-					lineNumber="12">
+					lineNumber="13">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 						disabled="false"
 						id="5be7392c2ae64713bda768c9b7d218a7"
 						label="existingCapture == null"
-						lineNumber="13">
+						lineNumber="14">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							comment="Map initial"
 							disabled="false"
 							id="f703e3e7b5c1436594c0b73d7493be02"
-							lineNumber="14">
+							lineNumber="15">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="b867c8fa5b644cf4958af8ceea8dba3c"
@@ -444,7 +480,7 @@
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="8818eb5a78934e76ac3a1bd6af8098fb"
-							lineNumber="15">
+							lineNumber="16">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="585c3e36139243a6800cdc061860dde3"
@@ -491,7 +527,7 @@
 						disabled="false"
 						id="c117d656550643938a0eafdcd1e587f9"
 						label="capture/name !# existingCapture/names"
-						lineNumber="16">
+						lineNumber="17">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="fd93030441144be1b4b01dff2b6f21b3"
@@ -538,7 +574,7 @@
 					disabled="false"
 					id="8428e334d08b4566a67dd859a21bc7bf"
 					label="capture/phase == &quot;input&quot;"
-					lineNumber="17">
+					lineNumber="18">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="346458bd8484411ba2b07fc34aba734e"
@@ -553,7 +589,7 @@
 					comment="Drop name"
 					disabled="false"
 					id="33af3a1257fa405e93241de7fd851486"
-					lineNumber="18">
+					lineNumber="19">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
 						disabled="false"
 						id="8db6b8be48ab432ea55ea9104c4ea09a"
@@ -566,7 +602,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="90b1410dcb0145e2b0fd67a310f7a197"
-			lineNumber="19">
+			lineNumber="20">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="14e71a85b09d43a6bcde7105712a8eec"
@@ -601,13 +637,13 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="b69aa48ea5e6443cb25aa5a28bff85b6"
-			lineNumber="20"
+			lineNumber="21"
 			variable="processId"
 			into="output/processes">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="3aab5797f16b4b2f9656f865ed356503"
-				lineNumber="21">
+				lineNumber="22">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="f2cf7682af5d4521b6aa504144f107ee"
@@ -663,7 +699,7 @@
 			comment="Sort deprecated first"
 			disabled="false"
 			id="3147bcf5a963422e80f610a92a40a2d8"
-			lineNumber="22">
+			lineNumber="23">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="dbdc8e5b926b48ad8621b6a380378c3e"
