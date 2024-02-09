@@ -295,6 +295,15 @@
 				<from>multipleProcessInstanceIds</from>
 				<to>multipleProcessInstanceIds</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="50be4829355b433ea5d2fee9ba37c118"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/signalId</from>
+				<to>name</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"

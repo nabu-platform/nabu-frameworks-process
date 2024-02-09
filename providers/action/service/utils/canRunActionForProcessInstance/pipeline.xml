@@ -29,4 +29,6 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
     <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" minOccurs="0" name="currentStateInstance"/>
     <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" minOccurs="0" name="sourceAction"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.database.types.processStateRelation" maxOccurs="unbounded" minOccurs="0" name="potentialStateRelations"/>
+    <field minOccurs="0" name="amountOfPotentialStateRelations" type="java.lang.Integer"/>
 </structure>

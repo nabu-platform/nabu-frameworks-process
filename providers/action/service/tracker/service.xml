@@ -577,6 +577,15 @@
 										<from>serviceContextConnectionId</from>
 										<to>connectionId</to>
 									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="6b3e1661cdd7416f8bfbc56d257a0c56"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>input/name</from>
+										<to>name</to>
+									</steps>
 								</steps>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.For"

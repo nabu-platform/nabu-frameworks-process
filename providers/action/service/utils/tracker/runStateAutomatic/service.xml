@@ -74,11 +74,27 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get list of ids"
+			disabled="false"
+			id="d6302c7b5026406c8e4d0a7569eb192a"
+			label="finalizers"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="1d1033d8b29441a79c2f7f98b8639163"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>finalizers/id</from>
+			<to>finalizerIds</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="Get automated actions"
 			disabled="false"
 			id="0ebbe353bffc4de998687803b31566f1"
 			label="state"
-			lineNumber="3">
+			lineNumber="4">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
 				id="6d723669e88d4a3f8b162407dfd1ecbf"
@@ -94,12 +110,12 @@
 			disabled="false"
 			id="5211bc19f8bf477db9cfe3c962203866"
 			label="automaticActions"
-			lineNumber="4">
+			lineNumber="5">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Get a list of the ids"
 				disabled="false"
 				id="3021bf502f6640debfd082f823de7e44"
-				lineNumber="5">
+				lineNumber="6">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="efd57bcd74dd416d894e6e7793236b43"
@@ -114,7 +130,7 @@
 				comment="Get all flow relations pertaining to those"
 				disabled="false"
 				id="be0ab7ebc01a4583b3ed288a13d2c277"
-				lineNumber="6">
+				lineNumber="7">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="9ef27e59bc86476a9cc120982089d96d"
@@ -124,12 +140,21 @@
 				<from>definition/actionRelations[targetActionId # /automaticActionIds &amp;&amp; relationType == "flow"]</from>
 				<to>flowRelations</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="75b85ef49739472cb15f91a522653c82"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>definition/stateRelations[(actionId # /automaticActionIds || actionId # /finalizerIds) &amp;&amp; relationType == "flow-initial"]</from>
+				<to>flowInitialRelations</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Get a list of _those_ ids"
 				disabled="false"
 				id="c438118bf6174b86b42e2d588e0a7c0a"
-				lineNumber="7">
+				lineNumber="8">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="7e3cf6d6ec144951bd004dd2d8816668"
@@ -144,7 +169,7 @@
 				comment="Retain only automatic actions that are not in the new list"
 				disabled="false"
 				id="71b839ff01244f2885cc401fc7e9cfd1"
-				lineNumber="8">
+				lineNumber="9">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="a4763fdf3f724b808ccbf587ff47948b"
@@ -156,15 +181,151 @@
 			</steps>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="If we have any conditions, create a map"
+			disabled="false"
+			id="86993ec5f5454b80bf9e39575181321b"
+			label="flowInitialRelations != null &amp;&amp; input/processData != null"
+			lineNumber="10">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="029874d4017f4b78bda2018d68bb27e0"
+				serviceId="nabu.utils.List.toMap"
+				resultName="resulteffac0dc821b4630a5c02f541faea07a"
+				temporaryMapping="true"
+				x="36"
+				y="105"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="48bf0b1f887f499f95705a7a5a83bbe9"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processData</from>
+				<to>list</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b6886af125bc4c308234f6cfbe16e165"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>name</from>
+				<to>keyField</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="206ff05c7c6c423380c74358ae8881aa"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>value</from>
+				<to>valueField</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="c06648760a584606a2dfe0e4244ddaab"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resulteffac0dc821b4630a5c02f541faea07a/map</from>
+			<to>map</to>
+		</steps>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="42c08776d0ad4e5e9befc8f401b10e82"
-			lineNumber="9"
+			lineNumber="11"
 			variable="automaticAction">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get the initial flow relation"
+				disabled="false"
+				id="78f861437efd4985ad8f705c516d8f0d"
+				lineNumber="12">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="28ba7891688d4bc89735fab5c3bc0b39"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>flowInitialRelations[actionId == /automaticAction/id]</from>
+				<to>flowInitialRelation</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+				disabled="false"
+				features="PROCESS_STATE_REQUIRE_INITIAL_FLOW"
+				id="fedd9fa5e6e24dff86ebd69d3feb2ebf"
+				label="!flowInitialRelation"
+				lineNumber="13"
+				message="An automatic action has no incoming action relations nor an incoming state relation"
+				whitelist="false" xsi:nil="true"/>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				disabled="false"
+				id="6db223b4ef46483bb400b1ee8d4503f3"
+				label="flowInitialRelation/condition != null"
+				lineNumber="14">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="0b2401150317482db5cb4d4398e13a2d"
+					lineNumber="15">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="b50f2ccdb38444ac977d27355dc20c57"
+						serviceId="nabu.services.glue.Services.evaluate"
+						resultName="result8f4403c86bb6450c931065e771bcdbbf"
+						temporaryMapping="true"
+						x="57"
+						y="77"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="64eed07992e347698e76aef54a9e6826"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>map</from>
+						<to>context[0]</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="0aa5f0f48f3d448ea64a6f31ddd9923e"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>flowInitialRelation/condition</from>
+						<to>rule</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6d1670ff15264b8ea66fe5c21eb24a97"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result8f4403c86bb6450c931065e771bcdbbf/response</from>
+					<to>result</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+					disabled="false"
+					id="92d066f1688d4b4ebe9a92f464e302ae"
+					label="result != true"
+					lineNumber="16">
+				<count>2</count>
+				<continueExecution>true</continueExecution>
+			</steps>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="254f6cf149fb47b4981d7b1bf79eaea9"
-				lineNumber="10">
+				lineNumber="17">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="13ae8989fd3c4550acb6ee97a0a8fa63"
@@ -247,12 +408,12 @@
 			comment="Check if we have a finalizer at the root of a state"
 			disabled="false"
 			id="01bf2830f69742f0a977a63d00b20b47"
-			lineNumber="11"
+			lineNumber="18"
 			variable="finalizer">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="939408e0c6df44fa924a0df801afd44c"
-				lineNumber="12">
+				lineNumber="19">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="ef629caab91d49d6920b72c852d4bc25"
@@ -284,16 +445,97 @@
 				<to>amountOfIncomingFlows</to>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get the initial flow relation"
+				disabled="false"
+				id="172279aacb144e359e1f12e75cb1e619"
+				lineNumber="20">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e3c28af82b8f4478845509811df123fa"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>flowInitialRelations[actionId == /finalizer/id]</from>
+				<to>flowInitialRelation</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+				disabled="false"
+				features="PROCESS_STATE_REQUIRE_INITIAL_FLOW"
+				id="dbf62357806f4acc99c43ee4b82bbe88"
+				label="!flowInitialRelation"
+				lineNumber="21"
+				message="An automatic action has no incoming action relations nor an incoming state relation"
+				whitelist="false" xsi:nil="true"/>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				disabled="false"
+				id="1eb2a70a45604318bd845caac6c703cf"
+				label="flowInitialRelation/condition != null"
+				lineNumber="22">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="26ced3a64e474be085555407e1789542"
+					lineNumber="23">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="912684a1e7704bb5912716d78535fbc1"
+						serviceId="nabu.services.glue.Services.evaluate"
+						resultName="result8f4403c86bb6450c931065e771bcdbbf"
+						temporaryMapping="true"
+						x="57"
+						y="77"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="b8592eec19314c11bf0c60427ce6373b"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>map</from>
+						<to>context[0]</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="91ca6a869f1e48e1b3af1c80f85825e6"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>flowInitialRelation/condition</from>
+						<to>rule</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="49dbf8abe699497d8c9bcdb4be873e2f"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result8f4403c86bb6450c931065e771bcdbbf/response</from>
+					<to>result</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+					disabled="false"
+					id="55486524fcd5494781483760b95b6a5b"
+					label="result != true"
+					lineNumber="24">
+				<count>2</count>
+				<continueExecution>true</continueExecution>
+			</steps>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				disabled="false"
 				id="6712cc6cc01d4e8996137744f411377d"
 				label="amountOfIncomingFlows == 0"
-				lineNumber="13">
+				lineNumber="25">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="If we get here, we want to stop the process"
 					disabled="false"
 					id="47351a91913d4ec184ff4497a57fba3e"
-					lineNumber="14">
+					lineNumber="26">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="4937cc7a3abc423eaf85c2e7c2c1d1a0"
@@ -397,7 +639,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Break"
 					disabled="false"
 					id="e47e26c9ce454fc78534fd4013798e83"
-					lineNumber="15">
+					lineNumber="27">
 				<count>2</count>
 			</steps>
 		</steps>

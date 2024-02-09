@@ -748,7 +748,11 @@ Vue.view("process-modeler-component", {
 			d3.select(this.$refs.svg.getElementById(state.id + "-resizer"))
 				.attr("cx", state.styling.width - this.draggableOffset)
 				.attr("cy", state.styling.height - this.draggableOffset)
-				
+			
+			// need to redraw the triangle, its hard to simply "move"
+			this.drawStateMapper(state);
+			
+			this.defaultColorize(d3.select(this.$refs.svg.getElementById(state.id)), this.getThemeColor("state", state.styling.color));
 		},
 		resizable: function(target, handler, start, stop) {
 			this.draggable(target, handler, start, stop, true);
@@ -822,6 +826,9 @@ Vue.view("process-modeler-component", {
 			group.querySelectorAll(":scope > .resizer").forEach(function(element) {
 				//element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
 				element.setAttribute("style", "fill: " + result.background + "; stroke: " + result.border);
+			});
+			group.querySelectorAll(":scope > .mapper").forEach(function(element) {
+				element.setAttribute("style", "fill: " + result.border + "; stroke: " + result.border);
 			});
 		},
 		inBounds: function(newX, newY, newWidth, newHeight, boundsX, boundsY, boundsWidth, boundsHeight) {
@@ -933,7 +940,9 @@ Vue.view("process-modeler-component", {
 					self.linking.state = null;
 				}
 				event.stopPropagation();
-			})
+			});
+			
+			this.drawStateMapper(state);
 			
 			// add some default colors
 			this.defaultColorize(group, this.getThemeColor("state", state.styling.color));
@@ -1303,6 +1312,8 @@ Vue.view("process-modeler-component", {
 		drawStateRelation: function(relation) {
 			var self = this;
 			
+			var isInitial = relation.relationType == "flow-initial";
+			
 			// check if there is a previous line, we might be redrawing
 			var existing = this.svg.node().getElementById(relation.id);
 			if (existing) {
@@ -1346,7 +1357,7 @@ Vue.view("process-modeler-component", {
 			stateBounds = state.styling;
 			
 			// we always start from the center right, we add 5 because that's the radius of the connection circle
-			var fromX = parentBounds.x + action.styling.x + action.styling.width + this.triangleSize;
+			var fromX = parentBounds.x + action.styling.x + (isInitial ? 0 : action.styling.width) + (isInitial ? 0 : this.triangleSize);
 			var fromY = parentBounds.y + action.styling.y + (action.styling.height / 2);
 			
 			var leftOffset = 100;
@@ -1392,9 +1403,16 @@ Vue.view("process-modeler-component", {
 			// if the target action is on the left of the source action, we want to do additional stuff
 			else if (to.side == "left") {
 				var resultingOffset = Math.max(0, to.x - fromX);
-				points[1].x = fromX + (leftOffset - resultingOffset);
+				if (!isInitial) {
+					points[1].x = fromX + (leftOffset - resultingOffset);
+				}
 				points[1].y = points[0].y;
-				points[2].x = to.x - (leftOffset - resultingOffset);
+				if (!isInitial) {
+					points[2].x = to.x - (leftOffset - resultingOffset);
+				}
+				else {
+					points[3].x = points[3].x + this.triangleSize;
+				}
 				points[2].y = points[3].y;
 			}
 			
@@ -1658,7 +1676,7 @@ Vue.view("process-modeler-component", {
 					
 			}
 		},
-		drawActionConnecting: function(actionFrom, event) {
+		drawActionConnecting: function(actionFrom, event, isState) {
 			var group = d3.select(this.$refs.svg.getElementById(actionFrom.id));
 			
 			// bring the action to the front so we can see the line always
@@ -1679,16 +1697,16 @@ Vue.view("process-modeler-component", {
 			var actions = {
 				update: function(event) {
 					var points = [{
-						x: actionFrom.styling.width,
+						x: isState ? 0 : actionFrom.styling.width,
 						y: actionFrom.styling.height / 2
 					}, 
 					// the halfway point
 					{
-						x: event.x - ((event.x - actionFrom.styling.width) / 2),	
+						x: event.x - ((event.x - (isState ? 0 : actionFrom.styling.width)) / 2),	
 						y: actionFrom.styling.height / 2
 					}, 
 					{
-						x: event.x - ((event.x - actionFrom.styling.width) / 2),	
+						x: event.x - ((event.x - (isState ? 0 : actionFrom.styling.width)) / 2),	
 						y: event.y - 1
 					},
 					// move ever so slightly out of the way to prevent false mouseenter/leave hits
@@ -1948,6 +1966,10 @@ Vue.view("process-modeler-component", {
 				// if we are not dragging _this_ action, we highlight for a link
 				// note that we have to be in the same state for this to happen
 				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					rect.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				else if (self.linking.sourceState && self.linking.sourceState.id == state.id) {
 					rect.node().classList.add("drop-highlight");
 					self.linking.targetAction = action;
 				}
@@ -2257,6 +2279,60 @@ Vue.view("process-modeler-component", {
 			}
 		},
 		
+		drawStateMapper: function(state) {
+			var self = this;
+			var group = d3.select(this.svg.node().getElementById(state.id));
+			var existing = this.svg.node().getElementById(state.id + "-mapper");
+			if (existing) {
+				d3.select(existing).remove();
+			}
+			var triangleSize = this.triangleSize;
+			var trianglePath = d3.path();
+			trianglePath.moveTo(0, (state.styling.height / 2) - triangleSize);
+			trianglePath.lineTo(0 + triangleSize, state.styling.height / 2);
+			trianglePath.lineTo(0, (state.styling.height / 2) + triangleSize);
+			trianglePath.closePath();
+				
+			var mapper = group.append("path")
+				.attr("d", trianglePath)
+				.attr("id", state.id + "-mapper")
+				.attr("class", "mapper")
+				
+			var line = null;
+			self.draggable(mapper, function(target, event) {
+				line.update(event);
+			}, function(target, event) {
+				// on start, create the line
+				line = self.drawActionConnecting(state, event, true);
+				self.linking.sourceState = state;
+			}, function(target, event) {
+				// only within own state!
+				// TODO: check that there is not already a link!
+				if (self.linking.targetAction && self.linking.targetAction.processStateId == state.id) {
+					var relation = {
+						id: self.newId(),
+						actionId: self.linking.targetAction.id,
+						targetStateId: state.id,
+						relationType: "flow-initial",
+						styling: {}
+					};
+					relation.globalReferenceId = relation.id;
+					self.model.stateRelations.push(relation);
+					self.drawStateRelation(relation);
+				}
+				self.linking.action = null;
+				self.linking.state = null;
+				self.linking.targetAction = null;
+				
+				// make sure we don't have drop highlights anymore
+				self.svg.node().querySelectorAll(".drop-highlight").forEach(function(element) {
+					element.classList.remove("drop-highlight");
+				});
+				line.remove();
+			});
+			return mapper;
+		},
+		
 		// ---------------------------------------- FINALIZER implementation
 		drawFinalizerAction: function(action) {
 			var self = this;
@@ -2302,6 +2378,10 @@ Vue.view("process-modeler-component", {
 				// note that we have to be in the same state for this to happen
 				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
 					circle.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				else if (self.linking.sourceState && self.linking.sourceState.id == state.id) {
+					rect.node().classList.add("drop-highlight");
 					self.linking.targetAction = action;
 				}
 				event.stopPropagation();
@@ -2469,6 +2549,10 @@ Vue.view("process-modeler-component", {
 				// if we are not dragging _this_ action, we highlight for a link
 				// note that we have to be in the same state for this to happen
 				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					rect.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				else if (self.linking.sourceState && self.linking.sourceState.id == state.id) {
 					rect.node().classList.add("drop-highlight");
 					self.linking.targetAction = action;
 				}

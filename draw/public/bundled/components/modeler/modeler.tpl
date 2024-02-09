@@ -145,7 +145,7 @@
 					<n-form-switch :edit="editable" v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition" @input="draw"/>
 				</div>
 				<div v-else-if="selected.type == 'stateRelation'" class="is-column is-spacing-gap-medium">
-					<n-form-combo :edit="editable" v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-failed', title: 'Failure flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
+					<n-form-combo v-if="selected.target.relationType != 'flow-initial'" :edit="editable" v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-failed', title: 'Failure flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
 					<n-form-text :edit="editable" v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" @input="draw" :timeout="600"/>
 					<n-form-switch :edit="editable" v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition" @input="draw"/>
 				</div>
