@@ -63,7 +63,7 @@
 					mask="false"
 					optional="false"
 					fixedValue="true">
-				<from>false</from>
+				<from>=potentialProcessInstance/processState == "ERROR"</from>
 				<to>output/processInError</to>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-06-13T16:54:57.252+02:00" lastModified="2023-06-13T16:58:30.946+02:00" leaf="true" version="5">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-06-13T16:54:57.252+02:00" lastModified="2024-03-22T15:15:55.622+01:00" leaf="true" version="6">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.tasks.crud.taskQueue.types.output</references>
-    <references>nabu.frameworks.tasks.crud.taskQueue.services.update</references>
+    <references>nabu.services.jdbc.Services.update</references>
     <references>nabu.utils.Date.now</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>

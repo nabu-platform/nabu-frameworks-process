@@ -42,7 +42,7 @@
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed != true &amp;&amp; relationType == "flow") || (/input/failed == true &amp;&amp; relationType == "flow-failed") ) &amp;&amp; automatic == true]</from>
+			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed != true &amp;&amp; (relationType == "flow" || relationType == "flow-start")) || (/input/failed == true &amp;&amp; relationType == "flow-failed") ) &amp;&amp; automatic == true]</from>
 			<to>relationsToRun</to>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"

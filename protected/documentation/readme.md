@@ -1,3 +1,47 @@
+# Connection Resolving
+
+When a service is called, we need to know which connection to use to resolve process definitions and add any logs.
+
+In a far away past, connection resolving was done in two stages:
+
+- is there a connection explicitly configured for the service that is being run or any part of its path, for instance you could redirect the whole process framework to a particular connection by registering "nabu.frameworks.process" in the context of that connection
+- if not, check if there is a connection for the _root_ context of whatever we are running now
+
+Because we wanted to create more "utility" packages that have their own database connections a new resolving step was added in between those two:
+
+- is there any service in the service stack (starting from the current service all the way up to the root) that has a connection? if so use that.
+
+It is not technically impossible to have the process engine work across multiple connections simultaneously (so track a single service in multiple connections) but the sheer complexity of this makes it a hard sell.
+
+This means the process engine must choose a singular connection every time it hooks into a service.
+
+In the first iteration, the process engine _explicitly_ resolved a connection based on the root service context. This bypasses any of the other resolving steps. Most notably it prevented you from centralizing all processes into a single connection by configuring an intercept.
+
+However, when we switched to hierarchical resolving, where each step along the way is evaluated, that would mean each and every service in the service stack that had a connection configured for it, would intercept the process engine, even if it does not support processes.
+
+There are however two valid scenarios:
+
+- most processes are controlled by the overarching business logic, so root resolving is generally logical
+- you can imagine some utility projects have their own need for processes (e.g. a microservice for contract management requiring a process to handle creation of a new contract)
+
+However, the process engine has to choose and choosing is losing.
+
+Short term a new concept was added to connection resolving: required dependencies. This means we can check the full service stack but not stop at the first random connection, but instead a connection that has the process model synced, indicating it is process-ready.
+This means utility projects can choose to intercept process trackers or not.
+
+To be tested: because of this setup, the process engine might end up tracking nested calls that are logged in different connections. It is currently not entirely clear if this will work cleanly. This will need to be checked.
+
+If a higher level service calls a lower level business package that has process support, the higher level project will never be able to capture any particular steps that happen inside of the business package.
+
+For instance suppose we have "utilityProject.contract.create" which starts of its own process.
+Our higher level package could wrap this in "higherProject.contract.create" which _it_ could track. However it would never be able to track all the details that happen in the utilityProject.
+
+Instead, if this becomes necessary, the idea is to use process signals to fix this. A process signal is currently emitted in the connection context of whoever is firing it.
+We could however toggle that it must fire in _all_ contexts, which means a process running in the utilityProject could send a signal that can be intercepted by the higherProject.
+
+We could then wonder whether the utilityProject must explicitly emit a signal or whether every step in the process is automatically converted into a signal _if_ someone subscribes to it.
+The advantage of the latter is that (as with general hooking) you don't need to know at design time of utilityProject which parts will be interesting to other systems later on nor require a retrofit if you missed one.
+
 # TODO
 
 - human task

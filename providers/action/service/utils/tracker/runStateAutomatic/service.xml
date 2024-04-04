@@ -137,7 +137,7 @@
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>definition/actionRelations[targetActionId # /automaticActionIds &amp;&amp; relationType == "flow"]</from>
+				<from>definition/actionRelations[targetActionId # /automaticActionIds &amp;&amp; (relationType == "flow" || relationType == "flow-start")]</from>
 				<to>flowRelations</to>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -255,6 +255,36 @@
 				<from>flowInitialRelations[actionId == /automaticAction/id]</from>
 				<to>flowInitialRelation</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="95f49ca3f5354ee29e0fdff768f89dea"
+					serviceId="nabu.utils.List.size"
+					resultName="result87bea245f5b6431fa6a9da774784b870"
+					temporaryMapping="true"
+					x="222"
+					y="138"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="ddc2c4e197b2442fa3252d55dfa6260a"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>flowRelations[targetActionId == /finalizer/id &amp;&amp; (relationType == "flow" || relationType == "flow-start")]</from>
+					<to>list</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="3b17a9f139d0458c98a931c47d48f61a"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result87bea245f5b6431fa6a9da774784b870/size</from>
+				<to>amountOfIncomingFlows</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 				disabled="false"
@@ -325,6 +355,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="254f6cf149fb47b4981d7b1bf79eaea9"
+				label="amountOfIncomingFlows == 0"
 				lineNumber="17">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"

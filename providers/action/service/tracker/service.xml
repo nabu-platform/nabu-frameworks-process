@@ -69,7 +69,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			comment="Context based on root service context"
+			comment="Connection resolving, check framework documentation"
 			disabled="false"
 			id="36b39012e8c14f2085d5863f5e369010"
 			lineNumber="3">
@@ -79,19 +79,28 @@
 				serviceId="nabu.protocols.jdbc.pool.Services.connectionForContext"
 				resultName="resultbe1a6154ad474e8b82d10448aa639a50"
 				temporaryMapping="true"
-				x="406"
-				y="116"
+				x="111"
+				y="82"
 				invocationOrder="1"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="c4b7e743516c4dcf86831b0cb1754de1"
+					id="dd93f30b3fad4fcb98abd6af00470986"
 					mask="false"
 					optional="false"
-					fixedValue="false">
-				<from>result362bcab6ce284a3eb1e28c6259a80ae2/serviceContext</from>
+					fixedValue="true">
+				<from>nabu.frameworks.process</from>
 				<to>context</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="bd86c7610def4c48bf286361d18b1ff2"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>nabu.frameworks.process.database.model</from>
+				<to>requiredDependencies[0]</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -103,54 +112,12 @@
 			<from>resultbe1a6154ad474e8b82d10448aa639a50/connectionId</from>
 			<to>serviceContextConnectionId</to>
 		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-				disabled="false"
-				id="550e386f076e4ca8815b82d6289912e9"
-				serviceId="nabu.utils.reflection.Node.dependencies"
-				resultName="result93efca2508ae41bba43d670fb690c06b"
-				temporaryMapping="true"
-				x="184"
-				y="235"
-				invocationOrder="0"
-				asynchronous="false"
-				recache="false">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="4d312cfe2a1b4d9082c1889f6e934883"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>nabu.frameworks.process.database.model</from>
-				<to>id</to>
-			</steps>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-				disabled="false"
-				id="2660498f0e6c4d43928bb76d132f8dfa"
-				mask="false"
-				optional="false"
-				fixedValue="false">
-			<from>result93efca2508ae41bba43d670fb690c06b/nodes[artifactClass == "be.nabu.eai.module.jdbc.pool.JDBCPoolArtifact"]/id</from>
-			<to>synchronizedConnections</to>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-				disabled="false"
-				id="fab8d86766894d8fa92f1b688d26906d"
-				serviceId="nabu.utils.Runtime.getServiceContext"
-				resultName="result362bcab6ce284a3eb1e28c6259a80ae2"
-				temporaryMapping="true"
-				x="29"
-				y="33"
-				invocationOrder="0"
-				asynchronous="false"
-				recache="false">
-		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			comment="Only continue if the current connection supports the process engine."
 			disabled="false"
 			id="98caa3cef5714cdc85f71c0d5b3486c8"
-			label="serviceContextConnectionId # synchronizedConnections"
+			label="serviceContextConnectionId != null"
 			lineNumber="4"
 			query="input/type">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"

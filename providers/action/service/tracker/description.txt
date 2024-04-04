@@ -14,3 +14,20 @@ We could do an insert when the action starts and an update when it ends, this ha
 - if the server fails, we have things that need to be rolled back.
 
 For simplicity sake, we are opting to only do an insert when the service is done currently.
+
+---
+
+
+Connection selection:
+
+we ask the jdbc context for the framework within the running context, for instance:
+
+running context is project1
+framework is nabu.framework.logs
+
+If we have hardcoded a context intercept on a jdbc connection somewhere, it will return that connection.
+If there is no intercept, it will return the correct connection for the actual running context.
+
+This gives us the ability to centralize the configuration or leave it per application.
+
+Compare this to the original approach where we only asked the connection for the running context, which always ended up with project1. In this approach we could NOT create an intercept to centralize.
