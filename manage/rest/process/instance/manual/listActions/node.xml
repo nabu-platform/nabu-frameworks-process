@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2024-04-17T16:28:48.048+02:00" lastModified="2024-04-17T16:30:41.552+02:00" leaf="true" version="8">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.services.instance.getTriggerableActions</references>
+    <references>nabu.frameworks.process.manage.rest.process.instance.manual.actionList</references>
+</node>

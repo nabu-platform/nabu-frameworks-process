@@ -289,7 +289,7 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-				comment="Let's get the data"
+				comment="Let's get the data, should maybe depend on the taskOutput being filled in even if there is no data type here?"
 				disabled="false"
 				id="629c35e0d72140ce814b339baf45ddec"
 				label="processAction/dataTypeId != null"
@@ -371,6 +371,15 @@
 							fixedValue="false">
 						<from>processAction/dataTypeId</from>
 						<to>type</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="43e8cd0313fa4bf7bfe344aa35998298"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>true</from>
+						<to>ignoreUndefinedFields</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"

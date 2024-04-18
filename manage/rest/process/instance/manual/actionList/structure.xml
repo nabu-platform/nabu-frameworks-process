@@ -1,0 +1,3 @@
+<structure name="actionList">
+    <structure definition="nabu.frameworks.process.services.instance.action" maxOccurs="unbounded" minOccurs="0" name="actions"/>
+</structure>

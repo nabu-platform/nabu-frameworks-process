@@ -6,7 +6,7 @@
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="processInstance" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
     <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" enricher="nabu.frameworks.process.crud.processAction.services.list" name="processAction" persister="nabu.frameworks.process.crud.processAction.batch.updateAll"/>
     <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" enricher="nabu.frameworks.tasks.crud.task.services.list" name="task" persister="nabu.frameworks.tasks.crud.task.batch.updateAll"/>
-    <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
+    <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="processData"/>
 </structure>

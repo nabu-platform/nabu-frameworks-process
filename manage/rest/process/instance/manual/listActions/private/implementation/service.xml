@@ -1,0 +1,40 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="0ba2f480907a408b85249fefc2d6427e"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="1289c14101b94dd194f03b610f694823"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="616cd948a547482c9c48c8b904008a00"
+				serviceId="nabu.frameworks.process.services.instance.getTriggerableActions"
+				resultName="result4e4160737d4742da92bdb7447fc5cc13"
+				temporaryMapping="true"
+				x="277"
+				y="76"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ff6e78ff8bbf4dddb657f195f4a755d7"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/path/instanceId</from>
+				<to>processInstanceId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="3a64df99211f4fe3be7ea3599aaa8632"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result4e4160737d4742da92bdb7447fc5cc13/actions</from>
+			<to>output/content/actions</to>
+		</steps>
+	</steps>
+</sequence>

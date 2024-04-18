@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-04-17T16:16:32.273+02:00" lastModified="2024-04-17T16:28:17.774+02:00" leaf="true" version="17">
+    <comment>Calculate the actions that can be triggered at this time</comment>
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
+    <references>nabu.frameworks.process.services.instance.action</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>java.lang.Boolean</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
+</node>

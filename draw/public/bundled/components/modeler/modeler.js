@@ -475,6 +475,7 @@ Vue.view("process-modeler-component", {
 				var self = this;
 				var promise = this.$services.q.defer();
 				self.lastTypeFields.splice(0);
+				self.lastTypeFields.push("$all");
 				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.type.definition", {typeId: action.dataTypeId, "$serviceContext": this.serviceContext}).then(function(result) {
 					self.lastTypeFields.splice(0);
 					if (result && result.fields) {
@@ -528,7 +529,7 @@ Vue.view("process-modeler-component", {
 			this.selected.target = target;
 			this.selected.deselector = deselector;
 			
-			element = this.$refs.svg.getElementById(target.id);
+			var element = this.$refs.svg.getElementById(target.id);
 			if (element) {
 				element.classList.add("selected");
 			}
