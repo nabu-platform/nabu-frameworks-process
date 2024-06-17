@@ -42,7 +42,7 @@
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed != true &amp;&amp; (relationType == "flow" || relationType == "flow-start")) || (/input/failed == true &amp;&amp; relationType == "flow-failed") ) &amp;&amp; automatic == true]</from>
+			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed != true &amp;&amp; (relationType == "flow" || relationType == "flow-start")) || (/input/failed == true &amp;&amp; relationType == "flow-failed") ) &amp;&amp; automatic == true &amp;&amp; actionType != "any" &amp;&amp; actionType != "finalizer" &amp;&amp; actionType != "initializer"]</from>
 			<to>relationsToRun</to>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -63,50 +63,32 @@
 			lineNumber="3">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="029874d4017f4b78bda2018d68bb27e0"
-				serviceId="nabu.utils.List.toMap"
-				resultName="resulteffac0dc821b4630a5c02f541faea07a"
+				id="5ac6d0ea38214d08961a4baff2c81b09"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.dataToMap"
+				resultName="resultc73dafe877da494db0cb7b0dff7398f8"
 				temporaryMapping="true"
-				x="36"
-				y="105"
+				x="183"
+				y="130"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="48bf0b1f887f499f95705a7a5a83bbe9"
+					id="dcd9b8fbab6e49b0a0f47a720ee24c68"
 					mask="false"
 					optional="false"
 					fixedValue="false">
 				<from>input/processData</from>
-				<to>list</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="b6886af125bc4c308234f6cfbe16e165"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>name</from>
-				<to>keyField</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="206ff05c7c6c423380c74358ae8881aa"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>value</from>
-				<to>valueField</to>
+				<to>available</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="c06648760a584606a2dfe0e4244ddaab"
+				id="626f5f63a747499c8c8fa16624bbfc50"
 				mask="false"
 				optional="false"
 				fixedValue="false">
-			<from>resulteffac0dc821b4630a5c02f541faea07a/map</from>
+			<from>resultc73dafe877da494db0cb7b0dff7398f8/map</from>
 			<to>map</to>
 		</steps>
 	</steps>

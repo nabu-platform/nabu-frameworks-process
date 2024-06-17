@@ -10,7 +10,7 @@
     <field comment="The ids of all the process instances that are in an incorrect state to allow this to proceed" maxOccurs="unbounded" minOccurs="0" name="conflictingStateProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="The ids of all the process instances that are in error" maxOccurs="unbounded" minOccurs="0" name="errorProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="When you have too many processes that match, we want to throw an exception as well" maxOccurs="unbounded" minOccurs="0" name="multipleProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" minOccurs="0" name="stateInstance"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" enricher="nabu.frameworks.process.crud.processStateInstance.services.list" minOccurs="0" name="stateInstance" persister="nabu.frameworks.process.crud.processStateInstance.batch.updateAll"/>
     <field maxOccurs="unbounded" minOccurs="0" name="createdProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <field minOccurs="0" name="serializedInput" type="java.lang.String"/>
@@ -24,4 +24,5 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
     <field minOccurs="0" name="actionDescription" type="java.lang.String"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="processData"/>
+    <field minOccurs="0" name="triggerActionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
 </structure>

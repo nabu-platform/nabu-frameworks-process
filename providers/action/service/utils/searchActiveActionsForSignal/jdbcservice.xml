@@ -7,6 +7,6 @@ from ~process_actions pa
 -- only active ones!
 where pv.released is not null and pv.deactivated is null
 	and pa.signal_id = :signalId
-	-- if we _send_ the signal, we don't want to subscribe to it as well
-	and pa.automatic = false</sql>
+	-- if we _send_ the signal, we don't want to subscribe to it as well (it can be false or null)
+	and pa.automatic &lt;&gt; true</sql>
 </jdbcService>

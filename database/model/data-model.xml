@@ -45,7 +45,7 @@
         <synchronize>true</synchronize>
         <type>nabu.frameworks.process.database.types.processActionInstance</type>
         <x>1046</x>
-        <y>815</y>
+        <y>852</y>
     </entries>
     <entries>
         <synchronize>true</synchronize>

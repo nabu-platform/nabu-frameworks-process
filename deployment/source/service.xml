@@ -315,6 +315,15 @@
 			<from>result4b9aa29d8a344fe4b4168fc692e4bde4/results[released != null]</from>
 			<to>output/versions</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="bdef131695824754a495946eb50969f8"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>input/connectionId</from>
+			<to>output/connectionId</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Break"
 			comment="Nothing to deploy"

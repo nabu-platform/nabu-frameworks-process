@@ -21,9 +21,9 @@
     <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="serviceInput"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
     <field name="taskId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="actionInstancesInError"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="actionInstancesInError" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
     <field name="amountOfActionInstancesInError" nillable="false" type="java.lang.Long"/>
-    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="processInstance"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="processInstance" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
     <field comment="You can define a shared queue. Otherwise each process will have its own (anonymous) queue." minOccurs="0" name="queue" type="java.lang.String"/>
     <field minOccurs="0" name="actionInput" type="java.lang.String"/>
     <field name="nested" type="java.lang.Boolean"/>

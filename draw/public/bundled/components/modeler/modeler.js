@@ -475,12 +475,14 @@ Vue.view("process-modeler-component", {
 				var self = this;
 				var promise = this.$services.q.defer();
 				self.lastTypeFields.splice(0);
-				self.lastTypeFields.push("$all");
+				self.lastTypeFields.push({path:"$all"});
 				this.$services.swagger.execute("nabu.frameworks.process.manage.rest.process.type.definition", {typeId: action.dataTypeId, "$serviceContext": this.serviceContext}).then(function(result) {
 					self.lastTypeFields.splice(0);
+					self.lastTypeFields.push({path:"$all"});
 					if (result && result.fields) {
 						nabu.utils.arrays.merge(self.lastTypeFields, result.fields);
 					}
+					self.lastTypeId = action.dataTypeId;
 					promise.resolve(self.lastTypeFields);
 				}, promise);
 				return promise;

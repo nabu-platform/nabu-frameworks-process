@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-08-11T13:53:14.229+02:00" lastModified="2024-02-09T13:07:32.206+01:00" leaf="true" version="34">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-08-11T13:53:14.229+02:00" lastModified="2024-06-12T15:21:18.250+02:00" leaf="true" version="36">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -23,7 +23,9 @@
     <references>nabu.frameworks.process.providers.action.service.utils.resolveDescription</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.frameworks.process.database.types.processData</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.web.application.Services.getSessionId</references>
+    <references>nabu.utils.Runtime.getContext</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.startProcess</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>
     <references>java.util.UUID</references>

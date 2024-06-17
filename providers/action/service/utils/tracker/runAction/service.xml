@@ -67,8 +67,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			disabled="false"
 			id="8e2dfc68b43a4e279b5c774054986a37"
-			lineNumber="3"
-			query="action/synchronous">
+			lineNumber="3">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Run synchronously"
 				disabled="false"
@@ -81,8 +80,8 @@
 					serviceId="nabu.frameworks.process.providers.action.service.runAutomatedAction"
 					resultName="result911d2ec03ae54528b3bbd60b71978d4a"
 					temporaryMapping="true"
-					x="437"
-					y="31"
+					x="612"
+					y="48"
 					invocationOrder="1"
 					asynchronous="false"
 					recache="false">
@@ -158,6 +157,15 @@
 					<from>input/connectionId</from>
 					<to>connectionId</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="9b61f16cc43e4c7fb9eb933ad7fbaa75"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result05ffa63a15bc47c9a9d32e7e2daae402/contextId</from>
+					<to>contextId</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -165,8 +173,8 @@
 					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.resolveDataBinding"
 					resultName="resulta12b334846994bd081346690d2febaff"
 					temporaryMapping="true"
-					x="125"
-					y="409"
+					x="267"
+					y="533"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
@@ -182,6 +190,36 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="2838520a191e4ee8a1e75d5104cf6555"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/processData</from>
+					<to>available</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="6394b3af65ea4ae8b1e38ce6d4226aeb"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.resolveContextId"
+					resultName="result05ffa63a15bc47c9a9d32e7e2daae402"
+					temporaryMapping="true"
+					x="150"
+					y="190"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="c3e75d024b5645eeaae130f7a8da3133"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>action/contextIdQuery</from>
+					<to>contextIdQuery</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="2a52a861a5954c789f92c9a0ac3d7041"
 						mask="false"
 						optional="false"
 						fixedValue="false">
@@ -348,9 +386,7 @@
 					<targetProperties
 							collectionIndex="schedule">=action/schedule</targetProperties>
 					<targetProperties
-							collectionIndex="groupId">=input/processVersionId</targetProperties>
-					<targetProperties
-							collectionIndex="contextId">=input/processInstanceId</targetProperties>
+							collectionIndex="groupId">=input/processInstanceId</targetProperties>
 					<targetProperties
 							collectionIndex="runIn">=action/delay</targetProperties>
 					<targetProperties
@@ -359,6 +395,8 @@
 							collectionIndex="transactionId">=input/transactionId</targetProperties>
 					<targetProperties
 							collectionIndex="connectionId">=input/connectionId</targetProperties>
+					<targetProperties
+							collectionIndex="contextId">=input/processStateInstanceId</targetProperties>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
@@ -396,8 +434,8 @@
 						serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.resolveContextId"
 						resultName="resultefb22a023177446bbd2f85965b102987"
 						temporaryMapping="true"
-						x="248"
-						y="128"
+						x="145"
+						y="33"
 						invocationOrder="0"
 						asynchronous="false"
 						recache="false">
@@ -419,6 +457,72 @@
 						<from>input/processData</from>
 						<to>available</to>
 					</steps>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Get task id and queue id"
+					disabled="false"
+					id="b2bea15be6434369bf807179dbc707c7"
+					lineNumber="8">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="ebb294442669421cb51b74d22d20c1b6"
+						serviceId="nabu.utils.Runtime.getContext"
+						resultName="result28c9c31e5888488e930b7e3b5fc13815"
+						temporaryMapping="true"
+						x="212"
+						y="158"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="1b34fde363464eca9695576a20b91f93"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>publishedTaskId</from>
+						<to>key</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="b5d06e2ae6c64de6884c11113146d2cb"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result28c9c31e5888488e930b7e3b5fc13815/value</from>
+					<to>publishedTaskId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="8456c3c31f2740238493c0c6d0bfa98c"
+						serviceId="nabu.utils.Runtime.getContext"
+						resultName="result473691f9254e474b8058fb7ab7f6514d"
+						temporaryMapping="true"
+						x="249"
+						y="255"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="5d7f0323478940dea084476d9d553927"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>publishedTaskQueueId</from>
+						<to>key</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="7110b80208b145d0b4230da9fed4e913"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result473691f9254e474b8058fb7ab7f6514d/value</from>
+					<to>publishedTaskQueueId</to>
 				</steps>
 			</steps>
 		</steps>

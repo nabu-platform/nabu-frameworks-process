@@ -8,4 +8,5 @@
     <field maxOccurs="unbounded" minOccurs="0" name="processState" type="java.lang.String"/>
     <field minOccurs="0" name="parameterSearch" type="java.lang.String"/>
     <field maxOccurs="unbounded" minOccurs="0" name="identifierSearch" type="java.lang.String"/>
+    <field maxOccurs="unbounded" minOccurs="0" name="processDefinitionCode" type="java.lang.String"/>
 </structure>

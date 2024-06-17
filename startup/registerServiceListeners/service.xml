@@ -68,13 +68,15 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			comment="Each iteration used to be in their own transaction, seems unnecessary @2024-04-22"
 			disabled="false"
 			id="9095bf4a69864d3d9ca66edb587ba5be"
 			lineNumber="3"
 			variable="connectionId">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				comment="Need to scope transactions to prevent deadlocks"
 				disabled="false"
-				id="dd9cb05c00214b1f91402be4c542ff77"
+				id="fb779d3842cc4b35b710d0555d864b90"
 				lineNumber="4"
 				scopeDefaultTransaction="true">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"

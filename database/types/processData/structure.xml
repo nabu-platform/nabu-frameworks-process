@@ -3,10 +3,10 @@
     <field name="created" timezone="UTC" type="java.util.Date"/>
     <field foreignKey="nabu.frameworks.process.database.types.processInstance:id" indexed="true" name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="The name of the captured variable" name="name" type="java.lang.String"/>
-    <field comment="The value of the captured variable" minOccurs="0" name="value" type="java.lang.String"/>
+    <field comment="The value of the captured variable" indexed="true" minOccurs="0" name="value" type="java.lang.String"/>
     <field comment="Whether or not it is an identifier" name="identifier" type="java.lang.Boolean"/>
     <field comment="If the value was captured by a process action, link it" foreignKey="nabu.frameworks.process.database.types.processActionInstance:id" indexed="true" minOccurs="0" name="processActionInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <field comment="If captured through a predefined definition, link it" foreignKey="nabu.frameworks.process.database.types.processCapture:id" minOccurs="0" name="processCaptureId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field comment="If captured through a predefined definition, link it" foreignKey="nabu.frameworks.process.database.types.processCapture:id" indexed="true" minOccurs="0" name="processCaptureId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="You can &quot;overwrite&quot; data, we don't want to throw away the historized version. Instead we deactive it so only one version for each name is active." name="active" type="java.lang.Boolean"/>
     <field minOccurs="0" name="typeId" type="java.lang.String"/>
 </structure>

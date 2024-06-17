@@ -1103,15 +1103,6 @@
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="7679873b2a0744f780219a4a258c9dc8"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>definition/code</from>
-								<to>groupId</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
 									id="1fda7eb11ef44eb3b74f067507f44f31"
 									mask="false"
 									optional="false"
@@ -1145,6 +1136,15 @@
 									fixedValue="true">
 								<from>validate</from>
 								<to>taskSubType</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="3864ff72dffd46a6aa76f576ce059df1"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/processInstanceId</from>
+								<to>groupId</to>
 							</steps>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -1728,8 +1728,43 @@
 								lineNumber="40">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									disabled="false"
-									id="73d78fc8c12347548a25b188141aa299"
+									id="77e739cf024448cc94f4e9a522248a29"
 									lineNumber="41">
+								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+										disabled="false"
+										id="899372a165a248b38ae07ec8d0e02178"
+										serviceId="nabu.utils.Runtime.setContext"
+										resultName="resultfc96b492155348838a4807cbbcccf341"
+										temporaryMapping="true"
+										x="207"
+										y="97"
+										invocationOrder="0"
+										asynchronous="false"
+										recache="false">
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="270ac728827343e0a64ffc41076fc906"
+											mask="false"
+											optional="false"
+											fixedValue="true">
+										<from>process-action-instance-id</from>
+										<to>key</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="9aefe02c47ca4cff892f37b559c3afa4"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>processActionInstance/id</from>
+										<to>value</to>
+									</steps>
+								</steps>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+									disabled="false"
+									id="73d78fc8c12347548a25b188141aa299"
+									lineNumber="42">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 										disabled="false"
 										id="a21ca0bf8f1c4a1f997124a3d754e9ff"
@@ -1765,7 +1800,7 @@
 									comment="Set the action to successful"
 									disabled="false"
 									id="521f4feb53f14b56b83b283ebbf7a32f"
-									lineNumber="42">
+									lineNumber="43">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 										disabled="false"
 										id="d94b0c4d19d645b0b5ea0b961090c7c3"
@@ -1800,12 +1835,12 @@
 							<steps xsi:type="be.nabu.libs.services.vm.step.Catch"
 									disabled="false"
 									id="e32c7fecff184904b939b3f15a79cfff"
-									lineNumber="43">
+									lineNumber="44">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 										comment="Set the action to failed, a signal does not have an &quot;error&quot; state currently"
 										disabled="false"
 										id="dcdfab59ea8d40d68a690909c480e5e4"
-										lineNumber="44">
+										lineNumber="45">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 											disabled="false"
 											id="d7d37b7e974842a18b13fa930486f765"
@@ -1840,12 +1875,12 @@
 								<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 										disabled="true"
 										id="bff04ec4d0304fc3a1ddefc5f2efa3b3"
-										lineNumber="45"
+										lineNumber="46"
 										query="action/autoFail">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											disabled="false"
 											id="139837e8e9b349bfa30b0fe655d65615"
-											lineNumber="46">
+											lineNumber="47">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="df159c6dca5c403f907f5a7434c40729"
@@ -1863,7 +1898,7 @@
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="f3461a3bbaf54b54998e636c7b7b0a1b"
-							lineNumber="47">
+							lineNumber="48">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="0dec3e77e2ef4798ab60cb30a44ee793"
@@ -1898,7 +1933,7 @@
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="92bc94001a57457f865f0eb9638434f7"
-							lineNumber="48">
+							lineNumber="49">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="d2e150a2ae194c99894c34cdd3a44451"
@@ -2061,7 +2096,7 @@
 						description="=&quot;Action type not supported for automatic running: &quot; + action/actionType"
 						disabled="false"
 						id="407875cdce9d4f84a851c4a4fd8d1912"
-						lineNumber="49"
+						lineNumber="50"
 						message="Action type not supported for automatic running"
 						whitelist="false" xsi:nil="true"/>
 			</steps>
@@ -2069,13 +2104,13 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 				disabled="false"
 				id="4c50b6e6f79c433d810fb84d2920c141"
-				lineNumber="50"
+				lineNumber="51"
 				query="input/bestEffort">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="c0a4a51007a9422f91b6b23271dc2e0d"
 					label="true"
-					lineNumber="51">
+					lineNumber="52">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="96ef5f43f47f4d7fba76940b7d92b9a1"
@@ -2163,7 +2198,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 					disabled="false"
 					id="266f4bd94a9c41deb4fd9424b690b052"
-					lineNumber="52"
+					lineNumber="53"
 					code="PROCESS-INCORRECT-STATE"
 					message="Action is not allowed at this time"
 					whitelist="false" xsi:nil="true"/>

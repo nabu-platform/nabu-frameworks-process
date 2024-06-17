@@ -1,3 +1,15 @@
+# Indexes
+
+The process data value might contain large values (e.g. when capturing full complex types)
+In this case postgresql might complain when using a regular index.
+
+You can however replace the regular index with a gist index:
+
+```
+drop index idx_process_data_value;
+create index idx_process_data_value on process_data using gist (value);
+```
+
 # Connection Resolving
 
 When a service is called, we need to know which connection to use to resolve process definitions and add any logs.

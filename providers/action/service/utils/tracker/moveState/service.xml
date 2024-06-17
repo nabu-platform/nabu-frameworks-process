@@ -54,6 +54,36 @@
 			<from>resultc93345c2990444e393e48591435b416a/definition/stateRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed == true &amp;&amp; relationType == "flow-failed") || (/input/failed != true &amp;&amp; (relationType == "flow" || relationType == null)) )]</from>
 			<to>stateRelations</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="12308c60cc5042a086a0fd984b4bd50e"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>input/stateInstance/id</from>
+			<to>originalStateInstanceId</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="1882445d7f5c412e9248619276ee332d"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.cancelStateTasks"
+				resultName="resulted2c0242908349de93543b09fa891468"
+				temporaryMapping="true"
+				x="253"
+				y="276"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e59dd67e7e3840fd96dd5a06213bf993"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>originalStateInstanceId</from>
+				<to>parameters[0]/stateInstanceId</to>
+			</steps>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="If we have any conditions, create a map"

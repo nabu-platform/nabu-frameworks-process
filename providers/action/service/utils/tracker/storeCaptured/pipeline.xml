@@ -14,8 +14,8 @@
     <structure collectionName="processCaptures" definition="nabu.frameworks.process.database.types.processCapture" maxOccurs="unbounded" minOccurs="0" name="captures"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" name="processData"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="alreadyCaptured"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" minOccurs="0" name="currentValue"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="alreadyCaptured" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" minOccurs="0" name="currentValue" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
     <field name="newValue" type="java.lang.String"/>
     <field minOccurs="0" name="newName" type="java.lang.String"/>
     <field minOccurs="0" name="newTypeId" type="java.lang.String"/>

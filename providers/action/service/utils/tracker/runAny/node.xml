@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T15:09:58.596+01:00" lastModified="2024-01-31T10:30:35.493+01:00" leaf="true" version="93">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T15:09:58.596+01:00" lastModified="2024-04-18T14:28:50.017+02:00" leaf="true" version="97">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -12,7 +12,6 @@
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
     <references>nabu.frameworks.process.providers.action.service.utils.calculateActionRelationInstances</references>
     <references>java.lang.Long</references>
-    <references>nabu.utils.List.toMap</references>
     <references>java.util.Map</references>
     <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
@@ -33,6 +32,7 @@
     <references>nabu.utils.Lock.lock</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.dataToMap</references>
     <references>nabu.utils.Runtime.getDeviceFromToken</references>
     <references>java.lang.Object</references>
     <references>nabu.utils.Lock.unlock</references>

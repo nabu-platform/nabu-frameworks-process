@@ -44,8 +44,8 @@ if (notProcessState != null)
 
 for (property : properties)
 	from = from + " join ~process_data pd" + $index + " on pd" + $index + ".process_instance_id = pi.id"
-		+ " and pd" + $index + ".name = '" + property/key + "' and pd" + $index + ".value = :property" + $index + " and pd" + $index + ".active = true"
-	additionalProperties = merge(additionalProperties, structure(key: "property" + $index, value: property/value))
+		+ " and pd" + $index + ".name = :name" + $index + " and pd" + $index + ".value = :property" + $index + " and pd" + $index + ".active = true" 
+	additionalProperties = merge(additionalProperties, structure(key: "property" + $index, value: property/value), structure(key: "name" + $index, value: property/key))
 
 for (actionCode : actionCodes)
 	from = from + " join ~process_state_instances psi" + $index + " on psi" + $index + ".process_instance_id = pi.id"

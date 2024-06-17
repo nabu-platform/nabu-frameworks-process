@@ -18,5 +18,7 @@
     <webFragments>nabu.frameworks.process.manage.rest.process.instance.get</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.type.definition</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.listActions</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.trigger</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.quickMigrate</webFragments>
     <audience>MANAGER</audience>
 </webModule>

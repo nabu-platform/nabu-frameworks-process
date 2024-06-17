@@ -15,6 +15,8 @@
         <field minOccurs="0" name="allowMultiple" type="java.lang.Boolean"/>
         <field minOccurs="0" name="allowNone" type="java.lang.Boolean"/>
         <field maxOccurs="unbounded" minOccurs="0" name="allowedUnmatchableProcessVersionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="ignoreProcessVersionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="ignoreProcessDefinitionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.actionToRun" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
@@ -24,19 +26,19 @@
         <field comment="When you have too many processes that match, we want to throw an exception as well" maxOccurs="unbounded" minOccurs="0" name="multipleProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
     <field maxOccurs="unbounded" minOccurs="0" name="processStates" type="java.lang.String"/>
-    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="runningProcesses"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="matchingDataForProcess"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="relatedActionInstances"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="runningProcesses" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="matchingDataForProcess" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="relatedActionInstances" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
     <structure collectionName="processActionRelations" comment="An action can be linked to one or more parent actions.&#10;It can only be executed if all the parent actions have been completed.&#10;This means for multiple parents a &quot;join&quot; in BPMN terminology&#10;&#10;Note that you can also have an inverse relationship, this means the target action must NOT have been executed yet.&#10;&#10;For instance on a particular action you want the user to do something and have an offshoot (with delay) of a reminder mail.&#10;The reminder mail must only trigger if the user has not taken action yet.&#10;This means the reminder mail has an inverse relationship to the user action" definition="nabu.frameworks.process.database.types.processActionRelation" maxOccurs="unbounded" minOccurs="0" name="incomingFlows"/>
     <structure collectionName="processActionRelations" comment="An action can be linked to one or more parent actions.&#10;It can only be executed if all the parent actions have been completed.&#10;This means for multiple parents a &quot;join&quot; in BPMN terminology&#10;&#10;Note that you can also have an inverse relationship, this means the target action must NOT have been executed yet.&#10;&#10;For instance on a particular action you want the user to do something and have an offshoot (with delay) of a reminder mail.&#10;The reminder mail must only trigger if the user has not taken action yet.&#10;This means the reminder mail has an inverse relationship to the user action" definition="nabu.frameworks.process.database.types.processActionRelation" maxOccurs="unbounded" minOccurs="0" name="outgoingFlows"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="runIncomingActions"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="finishedOutgoingActions"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="runIncomingActions" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="finishedOutgoingActions" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
     <field minOccurs="0" name="amountOfTimesRun" type="java.lang.Integer"/>
     <field minOccurs="0" name="amountOfIdentifiers" type="java.lang.Integer"/>
     <field minOccurs="0" name="amountOfDataMatches" type="java.lang.Integer"/>
     <field comment="If we want to start a new process, this is the id. We can already start referencing it" minOccurs="0" name="newProcessInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field maxOccurs="unbounded" minOccurs="0" name="actionStates" type="java.lang.String"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" minOccurs="0" name="processInstance"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" minOccurs="0" name="processInstance" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.groupedAction" maxOccurs="unbounded" minOccurs="0" name="potentialProcesses"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" minOccurs="0" name="processActionToRun"/>
     <field comment="The way to capture it (e.g. the path). This is relative to the pipeline so should start with input or output. For blox services the full pipeline is available, for the rest only input/output." maxOccurs="unbounded" minOccurs="0" name="identifierValues" type="java.lang.String"/>
@@ -44,7 +46,7 @@
     <structure comment="The actions that match with the current state of the process" definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="matchingActions"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" name="allCaptures"/>
     <field comment="The way to capture it (e.g. the path). This is relative to the pipeline so should start with input or output. For blox services the full pipeline is available, for the rest only input/output." maxOccurs="unbounded" minOccurs="0" name="capturesToUse" type="java.lang.String"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="matchingDataForAction"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="matchingDataForAction" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="identifiers"/>
     <field minOccurs="0" name="amountOfProcessInstances" type="java.lang.Integer"/>
     <field name="allowedToProceed" type="java.lang.Boolean"/>
@@ -53,7 +55,7 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="triggerActions"/>
     <field minOccurs="0" name="amountOfTriggerActions" type="java.lang.Integer"/>
     <structure collectionName="processActionRelations" comment="An action can be linked to one or more parent actions.&#10;It can only be executed if all the parent actions have been completed.&#10;This means for multiple parents a &quot;join&quot; in BPMN terminology&#10;&#10;Note that you can also have an inverse relationship, this means the target action must NOT have been executed yet.&#10;&#10;For instance on a particular action you want the user to do something and have an offshoot (with delay) of a reminder mail.&#10;The reminder mail must only trigger if the user has not taken action yet.&#10;This means the reminder mail has an inverse relationship to the user action" definition="nabu.frameworks.process.database.types.processActionRelation" maxOccurs="unbounded" minOccurs="0" name="applicableRelations"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="allInstanceData"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="allInstanceData" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="instanceDataMap"/>
     <field name="conditionResult" type="java.lang.Boolean"/>
     <field name="processInError" type="java.lang.Boolean"/>
@@ -74,5 +76,6 @@
     <field comment="When forcing execution, there are a number of strategies to use. &quot;actionOnly&quot; only forces the action to be run within the current state instance (even if it is the wrong type). &quot;actionAndState&quot; will force a new state instance of the correct type to be routed even if it is routed already" minOccurs="0" name="forceStrategy" type="java.lang.String"/>
     <field maxOccurs="unbounded" minOccurs="0" name="forcedMatchingActionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" name="potentialProcessInstances"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" name="potentialProcessInstances" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definitionToCheck"/>
 </structure>

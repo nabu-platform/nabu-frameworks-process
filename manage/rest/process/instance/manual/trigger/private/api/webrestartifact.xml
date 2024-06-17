@@ -3,10 +3,11 @@
     <method>POST</method>
     <path>/process/instance/{instanceId}/action</path>
     <role>$user</role>
+    <permissionAction>process.manage</permissionAction>
     <useServiceContextAsPermissionContext>false</useServiceContextAsPermissionContext>
     <useWebApplicationAsPermissionContext>false</useWebApplicationAsPermissionContext>
     <useProjectAsPermissionContext>false</useProjectAsPermissionContext>
-    <useGlobalPermissionContext>false</useGlobalPermissionContext>
+    <useGlobalPermissionContext>true</useGlobalPermissionContext>
     <input>nabu.frameworks.process.manage.rest.process.instance.manual.triggerInput</input>
     <lenient>true</lenient>
     <webApplicationId>false</webApplicationId>

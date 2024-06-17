@@ -8,9 +8,4 @@
     </structure>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" name="propertyList"/>
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
-    <structure maxOccurs="unbounded" minOccurs="0" name="objects">
-        <field name="name" type="java.lang.String"/>
-        <structure definition="java.lang.Object" name="value"/>
-    </structure>
-    <field name="simple" nillable="false" type="java.lang.Boolean"/>
 </structure>

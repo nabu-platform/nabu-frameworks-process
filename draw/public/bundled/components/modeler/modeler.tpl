@@ -59,6 +59,7 @@
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service'" label="Condition" v-model="selected.target.condition" after="You can set an additional condition that must be true before this action is matched. As a rule: the more generic the service you are capturing, the more specific your condition should be."/>
 					<div v-if="selected.target.actionType == 'signal'">
 						<n-form-text :edit="editable" v-model="selected.target.signalId" label="Signal Id" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
+						<n-form-text v-if="selected.target.automatic" :edit="editable" v-model="selected.target.dataTypeId" label="Signal data type id" after="The data type of the data being sent"/>
 					</div>
 					<div v-else-if="selected.target.actionType == 'human'">
 						<n-form-text :edit="editable" v-model="selected.target.dataTypeId" label="Human task data type id" after="The data type of the data accompanying the human task (if any)"/>
@@ -87,7 +88,7 @@
 						<div v-if="selected.target.binding" class="is-column is-spacing-gap-medium">
 							<div v-for="(input, inputIndex) in selected.target.binding" class="is-column has-button-close is-spacing-medium is-color-body">
 								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getServiceInputs.bind($self, selected.target)" :formatter="function(x) { return x.path }" :extracter="function(x) { return x.path }" v-if="selected.target.actionType == 'service'"/>
-								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getTypeDefinition.bind($self, selected.target)" :formatter="function(x) { return x.path }" :extracter="function(x) { return x.path }" v-else-if="selected.target.actionType == 'human'"/>
+								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getTypeDefinition.bind($self, selected.target)" :formatter="function(x) { return x.path }" :extracter="function(x) { return x.path }" v-else-if="selected.target.actionType == 'human' || selected.target.actionType == 'signal'"/>
 								<n-form-text :edit="editable" v-model="input.key" label="Key" v-else/>
 								<n-form-text :edit="editable" v-model="input.value" label="Value"/>
 								<button v-if="editable" @click="selected.target.binding.splice(inputIndex, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>

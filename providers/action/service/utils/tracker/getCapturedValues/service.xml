@@ -320,15 +320,6 @@
 						<from>capture/capture</from>
 						<to>output/capturedValues[0]/value</to>
 					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
-							id="52a94b2c313f457d920ebfebebdba90f"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>description/id</from>
-						<to>output/capturedValues[0]/typeId</to>
-					</steps>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"

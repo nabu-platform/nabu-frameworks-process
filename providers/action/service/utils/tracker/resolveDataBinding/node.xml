@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:20:25.785+01:00" lastModified="2024-04-18T13:18:10.986+02:00" leaf="true" version="21">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T09:20:25.785+01:00" lastModified="2024-06-03T14:08:33.720+02:00" leaf="true" version="25">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.utils.reflection.Type.details</references>
     <references>nabu.utils.String.substring</references>
-    <references>nabu.utils.String.toStream</references>
-    <references>nabu.utils.List.toMap</references>
     <references>java.util.Map</references>
     <references>nabu.frameworks.process.database.types.processData</references>
-    <references>java.lang.Boolean</references>
-    <references>java.lang.Object</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.dataToMap</references>
     <references>nabu.services.glue.Services.evaluate</references>
     <references>java.lang.String</references>
     <references>nabu.frameworks.process.providers.action.service.utils.propertyList</references>
     <references>nabu.data.json.Services.unmarshal</references>
+    <references>nabu.utils.Object.toString</references>
 </node>

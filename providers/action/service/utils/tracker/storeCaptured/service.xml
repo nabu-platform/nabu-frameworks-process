@@ -384,21 +384,21 @@
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="88bc0228c9e3468b80f86f6126789df0"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>processData</from>
-					<to>instances</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
 						id="449293ac17cc499d89b4b5288b5c3314"
 						mask="false"
 						optional="false"
 						fixedValue="false">
 					<from>input/connectionId</from>
 					<to>connection</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="ebc784a753ad4b9f936579d0c306ef8e"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>dataToStore</from>
+					<to>instances</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"

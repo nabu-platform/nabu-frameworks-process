@@ -85,6 +85,15 @@
 					<from>input/query/processState</from>
 					<to>filter/processState</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a9ff3a1215dc42a2ab0b99cbfe4fa01d"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/processDefinitionCode</from>
+					<to>filter/processDefinitionCode</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
@@ -204,6 +213,15 @@
 							fixedValue="false">
 						<from>input/query/identifierSearch</from>
 						<to>filter/value</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="51bb6afd512346378fa078f5f297e6c8"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/processDefinitionCode</from>
+						<to>filter/processDefinitionCode</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

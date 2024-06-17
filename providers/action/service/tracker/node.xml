@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2024-03-08T14:58:53.212+01:00" leaf="true" version="314">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2024-06-10T17:24:30.299+02:00" leaf="true" version="320">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -29,6 +29,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.resolveDescription</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker$TrackType</references>
     <references>nabu.utils.Runtime.setContext</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.registerFailure</references>
     <references>nabu.utils.Runtime.getContext</references>
@@ -68,6 +69,7 @@
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.services.jdbc.Services.update</references>
     <references>nabu.utils.Transaction.defaultTransactionId</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.utils.reflection.Type.whatIs</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.unregisterForRollback</references>

@@ -23,4 +23,6 @@
     <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
     <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" name="result"/>
     <field maxOccurs="unbounded" minOccurs="0" name="finalizerIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" primaryKey="true" type="java.util.UUID"/>
+    <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" maxOccurs="unbounded" minOccurs="0" name="anyActions"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.database.types.processStateRelation" minOccurs="0" name="anyStateRelation"/>
 </structure>

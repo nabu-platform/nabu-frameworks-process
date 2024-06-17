@@ -1,0 +1,13 @@
+<structure name="pipeline">
+    <structure name="input">
+        <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="available"/>
+    </structure>
+    <structure name="output">
+        <structure collectionHandler="stringMap" definition="java.util.Map" minOccurs="0" name="map"/>
+    </structure>
+    <structure maxOccurs="unbounded" minOccurs="0" name="objects">
+        <field name="name" type="java.lang.String"/>
+        <structure definition="java.lang.Object" name="value"/>
+    </structure>
+    <field name="simple" type="java.lang.Boolean"/>
+</structure>
