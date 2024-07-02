@@ -125,62 +125,69 @@
 				label="!queue"
 				lineNumber="7"
 				whitelist="false" xsi:nil="true"/>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				comment="Map updates"
+		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				comment="Only anonymous queues are set to failed, shared ones aren't!"
 				disabled="false"
-				id="cee5bbd6e23d4da1bbe42b6ee5eefa74"
+				id="c358eb9ba1f442e2b1d6345047e2e545"
+				label="queue/anonymous == true"
 				lineNumber="8">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Map updates"
 					disabled="false"
-					id="b399f8f9fa784689aba3459bfbf7509a"
-					mask="false"
-					optional="false"
-					fixedValue="true">
-				<from>FAILED</from>
-				<to>queue/state</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="63ff2b782e6141f185245d6975880642"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>instance/stopped</from>
-				<to>queue/published</to>
-			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="8f4f2bb2bb644dd0872a76054ee311e6"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>instance/stopped</from>
-				<to>queue/modified</to>
-			</steps>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				disabled="false"
-				id="f94d59669ab64a9f99922f24aa20d554"
-				lineNumber="9">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-					disabled="false"
-					id="22c63a5b5f16480f8f60aa07236dbbe1"
-					serviceId="nabu.services.jdbc.Services.update"
-					resultName="result4f98bbf12f7c4ef5a051380e64bb828a"
-					temporaryMapping="true"
-					x="298"
-					y="119"
-					invocationOrder="0"
-					asynchronous="false"
-					recache="false">
+					id="cee5bbd6e23d4da1bbe42b6ee5eefa74"
+					lineNumber="9">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="0748b3cd67d0489b838bf74fbd9f8578"
+						id="b399f8f9fa784689aba3459bfbf7509a"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>FAILED</from>
+					<to>queue/state</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="63ff2b782e6141f185245d6975880642"
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>queue</from>
-					<to>instances[0]</to>
+					<from>instance/stopped</from>
+					<to>queue/published</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="8f4f2bb2bb644dd0872a76054ee311e6"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>instance/stopped</from>
+					<to>queue/modified</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="f94d59669ab64a9f99922f24aa20d554"
+					lineNumber="10">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="22c63a5b5f16480f8f60aa07236dbbe1"
+						serviceId="nabu.services.jdbc.Services.update"
+						resultName="result4f98bbf12f7c4ef5a051380e64bb828a"
+						temporaryMapping="true"
+						x="298"
+						y="119"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="0748b3cd67d0489b838bf74fbd9f8578"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>queue</from>
+						<to>instances[0]</to>
+					</steps>
 				</steps>
 			</steps>
 		</steps>

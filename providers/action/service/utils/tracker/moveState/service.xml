@@ -76,11 +76,11 @@
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="e59dd67e7e3840fd96dd5a06213bf993"
+					id="8a33268142714567943f05d08188f087"
 					mask="false"
 					optional="false"
 					fixedValue="false">
-				<from>originalStateInstanceId</from>
+				<from>input/stateInstance/id</from>
 				<to>parameters[0]/stateInstanceId</to>
 			</steps>
 		</steps>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-18T13:44:09.841+02:00" lastModified="2024-04-18T12:57:36.893+02:00" leaf="true" version="23">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-18T13:44:09.841+02:00" lastModified="2024-06-26T14:49:03.897+02:00" leaf="true" version="24">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
     <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
     <references>nabu.frameworks.process.crud.processAction.services.get</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>nabu.data.xml.Services.unmarshal</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
+    <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
     <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.frameworks.tasks.crud.task.services.get</references>

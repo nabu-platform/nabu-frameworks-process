@@ -9,4 +9,5 @@
     <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="processData"/>
+    <field name="allowedToProceed" type="java.lang.Boolean"/>
 </structure>

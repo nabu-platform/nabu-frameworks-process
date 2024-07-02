@@ -446,10 +446,19 @@ Vue.view("process-modeler-component", {
 			});
 		},
 		getServiceInputs: function(action, value) {
+			var enrichWithValue = function(list) {
+				if (value && list.indexOf(value) < 0) {
+					var newArray = [];
+					nabu.utils.arrays.merge(newArray, list);
+					newArray.unshift(value);
+					return newArray;
+				}
+				return list;
+			}
 			if (action.serviceId == this.lastService) {
-				return this.lastServiceInputs.filter(function(x) {
+				return enrichWithValue(this.lastServiceInputs.filter(function(x) {
 					return !value || x.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
-				});
+				}));
 			}
 			else {
 				var self = this;
@@ -460,16 +469,25 @@ Vue.view("process-modeler-component", {
 					if (result && result.inputs) {
 						nabu.utils.arrays.merge(self.lastServiceInputs, result.inputs);
 					}
-					promise.resolve(self.lastServiceInputs);
+					promise.resolve(enrichWithValue(self.lastServiceInputs));
 				}, promise);
 				return promise;
 			}
 		},
 		getTypeDefinition: function(action, value) {
+			var enrichWithValue = function(list) {
+				if (value && list.indexOf(value) < 0) {
+					var newArray = [];
+					nabu.utils.arrays.merge(newArray, list);
+					newArray.unshift(value);
+					return newArray;
+				}
+				return list;
+			}
 			if (action.dataTypeId == this.lastTypeId) {
-				return this.lastTypeFields.filter(function(x) {
+				return enrichWithValue(this.lastTypeFields.filter(function(x) {
 					return !value || x.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
-				});
+				}));
 			}
 			else if (action.dataTypeId) {
 				var self = this;
@@ -483,7 +501,7 @@ Vue.view("process-modeler-component", {
 						nabu.utils.arrays.merge(self.lastTypeFields, result.fields);
 					}
 					self.lastTypeId = action.dataTypeId;
-					promise.resolve(self.lastTypeFields);
+					promise.resolve(enrichWithValue(self.lastTypeFields));
 				}, promise);
 				return promise;
 			}
