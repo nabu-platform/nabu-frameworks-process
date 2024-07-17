@@ -10,6 +10,15 @@ drop index idx_process_data_value;
 create index idx_process_data_value on process_data using gist (value);
 ```
 
+# Synchronous action execution
+
+Currently you can not execute actions synchronously that occur within a different state (so after a state transition).
+This is because the state transition itself is only saved once the action that triggered it is succesfully completed.
+
+We "could" update this to use local transitions to insert the state instance, but then we also have to listen to failures and rollbacks of the transaction context to "unwind" any state transitions that may have occurred (it can be multiple)
+
+Until we do this refactor, the general rule of thumb is: do not use synchronous actions cross states, only within a state.
+
 # Connection Resolving
 
 When a service is called, we need to know which connection to use to resolve process definitions and add any logs.

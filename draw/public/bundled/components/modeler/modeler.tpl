@@ -170,7 +170,7 @@
 					<n-form-combo :edit="editable" v-model="model.styling.theme" label="Theme" :items="themes" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text :edit="editable" type="area" v-model="model.comment" label="Comment" after="Additional comments you want to add"/>
 					<div class="is-column is-spacing-gap-medium">
-						<n-form-combo :edit="editable" v-model="model.defaultIdentificationType" placeholder="global" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Default identification type" after="How do you want to identify process instances by default? This can be overriden per service action."/>
+						<n-form-combo :edit="editable" v-model="model.defaultIdentificationType" placeholder="correlationId" :items="['global', 'correlationId', 'userId', 'sessionId', 'deviceId', 'custom']" label="Default identification type" after="How do you want to identify process instances by default? This can be overriden per service action."/>
 						<p class="is-p is-size-small" v-if="model.defaultIdentificationType == 'correlationId'">A correlation id is limited to a single thread execution, it can be used to follow up on very short processes</p>
 						<p class="is-p is-size-small" v-else-if="model.defaultIdentificationType == 'sessionId'">A session id can be passed in through HTTP requests to link together multiple requests over time. Note that browser-based session ids can be subject to fixation attacks through XSS, they should not be used in critical processes.</p>
 						<p class="is-p is-size-small" v-else-if="model.defaultIdentificationType == 'userId'">The user id can be useful though it is a very static identifier.</p>

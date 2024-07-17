@@ -63,27 +63,6 @@
 			<from>input/stateInstance/id</from>
 			<to>originalStateInstanceId</to>
 		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-				disabled="false"
-				id="1882445d7f5c412e9248619276ee332d"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.cancelStateTasks"
-				resultName="resulted2c0242908349de93543b09fa891468"
-				temporaryMapping="true"
-				x="253"
-				y="276"
-				invocationOrder="0"
-				asynchronous="false"
-				recache="false">
-			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-					disabled="false"
-					id="8a33268142714567943f05d08188f087"
-					mask="false"
-					optional="false"
-					fixedValue="false">
-				<from>input/stateInstance/id</from>
-				<to>parameters[0]/stateInstanceId</to>
-			</steps>
-		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="If we have any conditions, create a map"
@@ -420,5 +399,32 @@
 			<count>1</count>
 		</steps>
 		<query>stateRelations</query>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="558f5d2dafc8439894060e3bf99c75dc"
+			label="output/movedState == true"
+			lineNumber="14">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="a117c499946147b2bbf9bbb3a3ee7f29"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.cancelStateTasks"
+				resultName="resultf403369f846a4339995ce7538bb9dba8"
+				temporaryMapping="true"
+				x="247"
+				y="119"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2065cdc4fa2c44b6adb86d42c1f946f5"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>originalStateInstanceId</from>
+				<to>parameters[0]/stateInstanceId</to>
+			</steps>
+		</steps>
 	</steps>
 </sequence>
