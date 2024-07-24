@@ -10,6 +10,10 @@ drop index idx_process_data_value;
 create index idx_process_data_value on process_data using gist (value);
 ```
 
+# Correlation id resolving in a loop
+
+Looping over a list to generate new process instances (or continue existing ones) in bulk poses a problem for correlation id based matching.
+
 # Synchronous action execution
 
 Currently you can not execute actions synchronously that occur within a different state (so after a state transition).
