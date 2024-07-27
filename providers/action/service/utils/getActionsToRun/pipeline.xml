@@ -9,7 +9,7 @@
         <field minOccurs="0" name="sessionId" type="java.lang.String"/>
         <field minOccurs="0" name="serviceId" type="java.lang.String"/>
         <field minOccurs="0" name="signalId" type="java.lang.String"/>
-        <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="inputData"/>
+        <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="inputData"/>
         <field minOccurs="0" name="force" type="java.lang.Boolean"/>
         <field minOccurs="0" name="forceStrategy" type="java.lang.String"/>
         <field minOccurs="0" name="allowMultiple" type="java.lang.Boolean"/>
@@ -69,7 +69,7 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="initializerActions"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="processDefinition"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" name="inputCaptures"/>
-    <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="pipeline"/>
+    <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="pipeline"/>
     <field comment="Process definitions are versioned, the processId connects all versions" foreignKey="nabu.frameworks.process.database.types.processDefinition:id" indexed="true" name="processDefinitionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field maxOccurs="unbounded" name="activatedProcessDefinitionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field name="forced" type="java.lang.Boolean"/>
@@ -78,4 +78,5 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" name="potentialProcessInstances" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definitionToCheck"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="identificationCaptures"/>
 </structure>

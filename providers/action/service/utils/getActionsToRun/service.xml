@@ -529,6 +529,10 @@
 					disabled="false"
 					id="7da3ea8761a24550a9021e71bd199e10"
 					path="activatedRelations" xsi:nil="true"/>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="a678ef5a7388496e81312a0710519234"
+					path="identificationCaptures" xsi:nil="true"/>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
@@ -674,6 +678,10 @@
 				<from>result7c35b522c5514b51a6356370fafd493a/list</from>
 				<to>capturesToUse</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="39beffc847ce4a61bf492e9cac39c1a8"
+					path="identificationCaptures" xsi:nil="true"/>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
@@ -906,6 +914,15 @@
 					fixedValue="false">
 				<from>result91ed3a517c2a455c8f3c79653c35d16d/list</from>
 				<to>identifierValues</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="13b3944184604b41beb23967e5e6b2e1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>allCaptures[capture # /capturesToUse &amp;&amp; value != null]</from>
+				<to>identificationCaptures</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
@@ -1512,6 +1529,15 @@
 								fixedValue="false">
 							<from>potentialProcess/actions[0]/process/processDefinitionId</from>
 							<to>output/actionsToRun[0]/processDefinitionId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="1533754783444c769820f6c65320f9c9"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>identificationCaptures</from>
+							<to>output/actionsToRun[0]/identificationCaptures</to>
 						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
@@ -2274,6 +2300,15 @@
 											fixedValue="false">
 										<from>activatedRelations</from>
 										<to>output/actionsToRun[0]/activatedRelations</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="9f989f3e52124d0f830ae77f07bd3d97"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>identificationCaptures</from>
+										<to>output/actionsToRun[0]/identificationCaptures</to>
 									</steps>
 								</steps>
 								<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
