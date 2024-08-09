@@ -1,13 +1,25 @@
 # Indexes
 
 The process data value might contain large values (e.g. when capturing full complex types)
-In this case postgresql might complain when using a regular index.
+In this case postgresql might complain when using a regular index. For example:
+
+```
+Caused by: org.postgresql.util.PSQLException: ERROR: index row requires 15536 bytes, maximum size is 8191
+```
 
 You can however replace the regular index with a gist index:
 
 ```
 drop index idx_process_data_value;
 create index idx_process_data_value on process_data using gist (value);
+```
+
+If this does not work you might need to enable the extensions first:
+
+```
+CREATE EXTENSION pg_trgm;
+CREATE EXTENSION btree_gin;
+CREATE EXTENSION btree_gist;
 ```
 
 # Correlation id resolving in a loop
