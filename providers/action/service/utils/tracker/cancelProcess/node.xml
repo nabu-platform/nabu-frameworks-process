@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.jdbc.JDBCServiceManager" created="2023-01-29T21:20:58.299+01:00" lastModified="2024-08-09T15:17:49.645+02:00" leaf="false" version="16">
+<node artifactManager="be.nabu.eai.module.services.jdbc.JDBCServiceManager" created="2023-02-04T14:49:25.622+01:00" lastModified="2024-08-26T13:29:40.397+02:00" leaf="false" version="6">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -9,9 +9,8 @@
     <references>java.lang.Integer</references>
     <references>java.lang.Boolean</references>
     <references>be.nabu.libs.services.jdbc.AffixInput</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.searchActiveActionsForSignal.parameters</references>
     <references>be.nabu.libs.types.api.KeyValuePair</references>
-    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.cancelProcess.results</references>
     <references>be.nabu.libs.services.jdbc.api.Statistic</references>
     <references>java.lang.Long</references>
     <references>java.lang.Boolean</references>

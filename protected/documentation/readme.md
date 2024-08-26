@@ -1,3 +1,11 @@
+# Root service only
+
+In most cases we _dont_ want to capture nested services but only root services.
+However, we _do_ want to be able to capture a service and also capture a service that wraps that service (canonical example: send mail and send reminder mail).
+
+We could add a new boolean to "only" capture if it is a root service (though keep in mind that async is executed with service invoke so needs to special handling to calculate rootiness).
+This boolean could be set to true because in 95% of cases that is the intended behavior.
+
 # Indexes
 
 The process data value might contain large values (e.g. when capturing full complex types)

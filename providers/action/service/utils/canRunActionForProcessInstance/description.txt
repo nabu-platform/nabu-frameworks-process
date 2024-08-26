@@ -3,3 +3,11 @@ If we have outgoing flows, we need to validate that NONE of them are done.
 
 However, if we have outgoing flows and NO incoming flows, we have a "root" action which can always be run as long as you are in the current state. Use maxOccurs to limit this if necessary.
 This means, if we have NO incoming flows, we do NOT need to check the outgoing flows, because it doesn't matter what state they are in.
+
+
+@2024-08-26
+
+When checking outgoing flows, I had updated the filter to "relatedActionInstances[processActionId == /outgoingFlow/targetActionId &amp;&amp; ( (/outgoingFlow/relationType == "flow-failed" &amp;&amp; processState == "FAILED") || (/outgoingFlow/relationType != "flow-failed" &amp;&amp; processState != "FAILED") )]" (line 43)
+However, this uses the state (failed) of the TARGET action instance, not the source. The flow-failed relationtype however is concluded based on the source state.
+
+This means if you have a "flow-failed" line from a source to a target and that target ALSO has a flow-failed to somewhere else (meaning we accept that it can fail for good reason), there are edge cases that arise from the current check.

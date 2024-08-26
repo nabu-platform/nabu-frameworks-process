@@ -1,0 +1,11 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field minOccurs="0" name="reason" type="java.lang.String"/>
+    </structure>
+    <structure name="output"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="processInstance" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" enricher="nabu.frameworks.process.crud.processStateInstance.services.list" minOccurs="0" name="stateInstance" persister="nabu.frameworks.process.crud.processStateInstance.batch.updateAll"/>
+    <field minOccurs="0" name="date" type="java.util.Date"/>
+    <field name="message" type="java.lang.String"/>
+</structure>

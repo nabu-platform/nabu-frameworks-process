@@ -1,0 +1,40 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="93b0e8ea38bf49c6b3c18ee53e0842dc"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="3fb25a2df5584413b70ce55175533648"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="7bf92c782efa452d82062d93a0d33697"
+				serviceId="nabu.frameworks.process.services.instance.cancel"
+				resultName="result0488ce6948194ec89c9d361e32adcf08"
+				temporaryMapping="true"
+				x="23"
+				y="95"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ac9e1d835e2641f6b8194ee3ec8d5799"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/path/instanceId</from>
+				<to>processInstanceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="24b72bc1e9e0464584655ff6688bbeaa"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/content/reason</from>
+				<to>reason</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

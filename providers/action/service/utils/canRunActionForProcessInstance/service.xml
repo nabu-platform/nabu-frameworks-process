@@ -967,7 +967,7 @@
 					variable="outgoingFlow"
 					into="finishedOutgoingActions">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-						comment="Get all finished outgoing flows"
+						comment="Get all finished outgoing flows, check description!"
 						disabled="false"
 						id="6a4071ae36a74389be4337d144216ab0"
 						lineNumber="43">
@@ -977,7 +977,7 @@
 							mask="false"
 							optional="false"
 							fixedValue="false">
-						<from>relatedActionInstances[processActionId == /outgoingFlow/targetActionId &amp;&amp; ( (/outgoingFlow/relationType == "flow-failed" &amp;&amp; processState == "FAILED") || (/outgoingFlow/relationType != "flow-failed" &amp;&amp; processState != "FAILED") )]</from>
+						<from>relatedActionInstances[processActionId == /outgoingFlow/targetActionId &amp;&amp; processState != "FAILED"]</from>
 						<to>finishedOutgoingActions</to>
 					</steps>
 				</steps>

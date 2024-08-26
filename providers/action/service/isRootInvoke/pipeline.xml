@@ -1,0 +1,9 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="serviceId" type="java.lang.String"/>
+    </structure>
+    <structure name="output">
+        <field name="root" type="java.lang.Boolean"/>
+    </structure>
+    <field maxOccurs="unbounded" minOccurs="0" name="services" type="java.lang.String"/>
+</structure>
