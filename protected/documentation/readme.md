@@ -1,3 +1,107 @@
+# TODO
+
+## Conditional lines based on path
+
+e.g. "this line is only valid IF action ABC was run before this point" (either in the same state or before)
+	-> if cross state, do we allow cross state instances? do you need to make this obvious?
+if we also have "this line is only if action ABC was NOT run before this point
+	-> then we can probably remove start & stop lines in favor of this
+	
+We need to provide this with dropdowns and use the internal global ids
+
+## Wrong interpretation of incoming conditional lines
+
+Currently if a condition on a line evaluates to false, it is as if that line does not exist.
+This is probably OK in most cases (e.g. ANY/ALL) but is not ideal when NO line remains after filtering.
+
+Because this overlaps with the original usecase where an action could be run if it had no incoming lines at all.
+The can run should take into account that if there are no valid incoming lines, it should not be able to run it.
+
+This might clash however with calculation of "manual" actions where we might want to allow certain actions to be taken even if it can not be done because of line conditions?
+Not sure if this is a valid usecase though, the usecase is where a process stops if 1 of 2 paths is not possible (both have to be actively toggled). You can manually force a particular path currently.
+However, we could also say that you have to update the state to force the manual path!
+
+# Failed vs Cancelled
+
+An action has two possible outcomes from a flow perspective: it is either successful or it failed. Both of these can have consequences in the process itself.
+
+There is however a third state "CANCELLED" which means the action was started but not finished, therefor there is no positive or negative outcome. 
+There is no outcome, so you don't want the flow to progress but you also don't want to fully delete the process action instance because it did happen up to a point.
+
+There are a number of reasons why an action might be CANCELLED, for example when the server starts up it will automatically rollback any actual tasks (default behavior of task framework) that were left in the RUNNING state, because it presumes the server crashed.
+Therefor any associated process action instance should be marked as CANCELLED because the task retry will not reuse the existing action instance but create a new one.
+
+The same happens when an action goes into ERROR (which is a transient state). Should you opt to retry, the action instance should be set to CANCELLED.
+
+Up until the addition of the nw state, such edge cases were actually set to FAILED but no failure flows were evaluated. This meant, by and large that it "worked". However, if you were to have a service that has an incoming failure flow and is not automatically executed (so waiting for an external trigger), it will evaluate the source actions at the time of invocation.
+If the source actions are set to FAILED instead of CANCELLED, it may actually allow execution which was not intended from the flow perspective.
+
+# State level actions can be repeatedly executed
+
+In the current setup the rule is:
+
+- you must have at least 1 incoming line that resolves
+- you must have no outgoing flow lines that resolve
+
+However there is an exception to that rule: if the incoming line is a STATE line, you can always execute it.
+
+In the "nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance" we drop the outgoing lines for checking when a state line is resolved.
+This allows it to proceed.
+
+This is a remnant from an original though experiment about looping WITHIN a state instance.
+
+However, you would need to be able to identify each branch within the state instance. If you can't do that, it doesn't matter to have multiple branches.
+
+So it seems prudent to not allow multiple execution of root actions once a outgoing line is resolved, this is also more in line with "normal" behavior.
+
+@2024-10-07: modified behavior to be more inline with general expectations: once an outgoing line is executed, we no longer allow execution. Looping and multiple branches are currently not supported anyway.
+
+# Link to user
+
+In the original setup, every action would update the $userId, $deviceId and $sessionId variables to whatever user was running that action.
+This was aimed at making it easier to use the $userId identification etc.
+
+However, as we added stuff like human actions and "run action" to batch trigger services etc, this meant that outside actors were running actions which would in turn end up with them configured as $userId.
+This was not the intention.
+
+The idea is to use more it more as an "assignedTo" to make it easier to link back to a particular user. For this reason it was made opt-in so you have more control over when and how it was assigned. In some situations (e.g. when switching from anonymous to logged in) you may even want to capture it explicitly.
+
+# Data mapping for actions
+
+In the past we could only do data input mapping for "automatic" actions.
+However, there is now also the option to toggle "manual" so we can run an action through the process engine GUI manually. These also would need input mappings even if it is not initially set to automatic.
+Apart from that however, we can now do "action.run" which uses the "code" to select the best matching action(s) to run on a given process instance. These actions are not always set to automatic and may not even be set to manual.
+So in the end, currently, we always allow input data mapping for an action, even if it is not set to automatic or manual. In the future if the overlap for run action and manual/automatic is large enough, we might restrict it again to only be available in those usecases.
+
+# Check permission
+
+Permission checking is different from state checking. The process engine is primarily a state enforcement framework.
+However when it is intercepting for example a service call (that is unaware of the process engines existence), we may want to perform an additional security check beyond the traditional state check.
+
+It is important to note however that permission checking should not be considered an alternative to state checking, which means a lot of problems can and should be solved with conditional flow lines rather than a permission check on the target action.
+
+For example when a service is run and the process engine intercepts it, it first performs a state check. It will then also perform a security check that (if the state allows it) makes sure that whoever is trying to run it is allowed to do so.
+
+However, if the state dictates that after that service intercept a task should be scheduled to run a service automatically, we will NOT perform a permission check on that service run. It will run with the same credentials as whoever submitted it but if it is not allowed to do that, the state condition should have taken that into account.
+Same with signals (which may spawn from different processes) where a condition on the signal should be used rather than a permission check.
+
+Human tasks are a slightly tougher one, you want to offer users only tasks that they can manage in a list view, this is hard to combine with an application level check that correlates a single user to a single task.
+You don't want a task to show up in a user inbox only to end up throwing an error because he is not allowed to submit it.
+
+So until we can solve the listing issue in an acceptable way, we will not check permissions on the human task, it is up to the interface that serves up the human tasks to make this distinction to the best of its efforts.
+
+There are many types of checks you may want to perform when a particular action is run:
+
+- is the current $userId of the process also the one who wants to run it?
+- is it perhaps a user that has not done any previous actions in the process? (sometimes a requirement for "review" steps)
+- do you have a certain permission in a certain context based on one of the identifiers in the process?
+- is it currently between business hours?
+- ...
+
+This goes far beyond the traditional roles/permissions check we often perform.
+
+For this reason I have added a checkPermission spec that is run BEFORE the action is taken to ensure that whoever is trying to run it, actually does that.
+
 # Root service only
 
 In most cases we _dont_ want to capture nested services but only root services.

@@ -12,7 +12,7 @@
     <structure definition="nabu.frameworks.process.manage.rest.process.version.processStateFull" minOccurs="0" name="sourceState"/>
     <structure definition="nabu.frameworks.process.manage.rest.process.version.processStateFull" minOccurs="0" name="targetState"/>
     <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.createOutput" name="newStateInstance"/>
-    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" minOccurs="0" name="currentStateInstance"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" enricher="nabu.frameworks.process.crud.processStateInstance.services.list" minOccurs="0" name="currentStateInstance" persister="nabu.frameworks.process.crud.processStateInstance.batch.updateAll"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.database.types.processInstance" maxOccurs="unbounded" minOccurs="0" name="processInstances"/>
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.database.types.processActionInstance" maxOccurs="unbounded" minOccurs="0" name="actionInstances"/>
     <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" minOccurs="0" name="targetAction"/>

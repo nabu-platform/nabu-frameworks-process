@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.web.component.WebComponentManager" created="2023-01-27T16:33:44.676+01:00" lastModified="2024-08-26T13:39:53.741+02:00" leaf="true" version="30">
+<node artifactManager="be.nabu.eai.module.web.component.WebComponentManager" created="2023-01-27T16:33:44.676+01:00" lastModified="2024-09-06T11:00:08.701+02:00" leaf="true" version="31">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -25,4 +25,5 @@
     <references>nabu.frameworks.process.manage.rest.process.instance.manual.trigger</references>
     <references>nabu.frameworks.process.manage.rest.process.instance.manual.quickMigrate</references>
     <references>nabu.frameworks.process.manage.rest.process.instance.manual.cancel</references>
+    <references>nabu.frameworks.process.manage.rest.masterdata.listCheckPermission</references>
 </node>

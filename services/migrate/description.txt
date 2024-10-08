@@ -9,3 +9,7 @@ Migration strategies:
 
 - stateOnly: only replay the current state, we don't replay actions within it. This is mostly relevant for long running CMMN-like processes where internal order is not really relevant
 - stateAndActions: replay the current state and the actions, this is relevant when internal order _is_ important (default)
+
+
+TODO: there are long running tasks (e.g. human tasks) that can block process migration. we need a standard way of dealing with this
+TODO: add descriptions?

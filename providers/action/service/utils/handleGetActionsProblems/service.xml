@@ -35,26 +35,139 @@
 			id="56971eda7f4c41fc9bb3f7cb5637848f"
 			lineNumber="3">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-				comment="If we have processes in an incorrect state, log it and block execution with an error"
+				comment="If you are not allowed to run it for one process, you are not allowed to run it for any"
 				disabled="false"
-				id="d45c8d74430d43e2bba34498d62812b1"
-				label="input/incorrectStateProcessInstanceIds != null"
+				id="a41c1ce5fd614167a788289cb5414962"
+				label="input/notAllowedProcessInstanceIds != null"
 				lineNumber="4">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 					comment="Scope transaction"
 					disabled="false"
-					id="2beb24277bea45a6a640b5517a99488a"
+					id="a244dd9eee7a4491ab08c95c422bddee"
 					lineNumber="5"
 					scopeDefaultTransaction="true">
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
-						id="cd8b494941c54506b32f8b3bcfa058a6"
+						id="ab54023332ad4fbfa35fafb417b5a28f"
 						lineNumber="6"
+						variable="notAllowedProcessInstanceId">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+							disabled="false"
+							id="f1dbca45c2b0467199204b763eebf036"
+							lineNumber="7">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="ac93269cdec545749a81fcf742ff2b64"
+								serviceId="nabu.frameworks.process.crud.processInstanceLog.services.create"
+								resultName="result4b002ac987f74a8fb87d825743475900"
+								temporaryMapping="true"
+								x="410"
+								y="73"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="1655bb29fbb24656ae0757157713a941"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>date</from>
+								<to>instance/created</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="52835d6e9c0d4f70a656dfa5eaf91f18"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>="Blocked execution of '" + input/name + "' because the process is in error"</from>
+								<to>instance/log</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="60554db5be824dcbb169703d636f00b5"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>flow</from>
+								<to>instance/logType</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="7d5b60b22363417887f8f93935245dd1"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>NO-PERMISSION</from>
+								<to>instance/code</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="087172d69c454ccc8162e0062e7e7003"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>="{
+	properties: [{
+		'key': 'serviceId', 
+		'value': '" + input/name + "'
+	}]
+}"</from>
+								<to>instance/dataBinding</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="04116034c18e48abbc419b957346c561"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>notAllowedProcessInstanceId</from>
+								<to>instance/processInstanceId</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="1815e84d42644ce4b9d276244aff78a1"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>input/connectionId</from>
+								<to>connectionId</to>
+							</steps>
+						</steps>
+					</steps>
+					<query>input/notAllowedProcessInstanceIds</query>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+					disabled="false"
+					id="a716a4c7102341dcb25e011baec902bc"
+					lineNumber="8"
+					code="PROCESS-DENIED"
+					message="The user does not have permission to run the action"
+					whitelist="false" xsi:nil="true"/>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+				comment="If we have processes in an incorrect state, log it and block execution with an error"
+				disabled="false"
+				id="d45c8d74430d43e2bba34498d62812b1"
+				label="input/incorrectStateProcessInstanceIds != null"
+				lineNumber="9">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+					comment="Scope transaction"
+					disabled="false"
+					id="2beb24277bea45a6a640b5517a99488a"
+					lineNumber="10"
+					scopeDefaultTransaction="true">
+				<steps xsi:type="be.nabu.libs.services.vm.step.For"
+						disabled="false"
+						id="cd8b494941c54506b32f8b3bcfa058a6"
+						lineNumber="11"
 						variable="incorrectStateProcessInstanceId">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="b06e6061c17348b6a1801b6e85a09fec"
-							lineNumber="7">
+							lineNumber="12">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="5a2c6417a6e44634b0b71ba1849e5d22"
@@ -142,7 +255,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 					disabled="false"
 					id="88eca6a64d82476babcde88be9fbdf53"
-					lineNumber="8"
+					lineNumber="13"
 					code="PROCESS-INCORRECT-STATE"
 					message="The process is in an incorrect state to run this service"
 					whitelist="false" xsi:nil="true"/>
@@ -152,22 +265,22 @@
 				disabled="false"
 				id="8f6090cced4443ba856380dfcebcb402"
 				label="input/conflictingStateProcessInstanceIds != null"
-				lineNumber="9">
+				lineNumber="14">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 					comment="Scope transaction"
 					disabled="false"
 					id="8d0009e66f2244debcd91d6b8a72e289"
-					lineNumber="10"
+					lineNumber="15"
 					scopeDefaultTransaction="true">
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
 						id="87cdb51ab9aa4685abc34be752b13df0"
-						lineNumber="11"
+						lineNumber="16"
 						variable="conflictingStateProcessInstanceId">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="c40ef2ec2ea54590b776d8dd5b7b10d7"
-							lineNumber="12">
+							lineNumber="17">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="e6b2ae2d13814270ae276538e3ee6822"
@@ -255,7 +368,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 					disabled="false"
 					id="558fa03d1e2c4deda16a592d1da23b4f"
-					lineNumber="13"
+					lineNumber="18"
 					code="PROCESS-CONFLICTING-STATE"
 					message="The process is in a conflicting state"
 					whitelist="false" xsi:nil="true"/>
@@ -265,22 +378,22 @@
 				disabled="false"
 				id="7c486ca121c942ad83a8023cdfdfacd1"
 				label="input/errorProcessInstanceIds != null"
-				lineNumber="14">
+				lineNumber="19">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 					comment="Scope transaction"
 					disabled="false"
 					id="3f5897546bee43fd8a2cccb44f5a7ad3"
-					lineNumber="15"
+					lineNumber="20"
 					scopeDefaultTransaction="true">
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
 						id="46455ff3283a4589b24e8953e4a7ffdb"
-						lineNumber="16"
+						lineNumber="21"
 						variable="errorProcessInstanceId">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="c7282f5680e14da699e19b72593e78d7"
-							lineNumber="17">
+							lineNumber="22">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="be9e51eeed684cb7961f3cd403ca23ea"
@@ -348,7 +461,7 @@
 									mask="false"
 									optional="false"
 									fixedValue="false">
-								<from>errorProcessInstanceId</from>
+								<from>notAllowedProcessInstanceId</from>
 								<to>instance/processInstanceId</to>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -366,10 +479,9 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
-					description="=&quot;The process instance is currently in ERROR: &quot; + potentialProcessInstance/processInstanceId"
 					disabled="false"
 					id="777043430e98478b8e242eee095660cb"
-					lineNumber="18"
+					lineNumber="23"
 					code="PROCESS-IN-ERROR"
 					message="The process instance is currently in ERROR"
 					whitelist="false" xsi:nil="true"/>

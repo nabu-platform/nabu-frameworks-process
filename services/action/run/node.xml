@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-10-02T09:20:36.614+02:00" lastModified="2024-10-03T10:26:29.812+02:00" leaf="true" version="27">
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.resolveContextId</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.runAutomatedAction</references>
+    <references>nabu.utils.List.addAll</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.Object</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.propertyList</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
+    <references>nabu.utils.Object.toProperties</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.resolveDataBinding</references>
+</node>

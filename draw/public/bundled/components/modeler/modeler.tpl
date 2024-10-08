@@ -57,6 +57,12 @@
 					<n-form-text :edit="editable" :value="selected.target.maxOccurs" v-if="selected.target.actionType == 'any' && selected.target.maxOccurs != 0" label="How many inputs must be resolved?" placeholder="1" @input="function(value) { updateAnyActionOccurs(selected.target, value); draw() }"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'signal'" label="Condition" v-model="selected.target.condition" after="You can set an additional condition that must be true before this action is matched. As a rule: the more generic the service you are capturing, the more specific your condition should be."/>
+					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service'" label="Error Condition" v-model="selected.target.errorCondition" after="Even if the service concludes successfully we may want to flag it as ERROR or FAILED (depending on the auto fail flag)"/>
+					<n-form-combo :key="selected.target.id + '-checkPermissionId'" :edit="editable" v-if="selected.target.actionType == 'service' && !selected.target.automatic" label="Permission checker" v-model="selected.target.checkPermissionId" after="Run an additional security check to see if this is allowed at this point. Use with caution, it is not meant to replace state checks"
+						:timeout="600"
+						:filter="getCheckPermissions"
+						:formatter="function(x) { return x.title + (x.description ? ' (' + x.description + ')' : '') }"
+						:extracter="function(x) { return x.id }"/>
 					<div v-if="selected.target.actionType == 'signal'">
 						<n-form-text :edit="editable" v-model="selected.target.signalId" label="Signal Id" after="Make sure this name is globally unique to avoid conflicting signals. Consider adding a namespace"/>
 						<n-form-text v-if="selected.target.automatic" :edit="editable" v-model="selected.target.dataTypeId" label="Signal data type id" after="The data type of the data being sent"/>
@@ -75,6 +81,7 @@
 						:extracter="function(x) { return x.name }"/>
 					<n-form-combo :edit="editable" v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service'" v-model="selected.target.serviceId" label="Service id that is executed"/>
+					<n-form-switch :edit="editable" v-model="selected.target.manual" label="Allow manual triggering" @input="draw" after="Do you want to be able to trigger this manually?"/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service' && !selected.target.automatic" v-model="selected.target.reprocessable" label="Allow reprocessing" @input="draw" after="Do you want to be able to reprocess this service if it fails?"/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service'" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'signal'" v-model="selected.target.automatic" label="Send signal" after="By default we wait for the signal to occur. When checked, we actually send the signal." @input="draw"/>
@@ -84,7 +91,7 @@
 						<n-form-text :edit="editable" v-model="selected.target.schedule" label="Schedule" :disabled="selected.target.delay" after="You can run this according to a certain schedule" @input="draw"/>
 						<n-form-text :edit="editable" v-model="selected.target.queue" label="Task queue" after="You can set a specific queue for this automated task" :placeholder="model.queue ? model.queue : 'anonymous'"/>
 					</div>
-					<div v-if="selected.target.automatic" class="is-column is-spacing-gap-medium">
+					<div class="is-column is-spacing-gap-medium">
 						<div v-if="selected.target.binding" class="is-column is-spacing-gap-medium">
 							<div v-for="(input, inputIndex) in selected.target.binding" class="is-column has-button-close is-spacing-medium is-color-body">
 								<n-form-combo :edit="editable" v-model="input.key" label="Key" :filter="getServiceInputs.bind($self, selected.target)" :formatter="function(x) { return x.path }" :extracter="function(x) { return x.path }" v-if="selected.target.actionType == 'service'"/>
@@ -115,6 +122,7 @@
 					</div>
 					<div v-if="selected.target.actionType == 'service' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" class="is-column is-spacing-gap-medium">
 						<h4 class="is-h4">Value capturing</h4>
+						<n-form-switch :edit="editable" v-model="selected.target.linkToUser" v-if="selected.target.actionType == 'service'" label="Link to user" @input="draw" after="If enabled, the user details (userId, deviceId, sessionId) for this process will be updated, allowing for identification and/or permission checking on these variables."/>
 						<p v-if="selected.target.actionType == 'service'" class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
 						<p v-else-if="selected.target.actionType == 'signal'" class="is-p is-size-small">You can capture values from the signal data to either identify the process instance or enrich it with metadata</p>
 						<p v-else-if="selected.target.actionType == 'human'" class="is-p is-size-small">You can capture values from the human task data to enrich the process with metadata</p>

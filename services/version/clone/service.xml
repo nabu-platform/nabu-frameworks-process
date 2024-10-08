@@ -291,6 +291,15 @@
 			<from>resultf365733b6c4f420f91f4ab46cc4ad003/date</from>
 			<to>date</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="653ff8936ca245a48599e282049689c7"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultf365733b6c4f420f91f4ab46cc4ad003/date</from>
+			<to>version/created</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"

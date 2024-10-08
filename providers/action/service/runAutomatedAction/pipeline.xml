@@ -18,7 +18,7 @@
     <field name="allowedToProceed" type="java.lang.Boolean"/>
     <field name="processInError" type="java.lang.Boolean"/>
     <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" minOccurs="0" name="action"/>
-    <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="serviceInput"/>
+    <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="serviceInput"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
     <field name="taskId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="actionInstancesInError" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>

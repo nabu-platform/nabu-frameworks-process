@@ -3,6 +3,7 @@
         <field minOccurs="0" name="connectionId" type="java.lang.String"/>
         <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field minOccurs="0" name="deviceId" type="java.lang.String"/>
+        <field minOccurs="0" name="linkToUser" type="java.lang.Boolean"/>
     </structure>
     <structure name="output"/>
     <structure definition="be.nabu.libs.authentication.api.Token" minOccurs="0" name="token"/>
@@ -14,4 +15,10 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" name="userParameter"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters" name="deviceParameter"/>
     <field maxOccurs="unbounded" name="processInstancesAlreadyUpdated" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field minOccurs="0" name="amountOfParametersToUpdate" type="java.lang.Integer"/>
+    <field name="amountOfParametersUpdated" type="java.lang.Long"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="existingValues" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
+    <field comment="The name of the captured variable" maxOccurs="unbounded" name="existingKeys" type="java.lang.String"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="dataToCreate"/>
+    <field minOccurs="0" name="date" type="java.util.Date"/>
 </structure>

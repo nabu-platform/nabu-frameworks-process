@@ -17,6 +17,7 @@
         <field maxOccurs="unbounded" minOccurs="0" name="allowedUnmatchableProcessVersionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field maxOccurs="unbounded" minOccurs="0" name="ignoreProcessVersionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field maxOccurs="unbounded" minOccurs="0" name="ignoreProcessDefinitionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field comment="Whether or not it is an automatic action" minOccurs="0" name="automatic" type="java.lang.Boolean"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.actionToRun" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
@@ -24,6 +25,7 @@
         <field comment="The ids of all the process instances that are in an incorrect state to allow this to proceed" maxOccurs="unbounded" minOccurs="0" name="conflictingStateProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field comment="The ids of all the process instances that are in error" maxOccurs="unbounded" minOccurs="0" name="errorProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field comment="When you have too many processes that match, we want to throw an exception as well" maxOccurs="unbounded" minOccurs="0" name="multipleProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field maxOccurs="unbounded" minOccurs="0" name="notAllowedProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
     <field maxOccurs="unbounded" minOccurs="0" name="processStates" type="java.lang.String"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="runningProcesses" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
@@ -79,4 +81,5 @@
     <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" name="potentialProcessInstances" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definitionToCheck"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="identificationCaptures"/>
+    <field name="checkPermission" type="java.lang.Boolean"/>
 </structure>

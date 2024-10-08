@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T22:45:44.633+01:00" lastModified="2023-05-17T15:37:31.548+02:00" leaf="true" version="8">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T22:45:44.633+01:00" lastModified="2024-10-07T15:46:42.164+02:00" leaf="true" version="11">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.outputForRollback</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
     <references>nabu.utils.Server.getServerName</references>
     <references>nabu.frameworks.process.services.getSupportedConnections</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>java.util.Date</references>
     <references>nabu.utils.Date.now</references>
-    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
     <references>nabu.frameworks.process.providers.action.service.startup.failRunningActions</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.listForRollback</references>
     <references>java.lang.String</references>
-    <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
 </node>

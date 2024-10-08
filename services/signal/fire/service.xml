@@ -1257,9 +1257,9 @@
 					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessVariables"
 					resultName="resulte68b99bf22784c6ea3573dd3d319b644"
 					temporaryMapping="true"
-					x="173"
-					y="79"
-					invocationOrder="0"
+					x="443"
+					y="89"
+					invocationOrder="1"
 					asynchronous="false"
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -1279,6 +1279,45 @@
 						fixedValue="false">
 					<from>deviceId</from>
 					<to>deviceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="2487521813774d7b8efc202d327a5578"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resultba8ba923bcab41a1b5e59fc4b857fc21/linkToUser</from>
+					<to>linkToUser</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="9f25b5a12da2459eb956fd1074f3bf0f"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.shouldLinkToUser"
+					resultName="resultba8ba923bcab41a1b5e59fc4b857fc21"
+					temporaryMapping="true"
+					x="90"
+					y="265"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="91c91378691a45c4ab5eae192f295e25"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>actionToRun/processVersionId</from>
+					<to>processVersionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="1cc4531a8ab04997a9e3990c36eccfd8"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>actionToRun/processActionId</from>
+					<to>processActionId</to>
 				</steps>
 			</steps>
 		</steps>

@@ -1,0 +1,20 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field name="code" type="java.lang.String"/>
+        <structure definition="java.lang.Object" minOccurs="0" name="data"/>
+    </structure>
+    <structure name="output"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="instance" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" enricher="nabu.frameworks.process.crud.processAction.services.list" maxOccurs="unbounded" minOccurs="0" name="potentialActions" persister="nabu.frameworks.process.crud.processAction.batch.updateAll"/>
+    <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" enricher="nabu.frameworks.process.crud.processStateInstance.services.list" minOccurs="0" name="stateInstance" persister="nabu.frameworks.process.crud.processStateInstance.batch.updateAll"/>
+    <field name="allowedToProceed" type="java.lang.Boolean"/>
+    <field name="processInError" type="java.lang.Boolean"/>
+    <field comment="When permissions are necessary, you can set a context id query to extract a context id from the process parameters" maxOccurs="unbounded" name="contextIdQueries" type="java.lang.String"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="processData" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
+    <field minOccurs="0" name="contextId" type="java.lang.String"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" minOccurs="0" name="binding"/>
+    <field comment="A list of key value pairs that contain optional data binding for this action" maxOccurs="unbounded" minOccurs="0" name="dataBindings" type="java.lang.String"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" minOccurs="0" name="actionBinding"/>
+</structure>

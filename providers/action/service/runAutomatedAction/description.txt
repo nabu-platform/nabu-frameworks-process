@@ -8,3 +8,7 @@ Note that this does not (currently) support more complex usecases:
 
 Because the process engine uses its own transaction management, we also _have_ to commit the changes on the process instance table, otherwise we get table locks.
 This means however that there is an edge case where we have successfully updated the process but not successfully updated the task. Hopefully rollback & retry procedures in the task framework itself will plug these holes.
+
+@2024-10-02
+In retrospect it might have been better to have an object as data input rather than key/value pairs. It might still work (with serialization vis-a-vis task framework etc) but this would need to be tested.
+Currently we just roundtrip to key/value pairs for anyone wanting to call this service.

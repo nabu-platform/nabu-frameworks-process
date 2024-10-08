@@ -1,14 +1,14 @@
 <structure interface="nabu.frameworks.process.manage.rest.process.action.retry:api" name="pipeline">
     <structure name="input"/>
     <structure name="output"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" name="action"/>
-    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="process"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" name="action" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="process" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
     <field comment="You can define a shared queue. Otherwise each process will have its own (anonymous) queue." minOccurs="0" name="queue" type="java.lang.String"/>
     <structure collectionName="processActions" comment="When you have a repeatable action that has child actions, when the child actions occur, they are linked to the LAST unlockedinstance of the parent.&#10;For example: check a particular remote state (e.g. document signature) until it is signed, then we can continue." definition="nabu.frameworks.process.database.types.processAction" minOccurs="0" name="actionDefinition"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
     <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="properties"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="allImpactedActions"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="allImpactedActions" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
     <field comment="If run via task framework, we keep the task id here" foreignKey="nabu.frameworks.tasks.types.model.tasks.Task:id" maxOccurs="unbounded" minOccurs="0" name="taskIdsToFail" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" name="task"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="correlatedActions"/>
+    <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" enricher="nabu.frameworks.tasks.crud.task.services.list" name="task" persister="nabu.frameworks.tasks.crud.task.batch.updateAll"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="correlatedActions" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
 </structure>

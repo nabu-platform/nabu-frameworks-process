@@ -5,11 +5,11 @@
     <structure name="output">
         <field name="clonedProcessVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
-    <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" maxOccurs="unbounded" minOccurs="0" name="states"/>
-    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" maxOccurs="unbounded" minOccurs="0" name="actions"/>
-    <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="actionRelations"/>
-    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" maxOccurs="unbounded" minOccurs="0" name="stateRelations"/>
-    <structure collectionName="processCaptures" definition="nabu.frameworks.process.crud.processCapture.types.output" maxOccurs="unbounded" minOccurs="0" name="captures"/>
+    <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" enricher="nabu.frameworks.process.crud.processState.services.list" maxOccurs="unbounded" minOccurs="0" name="states" persister="nabu.frameworks.process.crud.processState.batch.updateAll"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" enricher="nabu.frameworks.process.crud.processAction.services.list" maxOccurs="unbounded" minOccurs="0" name="actions" persister="nabu.frameworks.process.crud.processAction.batch.updateAll"/>
+    <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.output" enricher="nabu.frameworks.process.crud.processActionRelation.services.list" maxOccurs="unbounded" minOccurs="0" name="actionRelations" persister="nabu.frameworks.process.crud.processActionRelation.batch.updateAll"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" enricher="nabu.frameworks.process.crud.processStateRelation.services.list" maxOccurs="unbounded" minOccurs="0" name="stateRelations" persister="nabu.frameworks.process.crud.processStateRelation.batch.updateAll"/>
+    <structure collectionName="processCaptures" definition="nabu.frameworks.process.crud.processCapture.types.output" enricher="nabu.frameworks.process.crud.processCapture.services.list" maxOccurs="unbounded" minOccurs="0" name="captures" persister="nabu.frameworks.process.crud.processCapture.batch.updateAll"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" name="stateMapping"/>
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" name="actionMapping"/>

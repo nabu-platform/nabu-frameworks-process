@@ -33,4 +33,8 @@
     <field comment="Stable code to identify this action. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
     <field comment="If this resolves to true, we want to force the process to run this action even if it is not allowed. For instance some processes model actual real-life processes. We can't alter reality (yet) so we must allow it but we do want to flag it." minOccurs="0" name="forceCondition" type="java.lang.String"/>
     <field comment="When forcing execution, there are a number of strategies to use. &quot;actionOnly&quot; only forces the action to be run within the current state instance (even if it is the wrong type). &quot;actionAndState&quot; will force a new state instance of the correct type to be routed even if it is routed already" minOccurs="0" name="forceStrategy" type="java.lang.String"/>
+    <field comment="A service implementation that checks whether this action is allowed" minOccurs="0" name="checkPermissionId" type="java.lang.String"/>
+    <field comment="You can set a condition which (based on the data we have) will determine that the step did not succeed even though it appears to have succeeded." minOccurs="0" name="errorCondition" type="java.lang.String"/>
+    <field comment="Do you want to allow manual triggering of this action?" minOccurs="0" name="manual" type="java.lang.Boolean"/>
+    <field comment="Link the process to the user currently executing the action" minOccurs="0" name="linkToUser" type="java.lang.Boolean"/>
 </structure>

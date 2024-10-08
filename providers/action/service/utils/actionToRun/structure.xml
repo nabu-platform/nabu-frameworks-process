@@ -9,6 +9,8 @@
     <field minOccurs="0" name="nested" type="java.lang.Boolean"/>
     <field minOccurs="0" name="forced" type="java.lang.Boolean"/>
     <field comment="Check if we have a strategy" minOccurs="0" name="forceStrategy" type="java.lang.String"/>
+    <field minOccurs="0" name="errorCondition" type="java.lang.String"/>
+    <field minOccurs="0" name="autoFail" type="java.lang.Boolean"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="identificationCaptures"/>
 </structure>

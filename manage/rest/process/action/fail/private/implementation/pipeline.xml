@@ -1,7 +1,7 @@
 <structure interface="nabu.frameworks.process.manage.rest.process.action.fail:api" name="pipeline">
     <structure name="input"/>
     <structure name="output"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" name="actionInstance"/>
-    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="process"/>
-    <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" name="task"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" name="actionInstance" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="process" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
+    <structure collectionName="Tasks" definition="nabu.frameworks.tasks.crud.task.types.output" enricher="nabu.frameworks.tasks.crud.task.services.list" name="task" persister="nabu.frameworks.tasks.crud.task.batch.updateAll"/>
 </structure>

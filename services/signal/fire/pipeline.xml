@@ -1,7 +1,7 @@
 <structure name="pipeline">
     <structure name="input">
         <field name="signalId" type="java.lang.String"/>
-        <structure collectionCrudProvider="odata" collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
+        <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
     </structure>
     <structure name="output"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.actionToRun" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>

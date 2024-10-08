@@ -95,17 +95,26 @@
 			into="output/actions">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Break"
 				comment="Only signals or automatic actions can be triggered"
-				disabled="false"
+				disabled="true"
 				id="45c11bf8444e407b8aaa320f95be19b9"
 				label="potentialAction/actionType != &quot;signal&quot; &amp;&amp; !potentialAction/automatic"
 				lineNumber="6">
 			<count>1</count>
 			<continueExecution>true</continueExecution>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+				comment="If not specifically marked for manual action, we skip it"
+				disabled="false"
+				id="46e395df7e1d4217bfc43ed9ddeb12dd"
+				label="!potentialAction/manual"
+				lineNumber="7">
+			<count>1</count>
+			<continueExecution>true</continueExecution>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="690270810e9140da9da991e87daff85d"
-				lineNumber="7">
+				lineNumber="8">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="7a8f534e9a8342369982256eceb6e170"
@@ -159,12 +168,12 @@
 				disabled="false"
 				id="3bee96e6759f41ec9ea0f2ef47c3b3c0"
 				label="allowedToProceed"
-				lineNumber="8">
+				lineNumber="9">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Map main"
 					disabled="false"
 					id="d92c8e44941041219dc8c914bbbdb0ac"
-					lineNumber="9">
+					lineNumber="10">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="1f6a223608814577a0551ff197b4ac1a"
@@ -178,17 +187,17 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 					disabled="false"
 					id="dc00149bb6d7411994a851d88bedc319"
-					lineNumber="10"
+					lineNumber="11"
 					query="potentialAction/actionType">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 						disabled="false"
 						id="ef64aa0c9f8f4674b113892caf68ff6e"
 						label="&quot;signal&quot;"
-						lineNumber="11">
+						lineNumber="12">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="2cecf37337e64fdd9fba602f3a780c28"
-							lineNumber="12">
+							lineNumber="13">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="c292a43db3a744deb3b94fa6d98690b7"
@@ -223,13 +232,13 @@
 					<steps xsi:type="be.nabu.libs.services.vm.step.For"
 							disabled="false"
 							id="5a4cd50383164d7abf400ba29113bae1"
-							lineNumber="13"
+							lineNumber="14"
 							variable="key"
 							into="output/actions[0]/parameters">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 								disabled="false"
 								id="190ddfcff3fc4665a517c7330b52ce42"
-								lineNumber="14">
+								lineNumber="15">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
 									id="84a7a12967c2424d98135e7925760b94"

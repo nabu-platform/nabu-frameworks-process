@@ -1,0 +1,2 @@
+When a conditional ERROR occurs, we don't have an exception, but it still may be relevant (from an eventing perspective) to have a trace of it.
+We should send an event in case of conditional error or failure states.

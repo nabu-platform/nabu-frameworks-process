@@ -274,6 +274,15 @@
 				<from>FAILED</from>
 				<to>impactedAction/processState</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5f70a5e1cda54b1d91c5470a3c22480a"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>retry</from>
+				<to>impactedAction/reason</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
@@ -457,10 +466,38 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Only compensate if possible (optimization)"
+					disabled="false"
+					id="ffb034c8fdc64f6c88484e2819ccb34c"
+					label="task/compensationServiceId != null"
+					lineNumber="23">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="143341b439e54f598bfca88deb901766"
+						serviceId="nabu.frameworks.tasks.utils.task.compensate"
+						resultName="result3bc611ce160a45618becf1363902ae4c"
+						temporaryMapping="true"
+						x="96"
+						y="62"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="b55882b73fe849aea1058f59d728c3ea"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>taskIdToFail</from>
+						<to>taskId</to>
+					</steps>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Resume the queue so we the process can continue"
 					disabled="false"
 					id="f0a16fae77114bc68fc4b84978e5378c"
-					lineNumber="23">
+					lineNumber="24">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="a1ab28b6bc8743d892fb605bf97a8055"
@@ -489,12 +526,12 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			disabled="false"
 			id="49242105649c46aeaf91d814171b8c39"
-			lineNumber="24">
+			lineNumber="25">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="e39c031e12a54c86b92e82d49cfbff93"
 				label="action/taskId != null"
-				lineNumber="25">
+				lineNumber="26">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="b0892124b4bb4e3782c2dc2399ee7d67"
@@ -520,11 +557,11 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				disabled="false"
 				id="a0a5deadcc1147f1b3b089e31ea50238"
-				lineNumber="26">
+				lineNumber="27">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="28d49bcee3804642947e19d26b72846b"
-					lineNumber="27">
+					lineNumber="28">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="6ebd88854287472889b614590c3ff2e8"
@@ -578,7 +615,7 @@
 					disabled="false"
 					id="9127d6cd94aa4b929af35356e0873f0c"
 					label="actionDefinition/reprocessable != true"
-					lineNumber="28"
+					lineNumber="29"
 					message="Can not be reprocessed"
 					whitelist="false" xsi:nil="true"/>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -586,7 +623,7 @@
 					disabled="false"
 					id="8443162ddaa74f0599b518d0879e3c11"
 					label="actionDefinition/queue != null"
-					lineNumber="29">
+					lineNumber="30">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="cd740f91a8b24d97a8923b7e524e33cf"
@@ -601,18 +638,18 @@
 					comment="Finalize queue name"
 					disabled="false"
 					id="51f1803da10a460cbb59fc62f3a7d236"
-					lineNumber="30">
+					lineNumber="31">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 						disabled="false"
 						id="83d31539e55b4bb69010894ea7ab1c62"
 						label="queue == null"
-						lineNumber="31"
+						lineNumber="32"
 						query="definition/code">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="c8671179758f497eb9c1b45857345f85"
 							label="null"
-							lineNumber="32">
+							lineNumber="33">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="9e1c2a0c217f4c2fa4fcbdc69139a8e1"
@@ -705,7 +742,7 @@
 							comment="We can rename the process which should not impact the queue name"
 							disabled="false"
 							id="1a5d3ff705624b27abbc6d7fd7f71713"
-							lineNumber="33">
+							lineNumber="34">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="e1733decccb7460d96189a5b8ecf6b91"
@@ -760,7 +797,7 @@
 						comment="You can use the variable in it"
 						disabled="false"
 						id="f4cd52d5a03f4daaa329d422ce86eb3f"
-						lineNumber="34">
+						lineNumber="35">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="20f3774a210f419f98f032cecc2b3c30"
@@ -825,7 +862,7 @@
 					disabled="false"
 					id="87b3f909086e4e3aa66327c90f998646"
 					label="action/input != null"
-					lineNumber="35">
+					lineNumber="36">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="b044a508a4d04204b8ca3d565ae796e5"
@@ -890,7 +927,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="595fa610696b4db2b17d3fb4b56b4407"
-					lineNumber="36">
+					lineNumber="37">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="f1c0cbd5f6c44b96ab73b88d4c297243"
@@ -969,7 +1006,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="true"
 				id="972d112fb24c414fb5b7530e1635e06b"
-				lineNumber="37">
+				lineNumber="38">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="d6cc3c8afc92459f8370317a04ee8303"

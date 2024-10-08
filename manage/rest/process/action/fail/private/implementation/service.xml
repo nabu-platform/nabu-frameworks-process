@@ -238,10 +238,37 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="7ec870be8dca4baf842ea4a5f209ae08"
+				label="task/compensationServiceId != null"
+				lineNumber="12">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="00f88545af46415390729ea28a790bb0"
+					serviceId="nabu.frameworks.tasks.utils.task.compensate"
+					resultName="resultcbf064455f0c47bb876529de49684f47"
+					temporaryMapping="true"
+					x="167"
+					y="183"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="030a2fb03e7046e2b9debf9417ef4d42"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>actionInstance/taskId</from>
+					<to>taskId</to>
+				</steps>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Resume the queue so we the process can continue"
 				disabled="false"
 				id="f0a16fae77114bc68fc4b84978e5378c"
-				lineNumber="12">
+				lineNumber="13">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="a1ab28b6bc8743d892fb605bf97a8055"
@@ -268,7 +295,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="92bc94001a57457f865f0eb9638434f7"
-			lineNumber="13">
+			lineNumber="14">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="d2e150a2ae194c99894c34cdd3a44451"

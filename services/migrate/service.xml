@@ -316,11 +316,21 @@
 				<to>sourceDefinition</to>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+				comment="Process is already up to date"
+				description="=&quot;Process instance &quot; + processInstance/id + &quot; is already version &quot; + targetDefinition/version"
+				disabled="false"
+				id="683439b519344a0ea18153b00a9e9b32"
+				label="targetDefinition/version == sourceDefinition/version"
+				lineNumber="12">
+			<count>1</count>
+			<continueExecution>true</continueExecution>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Get current state"
 				disabled="false"
 				id="c40d22bfed6b43e586fc9b49f016eb75"
-				lineNumber="12">
+				lineNumber="13">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="744329e051ab4340adcb9e8f88ef26b6"
@@ -336,7 +346,7 @@
 				disabled="false"
 				id="70fda141a6974744b67e3ce47362c5a1"
 				label="statePlan/toStateId == null"
-				lineNumber="13">
+				lineNumber="14">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="26a4360a543b4ca49929f468217e7d94"
@@ -352,14 +362,14 @@
 				disabled="false"
 				id="61db759653944b9d8c13247783a8f0bb"
 				label="statePlan/toStateId == null"
-				lineNumber="14"
+				lineNumber="15"
 				message="Could not find matching state, need to update migration plan"
 				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Get target state"
 				disabled="false"
 				id="da5e40606ef2460cbffdf7989a31e08e"
-				lineNumber="15">
+				lineNumber="16">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="72f886daa0014593b2f137cc4d1060b9"
@@ -374,13 +384,13 @@
 				disabled="false"
 				id="290d2c06037d44029a4765c1fe124aac"
 				label="!targetState"
-				lineNumber="16"
+				lineNumber="17"
 				message="Invalid target state"
 				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="ced0922307584c2f97a2e7f4f4f70b32"
-				lineNumber="17">
+				lineNumber="18">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="58f54943ee024afd90fd562d0a1140c5"
@@ -434,14 +444,14 @@
 				disabled="false"
 				id="1ae44242e9ce46dfac04511dd9f73777"
 				label="!currentStateInstance"
-				lineNumber="18"
+				lineNumber="19"
 				message="Could not find current state instance"
 				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Create new state instance, update existing"
 				disabled="false"
 				id="e70ca228ac004857bb57e40aab4a2caa"
-				lineNumber="19">
+				lineNumber="20">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="37909f22c77a43769d478eecd4f103de"
@@ -541,9 +551,10 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Update the process instance"
+				description="=&quot;Updating &quot; + processInstance/id + &quot; from version &quot; + sourceDefinition/version + &quot; to &quot; + targetDefinition/version"
 				disabled="false"
 				id="8c14a4cbed7b4cd1b50fb82d97947528"
-				lineNumber="20">
+				lineNumber="21">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="ddb5406f6ddb4b849fc2499ff4dc4af6"
@@ -578,7 +589,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="b288a983a46e4bfcae354975cb836531"
-				lineNumber="21">
+				lineNumber="22">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="3e1e3009ab3549af9622006c2739b38e"
@@ -614,20 +625,20 @@
 				disabled="false"
 				id="709039425be74a97a991f3e889a36cec"
 				label="&quot;RUNNING&quot; # actionInstances/processState"
-				lineNumber="22"
+				lineNumber="23"
 				message="Can't migrate running processes"
 				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"
 				disabled="false"
 				id="e2259e86b4b24e098c6d76941fa6375e"
 				label="statePlan/replayActions"
-				lineNumber="23"
+				lineNumber="24"
 				variable="currentActionInstance">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Get the source action"
 					disabled="false"
 					id="177abfa32cde4480b06da492fdfd29fb"
-					lineNumber="24">
+					lineNumber="25">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="7332c5885b38430aa238d40bfe9236e9"
@@ -642,14 +653,14 @@
 					disabled="false"
 					id="c190949f7d12478fa662474ee1dfff71"
 					label="!sourceAction"
-					lineNumber="25"
+					lineNumber="26"
 					message="Invalid source action"
 					whitelist="false" xsi:nil="true"/>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Get action mapping"
 					disabled="false"
 					id="a11058d3f5f94aaba1c6b7b6686143b7"
-					lineNumber="26">
+					lineNumber="27">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="52bbc08f3e5f4ffd92e1eab0aa7a9439"
@@ -665,7 +676,7 @@
 					disabled="false"
 					id="79e0822383e84061bd2815f4978195bc"
 					label="actionPlan/toActionId == null"
-					lineNumber="27">
+					lineNumber="28">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="dce7f53ea02a4bdcad64c21380ae6b6e"
@@ -681,7 +692,7 @@
 					disabled="false"
 					id="8fc77da797c748e980d2031118a661fc"
 					label="actionPlan/toActionId == null"
-					lineNumber="28">
+					lineNumber="29">
 				<count>1</count>
 				<continueExecution>true</continueExecution>
 			</steps>
@@ -689,7 +700,7 @@
 					comment="Get the target action"
 					disabled="false"
 					id="e884146e274a4437a0f50b89ed039382"
-					lineNumber="29">
+					lineNumber="30">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="bc36f612257b406f93aed2fe09a1a554"
@@ -703,7 +714,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="ec5b13802bc542968d98a6f230c4f30d"
-					lineNumber="30">
+					lineNumber="31">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="084e2df8d7bb447e895fb78666a4c4a2"
@@ -884,12 +895,12 @@
 					disabled="false"
 					id="e39f783ff130474586aa52ce618fcaf0"
 					label="currentActionInstance/processState == &quot;ERROR&quot;"
-					lineNumber="31">
+					lineNumber="32">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						comment="Set failed"
 						disabled="false"
 						id="f3fa743a13814cfd81d00927e19f88d8"
-						lineNumber="32">
+						lineNumber="33">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"
 							id="7ed3c458d5ae4135a3e5b530e3301b1b"
@@ -903,7 +914,7 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						disabled="false"
 						id="ad4803be09ce4c718ecb34c545796091"
-						lineNumber="33">
+						lineNumber="34">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="f51d9fbe7ae04dbca0073fdcc7c64e6a"

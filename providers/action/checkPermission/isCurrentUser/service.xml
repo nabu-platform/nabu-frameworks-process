@@ -1,0 +1,81 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="5f560999ece74fc4b0e9046c69d34191"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="db33b84688484e98a030541a4875209a"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="88c223fc20844285abd4e1ae202db389"
+				serviceId="nabu.frameworks.process.crud.processData.services.list"
+				resultName="resulte8258661677b4686a8e91c52bc162ce9"
+				temporaryMapping="true"
+				x="137"
+				y="110"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="24fd8667c23d4945a7516660afae7584"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processInstanceId</from>
+				<to>filter/processInstanceId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="15c5d9c551cd413886bcba7a1f542001"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/active</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="796c7d9d8a5344a79baeca1c06e31aef"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>$userId</from>
+				<to>filter/name[0]</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="30e8d3ec39cc46acbcac3cdb623b800e"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resulte8258661677b4686a8e91c52bc162ce9/results[0]/value</from>
+			<to>currentUserId</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+			comment="Weird usecase, need to clarify intended behavior if this actually ever occurs"
+			disabled="false"
+			id="6e9aa4ec86e24d42a484186250524167"
+			label="currentUserId == null &amp;&amp; input/authenticationId == null"
+			lineNumber="3"
+			message="No current user in the process nor a valid token"
+			whitelist="false" xsi:nil="true"/>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Calculate allowed"
+			disabled="false"
+			id="6ac7c37719f64ea5a19167635b80b32b"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="a03aac7868c340f3aacbbb9310e1e47b"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>=input/authenticationId == currentUserId</from>
+			<to>output/allowed</to>
+		</steps>
+	</steps>
+</sequence>

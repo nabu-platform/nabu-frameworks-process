@@ -213,6 +213,11 @@ Vue.view("process-modeler-component", {
 		}
 	},
 	methods: {
+		getCheckPermissions: function(value) {
+			return this.$services.swagger.execute("nabu.frameworks.process.manage.rest.masterdata.listCheckPermission", {
+				q: value
+			});
+		},
 		listAnonymizationServices: function(value) {
 			return this.$services.swagger.execute("nabu.web.core.manage.reflection.service.list", {
 				interfaceId: "nabu.frameworks.process.specs.process.anonymize",
@@ -1935,6 +1940,7 @@ Vue.view("process-modeler-component", {
 			this.drawActionSummary(action);
 			this.drawActionReference(action);
 			this.drawActionTimeout(action);
+			this.drawActionLinkToUser(action);
 			/*
 			d3.select(this.$refs.svg.getElementById(action.id + "-mapper"))
 				.attr("cx", action.styling.width)
@@ -2085,6 +2091,7 @@ Vue.view("process-modeler-component", {
 			this.drawActionReference(action);
 			this.drawActionTimeout(action);
 			this.drawActionAutomatic(action);
+			this.drawActionLinkToUser(action);
 			this.colorizeDefaultAction(action);
 		},
 		colorizeDefaultAction(action) {
@@ -2114,6 +2121,9 @@ Vue.view("process-modeler-component", {
 			group.querySelectorAll(":scope > .timeout > .icon").forEach(function(element) {
 				element.setAttribute("style", "fill: " + color.border + "; stroke:" + color.border);
 			});
+			group.querySelectorAll(":scope > .link-to-user > .icon").forEach(function(element) {
+				element.setAttribute("style", "fill: " + color.border + "; stroke:" + color.border);
+			});
 		},
 		drawActionAutomatic: function(action) {
 			var existing = this.svg.node().getElementById(action.id + "-automatic");
@@ -2133,6 +2143,37 @@ Vue.view("process-modeler-component", {
 					.attr("d", trianglePath)
 					.attr("id", action.id + "-automatic")
 					.attr("class", "automatic" + (action.synchronous ? " synchronous" : " asynchronous"))
+			}
+		},
+		drawActionLinkToUser: function(action) {
+			var group = d3.select(this.svg.node().getElementById(action.id));
+			
+			var reference = null;
+			var existing = this.svg.node().getElementById(action.id + "-link-to-user");
+			if (existing) {
+				reference = d3.select(existing);
+			}
+			if (action.linkToUser) {
+				// new, draw it all
+				if (reference == null) {
+					reference = group.append("g")
+						.attr("class", "link-to-user")
+						.attr("id", action.id + "-link-to-user")
+						
+					var icon = reference.append("use")
+						.attr("class", "icon")
+						.attr("x", 0)
+						.attr("y", 0)
+						.attr("width", 20)
+						.attr("height", 16)
+						.attr("href", "#icon-human");
+					this.move(icon, 4, -2);
+				}
+				// just move it
+				this.move(reference, action.styling.width - 24, -16);
+			}
+			else if (reference) {
+				d3.select(reference).remove();
 			}
 		},
 		drawActionReference: function(action) {

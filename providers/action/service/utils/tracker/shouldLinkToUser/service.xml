@@ -1,0 +1,70 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="dec08879e1fc40c883d1e2e3e1ab2cc4"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="03fafd2a15e142cb920f9fa8586b72db"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="9796544ed35f4a7b8ff47289841cef4e"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getProcessDefinition"
+				resultName="resulteea25a163bcd4ea6aa1acdeef319aa87"
+				temporaryMapping="true"
+				x="63"
+				y="48"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e2b49cde60e04d988e693d0ae979be30"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processVersionId</from>
+				<to>processVersionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="2aa5010cb4fe44b4bd577890186a2b01"
+				serviceId="nabu.utils.Object.last"
+				resultName="result1eefecd2c13643a0bc3035fde79747fd"
+				temporaryMapping="true"
+				x="873"
+				y="135"
+				invocationOrder="1"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="c7f6c97bec2c40b098eeeac27f67a812"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>false</from>
+				<to>options[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="cae5acd979714e1d8812dd1ed86df78c"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>resulteea25a163bcd4ea6aa1acdeef319aa87/definition/states/actions[id == /input/processActionId]/linkToUser</from>
+				<to>options[1]</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="1c989aaeb6574ee59068fd3c0e75bd50"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result1eefecd2c13643a0bc3035fde79747fd/last</from>
+			<to>output/linkToUser</to>
+		</steps>
+	</steps>
+</sequence>

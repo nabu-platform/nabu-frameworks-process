@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-09T09:34:06.124+01:00" lastModified="2024-01-31T10:20:58.529+01:00" leaf="true" version="17">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-09T09:34:06.124+01:00" lastModified="2024-10-07T11:13:59.507+02:00" leaf="true" version="26">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters</references>
     <references>nabu.utils.List.add</references>
     <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>java.util.Date</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateData</references>
+    <references>nabu.utils.Date.now</references>
+    <references>nabu.utils.Server.uuid</references>
     <references>nabu.utils.Runtime.setContext</references>
-    <references>nabu.utils.Runtime.getCorrelationId</references>
+    <references>nabu.frameworks.process.database.types.processData</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.utils.Runtime.getContext</references>
-    <references>nabu.utils.Runtime.getDeviceFromToken</references>
     <references>nabu.web.application.Services.getSessionId</references>
-    <references>java.lang.String</references>
     <references>java.util.UUID</references>
     <references>be.nabu.libs.authentication.api.Token</references>
+    <references>java.lang.Integer</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateData.parameters</references>
+    <references>nabu.services.jdbc.Services.insert</references>
+    <references>nabu.utils.List.size</references>
+    <references>java.lang.Long</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
+    <references>java.lang.Boolean</references>
+    <references>nabu.utils.Runtime.getDeviceFromToken</references>
+    <references>java.lang.String</references>
 </node>

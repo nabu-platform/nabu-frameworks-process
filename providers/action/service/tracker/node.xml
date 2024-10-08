@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2024-07-24T11:50:11.823+02:00" leaf="true" version="321">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2024-10-07T11:10:23.872+02:00" leaf="true" version="343">
     <environmentId>apollo</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -22,6 +22,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
     <references>nabu.protocols.jdbc.pool.Services.connectionForContext</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.shouldLinkToUser</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.update</references>
     <references>nabu.frameworks.process.providers.action.service.utils.pushRunningVersion</references>
     <references>nabu.frameworks.process.crud.processAction.services.list</references>
@@ -52,6 +53,7 @@
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker.track</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>nabu.services.glue.Services.evaluate</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getActionsToRun</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
     <references>be.nabu.libs.artifacts.api.ExternalDependency</references>
@@ -66,6 +68,7 @@
     <references>nabu.web.application.Services.getSessionId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>
     <references>nabu.data.xml.Services.marshal</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.fireConditionalErrorEvent</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.services.jdbc.Services.update</references>
     <references>nabu.utils.Transaction.defaultTransactionId</references>

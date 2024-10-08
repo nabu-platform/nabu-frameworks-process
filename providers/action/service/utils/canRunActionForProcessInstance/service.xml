@@ -494,6 +494,24 @@
 			<from>false</from>
 			<to>output/allowedToProceed</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="e0a2e9c0035c4d3c8e84adcb698d79ce"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>potentialRelations[actionId == /potentialAction/id &amp;&amp; (relationType == "flow" || relationType == "flow-stop" || relationType == "flow-failed")]</from>
+			<to>potentialOutgoingFlows</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="dfe9a183d4184628923c7ce23c82dd16"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>potentialRelations[targetActionId == /potentialAction/id &amp;&amp; (relationType == "flow" || relationType == "flow-start" || relationType == "flow-failed")]</from>
+			<to>potentialIncomingFlows</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="Set the maxOccurs to 0 by default (makes it easier later)"
@@ -521,7 +539,7 @@
 				disabled="false"
 				features="PROCESS_STATE_REQUIRE_INITIAL_FLOW"
 				id="dbf62357806f4acc99c43ee4b82bbe88"
-				label="incomingFlows == null &amp;&amp; potentialStateRelations == null"
+				label="potentialIncomingFlows == null &amp;&amp; potentialStateRelations == null"
 				lineNumber="24"
 				message="An action has no incoming flows nor any state relations"
 				whitelist="false" xsi:nil="true"/>
@@ -849,7 +867,7 @@
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="If we have an initial line that is allowed, it doesn't matter what your incoming and outgoing flows say: you can run it!"
-					disabled="false"
+					disabled="true"
 					id="ffdc3464d5c44ad48c96aff525a34d5f"
 					label="amountOfPotentialStateRelations == 1 &amp;&amp; allowedToProceed"
 					lineNumber="35">
@@ -861,6 +879,29 @@
 						disabled="false"
 						id="f0b7459a621c4ad1a1c3d179570bc899"
 						path="outgoingFlows" xsi:nil="true"/>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+						disabled="false"
+						id="d47ea376c6ee489b83ccbfe5bb53f1a3"
+						path="potentialIncomingFlows" xsi:nil="true"/>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+						disabled="false"
+						id="e3e81c7b007d4f2aae2a9c06da2cc42b"
+						path="potentialOutgoingFlows" xsi:nil="true"/>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="If we have an initial line that is allowed, it doesn't matter what your incoming and outgoing flows say: you can run it!"
+					disabled="false"
+					id="7f7d572085cb426d8c4921a711481426"
+					label="amountOfPotentialStateRelations == 1 &amp;&amp; allowedToProceed"
+					lineNumber="36">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+						disabled="false"
+						id="51e3c466cc4643b2962ac80e7849dc66"
+						path="incomingFlows" xsi:nil="true"/>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+						disabled="false"
+						id="9bb2c4dfb8164ad69ca1dd9d3ee7fceb"
+						path="potentialIncomingFlows" xsi:nil="true"/>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
@@ -868,18 +909,18 @@
 				disabled="false"
 				id="fb5c3769edcd42d187b1229fca0894c9"
 				label="allowedToProceed &amp;&amp; incomingFlows != null"
-				lineNumber="36">
+				lineNumber="37">
 			<steps xsi:type="be.nabu.libs.services.vm.step.For"
 					disabled="false"
 					id="a5c3905a9957498eb14a3a16d81c960d"
-					lineNumber="37"
+					lineNumber="38"
 					variable="incomingFlow"
 					into="runIncomingActions">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						comment="Get all run incoming flows. We intentionally include error here because we want to stop on that"
 						disabled="false"
 						id="96870e1120fd45c1b9a1d93866bec19e"
-						lineNumber="38">
+						lineNumber="39">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"
 							id="eb022486ff4e4b698aa3fd81ad3823f1"
@@ -896,14 +937,14 @@
 					disabled="false"
 					id="3ebc9fb93078418599cdec3ea4560931"
 					label="&quot;ERROR&quot; # runIncomingActions/processState"
-					lineNumber="39"
-					message="Parent step is currently in ERROR"
+					lineNumber="40"
+					message="Incoming flow step is currently in ERROR"
 					whitelist="false" xsi:nil="true"/>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Set the allowed based on the existence of any incoming finished flows"
 					disabled="false"
 					id="311991d695d94112b43d0222e86bb939"
-					lineNumber="40">
+					lineNumber="41">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="3942523cbcf04c6a9bc5b8872f428930"
@@ -954,23 +995,39 @@
 				</steps>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="@2024-10-07: If we have no incoming flows but we do have potential incoming flows, they must all have evaluated to false. You are not allowed to proceed"
+				disabled="false"
+				id="8290c77af1cb49aab58fab57e1214133"
+				label="allowedToProceed &amp;&amp; incomingFlows == null &amp;&amp; potentialIncomingFlows != null"
+				lineNumber="42">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="d401935e010049bb84daef9e674644c6"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>false</from>
+				<to>allowedToProceed</to>
+			</steps>
+		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				comment="If we have outgoing flow requirements, check that none are done. If we have no incoming flow requirements, we should always be able to run it (excepting maybe maxoccurs restrictions)"
 				disabled="false"
 				id="fda7117a3eb84734a73e0c8551b3efbc"
 				label="allowedToProceed &amp;&amp; outgoingFlows != null"
-				lineNumber="41">
+				lineNumber="43">
 			<steps xsi:type="be.nabu.libs.services.vm.step.For"
 					disabled="false"
 					id="f8980b0cfe794e91a81a66e2cf26ef5a"
-					lineNumber="42"
+					lineNumber="44"
 					variable="outgoingFlow"
 					into="finishedOutgoingActions">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						comment="Get all finished outgoing flows, check description!"
 						disabled="false"
 						id="6a4071ae36a74389be4337d144216ab0"
-						lineNumber="43">
+						lineNumber="45">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"
 							id="65e805731dc04f7daf05c78bd65a1928"
@@ -987,7 +1044,7 @@
 					comment="Set the allowed based on the existence of NO outgoing flows"
 					disabled="false"
 					id="78f11741d0a14ee79c9276449c055293"
-					lineNumber="44">
+					lineNumber="46">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="6ea21b540f464fb3be3afd27aa3baac7"
@@ -1004,12 +1061,12 @@
 				disabled="false"
 				id="06b8ea8304524479a80b64044bfaceb7"
 				label="allowedToProceed &amp;&amp; potentialAction/maxOccurs != 0"
-				lineNumber="45">
+				lineNumber="47">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="We ignore failed for this count"
 					disabled="false"
 					id="ba00e6cb7e6e46d9ae7e1c626d76a190"
-					lineNumber="46">
+					lineNumber="48">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="cf7999ab1a8d4781bafd97188079f6ee"
@@ -1045,7 +1102,7 @@
 					comment="Set the allowed to proceed based on the count"
 					disabled="false"
 					id="1d3b394314cc49a788b9e9e4f64b50d6"
-					lineNumber="47">
+					lineNumber="49">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="891a21fc1f89456aab90129fe3613cc8"
@@ -1062,7 +1119,7 @@
 				disabled="false"
 				id="86521b1bc8a34626954144810d36b257"
 				label="allowedToProceed"
-				lineNumber="48">
+				lineNumber="50">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="2bb16461806a45ff8e6d2efd5e94ae09"

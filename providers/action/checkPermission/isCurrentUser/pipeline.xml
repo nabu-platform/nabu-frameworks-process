@@ -1,0 +1,5 @@
+<structure interface="nabu.frameworks.process.specs.action.checkPermission" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <field comment="The value of the captured variable" indexed="true" minOccurs="0" name="currentUserId" type="java.lang.String"/>
+</structure>

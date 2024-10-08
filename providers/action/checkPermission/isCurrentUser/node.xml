@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-09-05T14:33:45.193+02:00" lastModified="2024-09-06T09:41:02.889+02:00" leaf="true" version="11">
+    <description>Check specifically that the $userId as it is currently known to the process instance matches the authenticationId of the user.</description>
+    <environmentId>apollo</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.specs.action.checkPermission</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.Object</references>
+    <references>java.lang.String</references>
+    <references>java.util.UUID</references>
+    <summary>Current user</summary>
+</node>

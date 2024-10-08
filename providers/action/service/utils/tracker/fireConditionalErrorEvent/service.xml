@@ -1,0 +1,117 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="f8ad96ee8ee24bd3a151ef4c76e76ecb"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Map event"
+			disabled="false"
+			id="30241ebd2ca04056a9afb086ab3444f8"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="6c4e07477d2b410b8230231f89b78590"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>input/service</from>
+			<to>event/artifactId</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="663c90891a8f4c819a402a9062e8c517"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>process</from>
+			<to>event/eventCategory</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="78c99c1ee18742209678d1e34123cc5c"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>="Failed condition check: " + input/condition</from>
+			<to>event/reason</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
+			disabled="false"
+			id="8f14a876535741908b881d5755772b4c"
+			lineNumber="3"
+			query="input/failed">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="a0d1283cfb9d424782d86dffe1d45c58"
+				label="true"
+				lineNumber="4">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f97e9c609f3d49f09c0cb34d8b2eb6ce"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>WARNING</from>
+				<to>event/severity</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="36ba3c40d723478f8fafa1c4b0077ca1"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>process-conditional-failure</from>
+				<to>event/eventName</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="8f8c435f0b7f4449b990ee1cfe1ae9fa"
+				lineNumber="5">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2486aa0746314ad9ad2121014be129dc"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>process-conditional-error</from>
+				<to>event/eventName</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5aabc9a0583f4461bcc3e5762c87f338"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>ERROR</from>
+				<to>event/severity</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="5a941028971a463fa139c6384242eae5"
+			lineNumber="6">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="66e0c8c18c7d49798b7d6cc22bcc9797"
+				serviceId="nabu.utils.Event.fire"
+				resultName="resulte094e2eba56b4a3db545a3cfe4269720"
+				temporaryMapping="true"
+				x="133"
+				y="106"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2ce023dac1a64e4ba16a40bb4525d4ef"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>event</from>
+				<to>event</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>
