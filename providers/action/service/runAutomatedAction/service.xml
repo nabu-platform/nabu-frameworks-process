@@ -277,7 +277,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="true">
-					<from>FAILED</from>
+					<from>CANCELLED</from>
 					<to>actionInstancesInError[0]/processState</to>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -288,6 +288,15 @@
 						fixedValue="true">
 					<from>RUNNING</from>
 					<to>processInstance/processState</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="e6c78a514a6e406e982b923f2e24fa2f"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>retry</from>
+					<to>actionInstancesInError[0]/reason</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"

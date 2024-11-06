@@ -891,13 +891,13 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-					comment="If we have migrated an action that is in error, set it to failed. The new action is in error as well"
+					comment="If we have migrated an action that is in error, set it to cancelled. The new action is in error as well"
 					disabled="false"
 					id="e39f783ff130474586aa52ce618fcaf0"
 					label="currentActionInstance/processState == &quot;ERROR&quot;"
 					lineNumber="32">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-						comment="Set failed"
+						comment="Set CANCELLED"
 						disabled="false"
 						id="f3fa743a13814cfd81d00927e19f88d8"
 						lineNumber="33">
@@ -907,8 +907,17 @@
 							mask="false"
 							optional="false"
 							fixedValue="true">
-						<from>FAILED</from>
+						<from>CANCELLED</from>
 						<to>currentActionInstance/processState</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="945431ae2cce45f09caeddae9cd659b3"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>migrated</from>
+						<to>currentActionInstance/reason</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"

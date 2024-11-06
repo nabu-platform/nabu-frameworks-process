@@ -261,7 +261,7 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				comment="Set the action to FAILED, we will log a new action"
+				comment="Set the action to CANCELLED, we will log a new action"
 				disabled="false"
 				id="90eaa2790854441c86b429514f7ecdc3"
 				lineNumber="13">
@@ -271,7 +271,7 @@
 					mask="false"
 					optional="false"
 					fixedValue="true">
-				<from>FAILED</from>
+				<from>CANCELLED</from>
 				<to>impactedAction/processState</to>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -325,7 +325,7 @@
 				lineNumber="15"
 				variable="correlatedAction">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-					comment="Set failed, because it is nested, it should be retriggered"
+					comment="Set CANCELLED, because it is nested, it should be retriggered"
 					disabled="false"
 					id="81b0a782ee37475ab9131faa8f48b053"
 					lineNumber="16">
@@ -335,8 +335,17 @@
 						mask="false"
 						optional="false"
 						fixedValue="true">
-					<from>FAILED</from>
+					<from>CANCELLED</from>
 					<to>correlatedAction/processState</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="928f5186b45a498e96943e031bbafd3a"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>retry</from>
+					<to>correlatedAction/reason</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"

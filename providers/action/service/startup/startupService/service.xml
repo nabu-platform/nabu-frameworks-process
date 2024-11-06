@@ -195,7 +195,7 @@
 					lineNumber="7"
 					variable="actionInstance">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-						comment="Set failed"
+						comment="Set CANCELLED"
 						disabled="false"
 						id="1e808230798342238bb6766c5026854c"
 						lineNumber="8">
@@ -205,7 +205,7 @@
 							mask="false"
 							optional="false"
 							fixedValue="true">
-						<from>FAILED</from>
+						<from>CANCELLED</from>
 						<to>actionInstance/processState</to>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -216,6 +216,15 @@
 							fixedValue="false">
 						<from>date</from>
 						<to>actionInstance/stopped</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="2780d08ecece481ba2d966fa44f7a539"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>rollback</from>
+						<to>actionInstance/reason</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
