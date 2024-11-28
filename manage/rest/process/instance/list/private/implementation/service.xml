@@ -94,6 +94,15 @@
 					<from>input/query/processDefinitionCode</from>
 					<to>filter/processDefinitionCode</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6b441af8b906447f8c51d67e8967a68f"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/query/processInstanceId</from>
+					<to>filter/id</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
@@ -222,6 +231,15 @@
 							fixedValue="false">
 						<from>input/query/processDefinitionCode</from>
 						<to>filter/processDefinitionCode</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="daafb6bdf64340c2840b71a66cddec66"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/query/processInstanceId</from>
+						<to>filter/processInstanceId</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

@@ -2,7 +2,7 @@
 <restInterface>
     <method>GET</method>
     <path>/process/instance</path>
-    <queryParameters>limit, offset, orderBy, processDefinitionId, processVersionId, currentStateId, processState, parameterSearch, identifierSearch, processDefinitionCode</queryParameters>
+    <queryParameters>limit, offset, orderBy, processDefinitionId, processVersionId, currentStateId, processState, parameterSearch, identifierSearch, processDefinitionCode, processInstanceId</queryParameters>
     <role>$user</role>
     <permissionAction>processInstance.list</permissionAction>
     <useServiceContextAsPermissionContext>false</useServiceContextAsPermissionContext>
@@ -35,4 +35,5 @@
     <limitedToInterface>false</limitedToInterface>
     <allowExplicitResponseCode>false</allowExplicitResponseCode>
     <stubbed>false</stubbed>
+    <clusterLock>false</clusterLock>
 </restInterface>
