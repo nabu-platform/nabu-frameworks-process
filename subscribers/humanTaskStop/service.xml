@@ -26,6 +26,15 @@
 				<from>input/taskId</from>
 				<to>filter/taskId[0]</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="63c160bc556447309a9897db6ba45a33"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>actionIndex desc</from>
+				<to>orderBy[0]</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
