@@ -400,8 +400,8 @@
 								serviceId="nabu.frameworks.process.crud.processInstanceLog.services.create"
 								resultName="result4b002ac987f74a8fb87d825743475900"
 								temporaryMapping="true"
-								x="410"
-								y="73"
+								x="58"
+								y="64"
 								invocationOrder="0"
 								asynchronous="false"
 								recache="false">
@@ -457,21 +457,21 @@
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="8f910efdbcc14894a7bf56d945f69eb4"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>notAllowedProcessInstanceId</from>
-								<to>instance/processInstanceId</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
 									id="3774b94421c746a5813d5178076c1d70"
 									mask="false"
 									optional="false"
 									fixedValue="false">
 								<from>input/connectionId</from>
 								<to>connectionId</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="854f7a3da92347abbcf4f0ea9ac5bc85"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>errorProcessInstanceId</from>
+								<to>instance/processInstanceId</to>
 							</steps>
 						</steps>
 					</steps>
