@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-11-29T13:29:09.493+01:00" lastModified="2024-11-29T14:42:33.080+01:00" leaf="true" version="28">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processData.types.outputForRetrieval</references>
+    <references>nabu.utils.String.toStream</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processData.services.listForRetrieval</references>
+    <references>java.lang.Integer</references>
+    <references>nabu.utils.List.getAll</references>
+    <references>nabu.utils.String.join</references>
+    <references>nabu.utils.List.size</references>
+    <references>nabu.utils.reflection.Type.details</references>
+    <references>nabu.frameworks.process.services.current.value</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.Object</references>
+    <references>java.lang.String</references>
+    <references>nabu.utils.String.split</references>
+    <references>nabu.data.json.Services.unmarshal</references>
+    <references>nabu.frameworks.process.services.current.getInstance</references>
+    <references>nabu.utils.reflection.Type.get</references>
+</node>

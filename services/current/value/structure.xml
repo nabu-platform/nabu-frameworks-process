@@ -1,0 +1,4 @@
+<structure name="value">
+    <field name="key" type="java.lang.String"/>
+    <structure definition="java.lang.Object" minOccurs="0" name="value"/>
+</structure>
