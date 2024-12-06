@@ -261,6 +261,15 @@
 				<from>stateInstance/id</from>
 				<to>processStateInstanceId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5a7d1be62f0d4661b832cd86ca748a4b"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/content/properties</from>
+				<to>additionalProperties</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"

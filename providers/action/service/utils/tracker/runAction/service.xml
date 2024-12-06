@@ -173,8 +173,8 @@
 					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.resolveDataBinding"
 					resultName="resulta12b334846994bd081346690d2febaff"
 					temporaryMapping="true"
-					x="267"
-					y="533"
+					x="110"
+					y="329"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
@@ -195,6 +195,15 @@
 						fixedValue="false">
 					<from>input/processData</from>
 					<to>available</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="e2fcc76977744cb6aa83b12b07c7ceb3"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/additionalProperties</from>
+					<to>additionalProperties</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -426,6 +435,15 @@
 							fixedValue="false">
 						<from>input/processData</from>
 						<to>available</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="b275451e07484ed4a05a368f466464b2"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/additionalProperties</from>
+						<to>additionalProperties</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"

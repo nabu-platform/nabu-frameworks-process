@@ -1,6 +1,7 @@
 <structure name="parameter">
-    <field name="name" type="java.lang.String"/>
-    <field minOccurs="0" name="typeName" type="java.lang.String"/>
+    <field name="key" type="java.lang.String"/>
+    <field minOccurs="0" name="label" type="java.lang.String"/>
+    <field minOccurs="0" name="type" type="java.lang.String"/>
     <field minOccurs="0" name="list" nillable="false" type="java.lang.Boolean"/>
     <field minOccurs="0" name="optional" nillable="false" type="java.lang.Boolean"/>
 </structure>

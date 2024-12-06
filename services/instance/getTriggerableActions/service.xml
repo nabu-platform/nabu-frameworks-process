@@ -163,6 +163,14 @@
 				<from>resultb13604df7c5542bda61f3a16c1bc05e6/allowedToProceed</from>
 				<to>allowedToProceed</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="6ff6aaf9bf5c4780b76379bac9b98a60"
+					path="serviceParameters" xsi:nil="true"/>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="b2522a0d9db7446d9c4e7a7c31d9fd1d"
+					path="propertyList" xsi:nil="true"/>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				disabled="false"
@@ -184,20 +192,65 @@
 					<to>output/actions[0]</to>
 				</steps>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="b087a2048e36452abc40b04216cf8350"
+					label="potentialAction/dataBinding != null"
+					lineNumber="11">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="3bceb5e8dac14cb59d2bbf79592e8539"
+						serviceId="nabu.data.json.Services.unmarshal"
+						resultName="resultbb36f9ff6c944455af13d9df605e4760"
+						temporaryMapping="true"
+						x="54"
+						y="58"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="2c55df6490ed4e4cbd7597310c8203c9"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>nabu.frameworks.process.providers.action.service.utils.propertyList</from>
+						<to>type</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="304e9676bae24534a783a876413d3778"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>potentialAction/dataBinding</from>
+						<to>input</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="c652bea484ce4e94b9e5d8bea3118463"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resultbb36f9ff6c944455af13d9df605e4760/unmarshalled</from>
+					<to>propertyList</to>
+				</steps>
+			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 					disabled="false"
 					id="dc00149bb6d7411994a851d88bedc319"
-					lineNumber="11"
+					lineNumber="12"
 					query="potentialAction/actionType">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-						disabled="false"
+						disabled="true"
 						id="ef64aa0c9f8f4674b113892caf68ff6e"
 						label="&quot;signal&quot;"
-						lineNumber="12">
+						lineNumber="13">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="2cecf37337e64fdd9fba602f3a780c28"
-							lineNumber="13">
+							lineNumber="14">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="c292a43db3a744deb3b94fa6d98690b7"
@@ -230,35 +283,244 @@
 						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.For"
+							comment="TODO: not correct, should not be based on captures but the object definition?"
 							disabled="false"
 							id="5a4cd50383164d7abf400ba29113bae1"
-							lineNumber="14"
+							lineNumber="15"
 							variable="key"
 							into="output/actions[0]/parameters">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 								disabled="false"
 								id="190ddfcff3fc4665a517c7330b52ce42"
-								lineNumber="15">
+								lineNumber="16">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="84a7a12967c2424d98135e7925760b94"
+									id="edb02e04d6e1407e8583239b7e8fbf53"
 									mask="false"
 									optional="false"
 									fixedValue="false">
 								<from>key</from>
-								<to>output/actions[0]/parameters[0]/name</to>
+								<to>output/actions[0]/parameters[0]/key</to>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="0c8fa60075e5483d845b29bc8faf3e88"
+									id="86c55b9eae8d4b2b9c19264b1cda0cc2"
 									mask="false"
 									optional="false"
 									fixedValue="true">
 								<from>string</from>
-								<to>output/actions[0]/parameters[0]/typeName</to>
+								<to>output/actions[0]/parameters[0]/type</to>
 							</steps>
 						</steps>
 						<query>captures/names/key</query>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+						comment="If we have a service, ensure we can fill in the service input"
+						disabled="false"
+						id="44a8109a4bf54031b791c1933bde09c8"
+						label="&quot;service&quot;"
+						lineNumber="17">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+							comment="Get all the parameters"
+							disabled="false"
+							id="1dc3aa41779c46378caf667610096620"
+							label="potentialAction/serviceId != null"
+							lineNumber="18">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="f153ac3a780b4631aabb7d710a8e56c1"
+								serviceId="nabu.utils.reflection.Type.describe"
+								resultName="resultb339ce7864a44bb19bd4efc6443033be"
+								temporaryMapping="true"
+								x="102"
+								y="62"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="b0f2dd3ab86a4a9b81ca7e914d41195f"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>=potentialAction/serviceId + ":input"</from>
+								<to>typeId</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="a3417c5d9acc448599a91ebfd7076214"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>true</from>
+								<to>recursive</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="74edc6e29575402ba94a3884de83ab5e"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>resultb339ce7864a44bb19bd4efc6443033be/parameters</from>
+							<to>serviceParameters</to>
+						</steps>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+							comment="Check if we have a field called &quot;content&quot; that is of the type &quot;inputstream&quot;. This is usually indicative of a REST service in which case we want to ignore the &quot;meta&quot; fields! In the future we should check the type of service..."
+							disabled="false"
+							id="8208e64c0f45423883bc41f73d8a9bb3"
+							lineNumber="19">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="2fff2c7e6fdd43fea3b390f9255c45e0"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>serviceParameters[path == "content" &amp;&amp; typeName == "inputstream" &amp;&amp; simple == true]</from>
+							<to>contentParameter</to>
+						</steps>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.For"
+							comment="We want to generate a form based on this. This means simple types only and the fewer the better to reduce unnecessary complexity."
+							disabled="false"
+							id="f67116223c254dada5814d3908f47a33"
+							lineNumber="20"
+							variable="serviceParameter"
+							into="output/actions[0]/parameters">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="Get all parameters that are mapped to this field or any parent field"
+								disabled="false"
+								id="c84d8f677dc649178253cadce3b8d9e4"
+								lineNumber="21">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="31a9a6dcb6034bd294d1bdf17efc0cbe"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>propertyList/properties[key == /serviceParameter/path || "^" + key + "/.*" ~ /serviceParameter/path]</from>
+								<to>mappedProperties[0]</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="853c7b6cc2da492c86c4fdeebd2b301c"
+									mask="false"
+									optional="false"
+									fixedValue="true">
+								<from>true</from>
+								<to>shouldMap</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+								comment="If already mapped, don't expose"
+								disabled="false"
+								id="9468c681ec4142dc8b5d2f0556d3e3c9"
+								label="mappedProperties"
+								lineNumber="22">
+							<count>1</count>
+							<continueExecution>true</continueExecution>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Break"
+								disabled="false"
+								id="4357539844a5435f9166544285732b7f"
+								label="contentParameter != null &amp;&amp; serviceParameter/path ~ &quot;^meta/.*&quot;"
+								lineNumber="23">
+							<count>1</count>
+							<continueExecution>true</continueExecution>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+								comment="If we get here, add it to the output"
+								disabled="false"
+								id="55ad1ec6eae143a2882284485d4e8fbe"
+								lineNumber="24">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="1460b732aa694460a0cceef5bdc60c00"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>serviceParameter/typeName</from>
+								<to>output/actions[0]/parameters[0]/type</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="85d43e76d7cc4ac7be2c35c74bff4d4d"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>serviceParameter/list</from>
+								<to>output/actions[0]/parameters[0]/list</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="5d8551a40e4f4094870814e5fe50ce80"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>serviceParameter/optional</from>
+								<to>output/actions[0]/parameters[0]/optional</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+									disabled="false"
+									id="8a317214a3c544de99a4694ec7660671"
+									serviceId="nabu.utils.String.conventionize"
+									resultName="result2ee310af77f24e39b81377223aa441ea"
+									temporaryMapping="true"
+									x="57"
+									y="85"
+									invocationOrder="0"
+									asynchronous="false"
+									recache="false">
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="932908bc9a4248b18e8ee254b57ebc3f"
+										mask="false"
+										optional="false"
+										fixedValue="false">
+									<from>serviceParameter/name</from>
+									<to>content</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="adcfed38e6fd41b0a9c4d98feecec3fd"
+										mask="false"
+										optional="false"
+										fixedValue="true">
+									<from>LOWER_CAMEL_CASE</from>
+									<to>from</to>
+								</steps>
+								<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+										disabled="false"
+										id="01d5d40038b44241a90e6f70016992e5"
+										mask="false"
+										optional="false"
+										fixedValue="true">
+									<from>UPPER_TEXT</from>
+									<to>to</to>
+								</steps>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="17c5bcf31e1b4e90b1021249721dc234"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>result2ee310af77f24e39b81377223aa441ea/conventionized</from>
+								<to>output/actions[0]/parameters[0]/label</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="9ee35f013c8149199715e337d0304174"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>serviceParameter/path</from>
+								<to>output/actions[0]/parameters[0]/key</to>
+							</steps>
+						</steps>
+						<query>serviceParameters[simple == true]</query>
 					</steps>
 				</steps>
 			</steps>

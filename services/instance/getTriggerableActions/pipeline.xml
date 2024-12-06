@@ -10,4 +10,9 @@
     <field name="allowedToProceed" type="java.lang.Boolean"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
     <structure comment="All the relevant captures for one service across all the processes" definition="nabu.frameworks.process.providers.action.service.utils.capture" maxOccurs="unbounded" minOccurs="0" name="captures"/>
+    <structure definition="nabu.utils.types.ParameterDescription" maxOccurs="unbounded" minOccurs="0" name="serviceParameters"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" name="propertyList"/>
+    <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="mappedProperties"/>
+    <field name="shouldMap" type="java.lang.Boolean"/>
+    <structure definition="nabu.utils.types.ParameterDescription" minOccurs="0" name="contentParameter"/>
 </structure>

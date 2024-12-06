@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-04-17T16:16:32.273+02:00" lastModified="2024-10-02T09:20:00.956+02:00" leaf="true" version="18">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-04-17T16:16:32.273+02:00" lastModified="2024-12-06T15:32:45.535+01:00" leaf="true" version="47">
     <comment>Calculate the actions that can be triggered at this time</comment>
-    <environmentId>apollo</environmentId>
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
     <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
-    <references>nabu.frameworks.process.services.instance.action</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
-    <references>java.lang.Boolean</references>
+    <references>nabu.utils.types.ParameterDescription</references>
     <references>java.util.UUID</references>
-    <references>nabu.frameworks.process.crud.processAction.types.output</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.utils.reflection.Type.describe</references>
     <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
+    <references>nabu.utils.types.Property</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.frameworks.process.services.instance.action</references>
+    <references>java.lang.Boolean</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.propertyList</references>
+    <references>nabu.utils.String.conventionize</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.data.json.Services.unmarshal</references>
+    <todos>
+        <id>nabu.frameworks.process.services.instance.getTriggerableActions:5a4cd50383164d7abf400ba29113bae1</id>
+        <tags>nabu</tags>
+        <todo>not correct, should not be based on captures but the object definition?</todo>
+    </todos>
 </node>

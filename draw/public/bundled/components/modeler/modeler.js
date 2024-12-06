@@ -460,10 +460,11 @@ Vue.view("process-modeler-component", {
 				}
 				return list;
 			}
+			var valueFilter = function(x) {
+				return !value || x.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
+			};
 			if (action.serviceId == this.lastService) {
-				return enrichWithValue(this.lastServiceInputs.filter(function(x) {
-					return !value || x.name.toLowerCase().indexOf(value.toLowerCase()) >= 0;
-				}));
+				return enrichWithValue(this.lastServiceInputs.filter(valueFilter));
 			}
 			else {
 				var self = this;
@@ -474,7 +475,7 @@ Vue.view("process-modeler-component", {
 					if (result && result.inputs) {
 						nabu.utils.arrays.merge(self.lastServiceInputs, result.inputs);
 					}
-					promise.resolve(enrichWithValue(self.lastServiceInputs));
+					promise.resolve(enrichWithValue(self.lastServiceInputs.filter(valueFilter)));
 				}, promise);
 				return promise;
 			}
