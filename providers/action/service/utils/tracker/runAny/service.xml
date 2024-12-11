@@ -674,8 +674,8 @@
 								serviceId="nabu.utils.List.size"
 								resultName="resultb1332afe7b034539805cec9ade07c688"
 								temporaryMapping="true"
-								x="809"
-								y="209"
+								x="672"
+								y="190"
 								invocationOrder="2"
 								asynchronous="false"
 								recache="false">
@@ -732,20 +732,20 @@
 								recache="false">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="9fe1ba014e2343aaad511953f801681c"
+									id="c866361a7c0542bd9d81d2dd18ebf4c5"
 									mask="false"
 									optional="false"
 									fixedValue="false">
-								<from>actionInstances[processActionId # /applicableRelations[relationType == "flow-failed"]/actionId &amp;&amp; processState == "FAILED"]</from>
+								<from>actionInstances[processActionId # /applicableRelations[relationType == "flow-failed"]/actionId &amp;&amp; processState == "FAILED"]/processActionId</from>
 								<to>list</to>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="32221db7cd8f4139b6443f6032578326"
+									id="9e62bccc39644bb6a9805e3c7d632c82"
 									mask="false"
 									optional="false"
 									fixedValue="false">
-								<from>actionInstances[processActionId # /applicableRelations[relationType == "flow"]/actionId &amp;&amp; processState == "SUCCEEDED"]</from>
+								<from>actionInstances[processActionId # /applicableRelations[relationType == "flow"]/actionId &amp;&amp; processState == "SUCCEEDED"]/processActionId</from>
 								<to>objects</to>
 							</steps>
 						</steps>
