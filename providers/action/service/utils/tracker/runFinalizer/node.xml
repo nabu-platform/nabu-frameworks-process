@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2024-01-31T10:29:02.036+01:00" leaf="true" version="18">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2025-01-08T15:36:12.955+01:00" leaf="true" version="20">
     <comment>This runs any finalizers that might be the consequence of the given action id</comment>
-    <environmentId>apollo</environmentId>
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -9,15 +9,21 @@
     <references>be.nabu.libs.types.api.KeyValuePair</references>
     <references>nabu.utils.Map.toProperties</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
     <references>nabu.utils.Date.now</references>
+    <references>nabu.web.application.Services.getSessionId</references>
     <references>nabu.services.glue.Services.evaluate</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeProcess</references>
+    <references>nabu.utils.Runtime.getCurrentDevice</references>
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.List.toMap</references>
     <references>java.util.Map</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>java.lang.Boolean</references>
     <references>java.lang.Object</references>
     <references>java.lang.String</references>

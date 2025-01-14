@@ -626,7 +626,7 @@
 				id="709039425be74a97a991f3e889a36cec"
 				label="&quot;RUNNING&quot; # actionInstances/processState"
 				lineNumber="23"
-				message="Can't migrate running processes"
+				message="Can't migrate running processes, this might be for example human tasks"
 				whitelist="false" xsi:nil="true"/>
 		<steps xsi:type="be.nabu.libs.services.vm.step.For"
 				disabled="false"

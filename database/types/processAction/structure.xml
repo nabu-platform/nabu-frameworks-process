@@ -37,4 +37,5 @@
     <field comment="You can set a condition which (based on the data we have) will determine that the step did not succeed even though it appears to have succeeded." minOccurs="0" name="errorCondition" type="java.lang.String"/>
     <field comment="Do you want to allow manual triggering of this action?" minOccurs="0" name="manual" type="java.lang.Boolean"/>
     <field comment="Link the process to the user currently executing the action" minOccurs="0" name="linkToUser" type="java.lang.Boolean"/>
+    <field comment="When running an action manually some input parameters may be pre-mapped restricting the actual choices of the user. This may need a custom label to clarify this. Eg. &quot;qualify&quot; action might both &quot;accept&quot; and &quot;reject&quot;, but the manual intervention may premap &quot;reject&quot;." minOccurs="0" name="manualName" type="java.lang.String"/>
 </structure>

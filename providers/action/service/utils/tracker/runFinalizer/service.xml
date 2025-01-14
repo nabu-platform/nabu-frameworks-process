@@ -313,6 +313,194 @@
 				<to>output/ranAnything</to>
 			</steps>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="46b32431bfb44d3491a8bcc9013b6cae"
+				lineNumber="10">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="ffb2ea81b10146448458a63dcf9d62ff"
+					serviceId="nabu.frameworks.process.crud.processActionInstance.services.create"
+					resultName="result6d4a32aa509945bdb6081761dedb93db"
+					temporaryMapping="true"
+					x="713"
+					y="118"
+					invocationOrder="1"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="e38c852a8e404d4e9879d51ce6ef006b"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>SUCCEEDED</from>
+					<to>instance/processState</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="4d04e135f95443bc8cdfee669bfa6fa1"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resulte46916ba00174ed3a766f8a96a05fdd9/server</from>
+					<to>instance/serverOwner</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a25b8f48b9c2423d93d0e85bf34a5367"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result4dc2ed29efe641988e77027e7f24774f/date</from>
+					<to>instance/started</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="97bf6e654d6e46968d7f9f8e29d920eb"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/actionId</from>
+					<to>instance/processActionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="0930c803972947e1bc95f740ed73458c"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resultd11bc34cc0d0453db66e7061bb8fab09/sessionId</from>
+					<to>instance/sessionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f3c04fb83c5f4facb3359fbac497ff45"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resultfeb2d0cf502f48eeb6505c9029341030/device/deviceId</from>
+					<to>instance/deviceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="fc183aeb27234067821d3ec1ba13d096"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result58a523ba3ba7435597a739e02112f35d/token/authenticationId</from>
+					<to>instance/userId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6e4e8c9e405b45baaa38379c2cab7ff8"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>flow</from>
+					<to>instance/reason</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="08dacf3c23eb48248cc16d1cf8d423b7"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result4dc2ed29efe641988e77027e7f24774f/date</from>
+					<to>instance/stopped</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="83d48cc8f6ac406ab414609843c242f0"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result5ebf4ef6239846bcbb637edbcbbe4255/correlationId</from>
+					<to>instance/correlationId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="5ddf5b98524e4c6488dd3f1b0ea3f79a"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/stateInstance/id</from>
+					<to>instance/processStateInstanceId</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="43c6aa0cdba44422b0bf86a9b480c2c4"
+					serviceId="nabu.utils.Server.getServerName"
+					resultName="resulte46916ba00174ed3a766f8a96a05fdd9"
+					temporaryMapping="true"
+					x="263"
+					y="247"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="02cf0e7e1f9e4997903b78d79cb8ad66"
+					serviceId="nabu.utils.Date.now"
+					resultName="result4dc2ed29efe641988e77027e7f24774f"
+					temporaryMapping="true"
+					x="335"
+					y="128"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="ac21f9de442a4cf6867db838f3076107"
+					serviceId="nabu.web.application.Services.getSessionId"
+					resultName="resultd11bc34cc0d0453db66e7061bb8fab09"
+					temporaryMapping="true"
+					x="97"
+					y="582"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="5d2e9ef924cb4c4aa872f2f3edaf6b5a"
+					serviceId="nabu.utils.Runtime.getCurrentDevice"
+					resultName="resultfeb2d0cf502f48eeb6505c9029341030"
+					temporaryMapping="true"
+					x="73"
+					y="367"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="8117b9d3f39145cba180f4c0fd8ad194"
+					serviceId="nabu.utils.Runtime.getCurrentToken"
+					resultName="result58a523ba3ba7435597a739e02112f35d"
+					temporaryMapping="true"
+					x="74"
+					y="39"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="19113b1372f34cafb6397d37ba72e442"
+					serviceId="nabu.utils.Runtime.getCorrelationId"
+					resultName="result5ebf4ef6239846bcbb637edbcbbe4255"
+					temporaryMapping="true"
+					x="87"
+					y="293"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+			</steps>
+		</steps>
 		<query>relationsToRun</query>
 	</steps>
 </sequence>
