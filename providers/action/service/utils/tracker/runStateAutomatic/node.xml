@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:23:03.186+01:00" lastModified="2024-06-11T17:18:18.787+02:00" leaf="true" version="67">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:23:03.186+01:00" lastModified="2025-01-14T11:43:13.940+01:00" leaf="true" version="68">
     <comment>Run any automatic actions at the root of a (new) state</comment>
-    <environmentId>apollo</environmentId>
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.services.glue.Services.evaluate</references>
+    <references>java.lang.Integer</references>
+    <references>java.util.Map</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.String</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAny</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
-    <references>nabu.services.glue.Services.evaluate</references>
+    <references>nabu.web.application.Services.getSessionId</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeProcess</references>
-    <references>java.lang.Integer</references>
+    <references>nabu.utils.Runtime.getCurrentDevice</references>
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.frameworks.process.manage.rest.process.version.processStateFull</references>
+    <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.List.size</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
-    <references>java.util.Map</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.dataToMap</references>
-    <references>java.lang.Boolean</references>
     <references>java.lang.Object</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAction</references>
-    <references>java.lang.String</references>
     <references>nabu.frameworks.process.database.types.processStateRelation</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>
 </node>
