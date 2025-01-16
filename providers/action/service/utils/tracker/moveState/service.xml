@@ -407,23 +407,32 @@
 			lineNumber="14">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="a117c499946147b2bbf9bbb3a3ee7f29"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.cancelStateTasks"
-				resultName="resultf403369f846a4339995ce7538bb9dba8"
+				id="2ff1f6c9741b4504b45cf9a86e449ed5"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.cancelStateTasks"
+				resultName="resultadba24c590e542dab9cb044c0775794c"
 				temporaryMapping="true"
-				x="247"
-				y="119"
+				x="147"
+				y="122"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="2065cdc4fa2c44b6adb86d42c1f946f5"
+					id="87d2e24fd5da41e79f643b51618d6844"
 					mask="false"
 					optional="false"
 					fixedValue="false">
 				<from>originalStateInstanceId</from>
-				<to>parameters[0]/stateInstanceId</to>
+				<to>processStateInstanceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="7a5bd74ded7e47868bab29dd28f46700"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connection</to>
 			</steps>
 		</steps>
 	</steps>

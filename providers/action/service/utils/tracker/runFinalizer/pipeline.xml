@@ -6,6 +6,7 @@
         <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" enricher="nabu.frameworks.process.crud.processStateInstance.services.list" name="stateInstance" persister="nabu.frameworks.process.crud.processStateInstance.batch.updateAll"/>
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="processData" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
         <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
+        <structure collectionName="processActionInstances" definition="nabu.frameworks.process.database.types.processActionInstance" minOccurs="0" name="sourceActionInstance"/>
     </structure>
     <structure name="output">
         <field name="ranAnything" type="java.lang.Boolean"/>

@@ -166,6 +166,15 @@
 					<from>result05ffa63a15bc47c9a9d32e7e2daae402/contextId</from>
 					<to>contextId</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="b8e83e01a84a49d083b5ccae483d9e68"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/activatedRelations</from>
+					<to>activatedRelations</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -391,6 +400,24 @@
 							fixedValue="true">
 						<from>=action/schedule != null || action/delay != null</from>
 						<to>bestEffort</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="f6be08dc587041cf8a652c528a8d3f44"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/connectionId</from>
+						<to>connectionId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="ed31a1a112d941c58196c2b4ed6dea21"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/activatedRelations</from>
+						<to>activatedRelations</to>
 					</steps>
 					<targetProperties
 							collectionIndex="schedule">=action/schedule</targetProperties>

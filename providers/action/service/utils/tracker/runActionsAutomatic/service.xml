@@ -166,9 +166,9 @@
 					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.runAction"
 					resultName="resultc49f279860524ed99abf97e3fe8753b4"
 					temporaryMapping="true"
-					x="69"
-					y="24"
-					invocationOrder="0"
+					x="463"
+					y="25"
+					invocationOrder="1"
 					asynchronous="false"
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -234,6 +234,15 @@
 					<from>input/connectionId</from>
 					<to>connectionId</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="72a2d6947dc84e02a2e24cf31eda6982"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>resultfea5f66cdaa844fc960a6c1e614ede78/activatedRelations</from>
+					<to>activatedRelations</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
@@ -243,6 +252,36 @@
 					fixedValue="true">
 				<from>true</from>
 				<to>output/ranAnything</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="a15cc13e242d45c7a34278ac62b26800"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.calculateActionRelationInstances"
+					resultName="resultfea5f66cdaa844fc960a6c1e614ede78"
+					temporaryMapping="true"
+					x="124"
+					y="361"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="62fcd09045ca4992833e32395f94b392"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>relationToRun</from>
+					<to>activatedRelations[0]</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="4303792e57094c329a0980673f7ea8d2"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/sourceActionInstance</from>
+					<to>runIncomingActions[0]</to>
+				</steps>
 			</steps>
 		</steps>
 		<query>relationsToRun</query>

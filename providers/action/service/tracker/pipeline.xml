@@ -55,4 +55,5 @@
     <field name="failed" type="java.lang.Boolean"/>
     <field name="failureCondition" type="java.lang.String"/>
     <field name="error" type="java.lang.Boolean"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.createOutput" minOccurs="0" name="initializerActionInstance"/>
 </structure>

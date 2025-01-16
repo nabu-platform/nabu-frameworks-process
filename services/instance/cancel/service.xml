@@ -26,6 +26,15 @@
 				<from>input/processInstanceId</from>
 				<to>id</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f5f1b4af55d442ca9db2e1e9ead2f2e9"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connectionId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -84,6 +93,15 @@
 				<from>true</from>
 				<to>filter/running</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="c86f858bd62b4466a48ed4125d7847f8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connectionId</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
@@ -102,23 +120,32 @@
 			lineNumber="6">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
-				id="e1ca56ad4cea4ac98b7e86075a909ab9"
-				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.cancelStateTasks"
-				resultName="result8aaa444ce9554795a907f50f882d6841"
+				id="c039d9632d9b4eb28c639bfad1918c2d"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.cancelStateTasks"
+				resultName="resultdbcbf504a525434c9c0a519e7aa54161"
 				temporaryMapping="true"
-				x="259"
-				y="68"
+				x="218"
+				y="83"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
-					id="2fe728a588c04171af11deaafe6784cf"
+					id="ef1a300c14274a3b948b7e34e5f99646"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connection</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="caddfa591604408fbc8aa7dfce51d3f9"
 					mask="false"
 					optional="false"
 					fixedValue="false">
 				<from>stateInstance/id</from>
-				<to>parameters[0]/stateInstanceId</to>
+				<to>processStateInstanceId</to>
 			</steps>
 		</steps>
 	</steps>
@@ -154,6 +181,15 @@
 					fixedValue="false">
 				<from>result0c1b2f742fb64fd6947650675ae8682d/date</from>
 				<to>parameters[0]/now</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="05d97b01dc4a46b4aa388dfb470310e5"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connection</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -272,6 +308,15 @@
 					fixedValue="false">
 				<from>message</from>
 				<to>instance/log</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="7078a367cede453ca2526779f260e2f8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connectionId</to>
 			</steps>
 		</steps>
 	</steps>

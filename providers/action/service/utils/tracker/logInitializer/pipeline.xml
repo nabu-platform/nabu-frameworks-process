@@ -1,0 +1,11 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field minOccurs="0" name="connectionId" type="java.lang.String"/>
+        <field name="processStateInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field comment="The initializer that triggered the new process" minOccurs="0" name="activatedInitializerId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+        <field name="date" timezone="UTC" type="java.util.Date"/>
+    </structure>
+    <structure name="output">
+        <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.createOutput" minOccurs="0" name="initializerActionInstance"/>
+    </structure>
+</structure>

@@ -1,3 +1,0 @@
-<structure name="parameter">
-    <field name="stateInstanceId" type="java.lang.String"/>
-</structure>

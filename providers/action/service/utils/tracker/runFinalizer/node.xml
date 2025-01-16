@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2025-01-14T11:41:56.453+01:00" leaf="true" version="22">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" lastModified="2025-01-16T16:28:02.730+01:00" leaf="true" version="28">
     <comment>This runs any finalizers that might be the consequence of the given action id</comment>
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
     <references>be.nabu.libs.types.api.KeyValuePair</references>
-    <references>nabu.utils.Map.toProperties</references>
     <references>nabu.utils.Runtime.getCurrentToken</references>
+    <references>nabu.services.glue.Services.evaluate</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.calculateActionRelationInstances</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
+    <references>nabu.utils.List.toMap</references>
+    <references>java.util.Map</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>nabu.utils.Map.toProperties</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeState</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.cancelStateTasks</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.web.application.Services.getSessionId</references>
-    <references>nabu.services.glue.Services.evaluate</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.finalizeProcess</references>
     <references>nabu.utils.Runtime.getCurrentDevice</references>
@@ -21,10 +28,7 @@
     <references>nabu.utils.Server.getServerName</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
-    <references>nabu.utils.List.toMap</references>
-    <references>java.util.Map</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
-    <references>java.lang.Boolean</references>
     <references>java.lang.Object</references>
-    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.database.types.processActionInstance</references>
 </node>

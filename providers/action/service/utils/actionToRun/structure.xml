@@ -5,6 +5,8 @@
     <field name="processStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field name="processActionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="Whether the id is a new id that needs to be created or already exists" minOccurs="0" name="newProcessInstance" type="java.lang.Boolean"/>
+    <field comment="The initializer that triggered the new process" minOccurs="0" name="activatedInitializerId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    <field minOccurs="0" name="activatedInitializerRelationId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field minOccurs="0" name="reprocessable" type="java.lang.Boolean"/>
     <field minOccurs="0" name="nested" type="java.lang.Boolean"/>
     <field minOccurs="0" name="forced" type="java.lang.Boolean"/>

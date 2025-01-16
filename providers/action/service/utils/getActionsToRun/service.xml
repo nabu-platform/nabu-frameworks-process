@@ -1572,6 +1572,45 @@
 							<from>triggerActions[0]/autoFail</from>
 							<to>output/actionsToRun[0]/autoFail</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="3f6d68b8e304458384ae89b274ed81be"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>initializerActions[0]/id</from>
+							<to>output/actionsToRun[0]/activatedInitializerId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+								disabled="false"
+								id="df2dad9c455a4d23ad42d87d3775e443"
+								serviceId="nabu.utils.Object.first"
+								resultName="result83d9dd44655e45879eead5cecc03562f"
+								temporaryMapping="true"
+								x="433"
+								y="52"
+								invocationOrder="0"
+								asynchronous="false"
+								recache="false">
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="3aa2f2ff095644ac93bb219360dc61a1"
+									mask="false"
+									optional="false"
+									fixedValue="false">
+								<from>incomingFlows[actionId == /initializerActions[0]/id &amp;&amp; targetActionId == /triggerActions[0]/id]/id</from>
+								<to>options</to>
+							</steps>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="dba16d5a4c5446398d5b21ddf18efaf3"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>result83d9dd44655e45879eead5cecc03562f/first</from>
+							<to>output/actionsToRun[0]/activatedInitializerRelationId</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 							disabled="false"

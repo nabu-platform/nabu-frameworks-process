@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:07:45.035+01:00" lastModified="2024-07-15T13:06:50.193+02:00" leaf="true" version="41">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:07:45.035+01:00" lastModified="2025-01-16T16:25:58.789+01:00" leaf="true" version="42">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.cancelStateTasks</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.cancelStateTasks</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.utils.Server.uuid</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>

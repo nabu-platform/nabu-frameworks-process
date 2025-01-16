@@ -1,0 +1,8 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field minOccurs="0" name="connection" type="java.lang.String"/>
+        <field name="processStateInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    </structure>
+    <structure name="output"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="actionsWithTasks" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
+</structure>

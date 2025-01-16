@@ -250,6 +250,15 @@
 						<from>input/connectionId</from>
 						<to>connectionId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="b39099ed124448719bb99016da7438a4"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/sourceActionInstance</from>
+						<to>sourceActionInstance</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
@@ -344,6 +353,15 @@
 							fixedValue="false">
 						<from>input/connectionId</from>
 						<to>connectionId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="dfde317657274fb88e3da1ed6fcfd91d"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/sourceActionInstance</from>
+						<to>sourceActionInstance</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

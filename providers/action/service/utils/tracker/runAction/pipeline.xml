@@ -9,6 +9,7 @@
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="processData" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
         <field minOccurs="0" name="forceSynchronous" type="java.lang.Boolean"/>
         <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="additionalProperties"/>
+        <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
     </structure>
     <structure name="output"/>
     <field comment="You can define a shared queue. Otherwise each process will have its own (anonymous) queue." minOccurs="0" name="queue" type="java.lang.String"/>

@@ -840,6 +840,15 @@
 						<from>input/stateInstance/id</from>
 						<to>instance/processStateInstanceId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="5c0dd2d8c8c34d65b62f65d50cb78597"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>input/connectionId</from>
+						<to>connectionId</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"

@@ -352,6 +352,15 @@
 				<from>resultd4abb21b196c4e55a0cb2bd84758d664/results</from>
 				<to>processData</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="77753444880747c6aa795b810602f2dd"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>actionInstance</from>
+				<to>sourceActionInstance</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"

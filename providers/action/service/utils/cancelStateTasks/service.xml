@@ -1,0 +1,85 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="8bf51fd35e584420a4cca90f543a4a33"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="e0994582abd3477eaf5730fe7384b194"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="38051c9997c1405fb79916374ef44f10"
+				serviceId="nabu.frameworks.process.crud.processActionInstance.services.list"
+				resultName="result55756192e59c4932a4dd0ede99d13915"
+				temporaryMapping="true"
+				x="157"
+				y="56"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="79ee93446f124d5b855d8a0d33c77ad9"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connectionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="db44de44065d4cbda90f9034234c4ada"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processStateInstanceId</from>
+				<to>filter/processStateInstanceId[0]</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="d6a011bf9aab42f5ab6951e3fcd721a0"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result55756192e59c4932a4dd0ede99d13915/results[taskId != null]</from>
+			<to>actionsWithTasks</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="103c7780da6447708b985c91c8470b96"
+			label="actionsWithTasks"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="11dfee0ac5494ce0a04303588c74e287"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.cancelTasks"
+				resultName="result02d06688526743799f64d5f9fc689a8e"
+				temporaryMapping="true"
+				x="194"
+				y="91"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="dcc164cda171454aa9632abb9ca734da"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>actionsWithTasks/taskId</from>
+				<to>parameters[0]/taskIds</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="88378ba71ca64282b9f0e8fdf4191572"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connection</from>
+				<to>connection</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

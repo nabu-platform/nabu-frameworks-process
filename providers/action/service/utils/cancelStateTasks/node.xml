@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2025-01-16T16:23:39.130+01:00" lastModified="2025-01-16T16:25:31.877+01:00" leaf="true" version="5">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.cancelTasks</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>java.lang.String</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
+</node>
