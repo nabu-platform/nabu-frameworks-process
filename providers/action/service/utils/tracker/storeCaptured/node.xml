@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-03T17:13:06.680+01:00" lastModified="2024-06-12T13:05:46.157+02:00" leaf="true" version="48">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-03T17:13:06.680+01:00" lastModified="2025-01-17T08:46:47.474+01:00" leaf="true" version="55">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.utils.List.add</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
     <references>java.util.Date</references>
     <references>nabu.utils.Date.now</references>
@@ -16,5 +17,6 @@
     <references>nabu.services.jdbc.Services.insert</references>
     <references>nabu.frameworks.process.database.types.processCapture</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.disableValues</references>
+    <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
 </node>

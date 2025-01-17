@@ -536,68 +536,77 @@
 					<to>capturedValues</to>
 				</steps>
 			</steps>
-			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Always store captured because we may want to capture the success boolean"
+				disabled="false"
+				id="1725afe33c844b92920035a556a513a8"
+				lineNumber="14">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
-					id="1725afe33c844b92920035a556a513a8"
-					label="capturedValues"
-					lineNumber="14">
-				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
-						disabled="false"
-						id="395b175b496f48318680afb043894586"
-						serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured"
-						resultName="result698c51785aac49bc811e677f042b701d"
-						temporaryMapping="true"
-						x="241"
-						y="88"
-						invocationOrder="0"
-						asynchronous="false"
-						recache="false">
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
-							id="d00cf193d78c4326ba7712ed320ee703"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>capturedValues</from>
-						<to>capturedValues</to>
-					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
-							id="be032842f3f64107838aa16b557667c1"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>processInstanceId</from>
-						<to>processInstanceId</to>
-					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
-							id="13fe6036637a4724b277226659d5b1ec"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>actionInstance/id</from>
-						<to>actionInstanceId</to>
-					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
-							id="9ad214258b5544178931c1c848d5c1e6"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>actionInstance/processActionId</from>
-						<to>actionId</to>
-					</steps>
-				</steps>
+					id="395b175b496f48318680afb043894586"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured"
+					resultName="result698c51785aac49bc811e677f042b701d"
+					temporaryMapping="true"
+					x="241"
+					y="88"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="2cf20d6cfb394f25b81c1a3c2e6761a1"
+						id="d00cf193d78c4326ba7712ed320ee703"
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>result698c51785aac49bc811e677f042b701d/processData</from>
-					<to>processData</to>
+					<from>capturedValues</from>
+					<to>capturedValues</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="be032842f3f64107838aa16b557667c1"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>processInstanceId</from>
+					<to>processInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="13fe6036637a4724b277226659d5b1ec"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>actionInstance/id</from>
+					<to>actionInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="9ad214258b5544178931c1c848d5c1e6"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>actionInstance/processActionId</from>
+					<to>actionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a87b96e9bb4b42cab5c65ec538ee3a5a"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>=input/state != "SUCCEEDED"</from>
+					<to>failed</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="2cf20d6cfb394f25b81c1a3c2e6761a1"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>result698c51785aac49bc811e677f042b701d/processData</from>
+				<to>processData</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"

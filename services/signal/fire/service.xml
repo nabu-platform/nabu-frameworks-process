@@ -1460,7 +1460,6 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="834cf25a740c4156ba4dd62382e09ba8"
-				label="capturedValues"
 				lineNumber="28">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
@@ -1517,6 +1516,15 @@
 						fixedValue="false">
 					<from>stateInstance/processInstanceId</from>
 					<to>processInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="b6fcb3dd6e3a495391f5195920db5842"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>false</from>
+					<to>failed</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"

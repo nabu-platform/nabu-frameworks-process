@@ -7,6 +7,7 @@
         <field name="actionInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>
+        <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
     </structure>
     <structure name="output">
         <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" minOccurs="0" name="processData"/>
@@ -20,4 +21,7 @@
     <field minOccurs="0" name="newName" type="java.lang.String"/>
     <field minOccurs="0" name="newTypeId" type="java.lang.String"/>
     <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" maxOccurs="unbounded" name="dataToStore"/>
+    <field comment="You can capture whether this action finished successfully (true) or failed (false). It only retains the _last_ execution state. It can be used for conditional situations which depend on certain paths having been taken." minOccurs="0" name="stateSuccessVariable" type="java.lang.String"/>
+    <field minOccurs="0" name="success" type="java.lang.Boolean"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.database.types.processData" name="stateSuccessData"/>
 </structure>

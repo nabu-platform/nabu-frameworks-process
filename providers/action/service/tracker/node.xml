@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-01-16T11:30:02.692+01:00" leaf="true" version="357">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-01-17T09:47:51.479+01:00" leaf="true" version="365">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -69,6 +69,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>
     <references>nabu.data.xml.Services.marshal</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.fireConditionalErrorEvent</references>
+    <references>nabu.utils.List.addAll</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.services.jdbc.Services.update</references>
     <references>nabu.utils.Transaction.defaultTransactionId</references>
