@@ -82,7 +82,7 @@
 					<n-form-combo :edit="editable" v-model="selected.target.styling.color" label="Color" :items="colors" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.name }" @input="draw"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service'" v-model="selected.target.serviceId" label="Service id that is executed"/>
 					<n-form-switch :edit="editable" v-model="selected.target.manual" label="Allow manual triggering" @input="draw" after="Do you want to be able to trigger this manually?"/>
-					<n-form-text v-model="selected.target.manualName" v-if="selected.target.manual" label="Label for manual action" :placeholder="selected.target.name" />
+					<n-form-text :edit="editable" v-model="selected.target.manualName" v-if="selected.target.manual" label="Label for manual action" :placeholder="selected.target.name" />
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service' && !selected.target.automatic" v-model="selected.target.reprocessable" label="Allow reprocessing" @input="draw" after="Do you want to be able to reprocess this service if it fails?"/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service'" v-model="selected.target.automatic" label="Run the service" @input="draw" after="By default we wait for the service to be run. When checked, we actually run the service. Note that all automatic actions are always reprocessable"/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'signal'" v-model="selected.target.automatic" label="Send signal" after="By default we wait for the signal to occur. When checked, we actually send the signal." @input="draw"/>
@@ -123,6 +123,7 @@
 					</div>
 					<div v-if="selected.target.actionType == 'service' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" class="is-column is-spacing-gap-medium">
 						<h4 class="is-h4">Value capturing</h4>
+						<n-form-text :edit="editable" v-model="selected.target.stateSuccessVariable" label="Variable name to capture success or failure of state (boolean)" />
 						<n-form-switch :edit="editable" v-model="selected.target.linkToUser" v-if="selected.target.actionType == 'service'" label="Link to user" @input="draw" after="If enabled, the user details (userId, deviceId, sessionId) for this process will be updated, allowing for identification and/or permission checking on these variables."/>
 						<p v-if="selected.target.actionType == 'service'" class="is-p is-size-small">You can capture values from the service pipeline to either identify the process instance or enrich it with metadata</p>
 						<p v-else-if="selected.target.actionType == 'signal'" class="is-p is-size-small">You can capture values from the signal data to either identify the process instance or enrich it with metadata</p>
