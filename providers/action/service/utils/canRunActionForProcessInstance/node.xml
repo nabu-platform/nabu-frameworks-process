@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T13:03:57.358+01:00" lastModified="2024-10-07T12:36:29.033+02:00" leaf="true" version="91">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T13:03:57.358+01:00" lastModified="2025-01-22T15:04:18.729+01:00" leaf="true" version="93">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -27,6 +27,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.List.size</references>
     <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>java.lang.Object</references>
     <references>nabu.frameworks.process.database.types.processStateRelation</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.frameworks.process.database.types.processActionRelation</references>

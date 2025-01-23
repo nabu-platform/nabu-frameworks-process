@@ -27,7 +27,7 @@
     <field comment="A list of key value pairs that contain optional data binding for this action" minOccurs="0" name="dataBinding" type="java.lang.String"/>
     <field comment="The global reference id remains static between versions" name="globalReferenceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <field comment="Additional comments you want to make" minOccurs="0" name="comment" type="java.lang.String"/>
-    <field comment="You can set a capture condition. If set, it must return true, otherwise we ignore this. The condition is executed at the START of the service." minOccurs="0" name="condition" type="java.lang.String"/>
+    <field comment="You can set a capture condition. If set, it must return true, otherwise we ignore this. The condition is executed at the START of the service. This is run before we try to even match to any process instance and based only on the input of the process." minOccurs="0" name="condition" type="java.lang.String"/>
     <field comment="In some cases we expect periodic errors to occur and want to ignore them. We set this immediately to failed." minOccurs="0" name="autoFail" type="java.lang.Boolean"/>
     <field comment="You can run actions on separate queues (e.g. emails on an email queue)" minOccurs="0" name="queue" type="java.lang.String"/>
     <field comment="Stable code to identify this action. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
@@ -39,4 +39,5 @@
     <field comment="Link the process to the user currently executing the action" minOccurs="0" name="linkToUser" type="java.lang.Boolean"/>
     <field comment="When running an action manually some input parameters may be pre-mapped restricting the actual choices of the user. This may need a custom label to clarify this. Eg. &quot;qualify&quot; action might both &quot;accept&quot; and &quot;reject&quot;, but the manual intervention may premap &quot;reject&quot;." minOccurs="0" name="manualName" type="java.lang.String"/>
     <field comment="You can capture whether this action finished successfully (true) or failed (false). It only retains the _last_ execution state. It can be used for conditional situations which depend on certain paths having been taken." minOccurs="0" name="stateSuccessVariable" type="java.lang.String"/>
+    <field comment="Once past the capture condition, you can check that the service is allowed to run based on the input of the service and the state of the process." minOccurs="0" name="stateCondition" type="java.lang.String"/>
 </structure>

@@ -1775,6 +1775,15 @@
 											<from>input/connectionId</from>
 											<to>connectionId</to>
 										</steps>
+										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+												disabled="false"
+												id="831f810af4504a3ba3a7076083530bf9"
+												mask="false"
+												optional="false"
+												fixedValue="false">
+											<from>pipeline</from>
+											<to>data</to>
+										</steps>
 									</steps>
 									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 											disabled="false"
