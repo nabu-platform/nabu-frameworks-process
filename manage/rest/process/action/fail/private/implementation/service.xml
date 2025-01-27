@@ -75,10 +75,10 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 			disabled="false"
 			id="26b786dc0fba448f84ac2d0c9637c6d7"
-			label="process/processState == &quot;ERROR&quot;"
+			label="process/processState == &quot;ERROR&quot; || process/requiresFollowup == true"
 			lineNumber="4">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-				comment="Set back to running"
+				comment="Set back to running and no followup needed"
 				disabled="false"
 				id="6fb596643d154ecb909fe2d1a02ec850"
 				lineNumber="5">
@@ -90,6 +90,15 @@
 					fixedValue="true">
 				<from>RUNNING</from>
 				<to>process/processState</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="b9c823a60cc3493b998923e0a844f825"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>false</from>
+				<to>process/requiresFollowup</to>
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"

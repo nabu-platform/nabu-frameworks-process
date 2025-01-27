@@ -3,7 +3,7 @@
 		id="644f9b1d4f5443a297e68fbb1eccdee5"
 		lineNumber="1">
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			disabled="false"
+			disabled="true"
 			id="1e00b35e812d48039ced49dde45f8ab8"
 			lineNumber="2">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -56,11 +56,81 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Also allow finalizers because they are not longer handled seperately"
+			disabled="false"
+			id="60c3b730e06c4c7daaf4927a60ef42be"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="9f93153d22cd429a9c2bc5496ee745fd"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getProcessDefinition"
+				resultName="resultcea8b323592340f1a72771a5f0b86a1c"
+				temporaryMapping="true"
+				x="89"
+				y="74"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="ab3ff312a3d3459ca4d41e716ec12f73"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processVersionId</from>
+				<to>processVersionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="985a5fce20104be59d10d9f09547a411"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="e9930879dd3b497c9dafa96050e07518"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; ( (/input/failed != true &amp;&amp; (relationType == "flow" || relationType == "flow-start")) || (/input/failed == true &amp;&amp; relationType == "flow-failed") ) &amp;&amp; automatic == true &amp;&amp; actionType != "any" &amp;&amp; actionType != "initializer"]</from>
+			<to>relationsToRun</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="30ef0e9be2b34591aa89e74c2a4a7bc4"
+				mask="false"
+				optional="false"
+				fixedValue="true">
+			<from>false</from>
+			<to>output/ranAnything</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Filter relations to exclude actions that should not be triggered"
+			disabled="false"
+			id="108301446ae9448795da00572364439e"
+			label="input/notActionIds != null"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="62e97803c4c84f7ea3aaa085f591ad2d"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>relationsToRun[targetActionId !# /input/notActionIds]</from>
+			<to>relationsToRun</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="If we have any conditions, create a map"
 			disabled="false"
 			id="86993ec5f5454b80bf9e39575181321b"
 			label="relationsToRun/condition != null &amp;&amp; input/processData != null"
-			lineNumber="3">
+			lineNumber="5">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="5ac6d0ea38214d08961a4baff2c81b09"
@@ -95,17 +165,17 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="cd2568b9860b484abcf0863ced7c3cdf"
-			lineNumber="4"
+			lineNumber="6"
 			variable="relationToRun">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				disabled="false"
 				id="d4b48f91ab15496e8a6cd57b1ae7378f"
 				label="relationToRun/condition != null"
-				lineNumber="5">
+				lineNumber="7">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="0b2401150317482db5cb4d4398e13a2d"
-					lineNumber="6">
+					lineNumber="8">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="b50f2ccdb38444ac977d27355dc20c57"
@@ -150,7 +220,7 @@
 					disabled="false"
 					id="92d066f1688d4b4ebe9a92f464e302ae"
 					label="result != true"
-					lineNumber="7">
+					lineNumber="9">
 				<count>2</count>
 				<continueExecution>true</continueExecution>
 			</steps>
@@ -159,7 +229,7 @@
 				comment="If we get here, automate the action"
 				disabled="false"
 				id="47351a91913d4ec184ff4497a57fba3e"
-				lineNumber="8">
+				lineNumber="10">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="a875f92600ca470d977edca4766a882a"

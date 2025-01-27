@@ -8,6 +8,7 @@
         <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="processData" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
         <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
         <structure collectionName="processActionInstances" definition="nabu.frameworks.process.database.types.processActionInstance" minOccurs="0" name="sourceActionInstance"/>
+        <field comment="You can blacklist some actions if you want" maxOccurs="unbounded" minOccurs="0" name="notActionIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
     <structure name="output">
         <field name="ranAnything" type="java.lang.Boolean"/>
