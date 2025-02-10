@@ -1691,6 +1691,15 @@
 							<from>propertyList/properties</from>
 							<to>properties</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="d023db14ad69426ea0a03c736db84b63"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>input/processInstanceId</from>
+							<to>narrativeId</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"

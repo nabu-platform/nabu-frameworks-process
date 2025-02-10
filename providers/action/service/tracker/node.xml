@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-02-06T15:09:25.965+01:00" leaf="true" version="375">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-02-10T14:16:58.954+01:00" leaf="true" version="378">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -44,6 +44,7 @@
     <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessVariables</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.utils.Runtime.startNarrative</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.registerForRollback</references>
     <references>nabu.utils.reflection.Node.dependencies</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
@@ -79,6 +80,7 @@
     <references>nabu.utils.reflection.Type.whatIs</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.unregisterForRollback</references>
     <references>java.lang.Object</references>
+    <references>nabu.utils.Runtime.stopNarrative</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.frameworks.process.crud.processInstance.services.list</references>
 </node>

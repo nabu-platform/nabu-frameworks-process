@@ -1,5 +1,7 @@
 # TODO
 
+Remove group id annotation on tasks in favor of narrative id
+
 ## Conditional lines based on path
 
 e.g. "this line is only valid IF action ABC was run before this point" (either in the same state or before)
