@@ -5,6 +5,7 @@
         <field minOccurs="0" name="signalId" type="java.lang.String"/>
         <field minOccurs="0" name="actionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
         <structure collectionName="teamsTemplates" definition="java.lang.Object" minOccurs="0" name="data"/>
+        <field minOccurs="0" name="phase" type="java.lang.String"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="capturedValues"/>

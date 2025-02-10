@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:44:59.276+01:00" lastModified="2025-01-16T16:19:33.606+01:00" leaf="true" version="65">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:44:59.276+01:00" lastModified="2025-02-04T14:31:33.603+01:00" leaf="true" version="68">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.resolveContextId</references>
+    <references>be.nabu.libs.types.api.KeyValuePair</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>nabu.utils.Runtime.getContext</references>
     <references>java.util.UUID</references>

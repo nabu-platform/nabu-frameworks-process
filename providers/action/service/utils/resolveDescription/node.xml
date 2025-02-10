@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-06T21:02:39.322+01:00" lastModified="2024-01-31T10:25:51.220+01:00" leaf="true" version="9">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-06T21:02:39.322+01:00" lastModified="2025-02-06T15:09:03.846+01:00" leaf="true" version="11">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.String.replace</references>
     <references>nabu.frameworks.process.database.types.processAction</references>

@@ -15,4 +15,5 @@
     <field minOccurs="0" name="autoFail" type="java.lang.Boolean"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="identificationCaptures"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="inputCaptures"/>
 </structure>

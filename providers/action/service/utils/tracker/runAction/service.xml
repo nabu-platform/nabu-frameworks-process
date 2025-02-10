@@ -251,9 +251,64 @@
 				id="215d91d794bc433eabf7271a9d147139"
 				lineNumber="5">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Map the process instance id"
+					disabled="false"
+					id="6638dcd5831f404ca4b31875e8ffcaac"
+					lineNumber="6">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="cd268a98025b4350aee820f2fe70a152"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/processInstanceId</from>
+					<to>propertyList/properties[0]/value</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="bb7fa2cbf27f4b519678a560ed8b0aa5"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>processInstanceId</from>
+					<to>propertyList/properties[0]/key</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.For"
+					disabled="false"
+					id="11855cb5b04e4209a15fa3c6d7cfda48"
+					lineNumber="7"
+					variable="processDataIdentifier"
+					into="propertyList/properties">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="3d6ced96eba24fee91bc37a58f182627"
+						lineNumber="8">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="98699b294494439eabab019f5b85498c"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>processDataIdentifier/name</from>
+						<to>propertyList/properties[0]/key</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="318ac73a87d944959d5198b5c31d8dfd"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>processDataIdentifier/value</from>
+						<to>propertyList/properties[0]/value</to>
+					</steps>
+				</steps>
+				<query>input/processData[identifier == true]</query>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="5dea6f9b2df24dd3a5aa4017cd81b985"
-					lineNumber="6">
+					lineNumber="9">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="beb7c1847357484c8746720532ca175f"
@@ -316,7 +371,7 @@
 					comment="Run asynchronously"
 					disabled="false"
 					id="4456c350543f40c49af7bafa09909ee7"
-					lineNumber="7">
+					lineNumber="10">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="16fc50f2a4ec424ca9c4c2ea6af96429"
@@ -433,6 +488,8 @@
 							collectionIndex="connectionId">=input/connectionId</targetProperties>
 					<targetProperties
 							collectionIndex="contextId">=input/processStateInstanceId</targetProperties>
+					<targetProperties
+							collectionIndex="metadata">=propertyList</targetProperties>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
@@ -508,7 +565,7 @@
 					comment="Get task id and queue id"
 					disabled="false"
 					id="b2bea15be6434369bf807179dbc707c7"
-					lineNumber="8">
+					lineNumber="11">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="ebb294442669421cb51b74d22d20c1b6"

@@ -141,5 +141,74 @@
 			</steps>
 			<query>input/capturedValues</query>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.For"
+				disabled="false"
+				id="3067e752f0ac483d8e3287ac23a64670"
+				lineNumber="8"
+				variable="processData">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="4316a0c8d37f4f8ba55576d134109ac7"
+					lineNumber="9">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="6714526509604d3b85f6765a2da82162"
+						serviceId="nabu.utils.String.replace"
+						resultName="result9e9b87b605074d399c57fd5401774542"
+						temporaryMapping="true"
+						x="194"
+						y="154"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="fbccd243e8f2458799a622fc65b69c24"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>output/description</from>
+						<to>content</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="f6e39d0ccbb242dc92c20305d6f81769"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>="{" + processData/name + "}"</from>
+						<to>match</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="10780f09bf41423f9e8d5accec2cd601"
+							mask="false"
+							optional="false"
+							fixedValue="true">
+						<from>false</from>
+						<to>useRegex</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="623e79e1f5ea46238903aa1a2d337ca2"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>processData/value</from>
+						<to>replace</to>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="fa393e3df58c414c91e375fb8a300297"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>result9e9b87b605074d399c57fd5401774542/content</from>
+					<to>output/description</to>
+				</steps>
+			</steps>
+			<query>input/processData</query>
+		</steps>
 	</steps>
 </sequence>

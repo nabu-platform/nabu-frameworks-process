@@ -82,4 +82,5 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definitionToCheck"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="identificationCaptures"/>
     <field name="checkPermission" type="java.lang.Boolean"/>
+    <field comment="The way to capture it (e.g. the path). This is relative to the pipeline so should start with input or output. For blox services the full pipeline is available, for the rest only input/output." maxOccurs="unbounded" minOccurs="0" name="capturesToStore" type="java.lang.String"/>
 </structure>
