@@ -18,7 +18,6 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.actionToRun" maxOccurs="unbounded" minOccurs="0" name="actionsToRun"/>
     <structure collectionName="processStateInstances" definition="nabu.frameworks.process.crud.processStateInstance.types.output" enricher="nabu.frameworks.process.crud.processStateInstance.services.list" minOccurs="0" name="stateInstance" persister="nabu.frameworks.process.crud.processStateInstance.batch.updateAll"/>
     <field minOccurs="0" name="correlationId" type="java.lang.String"/>
-    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.createOutput" maxOccurs="unbounded" minOccurs="0" name="createdActions"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <field minOccurs="0" name="serializedInput" type="java.lang.String"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="runningProcess" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
@@ -48,6 +47,7 @@
     <structure definition="nabu.frameworks.process.providers.action.service.actionInstanceDescriptor" maxOccurs="unbounded" minOccurs="0" name="actionDescriptors"/>
     <field name="force" type="java.lang.Boolean"/>
     <field name="ranAnything" type="java.lang.Boolean"/>
+    <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="createdActions" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
     <field comment="When you have too many processes that match, we want to throw an exception as well" maxOccurs="unbounded" minOccurs="0" name="multipleProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="automatedDefinition"/>
     <field maxOccurs="unbounded" minOccurs="0" name="notAllowedProcessInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>

@@ -2528,11 +2528,19 @@
 									</steps>
 								</steps>
 							</steps>
+							<query>actionsToRun</query>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.For"
+								comment="Created actions are either from getActionsToRun or the automated"
+								disabled="false"
+								id="26777f17fa464a45b9473d0e8bd1a933"
+								lineNumber="48"
+								variable="createdAction">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 									comment="Make sure we register as narrative"
 									disabled="false"
 									id="32b5941ebd52401e81739817f9cdebc9"
-									lineNumber="48">
+									lineNumber="49">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 										disabled="false"
 										id="ec53ddc3819a452f9b360b412a5d5a94"
@@ -2546,23 +2554,32 @@
 										recache="false">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 											disabled="false"
-											id="6eb22c95205245c694cf98f530357d7e"
+											id="d13dcbf9cd854b3ab1c2b4b9c001da69"
 											mask="false"
 											optional="false"
 											fixedValue="false">
-										<from>stateInstance/processInstanceId</from>
+										<from>createdAction/processInstanceId</from>
 										<to>narrativeId</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="a6fbb8636c534e17ba24dc46cc97ef19"
+											mask="false"
+											optional="false"
+											fixedValue="true">
+										<from>1</from>
+										<to>depth</to>
 									</steps>
 								</steps>
 							</steps>
-							<query>actionsToRun</query>
+							<query>createdActions</query>
 						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="c7454bac39ff4f23a099aae104cc6720"
 							label="createdActions"
-							lineNumber="49">
+							lineNumber="50">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="805498227f834e96a20226d3d0dc9520"
@@ -2598,7 +2615,7 @@
 							disabled="false"
 							id="9d61d1e5cc164de5a6433ada72166933"
 							label="actionDescriptors"
-							lineNumber="50">
+							lineNumber="51">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="03446090b2ba4ebb850d265dca1f177e"
@@ -2634,7 +2651,7 @@
 							comment="Make sure we register all locally created instances for rollback"
 							disabled="false"
 							id="9592bc6ba8194096b4829d62f035c6fc"
-							lineNumber="51">
+							lineNumber="52">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="94d2604ba9594f44a54caa515484c36d"
@@ -2680,12 +2697,12 @@
 						comment="This is an end log"
 						disabled="false"
 						id="6f2534ad05cd40428f01fd6798fda7e7"
-						lineNumber="52"
+						lineNumber="53"
 						scopeDefaultTransaction="true">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="c0d28d9ed94f406f824403af579579fe"
-							lineNumber="53">
+							lineNumber="54">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="845c5f375445405a9ac19f6e1c74c66b"
@@ -2742,12 +2759,12 @@
 							disabled="false"
 							id="a935175a6a6642609f4537b89c7e24f9"
 							label="createdActions"
-							lineNumber="54">
+							lineNumber="55">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 								comment="Get all state instances, we'll need them very likely"
 								disabled="false"
 								id="1aab3d08f4c041b78268d550f2e7b457"
-								lineNumber="55">
+								lineNumber="56">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 									disabled="false"
 									id="a8ef0f33ac2b426d8a6d8160f18a7a8f"
@@ -2793,7 +2810,7 @@
 								disabled="false"
 								id="822749cce63c49969106f2abe179fa37"
 								label="stateInstances"
-								lineNumber="56">
+								lineNumber="57">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 									disabled="false"
 									id="354f818ec0984c26a6c5fa24812aa27a"
@@ -2837,19 +2854,19 @@
 						<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 								disabled="false"
 								id="d7dfc72b009040efacf7e6103ac70ccc"
-								lineNumber="57"
+								lineNumber="58"
 								query="input/exception">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 									comment="No problem"
 									disabled="false"
 									id="c41d474a544140539c9b724c54fb824b"
 									label="null"
-									lineNumber="58">
+									lineNumber="59">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 										comment="Capture all the variables we need"
 										disabled="false"
 										id="055c7ce56c504436af99054fe7ac9727"
-										lineNumber="59">
+										lineNumber="60">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"
 											id="2ef370c8234444dc9472dcf5b1751f01"
@@ -2932,13 +2949,13 @@
 								<steps xsi:type="be.nabu.libs.services.vm.step.For"
 										disabled="false"
 										id="4c3827bcea0e40669ff64aff016a9c7f"
-										lineNumber="60"
+										lineNumber="61"
 										variable="createdAction">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											comment="Get the error condition (if any)"
 											disabled="false"
 											id="b6b2835321f14c7b97061b730494e8d9"
-											lineNumber="61">
+											lineNumber="62">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="7b1836c64c8c4a4aa77adafa45b43a7c"
@@ -3022,7 +3039,7 @@
 											disabled="false"
 											id="7c006725a8284efd94967ebce3613ab6"
 											label="errorCondition != null"
-											lineNumber="62">
+											lineNumber="63">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="51e380993546409fa1b1f2a4efbb5a44"
@@ -3088,7 +3105,7 @@
 											disabled="false"
 											id="7e45b0cb80ab4de886cf3fffc72dd624"
 											label="failureCondition != null"
-											lineNumber="63">
+											lineNumber="64">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="f115bbaef84a48c1bc379d5f4024079b"
@@ -3154,7 +3171,7 @@
 											comment="Basic mapping"
 											disabled="false"
 											id="95d2636edac64c1db67ad877755976b1"
-											lineNumber="64">
+											lineNumber="65">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="72e1339718a44d399eef134506bd224e"
@@ -3188,7 +3205,7 @@
 											disabled="false"
 											id="51cfbe35b8c44de08bc8102fee8f8c6b"
 											label="failed"
-											lineNumber="65">
+											lineNumber="66">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="7be6d53ea2a8492787bb1c00976a3dea"
@@ -3288,7 +3305,7 @@
 											disabled="false"
 											id="de87894427f04495812809d20410cc94"
 											label="error"
-											lineNumber="66">
+											lineNumber="67">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="8094c9c8b41b435480f84b4aa710d0e2"
@@ -3381,7 +3398,7 @@
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											disabled="false"
 											id="834cf25a740c4156ba4dd62382e09ba8"
-											lineNumber="67">
+											lineNumber="68">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="537bf16f947b41cc80c9d90d1e94828b"
@@ -3464,7 +3481,7 @@
 										comment="We want to get all data for all processes in one select. This means we need to process all data capturing for actions first. This allows us to calculate conditions"
 										disabled="false"
 										id="a7572350177d4250bf70ddf260a3220d"
-										lineNumber="68">
+										lineNumber="69">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"
 											id="ce599abe25e24f8c87028e26cdf14a85"
@@ -3517,13 +3534,13 @@
 								<steps xsi:type="be.nabu.libs.services.vm.step.For"
 										disabled="false"
 										id="63f5371453d54edda9cc652457911d45"
-										lineNumber="69"
+										lineNumber="70"
 										variable="createdAction">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											comment="Get state instance for action instance"
 											disabled="false"
 											id="2017d8e76b2443a4aa773a6f2add027f"
-											lineNumber="70">
+											lineNumber="71">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="ca8c2c60a9b24555b1ff43a5cf53781a"
@@ -3539,7 +3556,7 @@
 											disabled="false"
 											id="a7b9f26eb7db45e88c8834ddc86496db"
 											label="stateInstance"
-											lineNumber="71">
+											lineNumber="72">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="5aa1fc9bd29f484d8ab7fafeefd64034"
@@ -3555,7 +3572,7 @@
 											disabled="false"
 											id="c1f0bd44b7114ef5884d2760d4da8680"
 											label="processInstance"
-											lineNumber="72">
+											lineNumber="73">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="e572e392bd0945129493d58e98430685"
@@ -3618,7 +3635,7 @@
 											comment="Get the applicable data"
 											disabled="false"
 											id="528c9c1c16594abdb1fd51fec3d28f4b"
-											lineNumber="73">
+											lineNumber="74">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="5ecc47c779564750b2959c18badea251"
@@ -3633,7 +3650,7 @@
 											comment="Update the action BEFORE we run the specials"
 											disabled="false"
 											id="704eb616f52f48268787ac2dd4460bb5"
-											lineNumber="74">
+											lineNumber="75">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="304131f8988942b8b2e5acdc7aa3e03d"
@@ -3670,12 +3687,12 @@
 											disabled="false"
 											id="7d7af38d10f7438ca17bd833807ad311"
 											label="processInstance/requiresFollowup == true"
-											lineNumber="75">
+											lineNumber="76">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 												comment="Map false"
 												disabled="false"
 												id="2487cb12e42c416b91fc354ca19f148c"
-												lineNumber="76">
+												lineNumber="77">
 											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 													disabled="false"
 													id="15fd2a9b87944fcb804661cde2035de0"
@@ -3689,7 +3706,7 @@
 										<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 												disabled="false"
 												id="aba253a693914bd9aa1de693014bb7bb"
-												lineNumber="77">
+												lineNumber="78">
 											<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 													disabled="false"
 													id="27097c121bb74d84824398c58de36e9e"
@@ -3736,7 +3753,7 @@
 											disabled="false"
 											id="313f0e48b34d4ab8b745aa5903c27f77"
 											label="createdAction/processState != &quot;ERROR&quot;"
-											lineNumber="78">
+											lineNumber="79">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="c2c78cdf6bde4fe4bc07cdcabe396804"
@@ -3825,7 +3842,7 @@
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											disabled="false"
 											id="42b935648be64166b45ee228b361647f"
-											lineNumber="79">
+											lineNumber="80">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="7bd6704c08b24c86b653dd735cb2e9e0"
@@ -3852,8 +3869,7 @@
 											comment="Stop the narrative"
 											disabled="false"
 											id="a190eb0c55c64abda0bbd472b713c687"
-											label="stateInstance"
-											lineNumber="80">
+											lineNumber="81">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="4e04bc6c943b472c8bbd4d1f0e043329"
@@ -3867,12 +3883,21 @@
 												recache="false">
 											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 													disabled="false"
-													id="589cbe3e5f0742f7896fa46224375cf3"
+													id="a4ae64dc632c429f91689b8cafa1c121"
 													mask="false"
 													optional="false"
 													fixedValue="false">
-												<from>stateInstance/processInstanceId</from>
+												<from>createdAction/processInstanceId</from>
 												<to>narrativeId</to>
+											</steps>
+											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+													disabled="false"
+													id="f7accc9fee17417d92a844296f3d8130"
+													mask="false"
+													optional="false"
+													fixedValue="true">
+												<from>1</from>
+												<to>depth</to>
 											</steps>
 										</steps>
 									</steps>
@@ -3882,12 +3907,12 @@
 							<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 									disabled="false"
 									id="9dd357b7c76a492d8367c2ccaefb18a5"
-									lineNumber="81">
+									lineNumber="82">
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 										comment="Get action definitions"
 										disabled="false"
 										id="ad2f39ee15af4f80aaf4da3f4511233f"
-										lineNumber="82">
+										lineNumber="83">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"
 											id="15cae2b9cf9a48a189ed71c925ffddfb"
@@ -3932,7 +3957,7 @@
 										comment="We want to get all data for all processes in one select. This means we need to process all data capturing for actions first. This allows us to calculate conditions"
 										disabled="false"
 										id="cdd5f61254b0432d9709d5ac672e66f3"
-										lineNumber="83">
+										lineNumber="84">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"
 											id="75bbf76dc05e4d7aab2f8386ec70bb0a"
@@ -3986,13 +4011,13 @@
 										comment="Is problem"
 										disabled="false"
 										id="b546ab82a7c94b6d82218703e540e52c"
-										lineNumber="84"
+										lineNumber="85"
 										variable="createdAction">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											comment="Get definition"
 											disabled="false"
 											id="dd4ed319b9c74fd38b1133e24d108c03"
-											lineNumber="85">
+											lineNumber="86">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 												disabled="false"
 												id="f531a68c28c442e98fd7e315f6fd6778"
@@ -4006,18 +4031,18 @@
 									<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 											disabled="false"
 											id="c7ad5ca204ec451ea618bf66c0f557a9"
-											lineNumber="86"
+											lineNumber="87"
 											query="errorActionDefinition/autoFail">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 												disabled="false"
 												id="6fc8cb8572a34f69840ac4b3712b4985"
 												label="true"
-												lineNumber="87">
+												lineNumber="88">
 											<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 													comment="Get state instance for action instance"
 													disabled="false"
 													id="1ff52b7a0caf4fccac18fe8bb85a1492"
-													lineNumber="88">
+													lineNumber="89">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 														disabled="false"
 														id="0a224a195a8548338dff5cde4346ec94"
@@ -4032,7 +4057,7 @@
 													comment="Get the process instance"
 													disabled="false"
 													id="be99d08356254678a6bf840ab4b4947b"
-													lineNumber="89">
+													lineNumber="90">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 														disabled="false"
 														id="2481981fda0a40a38568326e4afe9d57"
@@ -4047,7 +4072,7 @@
 													comment="Set the error on the action and process"
 													disabled="false"
 													id="92b72e331463419793fb1242b5f7d2a0"
-													lineNumber="90">
+													lineNumber="91">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 														disabled="false"
 														id="be5e94e027b84109ad9b29f586336253"
@@ -4118,7 +4143,7 @@
 											<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 													disabled="false"
 													id="5aabe2dbcaa248198b4328deac570001"
-													lineNumber="91">
+													lineNumber="92">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 														disabled="false"
 														id="d1d855af348b4097867e05f2d16a2157"
@@ -4163,7 +4188,7 @@
 													comment="Get the error condition (if any)"
 													disabled="false"
 													id="e8086c4100c84029863586f4258d13ad"
-													lineNumber="92">
+													lineNumber="93">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 														disabled="false"
 														id="e18a2636d68a4728a35bf53723b8b4e7"
@@ -4246,18 +4271,18 @@
 											<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 													disabled="false"
 													id="6faba5fca87148e7b69e53c1a4ea0fdb"
-													lineNumber="93">
+													lineNumber="94">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 														comment="If we have an error or failure condition, we are using a business level definition of failure and do NOT want service exceptions to trigger the failure line"
 														disabled="false"
 														id="02cbe84f76a34065a622b5304708e6e9"
 														label="errorCondition == null &amp;&amp; failureCondition == null"
-														lineNumber="94">
+														lineNumber="95">
 													<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 															comment="Get the applicable data"
 															disabled="false"
 															id="233cecf30def4881ba96b9e42423d69c"
-															lineNumber="95">
+															lineNumber="96">
 														<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 																disabled="false"
 																id="efc0e533bef442dd9bc678c0ba3550de"
@@ -4272,7 +4297,7 @@
 															comment="Store failed state boolean (optionally)"
 															disabled="false"
 															id="84282aace72e4af6b8c3d54a80de7d09"
-															lineNumber="96">
+															lineNumber="97">
 														<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 																disabled="false"
 																id="15b2a1900f3548638a5855e46c865eb7"
@@ -4383,7 +4408,7 @@
 															comment="If we set to failed immediately, run the specials in failed mode"
 															disabled="false"
 															id="a17c43f7c7224ad1b0da47de68f138b7"
-															lineNumber="97">
+															lineNumber="98">
 														<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 																disabled="false"
 																id="d11ede46d6494a7ea53195e298136989"
@@ -4481,13 +4506,13 @@
 													<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 															disabled="false"
 															id="542dc655d05b40fcaaab217a77691fef"
-															lineNumber="98">
+															lineNumber="99">
 														<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 																comment="If we ran anything in the FAILED condition, we don't want to update the entire process to failed. We do this by removing it from the &quot;created process instance&quot; list which is what is reset"
 																disabled="false"
 																id="17419a067b2e480796a3bf7d40d143fd"
 																label="ranAnything"
-																lineNumber="99">
+																lineNumber="100">
 															<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 																	disabled="false"
 																	id="d84a3234723640c8bfd5d5f7fdc7ac44"
@@ -4523,7 +4548,7 @@
 																comment="If we didn't run any failure lines, let's flag it for inspection as well"
 																disabled="false"
 																id="349898e96e704df7ab379d29131be94e"
-																lineNumber="100">
+																lineNumber="101">
 															<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 																	disabled="false"
 																	id="eb0e16213ac24b83bc7b2dd2683c5f67"
@@ -4540,7 +4565,7 @@
 														comment="Especially if we have business level failure, we want to inspect exception failure"
 														disabled="false"
 														id="fd8877f029944318b8ed4d9adff9f899"
-														lineNumber="101">
+														lineNumber="102">
 													<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 															disabled="false"
 															id="d74f1a1602ec43b2a3d3317cae86b6a7"
@@ -4556,11 +4581,11 @@
 													comment="Check if we need to set the task to failed as well"
 													disabled="false"
 													id="ada28c30627947c68e44218f3fc679f2"
-													lineNumber="102">
+													lineNumber="103">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 														disabled="false"
 														id="9727b2da80f8469381c7d25a2fdcde6b"
-														lineNumber="103">
+														lineNumber="104">
 													<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 															disabled="false"
 															id="9864d367376745e0b4ae641368fd47cf"
@@ -4597,7 +4622,7 @@
 														disabled="false"
 														id="2913a7b9d0324509bbcd1d662a3ab1c3"
 														label="automatedRunInput/actionId == createdAction/processActionId &amp;&amp; automatedRunInput/processInstanceId == runningProcess/id"
-														lineNumber="104">
+														lineNumber="105">
 													<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 															disabled="false"
 															id="a91f7e0e287b4107bface0efb7f4ac3c"
@@ -4635,7 +4660,7 @@
 													disabled="false"
 													id="c0bd2c070c394e58b0574db79cb2ed09"
 													label="runningProcess/requiresFollowup == true"
-													lineNumber="105">
+													lineNumber="106">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 														disabled="false"
 														id="23ab2fb6bb904578b3ea0bbd5dfb639f"
@@ -4680,12 +4705,12 @@
 										<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 												disabled="false"
 												id="cdfe398414944296a6caa6571cbceedb"
-												lineNumber="106">
+												lineNumber="107">
 											<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 													comment="Get state instance for action instance"
 													disabled="false"
 													id="2b1027dfbde44199ae7e292ae67d8567"
-													lineNumber="107">
+													lineNumber="108">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 														disabled="false"
 														id="58b933a346b340baab3cce0157be6576"
@@ -4700,7 +4725,7 @@
 													comment="Get the process instance"
 													disabled="false"
 													id="2d44bae1a29944caa642b2e1dcc18589"
-													lineNumber="108">
+													lineNumber="109">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 														disabled="false"
 														id="aeb492c7fe10434780f3bd56c315086b"
@@ -4715,7 +4740,7 @@
 													comment="Set the error on the action and process"
 													disabled="false"
 													id="366ec4c18e0643bba1a88dbd7cb510ee"
-													lineNumber="109">
+													lineNumber="110">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 														disabled="false"
 														id="92446e872ff341b3994d5ca4a6d0e254"
@@ -4796,7 +4821,7 @@
 													comment="Update both"
 													disabled="false"
 													id="c4bd61d82b484d4e9f633cfa5627cdd5"
-													lineNumber="110">
+													lineNumber="111">
 												<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 														disabled="false"
 														id="9783c2b27cea420cb78e6ee45e6d56ed"
@@ -4881,7 +4906,7 @@
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											disabled="false"
 											id="6f92b0c62d2b47518fbc3394866706d8"
-											lineNumber="111">
+											lineNumber="112">
 										<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 												disabled="false"
 												id="c41faaedc9024cc39d4942e5ee5cd128"
@@ -4913,7 +4938,7 @@
 							comment="Remove from memory"
 							disabled="false"
 							id="2b0ec9f2df804c2c8cda11fbf57a8668"
-							lineNumber="112">
+							lineNumber="113">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="7e267e6701554d9aa3c63d3a49ee0528"
@@ -4940,7 +4965,7 @@
 							comment="Remove action descriptors from memory"
 							disabled="false"
 							id="7cd3831f6eb64ab991cfcc88d9c7643c"
-							lineNumber="113">
+							lineNumber="114">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="232d7133b657400da3d402c61021a06f"
@@ -4970,11 +4995,11 @@
 				disabled="false"
 				id="e0ee9dd4612349a6ab18bbc8573e9653"
 				label="&quot;DESCRIPTION&quot;"
-				lineNumber="114">
+				lineNumber="115">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="f691e4f47bc64a2291c7c816f065c587"
-					lineNumber="115">
+					lineNumber="116">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="f74a9369b5a64930a4fa7b4cdb25eff5"
@@ -5010,12 +5035,12 @@
 					disabled="false"
 					id="379b6c5d7de74444bd5837dc4aef608b"
 					label="createdActions != null &amp;&amp; input/input != null"
-					lineNumber="116"
+					lineNumber="117"
 					scopeDefaultTransaction="true">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						disabled="false"
 						id="a0a47f80d24647298442b05a0aedeb66"
-						lineNumber="117">
+						lineNumber="118">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="4f009a61d3fc496188675117a17cfc47"
@@ -5050,13 +5075,13 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 						disabled="false"
 						id="1c81604a37f0448da225687d8c752d61"
-						lineNumber="118"
+						lineNumber="119"
 						query="description/complex">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="f7f072cd17a14e0bac88129f579cad18"
 							label="true"
-							lineNumber="119">
+							lineNumber="120">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="350f294a15264546b9cd1a38f5bbdd5a"
@@ -5109,7 +5134,7 @@
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="6dafa827c99740a38ca23baf47264d72"
-							lineNumber="120">
+							lineNumber="121">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 								disabled="false"
 								id="7710e3d76b394090b6daaba91b063389"
@@ -5125,7 +5150,7 @@
 						comment="Get all state instances, we'll need them very likely"
 						disabled="false"
 						id="646af6eb0d3b4b60959e084bfec270bc"
-						lineNumber="121">
+						lineNumber="122">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 							disabled="false"
 							id="98dd612ac66a4bf6b1954f4e999ced2c"
@@ -5190,12 +5215,12 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
 						id="74b5e4f4415f4e6a848d4f7276c0fe49"
-						lineNumber="122"
+						lineNumber="123"
 						variable="createdAction">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
 							id="2d4aa391eac84f0d8bcf724eacb9644e"
-							lineNumber="123">
+							lineNumber="124">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="50ac2c2c17dd49fa9b65854caef81f6b"
