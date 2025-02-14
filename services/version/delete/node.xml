@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2025-02-13T15:04:45.831+01:00" lastModified="2025-02-13T15:08:01.761+01:00" leaf="true" version="7">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.crud.processActionRelation.services.list</references>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
+    <references>nabu.frameworks.process.crud.processAction.services.list</references>
+    <references>nabu.frameworks.process.crud.processStateRelation.services.list</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.crud.processStateRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processVersion.services.get</references>
+    <references>nabu.frameworks.process.crud.processCapture.services.list</references>
+    <references>nabu.frameworks.process.crud.processState.services.list</references>
+    <references>nabu.services.jdbc.Services.delete</references>
+    <references>nabu.frameworks.process.crud.processCapture.types.output</references>
+    <references>nabu.frameworks.process.crud.processState.types.output</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.output</references>
+</node>

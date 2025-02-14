@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-02-05T09:53:21.026+01:00" lastModified="2025-02-13T15:09:43.686+01:00" leaf="true" version="30">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
+    <references>nabu.frameworks.process.crud.processVersion.services.list</references>
+    <references>nabu.frameworks.process.startup.registerListeners</references>
+    <references>nabu.frameworks.process.manage.rest.process.version.releaseOutput</references>
+    <references>nabu.frameworks.process.services.version.delete</references>
+    <references>nabu.frameworks.process.crud.processVersion.services.update</references>
+    <references>nabu.utils.Cache.clear</references>
+    <references>nabu.frameworks.process.crud.processVersion.services.get</references>
+    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
+</node>

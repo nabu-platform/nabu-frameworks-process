@@ -1,0 +1,6 @@
+<structure interface="nabu.frameworks.process.manage.rest.process.version.unrelease:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" name="version"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" minOccurs="0" name="deprecatedVersion" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
+</structure>

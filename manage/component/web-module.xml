@@ -22,5 +22,6 @@
     <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.quickMigrate</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.cancel</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.masterdata.listCheckPermission</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.version.unrelease</webFragments>
     <audience>MANAGER</audience>
 </webModule>

@@ -1,0 +1,12 @@
+<structure name="pipeline">
+    <structure name="input">
+        <field name="processVersionId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+    </structure>
+    <structure name="output"/>
+    <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" enricher="nabu.frameworks.process.crud.processState.services.list" maxOccurs="unbounded" minOccurs="0" name="states" persister="nabu.frameworks.process.crud.processState.batch.updateAll"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" enricher="nabu.frameworks.process.crud.processAction.services.list" maxOccurs="unbounded" minOccurs="0" name="actions" persister="nabu.frameworks.process.crud.processAction.batch.updateAll"/>
+    <structure collectionName="processActionRelations" definition="nabu.frameworks.process.crud.processActionRelation.types.output" enricher="nabu.frameworks.process.crud.processActionRelation.services.list" maxOccurs="unbounded" minOccurs="0" name="actionRelations" persister="nabu.frameworks.process.crud.processActionRelation.batch.updateAll"/>
+    <structure collectionName="processStateRelations" definition="nabu.frameworks.process.crud.processStateRelation.types.output" enricher="nabu.frameworks.process.crud.processStateRelation.services.list" maxOccurs="unbounded" minOccurs="0" name="stateRelations" persister="nabu.frameworks.process.crud.processStateRelation.batch.updateAll"/>
+    <structure collectionName="processCaptures" definition="nabu.frameworks.process.crud.processCapture.types.output" enricher="nabu.frameworks.process.crud.processCapture.services.list" maxOccurs="unbounded" minOccurs="0" name="captures" persister="nabu.frameworks.process.crud.processCapture.batch.updateAll"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" name="version"/>
+</structure>
