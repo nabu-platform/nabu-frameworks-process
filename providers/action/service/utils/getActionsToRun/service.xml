@@ -441,6 +441,36 @@
 						<from>resultf574e23015034dabb030ab8e8a0d7680/string</from>
 						<to>singleCapture/value</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="df5de613ec85475795096937d0045adf"
+							serviceId="nabu.utils.reflection.Type.whatIs"
+							resultName="resultc1ed1da984bb429e8913491107930292"
+							temporaryMapping="true"
+							x="433"
+							y="443"
+							invocationOrder="2"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="7cab07c6c06f49a19e67e62a0751d801"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>result9e88f29b63c844758b5b0de9cbd6c89f/response</from>
+							<to>object</to>
+						</steps>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="a1a32521ac9345ed8799f092e202e0c0"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>resultc1ed1da984bb429e8913491107930292/description/id</from>
+						<to>singleCapture/typeId</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						disabled="false"
