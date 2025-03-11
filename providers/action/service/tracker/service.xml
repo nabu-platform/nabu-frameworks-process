@@ -1385,6 +1385,24 @@
 											<from>serviceContextConnectionId</from>
 											<to>connectionId</to>
 										</steps>
+										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+												disabled="false"
+												id="a9c8c3b8b9f34dec91d7c68537b37bc0"
+												mask="false"
+												optional="false"
+												fixedValue="false">
+											<from>actionToRun/processActionId</from>
+											<to>processActionId</to>
+										</steps>
+										<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+												disabled="false"
+												id="1fd1255fe0c047759fd5e4cd9b9dc538"
+												mask="false"
+												optional="false"
+												fixedValue="false">
+											<from>actionToRun/activatedInitializerId</from>
+											<to>activatedInitializerId</to>
+										</steps>
 									</steps>
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"

@@ -544,6 +544,24 @@
 						<from>actionToRun/processStateId</from>
 						<to>initialStateId</to>
 					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="e34c4d285f6b4fffa8a1b272b5b29aad"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>actionToRun/processActionId</from>
+						<to>processActionId</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="a200deb8370544798e0bb0febaa259ba"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>actionToRun/activatedInitializerId</from>
+						<to>activatedInitializerId</to>
+					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
