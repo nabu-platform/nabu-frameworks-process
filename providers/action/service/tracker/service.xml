@@ -2682,6 +2682,15 @@
 										<from>actionToRun/inputCaptures</from>
 										<to>capturedValues</to>
 									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="967c96f07142423dab9fb0b4da1fa493"
+											mask="false"
+											optional="false"
+											fixedValue="false">
+										<from>serviceContextConnectionId</from>
+										<to>connectionId</to>
+									</steps>
 								</steps>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Map"
