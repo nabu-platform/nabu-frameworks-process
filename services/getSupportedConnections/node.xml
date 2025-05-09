@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-06T13:58:58.688+01:00" lastModified="2023-05-17T15:36:57.256+02:00" leaf="true" version="6">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-06T13:58:58.688+01:00" lastModified="2025-05-02T15:50:10.804+02:00" leaf="true" version="8">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.protocols.jdbc.pool.types.JDBCPoolInformation</references>
     <references>nabu.protocols.jdbc.pool.Services.information</references>
     <references>java.lang.String</references>
+    <references>nabu.protocols.jdbc.pool.Services.listForDataModel</references>
     <references>nabu.utils.reflection.Node.dependencies</references>
 </node>

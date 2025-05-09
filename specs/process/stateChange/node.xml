@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.iface.ServiceInterfaceManager" created="2025-05-02T16:12:05.481+02:00" lastModified="2025-05-02T16:13:25.944+02:00" leaf="true" version="7">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.database.types.processInstance</references>
+    <references>java.util.UUID</references>
+    <references>nabu.frameworks.process.database.types.processState</references>
+</node>

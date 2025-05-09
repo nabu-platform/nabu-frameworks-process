@@ -1037,4 +1037,48 @@
 		</steps>
 		<query>finalizers</query>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="b1106dcf4fc449eea7a16fb1d44a7f88"
+			lineNumber="33">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="835ed2209cae4a4b978821e1ca3cadd7"
+				serviceId="nabu.frameworks.process.specs.process.stateChange"
+				resultName="result1c51d0df9a644c54bf38a1eb8592e5ea"
+				temporaryMapping="true"
+				x="269"
+				y="79"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="fc3b7c0e00fa435c803f3faa46cd04b7"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>definition/code</from>
+				<to>processCode</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="d4578fbb71d646a0a2a67b4b2316181c"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/stateInstance/processStateId</from>
+				<to>newStateId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="db3a481237744131828a92ebd7de6ca3"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/stateInstance/processInstanceId</from>
+				<to>processInstanceId</to>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

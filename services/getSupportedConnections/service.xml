@@ -3,7 +3,7 @@
 		id="6d1f5bca532a45689e88991a5c1864f8"
 		lineNumber="1">
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			disabled="false"
+			disabled="true"
 			id="ab3ed2c8-2c83-4e63-825d-1a02882a5c38"
 			lineNumber="2">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -38,7 +38,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
-			disabled="false"
+			disabled="true"
 			id="3a756e78c64b41c8942048c02ff9954c"
 			lineNumber="3"
 			variable="connectionId"
@@ -94,5 +94,40 @@
 			</steps>
 		</steps>
 		<query>connectionIds</query>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="fb7fc7d0140444988e5be2c2a137108b"
+			lineNumber="6">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="b88a78746c544d4e8f9f6b837dfa3841"
+				serviceId="nabu.protocols.jdbc.pool.Services.listForDataModel"
+				resultName="result24c2577744314775a49d9744a0fd2ad6"
+				temporaryMapping="true"
+				x="23"
+				y="59"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="85bb4ac8fc75468dbd8d985bc4b5c301"
+					mask="false"
+					optional="false"
+					fixedValue="true">
+				<from>nabu.frameworks.process.database.model</from>
+				<to>dataModelId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="36a5fca2483c4e5596719ef0ab22b13c"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result24c2577744314775a49d9744a0fd2ad6/pools/id</from>
+			<to>output/connectionIds</to>
+		</steps>
 	</steps>
 </sequence>

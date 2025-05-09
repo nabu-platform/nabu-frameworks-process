@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-03-18T15:51:59.586+01:00" leaf="true" version="389">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-05-09T10:00:34.165+02:00" leaf="true" version="392">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -30,6 +30,7 @@
     <references>nabu.frameworks.process.providers.action.service.utils.resolveDescription</references>
     <references>be.nabu.eai.module.auditing.api.FlatServiceTracker$TrackType</references>
     <references>nabu.utils.Runtime.setContext</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceFollowup</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.registerFailure</references>
