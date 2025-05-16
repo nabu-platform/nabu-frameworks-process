@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:48:16.797+01:00" lastModified="2024-01-31T10:06:31.891+01:00" leaf="true" version="12">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T08:48:16.797+01:00" lastModified="2025-05-16T12:07:54.516+02:00" leaf="true" version="13">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -12,5 +12,6 @@
     <references>java.lang.String</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processListener.services.list</references>
     <references>nabu.frameworks.process.crud.processVersion.services.get</references>
 </node>

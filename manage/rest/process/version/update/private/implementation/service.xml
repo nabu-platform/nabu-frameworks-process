@@ -42,13 +42,15 @@
 			disabled="false"
 			id="7321f6c41e9d497d85d8e9770fe2cf0c"
 			label="definition/released != null || input/content/released != null || definition/deprecated != null || input/content/deprecated != null"
-			lineNumber="3" xsi:nil="true"/>
+			lineNumber="3"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 			disabled="false"
 			id="552915c5ac414f33bf4bcdfcd39d2c69"
 			label="definition != null &amp;&amp; definition/version != input/content/version"
 			lineNumber="4"
-			message="Can not update the version" xsi:nil="true"/>
+			message="Can not update the version"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			comment="Create or update definition"
 			disabled="false"
@@ -358,6 +360,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get existing states and listeners"
 			disabled="false"
 			id="cdb84fca33e1464c96eb09d11d21d675"
 			lineNumber="15">
@@ -390,6 +393,36 @@
 				fixedValue="false">
 			<from>result3a8640511bc944eaa0ee5553820e6acd/results</from>
 			<to>existingStates</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="0d94c669bf71496aaf10bd2aa9c9564a"
+				serviceId="nabu.frameworks.process.crud.processListener.services.list"
+				resultName="result926e432c4321451e99a87c9d38225969"
+				temporaryMapping="true"
+				x="220"
+				y="234"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="c4d73e31b2b640c2a9b05e765f673396"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/path/processVersionId</from>
+				<to>filter/processVersionId[0]</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="cee47d35824e4890aa5df552e189bf54"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result926e432c4321451e99a87c9d38225969/results</from>
+			<to>existingListeners</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
@@ -1222,11 +1255,149 @@
 		</steps>
 		<query>input/content/captures</query>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			disabled="false"
+			id="ffd1c424d6be4f1cb1053add521adcb7"
+			lineNumber="54"
+			variable="listener">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Get existing listener"
+				disabled="false"
+				id="beb8158682f749a6ae735359efa90318"
+				lineNumber="55">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="a798e1a9205845a49b2fa25a7d16d4c8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>existingListeners[id == /listener/id]</from>
+				<to>existingListener</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
+				disabled="false"
+				id="91c3421164d14992805371a8ec1a5f29"
+				lineNumber="56">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					disabled="false"
+					id="a7ee4fafa6304f05aa05ba71617047fb"
+					label="!existingListener"
+					lineNumber="57">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+						disabled="false"
+						id="9a5488f4c616462ba85144cbbd8a4420"
+						serviceId="nabu.frameworks.process.crud.processListener.services.create"
+						resultName="resultfe6e0bd9da0c4bf1a2a8e32d98e84aa8"
+						temporaryMapping="true"
+						x="190"
+						y="96"
+						invocationOrder="0"
+						asynchronous="false"
+						recache="false">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="3ef831d0c7974c688025140fe35e465b"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>listener</from>
+						<to>instance</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="c116a57f834743ceb6624320418d8ab2"
+							mask="false"
+							optional="false"
+							fixedValue="false">
+						<from>listener/id</from>
+						<to>id</to>
+					</steps>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+					disabled="false"
+					id="da77fdb900244a7ab6a50e8ab9c21b22"
+					lineNumber="58">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="aa43db3f1f464b89bee21d69ed9981bc"
+						lineNumber="59">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="700324f205fa4dcd91239318e22ce2c6"
+							serviceId="nabu.utils.Object.mapByKey"
+							resultName="result7cfba8dbcac94fb9b7b38d6fd69e8035"
+							temporaryMapping="true"
+							x="94"
+							y="78"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="9d36fc0f59b8444681c67240e94e0bfd"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>existingListener</from>
+							<to>into</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="e2f21476239b47bc92f028165d2e13fb"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>listener</from>
+							<to>from</to>
+						</steps>
+					</steps>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="ab04804a65cb43c7b347e74a65ccbb50"
+						lineNumber="60">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="a1f8012898f743939de497390ff3207c"
+							serviceId="nabu.frameworks.process.crud.processListener.services.update"
+							resultName="result11f265eb7439402fb9519e82fc62b41f"
+							temporaryMapping="true"
+							x="153"
+							y="48"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="62699d1887794e9c9f868fc23a726b4f"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>listener/id</from>
+							<to>id</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="4b9fd660b51c4c368452f1b131e7de42"
+								mask="false"
+								optional="false"
+								fixedValue="false">
+							<from>listener</from>
+							<to>instance</to>
+						</steps>
+					</steps>
+				</steps>
+			</steps>
+		</steps>
+		<query>input/content/listeners</query>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			comment="Get things to remove"
 			disabled="false"
 			id="12629baf183c464b9a24ebc83f008cac"
-			lineNumber="54">
+			lineNumber="61">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
 				id="da549d6664524549b94cd97fd700d633"
@@ -1272,12 +1443,21 @@
 			<from>existingCaptures[id !# /input/content/captures/id]</from>
 			<to>capturesToRemove</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="8faaf027ecfc4f4db0581e67e71f1b4a"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>existingListeners[id !# /input/content/listeners/id]</from>
+			<to>listenersToRemove</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="57c8d3cfd9dc4f92a3a169f3810f842d"
 			label="relationsToRemove"
-			lineNumber="55">
+			lineNumber="62">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="3f60e9a4ab8f435f9f4be0cb2ed89f36"
@@ -1304,7 +1484,7 @@
 			disabled="false"
 			id="d31e1a45be8e4946a5dcbc24d3ab3ccf"
 			label="stateRelationsToRemove"
-			lineNumber="56">
+			lineNumber="63">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="17d3f659c82b4e7faa784019d1b04f3a"
@@ -1331,7 +1511,7 @@
 			disabled="false"
 			id="b4da792734e445019638fe44e7202eae"
 			label="capturesToRemove"
-			lineNumber="57">
+			lineNumber="64">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="23c85d2e14e2429c8a890f1dc2e589f0"
@@ -1358,7 +1538,7 @@
 			disabled="false"
 			id="fbd902d1f64346a183acab9f155c1b12"
 			label="actionsToRemove"
-			lineNumber="58">
+			lineNumber="65">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="93b1970334b54f3d8df8da49fa1905cc"
@@ -1385,7 +1565,7 @@
 			disabled="false"
 			id="35a7b92ec9bb4db99368b48b47fdc56b"
 			label="statesToRemove"
-			lineNumber="59">
+			lineNumber="66">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="6900b8700388464c9ec13c46136f2075"
@@ -1404,6 +1584,33 @@
 					optional="false"
 					fixedValue="false">
 				<from>statesToRemove/id</from>
+				<to>id</to>
+			</steps>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="04baac765d554339a0c78ac5f76153a6"
+			label="listenersToRemove"
+			lineNumber="67">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="0569467750734263bb47c912053800ff"
+				serviceId="nabu.frameworks.process.crud.processListener.batch.deleteAll"
+				resultName="result58a0300098b44e91ae5399a5a9f98063"
+				temporaryMapping="true"
+				x="67"
+				y="65"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="68d3f4d007e9419f99030fb1b06ccfc8"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>listenersToRemove/id</from>
 				<to>id</to>
 			</steps>
 		</steps>

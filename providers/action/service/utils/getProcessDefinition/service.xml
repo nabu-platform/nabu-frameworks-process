@@ -47,6 +47,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get states &amp; listeners"
 			disabled="false"
 			id="0ff69fb464bb4c358211aebd5494234c"
 			label="output/definition"
@@ -89,6 +90,45 @@
 				fixedValue="false">
 			<from>result684d214be6f94bb0b8de4a7ee670ef08/results</from>
 			<to>output/definition/states</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="722574609c594d2a9d02b1fd5071a315"
+				serviceId="nabu.frameworks.process.crud.processListener.services.list"
+				resultName="result7a78ef5d7ce4474c88e0b4c77239668c"
+				temporaryMapping="true"
+				x="222"
+				y="201"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="94756bb5748649dcbee439ead59afdd3"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/processVersionId</from>
+				<to>filter/processVersionId[0]</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="6daf923b1ff145e1b2e1d6b653f8dc5d"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="1f393d49cfdb4565bf15393e34612b37"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result7a78ef5d7ce4474c88e0b4c77239668c/results</from>
+			<to>output/definition/listeners</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"

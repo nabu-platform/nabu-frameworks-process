@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.crud.CRUDArtifactManager" created="2025-05-16T11:57:37.278+02:00" lastModified="2025-05-16T11:58:18.954+02:00" leaf="false" version="3">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.database.types.processListener</references>
+    <references>nabu.services.crud.provider.basic.provider</references>
+</node>

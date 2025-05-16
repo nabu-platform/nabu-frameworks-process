@@ -105,4 +105,10 @@
         <x>1584</x>
         <y>1201</y>
     </entries>
+    <entries>
+        <synchronize>true</synchronize>
+        <type>nabu.frameworks.process.database.types.processListener</type>
+        <x>574</x>
+        <y>426</y>
+    </entries>
 </dataModel>

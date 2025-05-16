@@ -359,6 +359,9 @@ Vue.view("process-modeler-component", {
 					if (!result.captures) {
 						result.captures = [];
 					}
+					if (!result.listeners) {
+						result.listeners = [];
+					}
 					// initialize some variables
 					if (!result.states) {
 						result.states = [];
@@ -381,6 +384,13 @@ Vue.view("process-modeler-component", {
 					Vue.nextTick(self.draw);
 				}
 			});
+		},
+		addProcessListener: function() {
+			var listener = {
+				processVersionId: this.model.id,
+				id: this.newId()
+			};
+			this.model.listeners.push(listener);
 		},
 		save: function() {
 			var self = this;
@@ -432,6 +442,7 @@ Vue.view("process-modeler-component", {
 				states: [],
 				actionRelations: [],
 				stateRelations: [],
+				listeners: [],
 				captures: [],
 				styling: {},
 				defaultIdentificationType: "custom"

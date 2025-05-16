@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-05T10:33:41.889+01:00" lastModified="2024-09-16T16:13:12.970+02:00" leaf="true" version="30">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-05T10:33:41.889+01:00" lastModified="2025-05-16T12:05:10.287+02:00" leaf="true" version="33">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -13,6 +13,7 @@
     <references>nabu.utils.Date.now</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processStateRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processListener.types.output</references>
     <references>nabu.frameworks.process.crud.processVersion.services.get</references>
     <references>nabu.frameworks.process.crud.processCapture.services.list</references>
     <references>nabu.utils.types.Property</references>
@@ -22,4 +23,5 @@
     <references>nabu.frameworks.process.crud.processState.types.output</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
     <references>nabu.frameworks.process.crud.processActionRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processListener.services.list</references>
 </node>

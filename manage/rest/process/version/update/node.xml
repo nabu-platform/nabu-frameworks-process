@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-01-27T16:38:14.271+01:00" lastModified="2023-05-03T11:05:33.763+02:00" leaf="true" version="68">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-01-27T16:38:14.271+01:00" lastModified="2025-05-16T12:22:26.436+02:00" leaf="true" version="70">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -10,9 +10,12 @@
     <references>nabu.frameworks.process.crud.processCapture.batch.deleteAll</references>
     <references>nabu.frameworks.process.crud.processActionRelation.services.create</references>
     <references>nabu.frameworks.process.crud.processStateRelation.types.output</references>
+    <references>nabu.frameworks.process.crud.processListener.types.output</references>
     <references>nabu.frameworks.process.crud.processDefinition.services.create</references>
     <references>nabu.frameworks.process.crud.processState.services.list</references>
     <references>nabu.frameworks.process.crud.processCapture.types.output</references>
+    <references>nabu.frameworks.process.crud.processListener.batch.deleteAll</references>
+    <references>nabu.frameworks.process.crud.processListener.services.update</references>
     <references>nabu.frameworks.process.crud.processActionRelation.types.output</references>
     <references>nabu.frameworks.process.crud.processAction.batch.deleteAll</references>
     <references>nabu.frameworks.process.crud.processState.services.create</references>
@@ -33,10 +36,12 @@
     <references>nabu.frameworks.process.crud.processStateRelation.batch.deleteAll</references>
     <references>nabu.frameworks.process.crud.processCapture.services.create</references>
     <references>nabu.frameworks.process.crud.processState.batch.deleteAll</references>
+    <references>nabu.frameworks.process.crud.processListener.services.create</references>
     <references>nabu.frameworks.process.crud.processAction.services.create</references>
     <references>nabu.frameworks.process.crud.processState.types.output</references>
     <references>nabu.frameworks.process.crud.processDefinition.services.get</references>
     <references>nabu.frameworks.process.crud.processState.services.update</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processListener.services.list</references>
     <references>nabu.frameworks.process.crud.processStateRelation.services.update</references>
 </node>

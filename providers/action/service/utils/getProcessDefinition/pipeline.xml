@@ -6,5 +6,5 @@
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="definition"/>
     </structure>
-    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" maxOccurs="unbounded" minOccurs="0" name="actions"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" enricher="nabu.frameworks.process.crud.processAction.services.list" maxOccurs="unbounded" minOccurs="0" name="actions" persister="nabu.frameworks.process.crud.processAction.batch.updateAll"/>
 </structure>

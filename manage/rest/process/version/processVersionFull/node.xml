@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-27T16:39:19.087+01:00" lastModified="2023-03-14T15:49:15.092+01:00" leaf="true" version="16">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.types.structure.StructureManager" created="2023-01-27T16:39:19.087+01:00" lastModified="2025-05-16T12:16:24.527+02:00" leaf="true" version="17">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -10,4 +10,5 @@
     <references>nabu.frameworks.process.database.types.processActionRelation</references>
     <references>nabu.frameworks.process.database.types.processStateRelation</references>
     <references>nabu.frameworks.process.database.types.processCapture</references>
+    <references>nabu.frameworks.process.database.types.processListener</references>
 </node>

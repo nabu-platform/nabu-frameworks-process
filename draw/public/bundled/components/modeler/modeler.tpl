@@ -199,6 +199,17 @@
 						:formatter="function(x) { return x.label }"
 						:extracter="function(x) { return x.value }"/>
 					<n-form-text :edit="editable" v-model="model.anonymizationTimeout" label="Anonymization timeout" after="How long after the process ends should it be anonymized?"/>
+					<h4 class="is-h4">Process listeners</h4>
+					<p class="is-p is-variant-subscript">You can call a service when the process actions are run. This is meant mostly as a way to keep external tables in sync, it is not meant to replace business logic that should be part of the process itself. The spec to implement is: nabu.frameworks.process.specs.process.listener</p>
+					<div class="is-column is-spacing-gap-medium">
+						<div v-for="(listener, listenerIndex) in model.listeners" class="is-column has-button-close is-spacing-medium is-color-body">
+							<n-form-text :edit="editable" v-model="listener.listenerId" label="Service id" />
+							<button v-if="editable" @click="model.listeners.splice(listenerIndex, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
+						</div>
+						<div class="is-row is-align-end" v-if="editable">
+							<button @click="addProcessListener" class="is-button is-size-xsmall is-variant-primary-outline"><icon name="plus"/><span class="is-text">Listener</span></button>
+						</div>					
+					</div>
 				</div>
 			</n-form>
 			<div class="is-column is-overflow-auto">
