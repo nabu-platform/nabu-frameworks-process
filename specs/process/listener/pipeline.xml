@@ -1,7 +1,12 @@
-<structure comment="When an action (that has a code) is run in the process, this is called.&#10;We mandate the use of an action code for two reasons:&#10;&#10;- limit the amount of times we call this listener&#10;- force you to use a &quot;proper&quot; dependency rather than having a dependency to something like id or name" name="pipeline">
+<structure comment="When an action (that has a code) is run in the process, this is called.&#10;We mandate the use of an action code for two reasons:&#10;&#10;- limit the amount of times we call this listener&#10;- force you to use a &quot;proper&quot; dependency rather than having a dependency to something like id or name&#10;&#10;Additionally when a process changes state because of an action and the &quot;to&quot; state has a code, we run it as well." name="pipeline">
     <structure name="input">
-        <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-        <field name="actionCode" type="java.lang.String"/>
+        <field minOccurs="0" name="connectionId" type="java.lang.String"/>
+        <structure comment="This references the process version, not the definition" definition="nabu.frameworks.process.specs.process.definition" name="process"/>
+        <structure definition="nabu.frameworks.process.specs.process.definition" name="action"/>
+        <structure definition="nabu.frameworks.process.specs.process.definition" name="fromState"/>
+        <structure definition="nabu.frameworks.process.specs.process.definition" name="toState"/>
+        <field name="stateChange" type="java.lang.Boolean"/>
+        <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
     </structure>
     <structure name="output"/>
 </structure>

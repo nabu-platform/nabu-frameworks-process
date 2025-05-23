@@ -640,7 +640,8 @@ Vue.view("process-modeler-component", {
 			this.model.stateRelations.forEach(this.drawStateRelation);
 			var keyHandler = function(event) {
 				// check that event originates is not aimed at something else
-				if (event.target == document.body) {
+				if (event.target == document.body && !event.handled) {
+					event.handled = true;
 					//console.log("key event", event);
 					// delete
 					if (event.keyCode == 46) {
@@ -2455,7 +2456,7 @@ Vue.view("process-modeler-component", {
 					self.linking.targetAction = action;
 				}
 				else if (self.linking.sourceState && self.linking.sourceState.id == state.id) {
-					rect.node().classList.add("drop-highlight");
+					circle.node().classList.add("drop-highlight");
 					self.linking.targetAction = action;
 				}
 				event.stopPropagation();

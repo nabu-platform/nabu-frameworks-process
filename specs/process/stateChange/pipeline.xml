@@ -1,8 +1,0 @@
-<structure name="pipeline">
-    <structure name="input">
-        <field minOccurs="0" name="processCode" type="java.lang.String"/>
-        <field foreignKey="nabu.frameworks.process.database.types.processInstance:id" name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-        <field foreignKey="nabu.frameworks.process.database.types.processState:id" indexed="true" name="newStateId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    </structure>
-    <structure name="output"/>
-</structure>

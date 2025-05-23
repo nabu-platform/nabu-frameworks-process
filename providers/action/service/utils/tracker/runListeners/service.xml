@@ -54,6 +54,33 @@
 			<from>resultd25c24e46ff7403d8fd9b728aa9d211f/definition/listeners[listenerId != null]</from>
 			<to>listeners</to>
 		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="0955603f733146818b062dbcd7b17de4"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultd25c24e46ff7403d8fd9b728aa9d211f/definition</from>
+			<to>definition</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="2bc20904229540be8949340a05a20728"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultd25c24e46ff7403d8fd9b728aa9d211f/definition/states[id == /input/toStateId]</from>
+			<to>toState</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="82f640bd8b8143289e6ff5c9f54a1624"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultd25c24e46ff7403d8fd9b728aa9d211f/definition/states[id == /input/fromStateId]</from>
+			<to>fromState</to>
+		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Break"
 			comment="No listeners"
@@ -63,23 +90,15 @@
 			lineNumber="3">
 		<count>1</count>
 	</steps>
-	<steps xsi:type="be.nabu.libs.services.vm.step.Break"
-			comment="No code for the action"
-			disabled="false"
-			id="ec534f5ee67a4d1583036af431263c35"
-			label="action/code == null"
-			lineNumber="4">
-		<count>1</count>
-	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="67a71486f9e84d1595c748de2a40b92f"
-			lineNumber="5"
+			lineNumber="4"
 			variable="listener">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="b87071a4852b4f0b9ddb4b64ebc65bbe"
-				lineNumber="6">
+				lineNumber="5">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="576556bd30ab499f9c4d634027933c7a"
@@ -93,30 +112,147 @@
 					recache="false">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="03f1a484bf9543d69b4e001a6c6a66b3"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>input/processInstanceId</from>
-					<to>processInstanceId</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="70de0a3f314a4090b8673041f421b3c6"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>action/code</from>
-					<to>actionCode</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
 						id="a607262821224271b23ae8223fc7693e"
 						mask="false"
 						optional="false"
 						fixedValue="false">
 					<from>listener/listenerId</from>
 					<to>implementationId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="1890f775a6814cba82c8b9ccca994c35"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/failed</from>
+					<to>failed</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f7db3411e2bf4c44a4a6bbaff3883568"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/processVersionId</from>
+					<to>process/definitionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="8382b7e19e974958b502b31c68ae445b"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/processInstanceId</from>
+					<to>process/instanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="5b7148444fb8452fbf2eff8b9b09f85d"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>definition/code</from>
+					<to>process/code</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="ba8ca31398264dbe816037ccb18a5607"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/actionId</from>
+					<to>action/definitionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="d58440c1b3dc415fb457a1e450657dc9"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/actionInstanceId</from>
+					<to>action/instanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="b024b507c1ca4cc8bad7106612d1ea79"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>action/code</from>
+					<to>action/code</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="f26019bb2351408b8fe9300bbeb6111b"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/fromStateInstanceId</from>
+					<to>fromState/instanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="510d0b49cc6346c08d0f642313af03ac"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>fromState/code</from>
+					<to>fromState/code</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a2186093f49448c2ab3a8f9baf0f73e7"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/fromStateId</from>
+					<to>fromState/definitionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="456459cf16c84796992735ce6984068e"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/toStateId</from>
+					<to>toState/definitionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="2e7d4b75348b4fe1995ab7dd5af33013"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/toStateInstanceId</from>
+					<to>toState/instanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="23a16ad511894ae7a9865d0a4bda2ee1"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>toState/code</from>
+					<to>toState/code</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="11561adde6664b83b5e0498bf8613f21"
+						mask="false"
+						optional="false"
+						fixedValue="false">
+					<from>input/connectionId</from>
+					<to>connectionId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="64c0a1fc5fde49f1a589da6eb9005ae8"
+						mask="false"
+						optional="false"
+						fixedValue="true">
+					<from>=input/fromStateId != input/toStateId</from>
+					<to>stateChange</to>
 				</steps>
 			</steps>
 		</steps>
