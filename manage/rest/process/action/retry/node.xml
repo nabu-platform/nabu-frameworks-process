@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-03-20T16:22:10.661+01:00" lastModified="2024-10-08T13:16:39.617+02:00" leaf="true" version="56">
-    <environmentId>apollo</environmentId>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2023-03-20T16:22:10.661+01:00" lastModified="2025-06-06T09:45:40.090+02:00" leaf="true" version="65">
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
@@ -33,4 +33,5 @@
     <references>nabu.utils.String.conventionize</references>
     <references>nabu.frameworks.tasks.database.task.fail</references>
     <references>nabu.utils.Object.toProperties</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.resolveDataBinding</references>
 </node>

@@ -1893,7 +1893,7 @@
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 										disabled="false"
 										id="83e8ffe749f44ff8b09089149e3836e9"
-										label="!input/automatic"
+										label="allowedToProceed &amp;&amp; !input/automatic"
 										lineNumber="78">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 											disabled="false"

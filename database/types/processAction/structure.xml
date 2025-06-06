@@ -29,6 +29,7 @@
     <field comment="Additional comments you want to make" minOccurs="0" name="comment" type="java.lang.String"/>
     <field comment="You can set a capture condition. If set, it must return true, otherwise we ignore this. The condition is executed at the START of the service. This is run before we try to even match to any process instance and based only on the input of the process." minOccurs="0" name="condition" type="java.lang.String"/>
     <field comment="In some cases we expect periodic errors to occur and want to ignore them. We set this immediately to failed." minOccurs="0" name="autoFail" type="java.lang.Boolean"/>
+    <field comment="When the action ends in an error, should we put the process instance in error as well?" minOccurs="0" name="cascadeError" type="java.lang.Boolean"/>
     <field comment="You can run actions on separate queues (e.g. emails on an email queue)" minOccurs="0" name="queue" type="java.lang.String"/>
     <field comment="Stable code to identify this action. Use this programmatically if necessary." minOccurs="0" name="code" type="java.lang.String"/>
     <field comment="If this resolves to true, we want to force the process to run this action even if it is not allowed. For instance some processes model actual real-life processes. We can't alter reality (yet) so we must allow it but we do want to flag it." minOccurs="0" name="forceCondition" type="java.lang.String"/>

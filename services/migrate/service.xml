@@ -712,6 +712,7 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="Create the new action instance. We do NOT copy the task id because it is no longer compatible, it contains the previous process version id"
 					disabled="false"
 					id="ec5b13802bc542968d98a6f230c4f30d"
 					lineNumber="31">
@@ -869,15 +870,6 @@
 							fixedValue="false">
 						<from>currentActionInstance/rolledBack</from>
 						<to>instance/rolledBack</to>
-					</steps>
-					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-							disabled="false"
-							id="d4cd4f3563c74420bfdf7532bc304639"
-							mask="false"
-							optional="false"
-							fixedValue="false">
-						<from>currentActionInstance/taskId</from>
-						<to>instance/taskId</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

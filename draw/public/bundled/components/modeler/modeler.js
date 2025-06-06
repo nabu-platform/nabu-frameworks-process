@@ -1885,7 +1885,10 @@ Vue.view("process-modeler-component", {
 			if (type == "service") {
 				action.reprocessable = true;
 				// because we now have failure lines, let's set autofail as default
-				action.autoFail = true;
+				// @2025-06-05: too many errors that _should_ be reprocessed are now reprocessed usings tasks (as a workaround)
+				// this indicates that we don't actually want autofail in most cases
+				// however, we _do_ want to prevent the whole process from stopping, so cascading errors is now opt-in instead of standard behavior
+				// action.autoFail = true;
 			}
 			else if (type == "human") {
 				// currently we will always automatically create a human task rather than wait for it to occur naturally
