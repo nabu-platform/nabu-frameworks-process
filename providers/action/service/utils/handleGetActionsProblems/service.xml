@@ -81,7 +81,7 @@
 									mask="false"
 									optional="false"
 									fixedValue="true">
-								<from>="Blocked execution of '" + input/name + "' because the process is in error"</from>
+								<from>="Blocked execution of '" + input/name + "' because it is not allowed"</from>
 								<to>instance/log</to>
 							</steps>
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
