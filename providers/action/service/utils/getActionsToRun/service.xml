@@ -1891,6 +1891,7 @@
 									</steps>
 								</steps>
 								<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+										comment="If you are generally allowed to run it, do a permission check, if you fail that, you are not allowed to run it"
 										disabled="false"
 										id="83e8ffe749f44ff8b09089149e3836e9"
 										label="allowedToProceed &amp;&amp; !input/automatic"
@@ -1972,10 +1973,10 @@
 									</steps>
 								</steps>
 								<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-										comment="If you don't have permission to run it"
+										comment="If you don't have permission to run it, we want to flag it explicitly. note that if you are not allowed to run it state-wise, we proceed with the code"
 										disabled="false"
 										id="2567807395104ecab9dd75f6fb4ddbd7"
-										label="!input/automatic &amp;&amp; !checkPermission"
+										label="allowedToProceed &amp;&amp; !input/automatic &amp;&amp; !checkPermission"
 										lineNumber="79">
 									<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 											disabled="false"
