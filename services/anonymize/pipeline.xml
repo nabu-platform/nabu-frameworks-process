@@ -1,7 +1,7 @@
 <structure name="pipeline">
     <structure name="input"/>
     <structure name="output"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" maxOccurs="unbounded" minOccurs="0" name="definitions"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" enricher="nabu.frameworks.process.crud.processDefinition.services.list" maxOccurs="unbounded" minOccurs="0" name="definitions" persister="nabu.frameworks.process.crud.processDefinition.batch.updateAll"/>
     <field minOccurs="0" name="before" type="java.util.Date"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.database.types.processInstance" maxOccurs="unbounded" minOccurs="0" name="instancesToAnonymize"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>

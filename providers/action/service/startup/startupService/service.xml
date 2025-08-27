@@ -341,6 +341,13 @@
 							<from>connectionId</from>
 							<to>connectionId</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="40b88a8ff5ac4159a85c1c3f18d0b009"
+								fixedValue="false">
+							<from>actionInstance/processInstanceId</from>
+							<to>instance/processInstanceId</to>
+						</steps>
 					</steps>
 				</steps>
 				<query>actionInstances</query>

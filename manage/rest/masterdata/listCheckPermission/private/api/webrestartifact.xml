@@ -10,6 +10,7 @@
     <useProjectAsPermissionContext>false</useProjectAsPermissionContext>
     <useGlobalPermissionContext>true</useGlobalPermissionContext>
     <output>nabu.frameworks.process.manage.rest.masterdata.checkPermissionList</output>
+    <deviceBestEffort>false</deviceBestEffort>
     <lenient>true</lenient>
     <webApplicationId>false</webApplicationId>
     <geoPosition>false</geoPosition>

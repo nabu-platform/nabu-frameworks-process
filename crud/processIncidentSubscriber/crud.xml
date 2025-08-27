@@ -35,6 +35,7 @@
     <provider>nabu.services.crud.provider.basic.provider</provider>
     <restLimitToUser>true</restLimitToUser>
     <updateRole>$user</updateRole>
+    <useAsAuthorizationServiceContext>false</useAsAuthorizationServiceContext>
     <useExplicitLanguage>false</useExplicitLanguage>
     <useGlobalPermissionContext>false</useGlobalPermissionContext>
     <useLanguage>false</useLanguage>

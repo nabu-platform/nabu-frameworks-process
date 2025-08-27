@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.iface.ServiceInterfaceManager" created="2025-05-16T10:15:14.207+02:00" lastModified="2025-05-19T17:17:29.720+02:00" leaf="true" version="21">
+<node artifactManager="be.nabu.eai.module.services.iface.ServiceInterfaceManager" created="2025-05-16T10:15:14.207+02:00" lastModified="2025-08-26T12:22:00.753+02:00" leaf="true" version="22">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>

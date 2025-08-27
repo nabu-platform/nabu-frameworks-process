@@ -2,6 +2,27 @@
 
 Remove group id annotation on tasks in favor of narrative id
 
+## Uniqueness of process identifiers
+
+An example process:
+
+- we want to add attachments to a contract but each attachment has to go through a process (of validation, tagging,...)
+- we want multiple attachments to be processed in parallel
+
+In this example we can't use the contract id as a unique identifier for the process. But we can't use it as a unique identifier for the REST services (that manipulate the attachment steps) either. So we _would_ capture the contract id in this case but not as an identifier.
+
+Another example process:
+
+- you want to publish a draft version of something which has to go through some steps
+- only one publishing process instance can be active at the same time
+
+It makes sense that you capture the id of whatever you are publishing as a unique identifier because there should not be multiple process instances at the same time.
+
+However, suppose in that publish process, halfway through you are "cleared for publish" and it has been published locally but you want to tie up some loose ends in the process as well (clean up temporary stuff, notify third parties,...)
+You might want the first part of the process to be a singleton but once you get into the tail end of the process you don't want a faulty third party integration to stop the user from doing another publish.
+
+In the first part you want to capture your entity id as an identifier but later on it should loose that identification status.
+
 ## Conditional lines based on path
 
 e.g. "this line is only valid IF action ABC was run before this point" (either in the same state or before)

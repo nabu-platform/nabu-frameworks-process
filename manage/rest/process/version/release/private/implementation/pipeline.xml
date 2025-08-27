@@ -2,5 +2,5 @@
     <structure name="input"/>
     <structure name="output"/>
     <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" name="version"/>
-    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" maxOccurs="unbounded" minOccurs="0" name="activeVersions"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" maxOccurs="unbounded" minOccurs="0" name="activeVersions" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
 </structure>

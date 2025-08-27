@@ -6,7 +6,7 @@
         <structure definition="java.lang.Object" minOccurs="0" name="processActionData"/>
     </structure>
     <structure name="output"/>
-    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" name="processInstance"/>
-    <structure collectionName="processIncidentSubscribers" definition="nabu.frameworks.process.crud.processIncidentSubscriber.types.output" maxOccurs="unbounded" minOccurs="0" name="subscribers"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="processInstance" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
+    <structure collectionName="processIncidentSubscribers" definition="nabu.frameworks.process.crud.processIncidentSubscriber.types.output" enricher="nabu.frameworks.process.crud.processIncidentSubscriber.services.list" maxOccurs="unbounded" minOccurs="0" name="subscribers" persister="nabu.frameworks.process.crud.processIncidentSubscriber.batch.updateAll"/>
     <field maxOccurs="unbounded" minOccurs="0" name="incidents" type="java.lang.String"/>
 </structure>

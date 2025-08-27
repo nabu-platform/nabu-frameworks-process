@@ -3,5 +3,5 @@
     <structure name="output"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <structure collectionName="processVersions" definition="nabu.frameworks.process.database.types.processVersion" maxOccurs="unbounded" name="versions"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" name="definition"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" enricher="nabu.frameworks.process.crud.processDefinition.services.list" name="definition" persister="nabu.frameworks.process.crud.processDefinition.batch.updateAll"/>
 </structure>

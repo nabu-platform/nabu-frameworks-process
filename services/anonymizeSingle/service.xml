@@ -41,7 +41,8 @@
 			disabled="false"
 			id="a02e9643e6fa4ebea5a4c1801b77d7b1"
 			label="!instanceToAnonymize"
-			lineNumber="3" xsi:nil="true"/>
+			lineNumber="3"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="9fecbaec1a484ccca959ea3c096f498d"
@@ -117,7 +118,8 @@
 			id="a3efcf149dc14f92821529515030161b"
 			label="definition/anonymizationServiceId == null"
 			lineNumber="6"
-			message="No anonymization service configured" xsi:nil="true"/>
+			message="No anonymization service configured"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="c17bc6702ddf4af6bb6320b4234e5343"

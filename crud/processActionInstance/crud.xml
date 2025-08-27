@@ -251,6 +251,10 @@
             <foreignName>processActionId:actionType</foreignName>
             <localName>processActionType</localName>
         </foreignFields>
+        <foreignFields>
+            <foreignName>processStateInstanceId:processInstanceId</foreignName>
+            <localName>processInstanceId</localName>
+        </foreignFields>
         <name>For Rollback</name>
         <type>LIST</type>
     </views>

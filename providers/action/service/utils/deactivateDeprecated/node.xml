@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-19T13:18:13.718+01:00" lastModified="2023-03-24T12:55:15.493+01:00" leaf="true" version="7">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-19T13:18:13.718+01:00" lastModified="2025-08-26T12:22:00.875+02:00" leaf="true" version="8">
     <comment>Disable all deprecated processes that are no longer running</comment>
-    <environmentId>apollo</environmentId>
+    <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>

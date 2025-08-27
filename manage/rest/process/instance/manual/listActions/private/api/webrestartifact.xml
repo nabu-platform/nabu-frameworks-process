@@ -9,6 +9,7 @@
     <useProjectAsPermissionContext>false</useProjectAsPermissionContext>
     <useGlobalPermissionContext>true</useGlobalPermissionContext>
     <output>nabu.frameworks.process.manage.rest.process.instance.manual.actionList</output>
+    <deviceBestEffort>false</deviceBestEffort>
     <lenient>true</lenient>
     <webApplicationId>false</webApplicationId>
     <geoPosition>false</geoPosition>
@@ -34,4 +35,5 @@
     <limitedToInterface>false</limitedToInterface>
     <allowExplicitResponseCode>false</allowExplicitResponseCode>
     <stubbed>false</stubbed>
+    <clusterLock>false</clusterLock>
 </restInterface>

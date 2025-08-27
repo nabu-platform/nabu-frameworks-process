@@ -85,7 +85,8 @@
 			disabled="false"
 			id="c2f0093c0e2f4f37aeb6355be2707434"
 			label="!processInstance"
-			lineNumber="6" xsi:nil="true"/>
+			lineNumber="6"
+			whitelist="false" xsi:nil="true"/>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="3e9b767eb2cf4be7b1af658a25b1a2fe"

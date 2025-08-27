@@ -261,7 +261,7 @@
 				temporaryMapping="true"
 				x="422"
 				y="62"
-				invocationOrder="0"
+				invocationOrder="1"
 				asynchronous="false"
 				recache="false">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -318,6 +318,25 @@
 				<from>input/connection</from>
 				<to>connectionId</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="4fd822deae8a49e6bd8d49332a3f0279"
+					fixedValue="false">
+				<from>result9f1f6c8525f1474bb16c9d69ebb59f64/token/authenticationId</from>
+				<to>instance/userId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="bd5d0df47df94d47800c62fc4fce7532"
+				serviceId="nabu.utils.Runtime.getCurrentToken"
+				resultName="result9f1f6c8525f1474bb16c9d69ebb59f64"
+				temporaryMapping="true"
+				x="8"
+				y="313"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
 		</steps>
 	</steps>
 </sequence>

@@ -3,11 +3,11 @@
         <field name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
     </structure>
     <structure name="output"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" maxOccurs="unbounded" minOccurs="0" name="definitions"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" enricher="nabu.frameworks.process.crud.processDefinition.services.list" maxOccurs="unbounded" minOccurs="0" name="definitions" persister="nabu.frameworks.process.crud.processDefinition.batch.updateAll"/>
     <field minOccurs="0" name="before" type="java.util.Date"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.database.types.processInstance" minOccurs="0" name="instanceToAnonymize"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <structure definition="nabu.utils.types.ExceptionSummary" minOccurs="0" name="summary"/>
-    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" name="version"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" name="definition"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" name="version" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processDefinition.types.output" enricher="nabu.frameworks.process.crud.processDefinition.services.list" name="definition" persister="nabu.frameworks.process.crud.processDefinition.batch.updateAll"/>
 </structure>

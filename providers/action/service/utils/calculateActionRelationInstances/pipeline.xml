@@ -1,7 +1,7 @@
 <structure name="pipeline">
     <structure name="input">
         <structure collectionName="processActionRelations" comment="An action can be linked to one or more parent actions.&#10;It can only be executed if all the parent actions have been completed.&#10;This means for multiple parents a &quot;join&quot; in BPMN terminology&#10;&#10;Note that you can also have an inverse relationship, this means the target action must NOT have been executed yet.&#10;&#10;For instance on a particular action you want the user to do something and have an offshoot (with delay) of a reminder mail.&#10;The reminder mail must only trigger if the user has not taken action yet.&#10;This means the reminder mail has an inverse relationship to the user action" definition="nabu.frameworks.process.database.types.processActionRelation" maxOccurs="unbounded" minOccurs="0" name="activatedRelations"/>
-        <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" maxOccurs="unbounded" minOccurs="0" name="runIncomingActions"/>
+        <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.output" enricher="nabu.frameworks.process.crud.processActionInstance.services.list" maxOccurs="unbounded" minOccurs="0" name="runIncomingActions" persister="nabu.frameworks.process.crud.processActionInstance.batch.updateAll"/>
     </structure>
     <structure name="output">
         <structure definition="nabu.frameworks.process.providers.action.service.utils.activatedRelation" maxOccurs="unbounded" name="activatedRelations"/>

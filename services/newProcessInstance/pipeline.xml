@@ -6,8 +6,8 @@
         <structure definition="be.nabu.libs.types.api.KeyValuePair" maxOccurs="unbounded" minOccurs="0" name="metadata"/>
     </structure>
     <structure name="output"/>
-    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" name="processVersion"/>
-    <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" name="processState"/>
+    <structure collectionName="processVersions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" name="processVersion" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
+    <structure collectionName="processStates" definition="nabu.frameworks.process.crud.processState.types.output" enricher="nabu.frameworks.process.crud.processState.services.list" name="processState" persister="nabu.frameworks.process.crud.processState.batch.updateAll"/>
     <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.createOutput" name="processInstance"/>
     <field minOccurs="0" name="date" type="java.util.Date"/>
     <field minOccurs="0" name="correlationId" type="java.lang.String"/>

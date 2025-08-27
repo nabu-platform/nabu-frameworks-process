@@ -906,7 +906,7 @@
 						<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 								disabled="false"
 								id="0dd7223108944013bdc3c934f88da9d0"
-								serviceId="nabu.web.application.Services.getSessionId"
+								serviceId="nabu.utils.Runtime.getSessionId"
 								resultName="result288c23d351ae4c9ebcf9b812abd70114"
 								temporaryMapping="true"
 								x="335"

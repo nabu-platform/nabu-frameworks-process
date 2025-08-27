@@ -131,18 +131,20 @@
 						<p v-else-if="selected.target.actionType == 'signal'" class="is-p is-size-small">You can capture values from the signal data to either identify the process instance or enrich it with metadata</p>
 						<p v-else-if="selected.target.actionType == 'human'" class="is-p is-size-small">You can capture values from the human task data to enrich the process with metadata</p>
 						<div v-for="capture in getCapturesFor(selected.target.id)" class="is-column is-color-body is-spacing-medium has-button-close">
-							<n-form-text :edit="editable" v-model="capture.name" label="Name" v-if="capture.capture != '$deactivate'"/>
+							<n-form-text :edit="editable" v-model="capture.name" label="Name" v-if="capture.capture != '$deactivate' && capture.capture != '$deidentify'"/>
 							<n-form-combo :edit="editable" v-model="capture.name" label="Name" v-else :filter="getCapturedValueNames"/>
-							<n-form-text :edit="editable" v-if="capture.capture != '$deactivate'" v-model="capture.capture" label="Capture" after="The query to run to capture the value" :timeout="300" @input="updatePhase(capture, value)"/>
+							<n-form-text :edit="editable" v-if="capture.capture != '$deactivate' && capture.capture != '$deidentify'" v-model="capture.capture" label="Capture" after="The query to run to capture the value" :timeout="300" @input="updatePhase(capture, value)"/>
 							<n-form-combo :edit="editable" v-if="selected.target.actionType == 'service' && capture.capture && !getCapturePhase(capture.capture)" v-model="capture.phase" label="Phase" after="The phase in which it should be captured" :items="['input', 'output']" placeholder="output"/>
-							<n-form-switch :edit="editable" v-if="!capture.transient && capture.capture != '$deactivate'" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
-							<n-form-switch :edit="editable" v-if="!capture.identifier && capture.capture != '$deactivate'" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
+							<n-form-switch :edit="editable" v-if="!capture.transient && capture.capture != '$deactivate' && capture.capture != '$deidentify'" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
+							<n-form-switch :edit="editable" v-if="!capture.identifier && capture.capture != '$deactivate' && capture.capture != '$deidentify'" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
 							<p class="is-p is-variant-subscript" v-if="capture.capture == '$deactivate'">Deactivate this value when the action is done, preventing further use in mapping or identifying the process instance.</p>
+							<p class="is-p is-variant-subscript" v-if="capture.capture == '$deidentify'">Retain the value but disable it as an identifier.</p>
 							<button v-if="editable" @click="removeCapture(capture)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
 						</div>
 						<n-form-text :edit="editable" v-model="selected.target.description" v-if="getCapturesFor(selected.target.id).length > 0" label="Dynamic description" after="You can use variables to create a variable description for this action instance"/>
 					</div>
 					<div class="is-row is-align-end is-spacing-gap-xsmall" v-if="editable">
+						<button class="is-button is-size-xsmall is-variant-warning-outline" type="button" @click="newCapture(selected.target.id, '$deidentify')"><icon name="times"/><span class="is-text">Deidentify</span></button>
 						<button class="is-button is-size-xsmall is-variant-warning-outline" type="button" @click="newCapture(selected.target.id, '$deactivate')"><icon name="times"/><span class="is-text">Deactivate</span></button>
 						<button class="is-button is-size-xsmall is-variant-primary-outline" type="button" @click="newCapture(selected.target.id)"><icon name="plus"/><span class="is-text">Capture</span></button>
 					</div>

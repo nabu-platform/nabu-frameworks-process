@@ -1,7 +1,7 @@
 <structure interface="nabu.frameworks.process.manage.rest.process.list:api" name="pipeline">
     <structure name="input"/>
     <structure name="output"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processVersion.types.output" maxOccurs="unbounded" minOccurs="0" name="versions"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processVersion.types.output" minOccurs="0" name="editableVersion"/>
-    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processVersion.types.output" minOccurs="0" name="releasedVersion"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" maxOccurs="unbounded" minOccurs="0" name="versions" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" minOccurs="0" name="editableVersion" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
+    <structure collectionName="processDefinitions" definition="nabu.frameworks.process.crud.processVersion.types.output" enricher="nabu.frameworks.process.crud.processVersion.services.list" minOccurs="0" name="releasedVersion" persister="nabu.frameworks.process.crud.processVersion.batch.updateAll"/>
 </structure>

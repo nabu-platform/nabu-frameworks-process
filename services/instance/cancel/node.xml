@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-08-26T13:31:38.280+02:00" lastModified="2025-01-16T16:27:04.332+01:00" leaf="true" version="12">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2024-08-26T13:31:38.280+02:00" lastModified="2025-08-26T12:22:00.573+02:00" leaf="true" version="14">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
     <references>nabu.frameworks.process.crud.processInstanceLog.services.create</references>
     <references>nabu.frameworks.process.providers.action.service.utils.cancelStateTasks</references>
     <references>java.util.Date</references>

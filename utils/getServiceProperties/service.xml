@@ -29,7 +29,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="true">
-					<from>nabu.frameworks.io.specs.propertyList</from>
+					<from>nabu.frameworks.process.providers.action.service.utils.propertyList</from>
 					<to>type</to>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

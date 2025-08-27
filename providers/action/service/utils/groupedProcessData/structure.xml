@@ -1,4 +1,4 @@
 <structure name="groupedProcessData">
     <field foreignKey="nabu.frameworks.process.database.types.processInstance:id" name="processInstanceId" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
-    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" maxOccurs="unbounded" minOccurs="0" name="matchedDataForProcess"/>
+    <structure collectionName="processData" definition="nabu.frameworks.process.crud.processData.types.output" enricher="nabu.frameworks.process.crud.processData.services.list" maxOccurs="unbounded" minOccurs="0" name="matchedDataForProcess" persister="nabu.frameworks.process.crud.processData.batch.updateAll"/>
 </structure>

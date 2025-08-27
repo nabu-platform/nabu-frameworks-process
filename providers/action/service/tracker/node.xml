@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-06-05T17:04:12.449+02:00" leaf="true" version="393">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-28T17:13:39.802+01:00" lastModified="2025-08-26T12:22:00.922+02:00" leaf="true" version="394">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -14,6 +14,7 @@
     <references>be.nabu.libs.authentication.api.Device</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>java.lang.Integer</references>
+    <references>nabu.utils.Runtime.getSessionId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
     <references>nabu.frameworks.process.crud.processInstance.services.update</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
@@ -68,7 +69,6 @@
     <references>nabu.frameworks.process.providers.action.service.runAutomatedAction:input</references>
     <references>nabu.frameworks.process.providers.action.service.utils.handleGetActionsProblems</references>
     <references>nabu.utils.Date.now</references>
-    <references>nabu.web.application.Services.getSessionId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>
     <references>nabu.data.xml.Services.marshal</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.fireConditionalErrorEvent</references>

@@ -6,7 +6,7 @@
     </structure>
     <structure name="output">
         <structure definition="java.lang.Object" minOccurs="0" name="properties"/>
-        <structure definition="nabu.frameworks.io.specs.propertyList" minOccurs="0" name="propertyList"/>
+        <structure definition="nabu.frameworks.process.providers.action.service.utils.propertyList" minOccurs="0" name="propertyList"/>
         <field minOccurs="0" name="marshalledProperties" type="java.lang.String"/>
     </structure>
     <structure definition="nabu.utils.types.ParameterDescription" minOccurs="0" name="propertiesParameter"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-08-11T13:53:14.229+02:00" lastModified="2025-03-11T09:22:25.728+01:00" leaf="true" version="40">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-08-11T13:53:14.229+02:00" lastModified="2025-08-26T12:22:00.604+02:00" leaf="true" version="41">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -12,6 +12,7 @@
     <references>java.util.Date</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getActionsToRun</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
+    <references>nabu.utils.Runtime.getSessionId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
     <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
@@ -25,7 +26,6 @@
     <references>nabu.utils.Date.now</references>
     <references>nabu.frameworks.process.database.types.processData</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
-    <references>nabu.web.application.Services.getSessionId</references>
     <references>nabu.utils.Runtime.getContext</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.startProcess</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.updateProcessInstanceState</references>

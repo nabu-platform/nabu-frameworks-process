@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2025-01-16T09:51:18.831+01:00" lastModified="2025-01-24T14:33:13.487+01:00" leaf="true" version="14">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2025-01-16T09:51:18.831+01:00" lastModified="2025-08-26T12:22:00.866+02:00" leaf="true" version="15">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.utils.Runtime.getSessionId</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.createOutput</references>
     <references>nabu.utils.Runtime.getCurrentToken</references>
     <references>java.util.Date</references>
     <references>nabu.utils.Runtime.getCorrelationId</references>
-    <references>nabu.web.application.Services.getSessionId</references>
     <references>java.lang.String</references>
     <references>java.util.UUID</references>
     <references>nabu.utils.Runtime.getCurrentDevice</references>

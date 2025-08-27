@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-18T13:44:09.841+02:00" lastModified="2025-01-17T09:48:27.470+01:00" leaf="true" version="28">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-09-18T13:44:09.841+02:00" lastModified="2025-08-26T12:22:00.568+02:00" leaf="true" version="29">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -10,6 +10,7 @@
     <references>nabu.frameworks.process.crud.processAction.services.get</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>nabu.data.xml.Services.unmarshal</references>
+    <references>nabu.utils.Runtime.getSessionId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.getCapturedValues</references>
     <references>java.lang.Boolean</references>
@@ -20,7 +21,6 @@
     <references>nabu.utils.String.toStream</references>
     <references>nabu.frameworks.process.database.types.processData</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
-    <references>nabu.web.application.Services.getSessionId</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
     <references>nabu.utils.Runtime.getCurrentDevice</references>
