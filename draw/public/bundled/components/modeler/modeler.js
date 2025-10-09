@@ -375,6 +375,7 @@ Vue.view("process-modeler-component", {
 							action.styling = action.style ? JSON.parse(action.style) : {};	
 							action.json = action.configuration ? JSON.parse(action.configuration) : {};
 							action.binding = action.dataBinding ? JSON.parse(action.dataBinding) : [];
+							action.narrative = action.narrativeBinding ? JSON.parse(action.narrativeBinding) : [];
 						})
 					});
 					if (result.released != null) {
@@ -405,6 +406,7 @@ Vue.view("process-modeler-component", {
 						action.style = JSON.stringify(action.styling);
 						action.configuration = JSON.stringify(action.json);
 						action.dataBinding = JSON.stringify(action.binding);
+						action.narrativeBinding = JSON.stringify(action.narrative);
 					});
 				});
 				this.model.actionRelations.forEach(function(relation) {
@@ -457,6 +459,12 @@ Vue.view("process-modeler-component", {
 		},
 		addInputMapping: function(action) {
 			action.binding.push({
+				key: null,
+				value: null
+			});
+		},
+		addNarrativeMapping: function(action) {
+			action.narrative.push({
 				key: null,
 				value: null
 			});
@@ -967,6 +975,9 @@ Vue.view("process-modeler-component", {
 			
 			// d3 does not use html dragging
 			group.node().addEventListener("mouseover", function(event) {
+				// @2025-09-19: it can be interesting for "reset" purposes to force a new instance of your own state
+				// it is unclear why this restriction was originally added
+				// the current process was actually refactored up to the point that it was not needed, but might want to enable this for future use?
 				if (self.linking.action && self.linking.action.processStateId != state.id) {
 					rect.node().classList.add("drop-highlight");
 					self.linking.state = state;
@@ -1124,6 +1135,9 @@ Vue.view("process-modeler-component", {
 			}
 			else if (action.actionType == "initializer") {
 				this.drawInitializerAction(action);
+			}
+			else if (action.actionType == "reset") {
+				this.drawResetAction(action);
 			}
 			else if (action.actionType == "any" || action.actionType == "all") {
 				this.drawAnyAction(action);
@@ -1456,7 +1470,7 @@ Vue.view("process-modeler-component", {
 			}
 			
 			var path = this.stateRelations.append("path")
-				.attr("class", "relation type-" + relation.relationType)
+				.attr("class", "relation state-relation type-" + relation.relationType)
 				.attr("id", relation.id)
 				.attr("fill", "none")
 				.attr("stroke", this.connectorColor)
@@ -1877,6 +1891,7 @@ Vue.view("process-modeler-component", {
 				},
 				json: {},
 				binding: [],
+				narrative: [],
 				processStateId: state.id,
 				id: this.newId()
 			};
@@ -1897,7 +1912,7 @@ Vue.view("process-modeler-component", {
 				// and always synchronous, no use in waiting for a new task just to create this task
 				action.synchronous = true;
 			}
-			else if (type == "finalizer") {
+			else if (type == "finalizer" || type == "reset") {
 				action.automatic = true;
 				action.synchronous = true;
 			}
@@ -2508,7 +2523,7 @@ Vue.view("process-modeler-component", {
 			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
 			var group = stateGroup.append("g")
 				.attr("id", action.id)
-				.attr("class", "process-finalizer")
+				.attr("class", "process-initializer")
 				
 			this.move(group, action.styling.x, action.styling.y);
 			
@@ -2547,6 +2562,105 @@ Vue.view("process-modeler-component", {
 			
 			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
 				
+			this.drawActionMapper(action);
+			this.autosizeState(state);
+			
+			// dragging
+			// to the right and bottom you make the state larger
+			self.draggable(group, function(target, event) {
+				var moved = false;
+				if (action.styling.x + event.dx >= 0) {
+					action.styling.x += event.dx;
+					moved = true;
+				}
+				if (action.styling.y + event.dy >= 0) {
+					action.styling.y += event.dy;
+					moved = true;
+				}
+				if (moved) {
+					self.autosizeState(state);
+					self.move(group, action.styling.x, action.styling.y);	
+					self.redrawImpactedRelations(action);
+				}
+			});	
+		},
+		
+		drawResetAction: function(action) {
+			var self = this;
+			var state = this.getState(action.processStateId);
+			var stateGroup = d3.select(this.$refs.svg.getElementById(state.id));
+			var group = stateGroup.append("g")
+				.attr("id", action.id)
+				.attr("class", "process-reset")
+				
+			this.move(group, action.styling.x, action.styling.y);
+			
+			// we want visually half a circle and half a rectangle
+			// the rectangle part is partly so we can attach the triangle to it
+			var rect = group.append("rect")
+				.attr("width", action.styling.width / 2)
+				.attr("height", action.styling.height)
+				.attr("class", "background-dark reset")
+				.attr("fill", "black")
+				
+			this.move(rect, action.styling.width / 2, 0);
+			
+			var circle = group.append("circle")
+				.attr("r", action.styling.width / 2)
+				.attr("class", "background reset")
+				.attr("fill", "black")
+				.attr("id", action.id + "-figure")
+				.attr("cx", action.styling.width / 2)
+				.attr("cy",  action.styling.height / 2)
+			
+			// have a secondary circle inside
+			var circle2 = group.append("circle")
+				.attr("r", action.styling.width / 5)
+				.attr("class", "background-dark reset reset-inner")
+				.attr("fill", "black")
+				.attr("id", action.id + "-figure2")
+				.attr("cx", action.styling.width / 2)
+				.attr("cy",  action.styling.height / 2)
+				
+			circle.on("click", function() {
+				self.select("action", action, function() {
+					// do nothing
+				});
+			})
+			
+			// draw name
+			// the name is not split over multiple lines, use the summary for that!
+			var name = group.append("text")
+				.text(action.name ? action.name : "")
+				//.attr("fill", "black")
+				.attr("font-size", "smaller")
+			// not sure why we need 20 in y-direction but not questioning it now...
+			this.move(name, 0, -10);
+			
+			this.defaultColorize(group, this.getThemeColor(action.actionType, action.styling.color));
+				
+			// d3 does not use html dragging
+			group.node().addEventListener("mouseover", function(event) {
+				// if we are not dragging _this_ action, we highlight for a link
+				// note that we have to be in the same state for this to happen
+				if (self.linking.action && self.linking.action.id != action.id && self.linking.action.processStateId == state.id && !self.hasRelation(self.linking.action, action)) {
+					circle.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				else if (self.linking.sourceState && self.linking.sourceState.id == state.id) {
+					circle.node().classList.add("drop-highlight");
+					self.linking.targetAction = action;
+				}
+				event.stopPropagation();
+			});
+			
+			group.node().addEventListener("mouseleave", function(event) {
+				circle.node().classList.remove("drop-highlight");
+				if (self.linking.targetAction == action) {
+					self.linking.targetAction = null;
+				}
+				event.stopPropagation();
+			});
 			
 			this.drawActionMapper(action);
 			this.autosizeState(state);

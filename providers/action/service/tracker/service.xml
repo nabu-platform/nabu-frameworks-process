@@ -2798,7 +2798,7 @@
 											optional="false"
 											fixedValue="false">
 										<from>createdAction/processInstanceId</from>
-										<to>narrativeId</to>
+										<to>narrativeId[0]</to>
 									</steps>
 									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 											disabled="false"
@@ -2808,6 +2808,20 @@
 											fixedValue="true">
 										<from>1</from>
 										<to>depth</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="bcf43e35de49406c8ec7e3cb6e6139c7"
+											fixedValue="true">
+										<from>action</from>
+										<to>values[0]/key</to>
+									</steps>
+									<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+											disabled="false"
+											id="1165631afc6f436d9f8e3f9c79028f2d"
+											fixedValue="false">
+										<from>createdAction/code</from>
+										<to>values[0]/value</to>
 									</steps>
 								</steps>
 							</steps>
@@ -4116,7 +4130,7 @@
 													optional="false"
 													fixedValue="false">
 												<from>createdAction/processInstanceId</from>
-												<to>narrativeId</to>
+												<to>narrativeId[0]</to>
 											</steps>
 											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 													disabled="false"
@@ -4126,6 +4140,20 @@
 													fixedValue="true">
 												<from>1</from>
 												<to>depth</to>
+											</steps>
+											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+													disabled="false"
+													id="9819148e55024f7a8902a1b5c2c18550"
+													fixedValue="false">
+												<from>createdAction/code</from>
+												<to>values[0]/value</to>
+											</steps>
+											<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+													disabled="false"
+													id="3df2e35cc2694ab9aae13399c2cfd067"
+													fixedValue="true">
+												<from>action</from>
+												<to>values[0]/key</to>
 											</steps>
 										</steps>
 									</steps>

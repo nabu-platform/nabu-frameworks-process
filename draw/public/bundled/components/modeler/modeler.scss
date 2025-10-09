@@ -82,6 +82,13 @@ text {
 	stroke-width: 6;
 	stroke: #ccc !important;
 }
+// state relations can render in unfortunate locations that can not be easily remedied
+.state-relation {
+	opacity: 0.3;
+}
+.state-relation.selected {
+	opacity: 1;
+}
 
 .relation.type-not {
 	stroke: #f7a0a0;
@@ -95,6 +102,9 @@ text {
 }
 .relation.type-flow-failed {
 	stroke: #f7a0a0;
+}
+.relation.type-reset {
+	stroke: steelblue;
 }
 .finalizer, .any, .all {
 	stroke-width: 2;

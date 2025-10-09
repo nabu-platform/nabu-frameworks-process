@@ -15,4 +15,5 @@
     <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="mappedProperties"/>
     <field name="shouldMap" type="java.lang.Boolean"/>
     <structure definition="nabu.utils.types.ParameterDescription" minOccurs="0" name="contentParameter"/>
+    <structure collectionName="processCaptures" definition="nabu.frameworks.process.database.types.processCapture" maxOccurs="unbounded" minOccurs="0" name="actionCaptures"/>
 </structure>

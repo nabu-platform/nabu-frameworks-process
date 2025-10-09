@@ -243,7 +243,7 @@
 					lineNumber="12"
 					query="potentialAction/actionType">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-						disabled="true"
+						disabled="false"
 						id="ef64aa0c9f8f4674b113892caf68ff6e"
 						label="&quot;signal&quot;"
 						lineNumber="13">
@@ -281,9 +281,15 @@
 							<from>result0341cc96081d40ca869361b1778e4c01/captures</from>
 							<to>captures</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="a198e2017dfa4cbdae060bf227cf3298"
+								fixedValue="false">
+							<from>result0341cc96081d40ca869361b1778e4c01/processes/actions/captures[processActionId == /potentialAction/id &amp;&amp; identifier == false]</from>
+							<to>actionCaptures</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.For"
-							comment="TODO: not correct, should not be based on captures but the object definition?"
 							disabled="false"
 							id="5a4cd50383164d7abf400ba29113bae1"
 							lineNumber="15"
@@ -295,15 +301,6 @@
 								lineNumber="16">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
-									id="edb02e04d6e1407e8583239b7e8fbf53"
-									mask="false"
-									optional="false"
-									fixedValue="false">
-								<from>key</from>
-								<to>output/actions[0]/parameters[0]/key</to>
-							</steps>
-							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-									disabled="false"
 									id="86c55b9eae8d4b2b9c19264b1cda0cc2"
 									mask="false"
 									optional="false"
@@ -311,8 +308,22 @@
 								<from>string</from>
 								<to>output/actions[0]/parameters[0]/type</to>
 							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="af2e6bae55ab4eedb559b71df09ec8c8"
+									fixedValue="false">
+								<from>key/name</from>
+								<to>output/actions[0]/parameters[0]/key</to>
+							</steps>
+							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+									disabled="false"
+									id="6a5cdbb0586140ff802c1823c8281d44"
+									fixedValue="true">
+								<from>=!key/required</from>
+								<to>output/actions[0]/parameters[0]/optional</to>
+							</steps>
 						</steps>
-						<query>captures/names/key</query>
+						<query>actionCaptures</query>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"

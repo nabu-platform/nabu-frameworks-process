@@ -2,4 +2,5 @@
     <field name="capture" type="java.lang.String"/>
     <structure comment="They can be known by multiple names cross-process. The key is the id of the capture definition. Because it is potentially executable, the value contains the final name." definition="nabu.utils.types.Property" maxOccurs="unbounded" name="names"/>
     <field minOccurs="0" name="phase" type="java.lang.String"/>
+    <field minOccurs="0" name="required" type="java.lang.Boolean"/>
 </structure>

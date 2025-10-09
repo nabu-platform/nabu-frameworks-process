@@ -2,6 +2,22 @@
 
 Remove group id annotation on tasks in favor of narrative id
 
+## Looping
+
+### Context-based
+
+We tag relations that are actualized with a _context_. On any given action you can then choose "reset context". It will reset the context which it is tagged in.
+The context should be a variable that exists in the process data at the time of relation resolving (so after the source but before the target runs). We tag the instance.
+These instances are used to evaluate whether or not something can happen.
+
+When you then go back in time in a state (without starting a new state), you can have a line that "disables" all the relations tagged with that context. It should also disable itself because it too is a computational problem when we reach the source action.
+
+We should visually indicate whether or not a relation is "contextualized". 
+
+You can even use the same context id for each iteration because it disables the relations UP TO THAT POINT.
+
+This means it can also be a fixed string.
+
 ## Uniqueness of process identifiers
 
 An example process:

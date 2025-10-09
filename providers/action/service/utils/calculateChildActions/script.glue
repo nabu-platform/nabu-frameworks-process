@@ -1,0 +1,31 @@
+string connection ?= null
+uuid processVersionId ?= null
+uuid processActionId ?= null
+
+definition = nabu.frameworks.process.providers.action.service.utils.getProcessDefinition(connection: connection, processVersionId: processVersionId)/definition
+
+if (definition == null)
+	throw("Definition not found")
+	
+alreadyChecked = series()
+
+@return
+uuid [] impactedActionIds = series()
+
+findNext = method
+	actionId ?= null
+	
+	# add it to the list
+	@persist
+	alreadyChecked = series.resolve(merge(alreadyChecked, actionId))
+	
+	# get all the outgoing relations for the given action
+	outgoingRelations = definition/actionRelations[actionId == /actionId && (relationType == "flow" || relationType == "flow-start" || relationType == "flow-failed")]
+	
+	if (outgoingRelations != null)
+		@persist
+		impactedActionIds = series.resolve(merge(impactedActionIds, outgoingRelations/targetActionId))
+		
+		for (single : outgoingRelations/targetActionId)
+			if (single !? alreadyChecked)
+				findNext(single)

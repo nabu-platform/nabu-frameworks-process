@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2024-04-17T16:30:26.827+02:00" lastModified="2025-08-26T12:22:00.637+02:00" leaf="true" version="16">
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2024-04-17T16:30:26.827+02:00" lastModified="2025-10-09T14:50:51.405+02:00" leaf="true" version="24">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -10,10 +10,16 @@
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runReset</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>java.lang.Boolean</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAction</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
     <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
+    <todos>
+        <id>nabu.frameworks.process.manage.rest.process.instance.manual.trigger:implementation:b6ce47bc18c64c508cea1f21a05af786</id>
+        <tags>nabu</tags>
+        <todo>insert actions instance and runSpecials</todo>
+    </todos>
 </node>

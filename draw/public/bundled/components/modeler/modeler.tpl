@@ -27,6 +27,7 @@
 								<li class="is-column"><button @click="addState" class="is-button is-variant-primary is-size-xsmall"><icon name="plus"/><span class="is-text">State</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('initializer', 'Start', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Initializer</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('finalizer', 'Exit', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Finalizer</span></button></li>
+								<li class="is-column"><button @click="addActionToCurrent('reset', 'Reset', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Reset</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('any', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Any</span></button></li>
 								<li v-if="false" class="is-column"><button @click="addActionToCurrent('all', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">All</span></button></li>
 							</ul>
@@ -107,6 +108,18 @@
 							<button v-if="editable" @click="addInputMapping(selected.target)" class="is-button is-variant-primary-outline is-size-small"><icon name="plus"/><span class="is-text">Input Mapping</span></button>
 						</div>
 					</div>
+					<div class="is-column is-spacing-gap-medium" v-if="false && (selected.target.narrative.length || selected.target.actionType == 'service')">
+						<div v-if="selected.target.narrative" class="is-column is-spacing-gap-medium">
+							<div v-for="(input, inputIndex) in selected.target.narrative" class="is-column has-button-close is-spacing-medium is-color-body">
+								<n-form-text :edit="editable" v-model="input.key" label="Key" after="An optional key for this narrative value"/>
+								<n-form-text :edit="editable" v-model="input.value" label="Value" :required="true" after="Either a fixed value or a computation (start with =). Note that you can only use process data for the computation"/>
+								<button v-if="editable" @click="selected.target.narrative.splice(inputIndex, 1)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
+							</div>
+						</div>
+						<div class="is-row is-align-end">
+							<button v-if="editable" @click="addNarrativeMapping(selected.target)" class="is-button is-variant-primary-outline is-size-small"><icon name="plus"/><span class="is-text">Narrative Mapping</span></button>
+						</div>
+					</div>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service' && !selected.target.cascadeError" v-model="selected.target.autoFail" @input="draw" label="Auto fail" after="In some cases errors are expected and already handled (e.g. by reporting them to a third party). Set this if errors should immediately go to failed state."/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service' && !selected.target.autoFail" v-model="selected.target.cascadeError" @input="draw" label="Cascade error" after="When errors occur on an action, do we want the process to go into error as well?"/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'service' && false" v-model="selected.target.strict" @input="draw" label="Strict" after="By default if we do not find a matching process instance for this service, we will simply let it execute. By setting it to strict, further execution is blocked"/>
@@ -137,6 +150,7 @@
 							<n-form-combo :edit="editable" v-if="selected.target.actionType == 'service' && capture.capture && !getCapturePhase(capture.capture)" v-model="capture.phase" label="Phase" after="The phase in which it should be captured" :items="['input', 'output']" placeholder="output"/>
 							<n-form-switch :edit="editable" v-if="!capture.transient && capture.capture != '$deactivate' && capture.capture != '$deidentify'" v-model="capture.identifier" label="Identifier" after="Whether or not this field can be counted as an identifying field for this process instance" />
 							<n-form-switch :edit="editable" v-if="!capture.identifier && capture.capture != '$deactivate' && capture.capture != '$deidentify'" v-model="capture.transient" label="Transient" after="Transient captures are not stored but can be used to enrich things like description"/>
+							<n-form-switch :edit="editable" v-if="capture.capture != '$deactivate' && capture.capture != '$deidentify'" v-model="capture.required" label="Required" after="Whether or not this capture is required to have a value to be considered correct" />
 							<p class="is-p is-variant-subscript" v-if="capture.capture == '$deactivate'">Deactivate this value when the action is done, preventing further use in mapping or identifying the process instance.</p>
 							<p class="is-p is-variant-subscript" v-if="capture.capture == '$deidentify'">Retain the value but disable it as an identifier.</p>
 							<button v-if="editable" @click="removeCapture(capture)" class="is-button is-variant-close is-size-small"><icon name="times"/></button>
@@ -151,11 +165,12 @@
 					<n-form-text :edit="editable" type="area" v-model="selected.target.comment" label="Comment" after="Additional comments you want to add"/>
 				</div>
 				<div v-else-if="selected.type == 'actionRelation'" class="is-column is-spacing-gap-medium">
-					<n-form-combo :edit="editable" v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-start', title: 'Start flow'}, {name: 'flow-stop', title: 'Stop flow'}, {name: 'flow-failed', title: 'Failure flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
+					<n-form-combo :edit="editable" v-model="selected.target.relationType" label="Relation type" :items="[{name:'flow', title: 'Flow'}, {name: 'flow-start', title: 'Start flow'}, {name: 'flow-stop', title: 'Stop flow'}, {name: 'flow-failed', title: 'Failure flow'}, {name: 'reset', title: 'Reset flow'}]" @input="draw" :extracter="function(x) { return x.name }" :formatter="function(x) { return x.title }"/>
 					<n-form-text :edit="editable" v-model="selected.target.code" label="Code" after="Use this to query the action relation programmatically. Change with caution as you might break references."/>
 					<p class="is-p is-variant-subscript" v-if="selected.target.relationType == 'flow'">A flow line limits the lifecycle of the source and the target. The source service can only be invoked until at least one flow line is resolved. A target service can only be invoked once at least one flow line is resolved.</p>
 					<p class="is-p is-variant-subscript" v-else-if="selected.target.relationType == 'flow-start'">A start flow line limits the lifecycle of the target without limiting the source. The source service can be invoked regardless of whether this line is resolved. The target service can only be invoked once this line (or a sibling) is resolved.</p>
 					<p class="is-p is-variant-subscript" v-else-if="selected.target.relationType == 'flow-stop'">A stop flow line limits the lifecycle of the source without limiting the target. The target service can be invoked regardless of whether this line is resolved. The source service no longer be invoked once this line is resolved.</p>
+					<p class="is-p is-variant-subscript" v-else-if="selected.target.relationType == 'reset'">A reset will undo the process action instances that have be done so far started froming the reset target. It can only be invoked if the source of the reset is in a valid condition (no outgoing relations have been resolved)</p>
 					<n-form-text :edit="editable" v-model="selected.target.condition" label="Condition" after="You can have this relation only count if a certain condition results to true" @input="draw" :timeout="600"/>
 					<n-form-switch :edit="editable" v-model="selected.target.styling.showCondition" label="Always show condition" after="By default the condition is only shown on hover. Toggle this to always show it." v-if="selected.target.condition" @input="draw"/>
 				</div>

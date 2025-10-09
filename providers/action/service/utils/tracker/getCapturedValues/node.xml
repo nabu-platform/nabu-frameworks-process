@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-03T16:42:58.958+01:00" lastModified="2025-08-26T12:22:00.851+02:00" leaf="true" version="56">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-03T16:42:58.958+01:00" lastModified="2025-10-03T11:51:01.562+02:00" leaf="true" version="58">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
@@ -8,11 +8,14 @@
     <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
     <references>nabu.utils.types.TypeDescription</references>
     <references>nabu.utils.reflection.Type.of</references>
+    <references>be.nabu.libs.types.utils.KeyValuePairImpl</references>
     <references>nabu.services.glue.Services.evaluate</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
+    <references>nabu.utils.types.Property</references>
     <references>nabu.utils.String.substring</references>
     <references>nabu.utils.reflection.Type.whatIs</references>
+    <references>java.lang.Boolean</references>
     <references>java.lang.Object</references>
     <references>java.lang.String</references>
     <references>nabu.data.json.Services.marshal</references>

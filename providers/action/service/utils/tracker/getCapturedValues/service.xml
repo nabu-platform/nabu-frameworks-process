@@ -480,17 +480,26 @@
 					</steps>
 				</steps>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+					description="=&quot;Required captures can not be resolved: &quot; + capture/capture"
+					disabled="false"
+					id="afbe736dbbbb4ec898ad8d525dc8bc0c"
+					label="capture/required == true &amp;&amp; output/capturedValues[0]/value == null"
+					lineNumber="18"
+					code="PROCESS-MISSING-CAPTURES"
+					message="Required captures can not be resolved"
+					whitelist="false" xsi:nil="true"/>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 					comment="Only add the rest if we actually captured a value"
 					disabled="false"
 					id="87787fc3dc384476b410ef09ac128341"
 					label="output/capturedValues[0]/value != null"
-					lineNumber="18">
+					lineNumber="19">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						comment="Map default"
 						disabled="false"
 						id="8d7fa31f51a94922a4550a1513057b60"
-						lineNumber="19">
+						lineNumber="20">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"
 							id="2ca7de7114854d57860ca8526749d48d"
@@ -504,18 +513,18 @@
 				<steps xsi:type="be.nabu.libs.services.vm.step.For"
 						disabled="false"
 						id="658222577f5c4f34a0b05b0486cd363c"
-						lineNumber="20"
+						lineNumber="21"
 						variable="name"
 						into="output/capturedValues[0]/names">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 							disabled="false"
 							id="a88023d447b845cd8bfa4e166a904099"
-							lineNumber="21">
+							lineNumber="22">
 						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 								disabled="false"
 								id="ec52e6bf28014fa68fd44da1480335d6"
 								label="name/value ~ &quot;^=.*&quot;"
-								lineNumber="22">
+								lineNumber="23">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 									disabled="false"
 									id="fb8324fe0fc640cd867cd355fb0cf0b3"
@@ -598,7 +607,7 @@
 						<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 								disabled="false"
 								id="377c786f9df44581be8595cbae3fb508"
-								lineNumber="23">
+								lineNumber="24">
 							<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 									disabled="false"
 									id="1a9e67accce24572a39c7cfde89b46b9"

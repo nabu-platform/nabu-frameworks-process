@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2025-08-26T12:22:00.893+02:00" leaf="true" version="383">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T14:25:40.415+01:00" lastModified="2025-10-03T11:42:29.693+02:00" leaf="true" version="389">
     <comment>Get all the actions that need to be triggered</comment>
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
     <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
-    <references>nabu.utils.List.add</references>
+    <references>nabu.frameworks.process.database.types.processState</references>
     <references>nabu.utils.Runtime.getPipeline</references>
     <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
-    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
-    <references>nabu.services.glue.Services.evaluate</references>
+    <references>java.util.Date</references>
     <references>nabu.utils.List.unique</references>
     <references>be.nabu.libs.authentication.api.Device</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
     <references>java.lang.Integer</references>
     <references>nabu.utils.Object.toString</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
     <references>nabu.utils.Runtime.getSessionId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.checkPermission</references>
-    <references>java.lang.Long</references>
     <references>nabu.frameworks.process.database.types.processDefinition</references>
+    <references>java.lang.Long</references>
     <references>nabu.frameworks.process.providers.action.service.utils.actionToRun</references>
     <references>java.util.Map</references>
     <references>nabu.frameworks.process.providers.action.service.utils.action</references>
-    <references>java.lang.Boolean</references>
     <references>nabu.frameworks.process.providers.action.service.utils.groupedAction</references>
-    <references>java.lang.String</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
-    <references>nabu.utils.String.split</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
+    <references>nabu.frameworks.process.database.types.processData</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
     <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>java.util.UUID</references>
     <references>be.nabu.libs.authentication.api.Token</references>
-    <references>nabu.utils.List.addAll</references>
     <references>nabu.utils.types.Property</references>
+    <references>java.security.Principal</references>
+    <references>be.nabu.libs.types.base.Duration</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
+    <references>nabu.frameworks.process.database.types.processInstance</references>
+    <references>nabu.frameworks.process.database.types.processStateRelation</references>
+    <references>nabu.frameworks.process.database.types.processActionRelation</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.filterConditionedActions</references>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
+    <references>nabu.utils.List.add</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
+    <references>be.nabu.libs.types.utils.KeyValuePairImpl</references>
+    <references>nabu.services.glue.Services.evaluate</references>
+    <references>nabu.frameworks.process.database.types.processCapture</references>
+    <references>java.lang.Boolean</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
+    <references>nabu.utils.String.split</references>
+    <references>nabu.frameworks.process.crud.processVersion.types.output</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
+    <references>nabu.utils.List.addAll</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
+    <references>nabu.frameworks.process.manage.rest.process.version.processStateFull</references>
+    <references>nabu.frameworks.process.database.types.processListener</references>
     <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
     <references>nabu.utils.List.size</references>
     <references>nabu.utils.String.substring</references>
@@ -43,8 +61,7 @@
     <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.utils.reflection.Type.whatIs</references>
     <references>java.lang.Object</references>
-    <references>nabu.frameworks.process.database.types.processActionRelation</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.filterConditionedActions</references>
+    <references>nabu.frameworks.process.database.types.processActionInstance</references>
     <todos>
         <id>nabu.frameworks.process.providers.action.service.utils.getActionsToRun</id>
         <tags>nabu</tags>

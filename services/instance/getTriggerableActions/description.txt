@@ -1,1 +1,16 @@
 Should in the future include forceable actions!
+
+A signal can be sent proactively or wait for something in another process to happen.
+If sent proactively, it _shouldn't_ fail because it is simply stating to the rest of the system "this happened". Even if someone doesn't agree with it (e.g. another process in different state) -> that's their problem.
+So proactively sent signals can never fail and do not need a manual toggle.
+
+If however you are waiting for something to happen, this can be "automatic" (a signal from another process) or "manual" (the user intervenes)
+If an automatic signal is expected, it must have identifiers to match to the process instance. And if it doesn't happen, you might want a manual workaround. 
+
+The signal might contain _only_ identifiers which is OK because we don't need to identify the process instance, so we don't need to add that. For data capturing, this is usually for "enrichment", however if you are enriching, the process does not HAVE the necessary data so mapping it is also not possible.
+So in conclusion:
+- automated signals can not be manually sent
+- waiting signals can be sent but do not have any automatic input mapping. manual mapping may be needed
+
+However we DON'T want to allow mapping of identifiers because we can't distinguish between identifiers to find the process and identifiers to enrich. If you were to accidently overwrite identifiers for the process, this would be bad.
+So in this case enrichment identifiers can not be used in in conjunction with manual triggering.

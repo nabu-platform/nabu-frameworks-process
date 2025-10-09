@@ -7,6 +7,7 @@
         <structure definition="nabu.frameworks.process.specs.process.definition" name="toState"/>
         <field name="stateChange" type="java.lang.Boolean"/>
         <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
+        <structure definition="java.lang.Object" minOccurs="0" name="properties"/>
     </structure>
     <structure name="output"/>
 </structure>

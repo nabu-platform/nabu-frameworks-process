@@ -1,0 +1,3 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sql>update ~process_action_instances set reset = true where id = any(:processActionInstanceIds)</sql>
+</jdbcService>

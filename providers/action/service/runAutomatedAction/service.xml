@@ -829,6 +829,7 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+					comment="The finalizer was moved here because we want to be able to run it with a delay (i think)"
 					disabled="false"
 					id="0033a549c370446bbee2d85c46a615c7"
 					label="&quot;finalizer&quot;"
@@ -2718,7 +2719,7 @@
 								mask="false"
 								optional="false"
 								fixedValue="true">
-							<from>=sourceActionInstance/processState == "FAILED"</from>
+							<from>=processActionInstance/processState == "FAILED"</from>
 							<to>failed</to>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"

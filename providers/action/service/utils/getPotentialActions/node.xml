@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T08:09:39.462+01:00" lastModified="2025-08-26T12:22:00.814+02:00" leaf="true" version="68">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-01-29T08:09:39.462+01:00" lastModified="2025-10-03T11:36:28.953+02:00" leaf="true" version="69">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.database.types.processState</references>
+    <references>nabu.frameworks.process.database.types.processVersion</references>
     <references>nabu.frameworks.process.providers.action.service.utils.searchActiveActionsForService</references>
     <references>nabu.utils.List.add</references>
     <references>nabu.frameworks.process.crud.processStateRelation.services.list</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.deactivateDeprecated</references>
+    <references>java.util.Date</references>
+    <references>be.nabu.libs.types.utils.KeyValuePairImpl</references>
     <references>nabu.frameworks.process.crud.processAction.services.get</references>
     <references>nabu.utils.List.unique</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
+    <references>nabu.utils.List.sort</references>
+    <references>nabu.frameworks.process.database.types.processCapture</references>
+    <references>nabu.frameworks.process.database.types.processDefinition</references>
+    <references>java.lang.Long</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.action</references>
+    <references>java.lang.Boolean</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.groupedAction</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.searchActiveActionsForSignal</references>
+    <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.deactivateDeprecated</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processState.services.get</references>
     <references>nabu.frameworks.process.crud.processVersion.services.get</references>
     <references>nabu.frameworks.process.crud.processCapture.services.list</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.capture</references>
     <references>nabu.utils.types.Property</references>
-    <references>nabu.utils.List.sort</references>
     <references>nabu.frameworks.process.crud.processActionRelation.services.listEnrichedWithTarget</references>
+    <references>nabu.frameworks.process.database.types.processAction</references>
     <references>nabu.utils.Object.first</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.action</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.groupedAction</references>
-    <references>java.lang.String</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.searchActiveActionsForSignal</references>
+    <references>nabu.frameworks.process.database.types.processStateRelation</references>
+    <references>nabu.frameworks.process.database.types.processActionRelation</references>
 </node>

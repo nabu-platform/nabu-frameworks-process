@@ -485,6 +485,13 @@
 							<from>capture/phase</from>
 							<to>existingCapture/phase</to>
 						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="246cc4b148164d8d9698e9f4e895b339"
+								fixedValue="true">
+							<from>false</from>
+							<to>existingCapture/required</to>
+						</steps>
 					</steps>
 					<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 							disabled="false"
@@ -595,10 +602,24 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+					comment="If required anywhere, it is required everywhere"
+					disabled="false"
+					id="e6f31b032dbc438ebd10cf57700ef551"
+					label="capture/required"
+					lineNumber="19">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="798681d5e62f4db6b9437e818d241697"
+						fixedValue="false">
+					<from>capture/required</from>
+					<to>existingCapture/required</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Drop name"
 					disabled="false"
 					id="33af3a1257fa405e93241de7fd851486"
-					lineNumber="19">
+					lineNumber="20">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
 						disabled="false"
 						id="8db6b8be48ab432ea55ea9104c4ea09a"
@@ -611,7 +632,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="90b1410dcb0145e2b0fd67a310f7a197"
-			lineNumber="20">
+			lineNumber="21">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="14e71a85b09d43a6bcde7105712a8eec"
@@ -646,13 +667,13 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="b69aa48ea5e6443cb25aa5a28bff85b6"
-			lineNumber="21"
+			lineNumber="22"
 			variable="processId"
 			into="output/processes">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="3aab5797f16b4b2f9656f865ed356503"
-				lineNumber="22">
+				lineNumber="23">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"
 					id="f2cf7682af5d4521b6aa504144f107ee"
@@ -708,7 +729,7 @@
 			comment="Sort deprecated first"
 			disabled="false"
 			id="3147bcf5a963422e80f610a92a40a2d8"
-			lineNumber="23">
+			lineNumber="24">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="dbdc8e5b926b48ad8621b6a380378c3e"
