@@ -1,0 +1,4 @@
+<structure name="parameter">
+    <field name="resetActionInstanceId" type="java.util.UUID"/>
+    <field maxOccurs="unbounded" name="resetProcessActionInstanceIds" pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}|[0-9a-fA-F]{32}" type="java.util.UUID"/>
+</structure>

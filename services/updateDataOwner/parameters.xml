@@ -1,0 +1,4 @@
+<structure name="parameter">
+    <field name="newProcessActionInstanceId" type="java.util.UUID"/>
+    <field name="oldProcessActionInstanceId" type="java.util.UUID"/>
+</structure>

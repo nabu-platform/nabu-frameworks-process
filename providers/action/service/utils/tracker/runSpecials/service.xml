@@ -422,7 +422,7 @@
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-					disabled="false"
+					disabled="true"
 					id="ebfb2fba5786472d88b6480ebc9ac6c9"
 					lineNumber="12">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -496,7 +496,7 @@
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Update output ranAnything"
-					disabled="false"
+					disabled="true"
 					id="71b62946ec424abc81dd3bc2b9b94232"
 					lineNumber="13">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

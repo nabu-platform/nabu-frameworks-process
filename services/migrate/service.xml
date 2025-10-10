@@ -263,6 +263,10 @@
 				<from>input/plan/states[fromStateId == /processInstance/currentStateId]</from>
 				<to>statePlan</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Drop"
+					disabled="false"
+					id="b58e442c326142c19bb0b7d476b40b06"
+					path="mappedActionInstances[0]" xsi:nil="true"/>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Set the default to replay states to true"
@@ -633,7 +637,8 @@
 				id="e2259e86b4b24e098c6d76941fa6375e"
 				label="statePlan/replayActions"
 				lineNumber="24"
-				variable="currentActionInstance">
+				variable="currentActionInstance"
+				into="mappedActionInstances">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Get the source action"
 					disabled="false"
@@ -881,6 +886,20 @@
 					<from>resultf6a1c2f507ab4fe7ac9842da28bd2846/created</from>
 					<to>newActionInstance</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="40bbadf8c3d84b2693a2cf3f26e2b056"
+						fixedValue="false">
+					<from>currentActionInstance/id</from>
+					<to>mappedActionInstances[0]/oldProcessActionInstanceId</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="8b6de59224fb4bf79eb20bec137220d9"
+						fixedValue="false">
+					<from>resultf6a1c2f507ab4fe7ac9842da28bd2846/created/id</from>
+					<to>mappedActionInstances[0]/newProcessActionInstanceId</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 					comment="If we have migrated an action that is in error, set it to cancelled. The new action is in error as well"
@@ -940,6 +959,50 @@
 				</steps>
 			</steps>
 			<query>actionInstances</query>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="0d93a3776bcb4d7893613c57e31dda9b"
+				label="mappedActionInstances"
+				lineNumber="35">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="9c9e18d581ca458ab43e2ffb71368ba4"
+					serviceId="nabu.frameworks.process.services.updateDataOwner"
+					resultName="result1c3d36f63c4a4de5bb635a28090035ca"
+					temporaryMapping="true"
+					x="128"
+					y="108"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="3fa3a39046ac43ebb512c3d602102fbc"
+						fixedValue="false">
+					<from>mappedActionInstances</from>
+					<to>parameters</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="7857285a1d3c4dc59c7e30c1999529f8"
+					serviceId="nabu.frameworks.process.services.updateDataDeactivateOwner"
+					resultName="result2fbcbe24450b4494899ffe04178c6277"
+					temporaryMapping="true"
+					x="106"
+					y="246"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="15efa149e0c54b0da1dbb20728c7525b"
+						fixedValue="false">
+					<from>mappedActionInstances</from>
+					<to>parameters</to>
+				</steps>
+			</steps>
 		</steps>
 		<query>processInstances</query>
 	</steps>

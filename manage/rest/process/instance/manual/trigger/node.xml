@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2024-04-17T16:30:26.827+02:00" lastModified="2025-10-09T14:50:51.405+02:00" leaf="true" version="24">
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2024-04-17T16:30:26.827+02:00" lastModified="2025-10-10T17:35:40.202+02:00" leaf="true" version="35">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.providers.action.service.utils.capturedValue</references>
+    <references>nabu.utils.Runtime.getCurrentToken</references>
     <references>nabu.frameworks.process.providers.action.service.utils.canRunActionForProcessInstance</references>
     <references>nabu.frameworks.process.manage.rest.process.instance.manual.triggerInput</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
-    <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
     <references>nabu.frameworks.process.crud.processInstance.types.output</references>
-    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runReset</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
+    <references>nabu.utils.Runtime.getSessionId</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.storeCaptured</references>
+    <references>nabu.frameworks.process.database.types.processCapture</references>
     <references>java.lang.Boolean</references>
+    <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getPotentialActions</references>
+    <references>nabu.utils.Date.now</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.frameworks.process.database.types.processData</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runResetActionById</references>
+    <references>nabu.utils.Runtime.getCurrentDevice</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
+    <references>nabu.utils.Server.getServerName</references>
+    <references>nabu.frameworks.process.crud.processActionInstance.services.create</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.utils.Runtime.getCorrelationId</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runAction</references>
     <references>nabu.frameworks.process.crud.processAction.types.output</references>
-    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
     <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
-    <todos>
-        <id>nabu.frameworks.process.manage.rest.process.instance.manual.trigger:implementation:b6ce47bc18c64c508cea1f21a05af786</id>
-        <tags>nabu</tags>
-        <todo>insert actions instance and runSpecials</todo>
-    </todos>
+    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
 </node>

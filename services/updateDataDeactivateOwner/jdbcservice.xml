@@ -1,0 +1,4 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<inputDefinition>nabu.frameworks.process.services.updateDataOwner.parameters</inputDefinition>
+	<sql>update ~process_data set deactivated_by_action_instance_id = :newProcessActionInstanceId where deactivated_by_action_instance_id = :oldProcessActionInstanceId</sql>
+</jdbcService>

@@ -2905,11 +2905,69 @@
 					</steps>
 				</steps>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
+					disabled="false"
+					id="647a230d0c56427b8885817f032c471d"
+					label="&quot;reset&quot;"
+					lineNumber="55">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+						disabled="false"
+						id="21dbcd0c1e9b478fb16c9b5ad1569500"
+						lineNumber="56">
+					<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+							disabled="false"
+							id="9a3be9fbe49e43e5bb0440429e234901"
+							serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.runResetActionById"
+							resultName="resultccf8e8e2b30943e3a2d7f5b5ac2920c4"
+							temporaryMapping="true"
+							x="47"
+							y="77"
+							invocationOrder="0"
+							asynchronous="false"
+							recache="false">
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="5eb8df43628b4f5f857c40c44345a825"
+								fixedValue="false">
+							<from>input/connectionId</from>
+							<to>connectionId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="6c9037d314b24ed2b36216901507f024"
+								fixedValue="false">
+							<from>input/processVersionId</from>
+							<to>processVersionId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="24ae247df988419c93f1d0c3dcf891ed"
+								fixedValue="false">
+							<from>input/processInstanceId</from>
+							<to>processInstanceId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="05cdd135996c41beb5509b671027524d"
+								fixedValue="false">
+							<from>input/actionId</from>
+							<to>actionId</to>
+						</steps>
+						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+								disabled="false"
+								id="8f7beda3cdd14c65b1421bee243fe357"
+								fixedValue="false">
+							<from>input/activatedRelations</from>
+							<to>activatedRelations</to>
+						</steps>
+					</steps>
+				</steps>
+			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 					description="=&quot;Action type not supported for automatic running: &quot; + action/actionType"
 					disabled="false"
 					id="407875cdce9d4f84a851c4a4fd8d1912"
-					lineNumber="55"
+					lineNumber="57"
 					message="Action type not supported for automatic running"
 					whitelist="false" xsi:nil="true"/>
 		</steps>
@@ -2918,13 +2976,13 @@
 			disabled="false"
 			id="4c50b6e6f79c433d810fb84d2920c141"
 			label="!allowedToProceed"
-			lineNumber="56"
+			lineNumber="58"
 			query="input/bestEffort">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="c0a4a51007a9422f91b6b23271dc2e0d"
 				label="true"
-				lineNumber="57">
+				lineNumber="59">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="96ef5f43f47f4d7fba76940b7d92b9a1"
@@ -3021,7 +3079,7 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
 				disabled="false"
 				id="266f4bd94a9c41deb4fd9424b690b052"
-				lineNumber="58"
+				lineNumber="60"
 				code="PROCESS-INCORRECT-STATE"
 				message="Action is not allowed at this time"
 				whitelist="false" xsi:nil="true"/>

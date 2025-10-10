@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-02-04T14:33:26.417+01:00" deprecated="2025-10-10T17:37:43.566+02:00" lastModified="2025-10-10T17:21:11.165+02:00" leaf="true" version="60">
-    <comment>This runs any resets that might be the consequence of the given action id</comment>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2025-10-09T16:18:31.245+02:00" lastModified="2025-10-10T17:36:56.889+02:00" leaf="true" version="43">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
-    <references>be.nabu.libs.types.api.KeyValuePair</references>
     <references>nabu.utils.Runtime.getCurrentToken</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.cancelTasks</references>
     <references>nabu.frameworks.process.crud.processActionInstance.types.output</references>
     <references>nabu.services.glue.Services.evaluate</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.calculateActionRelationInstances</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.logActiveRelations</references>
     <references>nabu.utils.Runtime.getSessionId</references>
     <references>nabu.utils.List.toMap</references>
@@ -18,15 +15,15 @@
     <references>java.util.Map</references>
     <references>java.lang.Boolean</references>
     <references>java.lang.String</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.activatedRelation</references>
     <references>nabu.frameworks.process.crud.processActionRelation.types.outputEnrichedWithTarget</references>
-    <references>nabu.utils.Map.toProperties</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.reactivateResetParameters</references>
     <references>nabu.utils.Date.now</references>
     <references>nabu.frameworks.process.providers.action.service.utils.processVersionFull</references>
+    <references>nabu.frameworks.process.crud.processData.services.list</references>
     <references>java.util.UUID</references>
     <references>nabu.frameworks.process.crud.processActionInstance.services.list</references>
     <references>nabu.utils.Runtime.getCurrentDevice</references>
-    <references>nabu.frameworks.process.providers.action.service.utils.tracker.runListeners</references>
     <references>nabu.frameworks.process.crud.processStateInstance.types.output</references>
     <references>nabu.frameworks.process.crud.processData.types.output</references>
     <references>nabu.utils.Server.getServerName</references>
@@ -36,11 +33,6 @@
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.deactivateResetParameters</references>
     <references>nabu.frameworks.process.providers.action.service.utils.calculateChildActions</references>
     <references>java.lang.Object</references>
-    <references>nabu.frameworks.process.database.types.processActionInstance</references>
+    <references>nabu.frameworks.process.crud.processStateInstance.services.list</references>
     <references>nabu.frameworks.process.providers.action.service.utils.tracker.runSpecials</references>
-    <todos>
-        <id>nabu.frameworks.process.providers.action.service.utils.tracker.runReset:cd2568b9860b484abcf0863ced7c3cdf</id>
-        <tags>nabu</tags>
-        <todo>refactor to use runResetActionById, this was extracted later</todo>
-    </todos>
 </node>

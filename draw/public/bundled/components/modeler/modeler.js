@@ -1912,9 +1912,14 @@ Vue.view("process-modeler-component", {
 				// and always synchronous, no use in waiting for a new task just to create this task
 				action.synchronous = true;
 			}
-			else if (type == "finalizer" || type == "reset") {
+			else if (type == "finalizer") {
 				action.automatic = true;
 				action.synchronous = true;
+			}
+			else if (type == "reset") {
+				action.automatic = false;
+				action.synchronous = true;
+				action.manual = true;
 			}
 			else if (type == "any") {
 				action.automatic = true;

@@ -666,6 +666,13 @@
 					<from>input/connectionId</from>
 					<to>connection</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="4b1139fdd3f1403aab25e011a0f45057"
+						fixedValue="false">
+					<from>input/actionInstanceId</from>
+					<to>parameters[0]/deactivatedByProcessActionInstanceId</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 					disabled="false"

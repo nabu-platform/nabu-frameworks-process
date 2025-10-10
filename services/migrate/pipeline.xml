@@ -21,4 +21,5 @@
     <structure collectionName="processActionInstances" definition="nabu.frameworks.process.crud.processActionInstance.types.createOutput" name="newActionInstance"/>
     <field minOccurs="0" name="correlationId" type="java.lang.String"/>
     <field minOccurs="0" name="server" type="java.lang.String"/>
+    <structure definition="nabu.frameworks.process.services.updateDataOwner.parameters" maxOccurs="unbounded" minOccurs="0" name="mappedActionInstances"/>
 </structure>

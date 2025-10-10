@@ -449,8 +449,8 @@
 			variable="relationToCheck"
 			into="applicableRelations">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
-				comment="If we are the target, check the source. If it is an initializer, we ignore it"
-				disabled="false"
+				comment="If we are the target, check the source. If it is an initializer, we ignore it. @2025-10-10: initializers are now logged as instances so we can check them"
+				disabled="true"
 				id="1e155036a641450db3e71d0d8682683e"
 				label="relationToCheck/targetActionId == input/actionId"
 				lineNumber="18">

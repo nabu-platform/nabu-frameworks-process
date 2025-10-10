@@ -1,0 +1,3 @@
+<jdbcService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sql>update ~process_data set active = true, deactivated_by_action_instance_id = null where deactivated_by_action_instance_id = any(:resetProcessActionInstanceIds)</sql>
+</jdbcService>

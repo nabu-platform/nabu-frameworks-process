@@ -56,7 +56,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			comment="Also allow finalizers because they are not longer handled seperately"
+			comment="Also allow finalizers because they are not longer handled seperately (we want to be able to schedule them!)"
 			disabled="false"
 			id="60c3b730e06c4c7daaf4927a60ef42be"
 			lineNumber="3">
@@ -236,8 +236,8 @@
 					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.runAction"
 					resultName="resultc49f279860524ed99abf97e3fe8753b4"
 					temporaryMapping="true"
-					x="463"
-					y="25"
+					x="184"
+					y="29"
 					invocationOrder="1"
 					asynchronous="false"
 					recache="false">

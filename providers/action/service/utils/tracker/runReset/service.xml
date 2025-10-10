@@ -152,6 +152,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
+			comment="TODO: refactor to use runResetActionById, this was extracted later"
 			disabled="false"
 			id="cd2568b9860b484abcf0863ced7c3cdf"
 			lineNumber="5"
@@ -770,11 +771,69 @@
 				<from>true</from>
 				<to>output/ranAnything</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="e9c373f39f094c64b1bd423d8abd28a4"
+					fixedValue="false">
+				<from>result6d4a32aa509945bdb6081761dedb93db/created</from>
+				<to>resetActionInstanceId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				disabled="false"
+				id="dcf89b11b1274f9dadee3a7054710ad8"
+				label="actionInstancesToReset != null"
+				lineNumber="22">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="5089bdf804fc431fb68cad43b955a93c"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.deactivateResetParameters"
+					resultName="result2e593fdb0ed64e959923f099b695d618"
+					temporaryMapping="true"
+					x="172"
+					y="34"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="263ea0c9fcc14ea4b0ec3a9cba1f3689"
+						fixedValue="false">
+					<from>actionInstancesToReset/id</from>
+					<to>parameters[0]/resetProcessActionInstanceIds</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="1a203ab49e9d4a66a927d02ed3edbedd"
+						fixedValue="false">
+					<from>resetActionInstanceId/id</from>
+					<to>parameters[0]/resetActionInstanceId</to>
+				</steps>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+					disabled="false"
+					id="d63bac0b3ba34eb2b367ad2da869baf7"
+					serviceId="nabu.frameworks.process.providers.action.service.utils.tracker.reactivateResetParameters"
+					resultName="result00bfe20d102843aeb481232b769aff5a"
+					temporaryMapping="true"
+					x="156"
+					y="133"
+					invocationOrder="0"
+					asynchronous="false"
+					recache="false">
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="6fde53b464224b9babcf17e187fea988"
+						fixedValue="false">
+					<from>actionInstancesToReset/id</from>
+					<to>parameters[0]/resetProcessActionInstanceIds</to>
+				</steps>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="c7a28e987a5a44e5a93ab131ff528d8d"
-				lineNumber="22">
+				lineNumber="23">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="abd90a0fff4e4fb297b74648b6459fb6"
@@ -842,7 +901,7 @@
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 			disabled="false"
 			id="a603b887cc30470aa6f4fa9f5befac61"
-			lineNumber="23">
+			lineNumber="24">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 				disabled="false"
 				id="fb47db4c5e294fa8912a4ce94872e277"
