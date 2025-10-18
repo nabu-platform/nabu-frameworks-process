@@ -1,0 +1,4 @@
+<structure name="triggerInput">
+    <field name="actionCode" type="java.lang.String"/>
+    <structure definition="nabu.utils.types.Property" maxOccurs="unbounded" minOccurs="0" name="properties"/>
+</structure>

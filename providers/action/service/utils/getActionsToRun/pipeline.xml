@@ -68,6 +68,7 @@
     <field name="strictByDefault" type="java.lang.Boolean"/>
     <field name="requireInitializer" type="java.lang.Boolean"/>
     <field name="allowIdentificationOfAutomatic" type="java.lang.Boolean"/>
+    <field comment="The question is: do we need to match _all_ processes or just _one_ process. If we match _no_ processes at all, that's a different thing. Note that if a process can be identified but is in the wrong state, this is always a problem." name="matchAllProcesses" type="java.lang.Boolean"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="initializerActions"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.processVersionFull" name="processDefinition"/>
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" name="inputCaptures"/>
@@ -83,4 +84,5 @@
     <structure definition="nabu.frameworks.process.providers.action.service.utils.capturedValue" maxOccurs="unbounded" minOccurs="0" name="identificationCaptures"/>
     <field name="checkPermission" type="java.lang.Boolean"/>
     <field comment="The way to capture it (e.g. the path). This is relative to the pipeline so should start with input or output. For blox services the full pipeline is available, for the rest only input/output." maxOccurs="unbounded" minOccurs="0" name="capturesToStore" type="java.lang.String"/>
+    <structure definition="nabu.frameworks.process.providers.action.service.utils.action" maxOccurs="unbounded" minOccurs="0" name="potentialStrictActions"/>
 </structure>

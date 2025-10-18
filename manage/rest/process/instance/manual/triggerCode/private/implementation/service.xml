@@ -1,0 +1,125 @@
+<sequence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		disabled="false"
+		id="7856530b874c497ab3206e2391f04938"
+		lineNumber="1">
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="d9015134ff254a9bba14527aa606e8d6"
+			lineNumber="2">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="d6a45abdabe04fd3a309caa7224d34c6"
+				serviceId="nabu.frameworks.process.crud.processInstance.services.get"
+				resultName="result68004346ea6e44caa3893b3977ae8404"
+				temporaryMapping="true"
+				x="65"
+				y="86"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="9b41d58fbcae40fe965e6376625eed09"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>input/path/instanceId</from>
+				<to>id</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="2717e78bcbd94f0ea4b75fca396c0645"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>result68004346ea6e44caa3893b3977ae8404/result</from>
+			<to>instance</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+			disabled="false"
+			id="87e1c56785794ffcb3e167c790080ce0"
+			label="!instance"
+			lineNumber="3"
+			whitelist="false" xsi:nil="true"/>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="a0364dbc319547a4b5a38c4d0c9b5676"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="03c602c37a7f40fc9cab061710c10c5b"
+				serviceId="nabu.frameworks.process.providers.action.service.utils.getProcessDefinition"
+				resultName="resultb005971211ba4e699868b96a0addccd0"
+				temporaryMapping="true"
+				x="108"
+				y="53"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="4f94f87730de40d9938996f94d1601dd"
+					mask="false"
+					optional="false"
+					fixedValue="false">
+				<from>instance/processVersionId</from>
+				<to>processVersionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="629eb969859145048d86fd86e7ca464a"
+				mask="false"
+				optional="false"
+				fixedValue="false">
+			<from>resultb005971211ba4e699868b96a0addccd0/definition/states[id == /instance/currentStateId]/actions[code == /input/content/actionCode]</from>
+			<to>actionToRun</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Throw"
+			disabled="false"
+			id="286b55a102d647ba9a4f416a4db8211e"
+			label="!actionToRun"
+			lineNumber="5"
+			whitelist="false" xsi:nil="true"/>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="156203152f914b5088c6bb59652a6937"
+			lineNumber="6">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="fde15a3346984169b2853a0b6178e3bb"
+				serviceId="nabu.frameworks.process.manage.rest.process.instance.manual.trigger"
+				resultName="resulta0d6be341f0446cdb139044df407a419"
+				temporaryMapping="true"
+				x="205"
+				y="71"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f5c88917cc1a458db4cfa01d1651a9c6"
+					fixedValue="false">
+				<from>input/path/instanceId</from>
+				<to>path/instanceId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="875aff0e358948a28d09a6dd69755a10"
+					fixedValue="false">
+				<from>input/content/properties</from>
+				<to>content/properties</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="5a140f6f07414747881df811746afb49"
+					fixedValue="false">
+				<from>actionToRun/id</from>
+				<to>content/actionId</to>
+			</steps>
+		</steps>
+	</steps>
+</sequence>

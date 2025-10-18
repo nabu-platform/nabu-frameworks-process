@@ -1,0 +1,6 @@
+<structure interface="nabu.frameworks.process.manage.rest.process.instance.manual.triggerCode:api" name="pipeline">
+    <structure name="input"/>
+    <structure name="output"/>
+    <structure collectionName="processInstances" definition="nabu.frameworks.process.crud.processInstance.types.output" enricher="nabu.frameworks.process.crud.processInstance.services.list" name="instance" persister="nabu.frameworks.process.crud.processInstance.batch.updateAll"/>
+    <structure collectionName="processActions" definition="nabu.frameworks.process.crud.processAction.types.output" enricher="nabu.frameworks.process.crud.processAction.services.list" minOccurs="0" name="actionToRun" persister="nabu.frameworks.process.crud.processAction.batch.updateAll"/>
+</structure>

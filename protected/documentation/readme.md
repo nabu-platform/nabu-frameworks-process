@@ -2,6 +2,47 @@
 
 Remove group id annotation on tasks in favor of narrative id
 
+## Match one or all
+
+There are a few situations:
+
+- suppose you want to run a service and it IS used in 1 or more processes but NONE match
+	- this should be blocked by default as the process engine is a "state" model which is enforced
+- suppose you want to run a service and it is used in more than 1 process, one matches and one doesn't
+	- this used to be blocked but is now allowed
+- suppose you want to run a service and it is used in more than 1 process, it matches multiple processes but statewise is not allowed to run in 1 but is is allowed to run in the other
+	- this is currently blocked
+
+## Reset
+
+The reset will "reset" all action instances that are logged based on the target(s) it is linked to. This allows the logic of "at least one input line and no output lines" to keep working without having to revert to "start flows" everywhere when you want to enable a set of actions to be run through multiple times.
+
+At one point you could turn off "data resetting" which means it would only reset the action instances and not the gathered data.
+However, this starts becoming a problem when you have multiple resets.
+
+In a particular usecase we had a user-level reset near the beginning where he could do the initial action multiple times and choose a different path. Then at the end, during validation, it could again be reset to the beginning if it failed.
+This was a "special" usecase in that there was no explicit user reset moment, simply doing the initial action multiple times counted as a reset, this made the design harder and in the end, the resets were designed in a "loop".
+
+However, consider these scenarios:
+
+- user reset had "reset data" turned off, so it only resets the action instances, this was because we needed a compensation flow that still knew the data
+	- by the time we get to the validation reset however, _it_ wanted to do a full reset, including the data because the compensation was no longer needed (and in fact would not work)
+	- the validation reset reset all the action instances that were not yet reset, but of course the data originally captured by the first action instances that were reset without the data reset were not rolled back!
+	- the conclusion here was that we were actually modeling it wrong. the compensation had to be done before the reset.
+- don't reset already reset data: when we are resetting data, we are calculating which data was activated/deactivated by the action instances we are resetting and reverse that
+	- after the user reset we capture some data
+	- the user triggers the user reset: data is disabled
+	- the user does the action again, new data is added
+	- the validation reset triggers: it resets the action and disables the data
+	- it resets the original reset and _resets_ the data that _it_ reset, so we end up with an active data value!
+
+So in conclusion: until we have a new usecase that mandates it, data resetting is no longer optional.
+We don't reset data that was reset by a reset....
+
+The reset calculates which actions to reset based on the targets and cascades from there on out. It does NOT however follow other resets. Basically the recursion stops at the second reset (but includes that reset).
+
+The reset already allows for simple loops. In the future we might want to allow for smarter resetting based on context.
+
 ## Looping
 
 ### Context-based

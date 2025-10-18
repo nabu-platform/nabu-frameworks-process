@@ -92,8 +92,8 @@
 				serviceId="nabu.frameworks.process.crud.processStateInstance.services.list"
 				resultName="result2fb2a15bc79145bca1da1f303db568e9"
 				temporaryMapping="true"
-				x="199"
-				y="779"
+				x="115"
+				y="226"
 				invocationOrder="0"
 				asynchronous="false"
 				recache="false">

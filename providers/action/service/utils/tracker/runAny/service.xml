@@ -167,7 +167,7 @@
 						mask="false"
 						optional="false"
 						fixedValue="false">
-					<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; relationType == "flow" &amp;&amp; actionType == "any"]</from>
+					<from>resultcea8b323592340f1a72771a5f0b86a1c/definition/actionRelations[actionId == /input/actionId &amp;&amp; (relationType == "flow" || relationType == "flow-start") &amp;&amp; actionType == "any"]</from>
 					<to>relationsToRun</to>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -387,7 +387,7 @@
 								mask="false"
 								optional="false"
 								fixedValue="false">
-							<from>definition/actionRelations[targetActionId == /singleAny/targetActionId &amp;&amp; (relationType == "flow" || relationType == "flow-failed")]</from>
+							<from>definition/actionRelations[targetActionId == /singleAny/targetActionId &amp;&amp; (relationType == "flow" || relationType == "flow-start" || relationType == "flow-failed")]</from>
 							<to>relationsToAny</to>
 						</steps>
 						<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -745,7 +745,7 @@
 									mask="false"
 									optional="false"
 									fixedValue="false">
-								<from>actionInstances[processActionId # /applicableRelations[relationType == "flow"]/actionId &amp;&amp; processState == "SUCCEEDED"]/processActionId</from>
+								<from>actionInstances[processActionId # /applicableRelations[relationType == "flow" || relationType == "flow-start"]/actionId &amp;&amp; processState == "SUCCEEDED"]/processActionId</from>
 								<to>objects</to>
 							</steps>
 						</steps>

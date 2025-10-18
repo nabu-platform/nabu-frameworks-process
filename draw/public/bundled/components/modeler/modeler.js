@@ -230,6 +230,11 @@ Vue.view("process-modeler-component", {
 			nabu.utils.arrays.merge(available, this.model.captures.filter(function(x) { return !!x.name }).map(function(x) {
 				return x.name;
 			}));
+			this.model.states.forEach(function(state) {
+				nabu.utils.arrays.merge(available, state.actions.filter(function(x) { return !!x.stateSuccessVariable }).map(function(x) {
+					return x.stateSuccessVariable;
+				}));
+			});
 			console.log("merged is", available);
 			available.forEach(function(x) {
 				console.log("checking", x, value);
@@ -1920,6 +1925,10 @@ Vue.view("process-modeler-component", {
 				action.automatic = false;
 				action.synchronous = true;
 				action.manual = true;
+				// there was a period where we didn't reset data by default
+				// HOWEVER the problem is with multiples resets where one does not reset data but the other one does
+				// the first one might reset action instances without resetting the data. the second one however no longer sees the reset action instances and ALSO does not reset the data!
+				action.resetData = true;
 			}
 			else if (type == "any") {
 				action.automatic = true;

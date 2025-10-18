@@ -591,6 +591,7 @@
 			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+				comment="Currently we don't migrate reset action instances, there is no usecase for now"
 				disabled="false"
 				id="b288a983a46e4bfcae354975cb836531"
 				lineNumber="22">
@@ -613,6 +614,13 @@
 						fixedValue="false">
 					<from>currentStateInstance/id</from>
 					<to>filter/processStateInstanceId[0]</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="a4b84d67db854210b6edead2b1aae9d0"
+						fixedValue="true">
+					<from>false</from>
+					<to>filter/reset</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
@@ -875,6 +883,34 @@
 							fixedValue="false">
 						<from>currentActionInstance/rolledBack</from>
 						<to>instance/rolledBack</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="5bd073759fe442af8bb7eacf6bbe92da"
+							fixedValue="false">
+						<from>currentActionInstance/reset</from>
+						<to>instance/reset</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="294f434099a94231adc33504b68ca402"
+							fixedValue="false">
+						<from>currentActionInstance/forced</from>
+						<to>instance/forced</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="897e3c4bb84842b287867fb5efa7495a"
+							fixedValue="false">
+						<from>currentActionInstance/description</from>
+						<to>instance/description</to>
+					</steps>
+					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+							disabled="false"
+							id="ab2ae1fff54c4ee3b282fa72cd18d3ac"
+							fixedValue="false">
+						<from>currentActionInstance/code</from>
+						<to>instance/code</to>
 					</steps>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"

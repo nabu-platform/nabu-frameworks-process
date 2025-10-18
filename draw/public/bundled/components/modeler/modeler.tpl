@@ -27,8 +27,16 @@
 								<li class="is-column"><button @click="addState" class="is-button is-variant-primary is-size-xsmall"><icon name="plus"/><span class="is-text">State</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('initializer', 'Start', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Initializer</span></button></li>
 								<li class="is-column"><button @click="addActionToCurrent('finalizer', 'Exit', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Finalizer</span></button></li>
-								<li class="is-column"><button @click="addActionToCurrent('reset', 'Reset', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Reset</span></button></li>
+								<li v-if="false" class="is-column"><button @click="addActionToCurrent('all', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">All</span></button></li>
+							</ul>
+							<div class="is-column is-position-right" v-if="false">
+								<span class="is-content is-size-xxsmall is-decoration-upper">Control</span>
+							</div>
+						</div>
+						<div class="is-row is-align-cross-center">
+							<ul class="is-menu is-variant-toolbar">
 								<li class="is-column"><button @click="addActionToCurrent('any', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Any</span></button></li>
+								<li class="is-column"><button @click="addActionToCurrent('reset', 'Reset', 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">Reset</span></button></li>
 								<li v-if="false" class="is-column"><button @click="addActionToCurrent('all', null, 30, 30)" class="is-button is-variant-secondary is-size-xsmall"><icon name="plus"/><span class="is-text">All</span></button></li>
 							</ul>
 							<div class="is-column is-position-right" v-if="false">
@@ -55,6 +63,7 @@
 					</div>
 					<n-form-text :edit="editable" v-model="selected.target.code" label="Code" after="Use this to query the action programmatically. Change with caution as you might break references."/>
 					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'any'" :value="selected.target.maxOccurs == 0" label="Require all" @input="updateAnyActionOccurs(selected.target, selected.target.maxOccurs == 0 ? null : 0); draw()"/>
+					<n-form-switch :edit="editable" v-if="selected.target.actionType == 'reset' && false" v-model="selected.target.resetData" label="Reset all data" after="By default only the process action instances are reset and data is retained. You can unset specific data with value capturing or if you enable this you reset all data that was captured by the process action instances that are will be reset"/>
 					<n-form-text :edit="editable" :value="selected.target.maxOccurs" v-if="selected.target.actionType == 'any' && selected.target.maxOccurs != 0" label="How many inputs must be resolved?" placeholder="1" @input="function(value) { updateAnyActionOccurs(selected.target, value); draw() }"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'event' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" type="area" v-model="selected.target.summary" label="Action summary" @input="updatedActionSummary(selected.target)" after="A longer summary what this action should do"/>
 					<n-form-text :edit="editable" v-if="selected.target.actionType == 'service' || selected.target.actionType == 'signal'" label="State Condition" v-model="selected.target.stateCondition" after="You can use both the input of the action and the process state to conclude whether this is allowed to run or not."/>
@@ -138,7 +147,7 @@
 						<p class="is-p is-size-small" v-else-if="selected.target.identificationType == 'custom'">Custom identifiers allow you to extract dynamic values to match, this requires more configuration though as each action must be related back to a custom identifier.</p>
 						<p class="is-p is-size-small" v-else>When set to globally, only one instance of a process can be active at a time</p>
 					</div>
-					<div v-if="selected.target.actionType == 'service' || selected.target.actionType == 'signal' || selected.target.actionType == 'human'" class="is-column is-spacing-gap-medium">
+					<div v-if="['service', 'signal', 'human', 'reset'].indexOf(selected.target.actionType) >= 0" class="is-column is-spacing-gap-medium">
 						<h4 class="is-h4">Value capturing</h4>
 						<n-form-text :edit="editable" v-model="selected.target.stateSuccessVariable" label="Variable name to capture success or failure of state (boolean)" />
 						<n-form-switch :edit="editable" v-model="selected.target.linkToUser" v-if="selected.target.actionType == 'service'" label="Link to user" @input="draw" after="If enabled, the user details (userId, deviceId, sessionId) for this process will be updated, allowing for identification and/or permission checking on these variables."/>

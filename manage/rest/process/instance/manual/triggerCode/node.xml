@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.rest.provider.RESTServiceManager" created="2024-04-17T16:30:26.827+02:00" lastModified="2025-10-15T13:00:16.060+02:00" leaf="true" version="43">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.frameworks.process.manage.rest.process.instance.manual.trigger</references>
+    <references>nabu.frameworks.process.providers.action.service.utils.getProcessDefinition</references>
+    <references>nabu.frameworks.process.crud.processAction.types.output</references>
+    <references>nabu.frameworks.process.crud.processInstance.types.output</references>
+    <references>nabu.frameworks.process.manage.rest.process.instance.manual.triggerCodeInput</references>
+    <references>nabu.frameworks.process.crud.processInstance.services.get</references>
+</node>

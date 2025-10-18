@@ -23,5 +23,6 @@
     <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.cancel</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.masterdata.listCheckPermission</webFragments>
     <webFragments>nabu.frameworks.process.manage.rest.process.version.unrelease</webFragments>
+    <webFragments>nabu.frameworks.process.manage.rest.process.instance.manual.triggerCode</webFragments>
     <audience>MANAGER</audience>
 </webModule>

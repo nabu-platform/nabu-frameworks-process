@@ -42,4 +42,5 @@
     <field comment="You can capture whether this action finished successfully (true) or failed (false). It only retains the _last_ execution state. It can be used for conditional situations which depend on certain paths having been taken." minOccurs="0" name="stateSuccessVariable" type="java.lang.String"/>
     <field comment="Once past the capture condition, you can check that the service is allowed to run based on the input of the service and the state of the process." minOccurs="0" name="stateCondition" type="java.lang.String"/>
     <field comment="Bindings that you can set in the narrative" minOccurs="0" name="narrativeBinding" type="java.lang.String"/>
+    <field comment="For a &quot;reset&quot; action, do we also want to reset data?" defaultValue="false" minOccurs="0" name="resetData" type="java.lang.Boolean"/>
 </structure>
