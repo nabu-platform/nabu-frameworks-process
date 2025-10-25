@@ -1767,6 +1767,13 @@
 					<from>result01e1960b6f8a45c0ac01ec9adcac6f7e/results</from>
 					<to>processData</to>
 				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="2bf84cc985174761b063471451bd76fd"
+						fixedValue="false">
+					<from>createdActions[0]</from>
+					<to>sourceActionInstance</to>
+				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"

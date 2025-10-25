@@ -165,7 +165,7 @@
 				disabled="false"
 				id="080609c5cd19440dba6a051456d4bea9"
 				fixedValue="false">
-			<from>definition/stateRelations[actionId == /input/actionId]</from>
+			<from>definition/stateRelations[actionId == /input/actionId &amp;&amp; relationType != "flow-initial"]</from>
 			<to>outgoingStateRelations</to>
 		</steps>
 	</steps>
@@ -328,7 +328,7 @@
 			comment="Can't reset to &quot;nothing&quot;"
 			disabled="false"
 			id="49f79e3cfd5c4e5fa89155dd34c3137c"
-			label="!outgoingActivatedRelations"
+			label="!outgoingActivatedStateRelations &amp;&amp; !outgoingActivatedRelations"
 			lineNumber="15">
 		<count>1</count>
 		<continueExecution>false</continueExecution>

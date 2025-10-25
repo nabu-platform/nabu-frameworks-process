@@ -64,16 +64,30 @@
 			<to>action</to>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="You can force synchronous execution with a feature toggle"
+			disabled="false"
+			features="PROCESS_ACTION_FORCE_SYNCHRONOUS"
+			id="c312d6cc4493417ca877331a403b0489"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="54286d0d8ca44b2db59fffaaa2e932bb"
+				fixedValue="true">
+			<from>true</from>
+			<to>input/forceSynchronous</to>
+		</steps>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Switch"
 			disabled="false"
 			id="8e2dfc68b43a4e279b5c774054986a37"
-			lineNumber="3">
+			lineNumber="4">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				comment="Run synchronously"
 				disabled="false"
 				id="aa052320a6654bd99e9399aa1afdf780"
 				label="action/synchronous == true || input/forceSynchronous == true"
-				lineNumber="4">
+				lineNumber="5">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="e2bef1e3b7e74d96b52af3c2bfe4c04e"
@@ -132,15 +146,6 @@
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
-						id="74036ca856c6428db6b9fb5ea8a58c6b"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>action/synchronous</from>
-					<to>synchronous</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
 						id="78131ecf85b44a0c95f9c650f07678eb"
 						mask="false"
 						optional="false"
@@ -174,6 +179,13 @@
 						fixedValue="false">
 					<from>input/activatedRelations</from>
 					<to>activatedRelations</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="449f4a87ea64490ea164ce84de679535"
+						fixedValue="true">
+					<from>true</from>
+					<to>synchronous</to>
 				</steps>
 			</steps>
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
@@ -249,12 +261,12 @@
 		<steps xsi:type="be.nabu.libs.services.vm.step.Sequence"
 				disabled="false"
 				id="215d91d794bc433eabf7271a9d147139"
-				lineNumber="5">
+				lineNumber="6">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					comment="Map the process instance id"
 					disabled="false"
 					id="6638dcd5831f404ca4b31875e8ffcaac"
-					lineNumber="6">
+					lineNumber="7">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
 						id="cd268a98025b4350aee820f2fe70a152"
@@ -277,13 +289,13 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.For"
 					disabled="false"
 					id="11855cb5b04e4209a15fa3c6d7cfda48"
-					lineNumber="7"
+					lineNumber="8"
 					variable="processDataIdentifier"
 					into="propertyList/properties">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 						disabled="false"
 						id="3d6ced96eba24fee91bc37a58f182627"
-						lineNumber="8">
+						lineNumber="9">
 					<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 							disabled="false"
 							id="98699b294494439eabab019f5b85498c"
@@ -308,7 +320,7 @@
 			<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 					disabled="false"
 					id="5dea6f9b2df24dd3a5aa4017cd81b985"
-					lineNumber="9">
+					lineNumber="10">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="beb7c1847357484c8746720532ca175f"
@@ -371,7 +383,7 @@
 					comment="Run asynchronously"
 					disabled="false"
 					id="4456c350543f40c49af7bafa09909ee7"
-					lineNumber="10">
+					lineNumber="11">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="16fc50f2a4ec424ca9c4c2ea6af96429"
@@ -565,7 +577,7 @@
 					comment="Get task id and queue id"
 					disabled="false"
 					id="b2bea15be6434369bf807179dbc707c7"
-					lineNumber="11">
+					lineNumber="12">
 				<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 						disabled="false"
 						id="ebb294442669421cb51b74d22d20c1b6"

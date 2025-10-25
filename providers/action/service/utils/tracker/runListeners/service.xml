@@ -38,15 +38,6 @@
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
-				id="467218f25bd041599804a85224915de0"
-				mask="false"
-				optional="false"
-				fixedValue="false">
-			<from>resultd25c24e46ff7403d8fd9b728aa9d211f/definition/states/actions[id == /input/actionId]</from>
-			<to>action</to>
-		</steps>
-		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-				disabled="false"
 				id="f8a164301c5b4932bb46b3e742fae0ee"
 				mask="false"
 				optional="false"
@@ -82,31 +73,86 @@
 			<to>fromState</to>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Get the action"
+			disabled="false"
+			id="74116fd7b8bc443f9a4dc8314c4db07b"
+			label="input/actionId != null"
+			lineNumber="3">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="6f88cf9b056442f0a1130026b1d60f6e"
+				fixedValue="false">
+			<from>definition/states/actions[id == /input/actionId]</from>
+			<to>action</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			comment="Map the instance"
+			disabled="false"
+			id="4dbd78561a6144a3bfe84406c36a3777"
+			label="input/actionInstanceId != null || input/actionId != null"
+			lineNumber="4">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="efbe6d92b83a486dbba93df618133810"
+				fixedValue="false">
+			<from>input/actionInstanceId</from>
+			<to>actionToMap/instanceId</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="74a83048296d43c4babfe3d297039d21"
+				fixedValue="false">
+			<from>input/actionId</from>
+			<to>actionToMap/definitionId</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="246b9c27e2d94f52b62f8ab7d78ac7cb"
+				fixedValue="false">
+			<from>action/code</from>
+			<to>actionToMap/code</to>
+		</steps>
+	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="370311fd3749443f9c6d8ca42843cdd6"
+			label="input/actionType == null &amp;&amp; action != null"
+			lineNumber="5">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="075421d5fd69400eb4083d29a0266b44"
+				fixedValue="false">
+			<from>action/actionType</from>
+			<to>input/actionType</to>
+		</steps>
+	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Break"
 			comment="No listeners"
 			disabled="false"
 			id="8cce737410b948d2ab1c7781512a1a5f"
 			label="!listeners"
-			lineNumber="3">
+			lineNumber="6">
 		<count>1</count>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.For"
 			disabled="false"
 			id="67a71486f9e84d1595c748de2a40b92f"
-			lineNumber="4"
+			lineNumber="7"
 			variable="listener">
 		<steps xsi:type="be.nabu.libs.services.vm.step.Map"
 				disabled="false"
 				id="b87071a4852b4f0b9ddb4b64ebc65bbe"
-				lineNumber="5">
+				lineNumber="8">
 			<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
 					disabled="false"
 					id="576556bd30ab499f9c4d634027933c7a"
 					serviceId="nabu.frameworks.process.specs.process.listener"
 					resultName="result553b34680344420d956ecb93d604bc47"
 					temporaryMapping="true"
-					x="249"
-					y="82"
+					x="501"
+					y="109"
 					invocationOrder="0"
 					asynchronous="false"
 					recache="false">
@@ -154,33 +200,6 @@
 						fixedValue="false">
 					<from>definition/code</from>
 					<to>process/code</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="ba8ca31398264dbe816037ccb18a5607"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>input/actionId</from>
-					<to>action/definitionId</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="d58440c1b3dc415fb457a1e450657dc9"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>input/actionInstanceId</from>
-					<to>action/instanceId</to>
-				</steps>
-				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
-						disabled="false"
-						id="b024b507c1ca4cc8bad7106612d1ea79"
-						mask="false"
-						optional="false"
-						fixedValue="false">
-					<from>action/code</from>
-					<to>action/code</to>
 				</steps>
 				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 						disabled="false"
@@ -253,6 +272,20 @@
 						fixedValue="true">
 					<from>=input/fromStateId != input/toStateId</from>
 					<to>stateChange</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="8692b9bf8d2a42508bbc4cc41acf0fed"
+						fixedValue="false">
+					<from>actionToMap</from>
+					<to>action</to>
+				</steps>
+				<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+						disabled="false"
+						id="e1f8b58e88d94c0799468f4b412d289a"
+						fixedValue="false">
+					<from>input/actionType</from>
+					<to>actionType</to>
 				</steps>
 			</steps>
 		</steps>

@@ -2,12 +2,13 @@
     <structure name="input">
         <field minOccurs="0" name="connectionId" type="java.lang.String"/>
         <structure comment="This references the process version, not the definition" definition="nabu.frameworks.process.specs.process.definition" name="process"/>
-        <structure definition="nabu.frameworks.process.specs.process.definition" name="action"/>
+        <structure comment="Only exists if it is an actual modelled action. Something like a &quot;cancel&quot; is not modelled." definition="nabu.frameworks.process.specs.process.definition" minOccurs="0" name="action"/>
         <structure definition="nabu.frameworks.process.specs.process.definition" name="fromState"/>
         <structure definition="nabu.frameworks.process.specs.process.definition" name="toState"/>
         <field name="stateChange" type="java.lang.Boolean"/>
         <field minOccurs="0" name="failed" type="java.lang.Boolean"/>
-        <structure definition="java.lang.Object" minOccurs="0" name="properties"/>
+        <structure comment="Configuration for the listener implementation itself" definition="java.lang.Object" minOccurs="0" name="properties"/>
+        <field comment="Comes from the currently executed action, but can also be a &quot;cancel&quot;" name="actionType" type="java.lang.String"/>
     </structure>
     <structure name="output"/>
 </structure>

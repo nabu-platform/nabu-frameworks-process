@@ -115,6 +115,13 @@
 				<from>instance/currentStateId</from>
 				<to>filter/processStateId[0]</to>
 			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="295f0eb627df4f77bbd15d3c5ac7db4d"
+					fixedValue="true">
+				<from>true</from>
+				<to>filter/running</to>
+			</steps>
 		</steps>
 		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
 				disabled="false"
