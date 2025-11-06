@@ -342,4 +342,36 @@
 			</steps>
 		</steps>
 	</steps>
+	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
+			disabled="false"
+			id="4aea3a4a435d4a33befd35d0757183ff"
+			label="input/processListeners"
+			lineNumber="14">
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="383ef2a5cf944885a9c2f04195e87031"
+				serviceId="nabu.services.jdbc.Services.merge"
+				resultName="result4842e110c3d546f79e8dfa5e3171439a"
+				temporaryMapping="true"
+				x="25"
+				y="61"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="dd7c0d7ce7fb4c28a6cc283bfbe9e320"
+					fixedValue="false">
+				<from>input/processListeners</from>
+				<to>instances</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="7cce967b1dd74e7daa0b5c78cca5db29"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connection</to>
+			</steps>
+		</steps>
+	</steps>
 </sequence>

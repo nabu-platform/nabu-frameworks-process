@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-22T11:53:40.680+01:00" lastModified="2025-08-26T12:22:00.932+02:00" leaf="true" version="8">
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2023-03-22T11:53:40.680+01:00" lastModified="2025-11-05T13:57:58.527+01:00" leaf="true" version="10">
     <environmentId>ares</environmentId>
     <hidden>false</hidden>
     <locked>false</locked>
     <properties/>
+    <references>nabu.frameworks.process.database.types.processListener</references>
     <references>nabu.frameworks.process.database.types.processVersion</references>
     <references>nabu.frameworks.process.database.types.processState</references>
     <references>nabu.frameworks.process.database.types.processCapture</references>

@@ -409,7 +409,7 @@
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
-			comment="Get states"
+			comment="Get states &amp; listeners"
 			disabled="false"
 			id="98d2eab7a1da4fc0b1c9b06522d58a98"
 			lineNumber="6">
@@ -451,6 +451,39 @@
 				fixedValue="false">
 			<from>result37b4b3813e7e4a428b3662929a51662b/results</from>
 			<to>output/states</to>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Invoke"
+				disabled="false"
+				id="a641c3ecf09c410db9c7b705235393c9"
+				serviceId="nabu.frameworks.process.crud.processListener.services.list"
+				resultName="result87de013dc351494e800253198882d8b1"
+				temporaryMapping="true"
+				x="354"
+				y="483"
+				invocationOrder="0"
+				asynchronous="false"
+				recache="false">
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="f95bfbc715294858b690f698f86c30f1"
+					fixedValue="false">
+				<from>input/connectionId</from>
+				<to>connectionId</to>
+			</steps>
+			<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+					disabled="false"
+					id="321f59757ef54ba399979ccdb8de4e2f"
+					fixedValue="false">
+				<from>output/versions/id</from>
+				<to>filter/processVersionId</to>
+			</steps>
+		</steps>
+		<steps xsi:type="be.nabu.libs.services.vm.step.Link"
+				disabled="false"
+				id="44a64337d04f48ff946ecbd90dc6c30c"
+				fixedValue="false">
+			<from>result87de013dc351494e800253198882d8b1/results</from>
+			<to>output/processListeners</to>
 		</steps>
 	</steps>
 	<steps xsi:type="be.nabu.libs.services.vm.step.Map"
