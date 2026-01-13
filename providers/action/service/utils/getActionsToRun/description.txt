@@ -1,3 +1,15 @@
+# 2026-01-08
+
+We have a case where a process have multiple versions, all versions since the go-live have a particular service set to "lax" so it can proceed without being blocked.
+However, in dev and qlty there were older versions that would not get deactivated because some process instances were left running.
+
+This meant however that the "lax" on the newer versions didnt matter, as long as one old version was active, it would block execution by throwing the exception at the very end that checks that at least one entry matches if there are potential strict actions.
+
+I think we can assume that deprecated processes should NOT contribute to the "potentialStrictActions" but we'll wait for new usecases to come along.
+For now the workaround was to cancel all active processes (not like they were being used) pertaining to old versions. so the versions could be deactivated properly.
+
+---
+
 Can also support "global" correlation? there can be only one process...
 
 
