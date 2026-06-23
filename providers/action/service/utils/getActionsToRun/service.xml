@@ -169,6 +169,7 @@
 			<for id="0077d501ad594d59b9c29778a23fd89e"
 				comment="Resolve all input captures if we have any input"
 				label="pipeline"
+				query="inputCaptures"
 				variable="singleCapture">
 				<switch id="6a8df4cbd3224bad861157ee4ce7833d">
 					<map id="ed0cd407303a47edb8db19b45b693b51"
@@ -246,7 +247,6 @@
 					description="=&quot;Required captures can not be resolved: &quot; + singleCapture/capture"
 					label="singleCapture/required == true &amp;&amp; singleCapture/value == null"
 					message="Required captures can not be resolved"/>
-				<query>inputCaptures</query>
 			</for>
 			<throw id="a32b7151dcc44a238781b0ca7ae0a28f"
 				code="PROCESS-MISSING-CAPTURES"
@@ -256,6 +256,7 @@
 	</sequence>
 	<for id="ad051b36afb14665a746633df900c3b1"
 		into="output/actionsToRun"
+		query="potentialProcesses"
 		variable="potentialProcess">
 		<break id="fc085581149c4cd993b55fed5dcd71e4"
 			label="input/ignoreProcessVersionIds != null &amp;&amp; potentialProcess/processId # input/ignoreProcessVersionIds">
@@ -646,6 +647,7 @@
 						</map>
 						<for id="61264d01dde745b5b689c963c29f96e9"
 							into="triggerActions"
+							query="filteredActions"
 							variable="filteredActionToCheck">
 							<map id="c7d71420fe3c45c69629d0edc9587afe"
 								comment="Get incoming flows">
@@ -672,7 +674,6 @@
 									<to>triggerActions[0]</to>
 								</link>
 							</map>
-							<query>filteredActions</query>
 						</for>
 					</sequence>
 					<sequence id="166e7f77a6ae46b6a0f961f5aee8b5fe">
@@ -687,6 +688,7 @@
 						</map>
 						<for id="1a8391d35df84536b9d364aba53472f5"
 							into="triggerActions"
+							query="actionsInInitialState"
 							variable="actionInInitialState">
 							<map id="a96d35578e6147e5bf27729ebbf6e045"
 								comment="Get incoming flows">
@@ -703,7 +705,6 @@
 									<to>triggerActions[0]</to>
 								</link>
 							</map>
-							<query>actionsInInitialState</query>
 						</for>
 					</sequence>
 				</switch>
@@ -873,6 +874,7 @@
 					label="amountOfProcessInstances &gt; 1 &amp;&amp; input/allowMultiple != true"/>
 				<for id="9686732bb6df4b29b7c53852e3911a7b"
 					into="output/actionsToRun"
+					query="potentialProcessInstances"
 					variable="potentialProcessInstance">
 					<map id="ba32663929d84f318398a5d061d4b342"
 						comment="Drop">
@@ -913,6 +915,7 @@
 						<sequence id="b7f4f1c51eb943d99482e934abcd9b87">
 							<for id="dce23007cf3b41da8e1f6655b0525a88"
 								into="matchingActions"
+								query="filteredActions"
 								variable="potentialAction">
 								<map id="b9341d6dce0540909307d6fe8404671b">
 									<invoke id="a6ecae83a5964ecf8ca120d2cd59c558"
@@ -1145,7 +1148,6 @@
 										</map>
 									</sequence>
 								</switch>
-								<query>filteredActions</query>
 							</for>
 							<map id="a3285e6e4ad0437783a4845a68bd5fac">
 								<invoke id="f62e7979b5264488b1c38c4fe433bd7e"
@@ -1337,15 +1339,14 @@
 							</switch>
 						</sequence>
 					</switch>
-					<query>potentialProcessInstances</query>
 				</for>
 			</sequence>
 		</switch>
-		<query>potentialProcesses</query>
 	</for>
 	<throw id="0bb44e6f47bd414a936a61f0b0cff6ed"
 		code="PROCESS-NOT-FOUND"
 		comment="We need at least one process to match. If we turn on matchAllProcesses, this is handled in the loop itself"
+		features="!LENIENT"
 		label="!matchAllProcesses &amp;&amp; potentialStrictActions != null &amp;&amp; output/actionsToRun == null &amp;&amp; input/automatic != true"
 		message="No active process instances found and no trigger actions"/>
 </sequence>
