@@ -1347,6 +1347,6 @@
 		code="PROCESS-NOT-FOUND"
 		comment="We need at least one process to match. If we turn on matchAllProcesses, this is handled in the loop itself"
 		features="!LENIENT"
-		label="!matchAllProcesses &amp;&amp; potentialStrictActions != null &amp;&amp; output/actionsToRun == null &amp;&amp; input/automatic != true"
+		label="!matchAllProcesses &amp;&amp; potentialStrictActions != null &amp;&amp; output/actionsToRun == null &amp;&amp; input/automatic != true &amp;&amp; input/allowNone != true"
 		message="No active process instances found and no trigger actions"/>
 </sequence>
