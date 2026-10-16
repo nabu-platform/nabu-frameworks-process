@@ -11,6 +11,7 @@
 delete from process_instance_logs where process_instance_id = '" + input/instanceId + "';
 delete from process_data where process_instance_id = '" + input/instanceId + "';
 delete from process_action_relation_instances where target_action_instance_id in (select id from process_action_instances where process_state_instance_id in (select id from process_state_instances where process_instance_id='" + input/instanceId + "'));
+update process_action_instances set trigger_action_instance_id = null where trigger_action_instance_id in (select pai.id from process_action_instances pai join process_state_instances psi on psi.id = pai.process_state_instance_id where psi.process_instance_id = '" + input/instanceId + "');
 delete from process_action_instances where process_state_instance_id in (select id from process_state_instances where process_instance_id='" + input/instanceId + "');
 delete from process_state_instances where process_instance_id = '" + input/instanceId + "';
 delete from process_instances where id='" + input/instanceId + "';
